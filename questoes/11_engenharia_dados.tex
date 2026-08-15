@@ -71,9 +71,9 @@ Em uma consulta com \texttt{LEFT JOIN}, colocar no \texttt{WHERE} um predicado q
 \end{questao}
 
 \begin{questao}{\nivel{N2} 11.14 — FGV/índice composto}
-Existe índice composto \texttt{(orgao_id, data_evento)}. Qual consulta tende a aproveitar melhor esse índice?
+Existe índice composto \texttt{(orgao\_id, data\_evento)}. Qual consulta tende a aproveitar melhor esse índice?
 \begin{enumerate}[label=\Alph*)]
-\item filtro por \texttt{orgao_id} e intervalo de \texttt{data_evento};
+\item filtro por \texttt{orgao\_id} e intervalo de \texttt{data\_evento};
 \item filtro apenas por coluna não indexada;
 \item função não sargable sobre outra coluna;
 \item consulta sem qualquer predicado sempre;
@@ -97,7 +97,7 @@ Duas transações leem o mesmo saldo, calculam novos valores e gravam em sequên
 \end{questao}
 
 \begin{questao}{\nivel{N2} 11.17 — FGV/modelagem dimensional}
-Uma tabela fato registra uma linha por item de nota fiscal, mas a coluna \texttt{valor_total_nota} é repetida em todos os itens. Somar essa coluna por órgão produzirá:
+Uma tabela fato registra uma linha por item de nota fiscal, mas a coluna \texttt{valor\_total\_nota} é repetida em todos os itens. Somar essa coluna por órgão produzirá:
 \begin{enumerate}[label=\Alph*)]
 \item resultado correto, pois a tabela é fato;
 \item dupla contagem proporcional à quantidade de itens;
