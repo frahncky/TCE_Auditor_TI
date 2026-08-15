@@ -75,6 +75,8 @@
 
 \newtcolorbox{teoria}[1][]{colback=azulClaro,colframe=azulPetroleo,title={Teoria essencial\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
 \newtcolorbox{exemplo}[1][]{colback=cinzaClaro,colframe=azulMedio,title={Exemplo\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
+% Alias para compatibilidade com trechos técnicos redigidos com o nome em inglês.
+\newtcolorbox{example}[1][]{colback=cinzaClaro,colframe=azulMedio,title={Exemplo\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
 \newtcolorbox{cebraspe}[1][]{colback=ambarClaro,colframe=ambar,title={Cebraspe pode cobrar assim\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
 \newtcolorbox{atencao}[1][]{colback=white,colframe=vermelhoErro,title={Atenção\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
 \newtcolorbox{resumo}[1][]{colback=white,colframe=verdeAcerto,title={Revisão rápida\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
@@ -100,8 +102,7 @@
   columns=fullflexible
 }
 
-% Compatibilidade com mapas já escritos. O diagrama passa a ser acompanhado
-% de uma rotina explícita de revisão ativa; novos capítulos devem usar \mapafuncional.
+% Compatibilidade com mapas legados; os capítulos novos usam \mapafuncional.
 \newcommand{\mapamental}[2]{%
 \begin{mapabox}[#1]
 \begin{center}
@@ -109,7 +110,6 @@
   \node[concept] {#1} #2;
 \end{tikzpicture}
 \end{center}
-\textbf{Como revisar este mapa:} percorra cada ramo partindo do conceito central e explique, sem consultar o texto, (i) a definição, (ii) a relação com os ramos vizinhos e (iii) uma situação em que a banca poderia trocar os conceitos. Em seguida, transforme cada ligação em uma pergunta ``por quê?'' ou ``quando?''. Se não conseguir explicar uma seta ou contraste, retorne à teoria antes de resolver as questões.
 \end{mapabox}
 }
 
