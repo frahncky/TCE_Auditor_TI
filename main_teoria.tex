@@ -1,0 +1,83 @@
+\documentclass[11pt,oneside,openany]{book}
+\input{config/preambulo}
+\usepackage{xstring}
+
+% Nesta versão, os capítulos mantêm uma única fonte de conteúdo,
+% mas bancos de questões, soluções e simulados são ignorados.
+\let\TCEOriginalInput\input
+\renewcommand{\input}[1]{%
+  \IfBeginWith{#1}{questoes/}{}{% 
+    \IfBeginWith{#1}{solucoes/}{}{% 
+      \IfBeginWith{#1}{simulados/}{}{\TCEOriginalInput{#1}}% 
+    }%
+  }%
+}
+
+% Remove dos capítulos os treinos discursivos embutidos.
+\RenewDocumentEnvironment{discursiva}{O{Questão discursiva} +b}{}{}
+\let\TCESection\section
+\RenewDocumentCommand{\section}{s o m}{%
+  \IfSubStr{#3}{Treino discursivo}{}{% 
+    \IfBooleanTF{#1}{%
+      \TCESection*{#3}%
+    }{%
+      \IfNoValueTF{#2}{\TCESection{#3}}{\TCESection[#2]{#3}}%
+    }%
+  }%
+}
+
+\title{\textbf{TCE-MA 2026}\\[0.4em]\Large Auditor Estadual de Controle Externo\\[0.2em]\large Tecnologia da Informação — Teoria}
+\author{Apostila de preparação}
+\date{Atualização-base: 15 de agosto de 2026}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{tikzpicture}[remember picture,overlay]
+\fill[azulPetroleo] (current page.south west) rectangle (current page.north east);
+\fill[ambar] ([yshift=-1.1cm]current page.north west) rectangle ([yshift=-1.3cm]current page.north east);
+\draw[azulMedio,line width=8pt,opacity=.55] ([xshift=-3cm,yshift=-4cm]current page.north east) circle (5.6cm);
+\draw[ambar,line width=3pt,opacity=.8] ([xshift=-3cm,yshift=-4cm]current page.north east) circle (4.7cm);
+\end{tikzpicture}
+\vspace*{3.0cm}
+{\color{white}\Huge\bfseries TCE-MA 2026\par}
+\vspace{0.5cm}
+{\color{white}\LARGE Auditor Estadual de Controle Externo\par}
+\vspace{0.25cm}
+{\color{ambar}\LARGE\bfseries Tecnologia da Informação\par}
+\vspace{1.2cm}
+{\color{white}\LARGE\bfseries APOSTILA DE TEORIA\par}
+\vfill
+{\color{white}\normalsize Baseada no Edital nº 1 -- TCE/MA, de 6 de julho de 2026\par}
+{\color{white}\normalsize Banca: Cebraspe \quad | \quad Prova de Auditor: 29/11/2026\par}
+{\color{white}\small Atualização-base: 15/08/2026\par}
+\end{titlepage}
+
+\frontmatter
+\tableofcontents
+
+\mainmatter
+\part{Conhecimentos gerais}
+\include{capitulos/01_portugues}
+\include{capitulos/02_competencias_digitais}
+\include{capitulos/03_raciocinio_logico}
+\include{capitulos/04_direito_administrativo}
+\include{capitulos/05_direito_constitucional}
+\include{capitulos/06_controle_externo}
+\include{capitulos/07_legislacao_tce_ma}
+\include{capitulos/08_historia_geografia_ma}
+\include{capitulos/09_direitos_humanos}
+
+\part{Conhecimentos específicos — Auditor/TI}
+\include{capitulos/10_infraestrutura_ti}
+\include{capitulos/11_engenharia_dados}
+\include{capitulos/12_engenharia_software}
+\include{capitulos/13_seguranca_informacao}
+\include{capitulos/14_gestao_governanca_ti}
+\include{capitulos/15_fiscalizacao_contratos_ti}
+\include{capitulos/16_computacao_nuvem}
+\include{capitulos/17_analise_dados}
+\include{capitulos/18_inteligencia_artificial}
+\include{capitulos/19_auditoria_setor_publico}
+
+\end{document}
