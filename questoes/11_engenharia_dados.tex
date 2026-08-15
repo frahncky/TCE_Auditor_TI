@@ -1,63 +1,392 @@
 \section{Banco de questões — Engenharia de Dados}
 
-\subsection*{N1 — Fundamentos}
+\subsection*{N1 — Fundamento competitivo}
 
-\begin{questao}{\nivel{N1} 11.01}No modelo relacional, uma chave primária tem como função principal:\begin{enumerate}[label=\Alph*)]\item identificar unicamente cada tupla\item ordenar fisicamente toda tabela por definição\item substituir qualquer índice\item permitir valores duplicados obrigatoriamente\item eliminar a necessidade de integridade referencial\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.02}Uma chave estrangeira é usada principalmente para:\begin{enumerate}[label=\Alph*)]\item representar referência entre relações e apoiar integridade referencial\item criptografar colunas\item criar backup\item definir tamanho de página\item substituir normalização\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.03}A Primeira Forma Normal busca, em abordagem clássica, garantir:\begin{enumerate}[label=\Alph*)]\item atributos com valores atômicos no contexto do modelo e ausência de grupos repetitivos\item ausência de qualquer redundância\item toda relação em BCNF\item somente chaves simples\item uso obrigatório de surrogate key\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.04}Em SQL, qual comando pertence tipicamente à DDL?\begin{enumerate}[label=\Alph*)]\item CREATE TABLE\item SELECT\item UPDATE\item DELETE\item INSERT\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.05}Em um esquema dimensional, a tabela que normalmente registra medidas na granularidade definida é:\begin{enumerate}[label=\Alph*)]\item fato\item dimensão\item catálogo\item índice\item view materializada necessariamente\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.06}Qual alternativa é exemplo típico de banco NoSQL orientado a documentos?\begin{enumerate}[label=\Alph*)]\item armazenamento de objetos JSON/BSON por documento\item tabela relacional em 3FN exclusivamente\item planilha CSV sem mecanismo de consulta\item RAID 5\item DNS autoritativo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.07}ETL significa:\begin{enumerate}[label=\Alph*)]\item Extract, Transform, Load\item Execute, Test, Link\item Encode, Transfer, Log\item Extract, Transfer, Lock\item Evaluate, Transform, Learn\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.08}No contexto de dados, linhagem (data lineage) registra principalmente:\begin{enumerate}[label=\Alph*)]\item origem, transformações e destinos dos dados\item somente a senha do DBA\item endereços IP da aplicação\item quantidade de CPU do banco\item permissões de arquivos do sistema operacional\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.09}Qual propriedade ACID trata da permanência dos efeitos de uma transação confirmada?\begin{enumerate}[label=\Alph*)]\item Durabilidade\item Atomicidade\item Consistência\item Isolamento\item Idempotência\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 11.10}Em SQL, a cláusula HAVING é usada tipicamente para:\begin{enumerate}[label=\Alph*)]\item filtrar grupos após agregação\item criar tabela\item definir chave estrangeira\item ordenar fisicamente páginas\item iniciar transação distribuída\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N1} 11.01 — Cebraspe/Certo ou Errado}
+Se uma relação possui chave composta $(A,B)$ e um atributo não-chave $C$ depende apenas de $A$, então há dependência parcial incompatível com a Segunda Forma Normal.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.02 — Cebraspe/Certo ou Errado}
+Uma relação em Terceira Forma Normal está, necessariamente, em BCNF.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.03 — Cebraspe/Certo ou Errado}
+Um índice B-tree tende a ser adequado para predicados de igualdade e intervalo, mas seu benefício depende de seletividade, estatísticas, ordenação das colunas e custo do plano.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.04 — Cebraspe/Certo ou Errado}
+A propriedade de atomicidade garante que os efeitos de uma transação confirmada sobrevivam a falhas de energia.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.05 — Cebraspe/Certo ou Errado}
+Uma tabela fato deve ter sua granularidade definida antes da escolha das medidas, pois a granularidade determina o significado de cada linha e evita dupla contagem.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.06 — Cebraspe/Certo ou Errado}
+ELT difere de ETL porque, no ELT, dados são carregados no ambiente de destino antes de parte relevante das transformações.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.07 — Cebraspe/Certo ou Errado}
+No teorema CAP, um sistema distribuído deve escolher permanentemente entre consistência e disponibilidade, mesmo quando não há partição de rede.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.08 — Cebraspe/Certo ou Errado}
+Data lineage registra origem, transformações e destinos dos dados e, por isso, é relevante para reprodutibilidade de relatórios e achados de auditoria.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.09 — Cebraspe/Certo ou Errado}
+A existência de uma chave estrangeira garante, por si só, que não haverá registros duplicados na tabela filha.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 11.10 — Cebraspe/Certo ou Errado}
+Uma carga idempotente deve poder ser reexecutada sem produzir efeitos lógicos duplicados indevidos.
+\end{questao}
 
 \subsection*{N2 — Aplicação}
 
-\begin{questao}{\nivel{N2} 11.11}Uma relação tem chave composta $(A,B)$ e atributo $C$ depende apenas de $A$. O problema é uma dependência:\begin{enumerate}[label=\Alph*)]\item parcial, tratada pela 2FN\item multivalorada apenas\item transitiva obrigatoriamente\item de junção\item inexistente\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.12}Uma tabela \texttt{Pedido(PedidoID, ClienteID, NomeCliente)} possui \texttt{PedidoID} como chave e \texttt{NomeCliente} depende de \texttt{ClienteID}, que não é chave. Isso sugere:\begin{enumerate}[label=\Alph*)]\item dependência transitiva e potencial violação de 3FN\item violação de 1FN apenas\item ausência de dependência funcional\item necessidade de RAID\item problema de rede\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.13}Para listar todos os órgãos, inclusive os que não possuem contratos, preservando a tabela \texttt{orgao}, a junção mais natural é:\begin{enumerate}[label=\Alph*)]\item LEFT JOIN\item INNER JOIN\item CROSS JOIN sem condição\item NATURAL JOIN obrigatoriamente\item DELETE JOIN\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.14}Qual índice tende a ser útil para consultas por igualdade e intervalo em coluna ordenável, em SGBDs relacionais comuns?\begin{enumerate}[label=\Alph*)]\item B-tree\item somente hash\item RAID 0\item bitmap em qualquer workload obrigatoriamente\item nenhum índice pode atender intervalos\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.15}Uma coluna possui milhões de linhas e apenas dois valores possíveis. Qual afirmação é mais correta?\begin{enumerate}[label=\Alph*)]\item baixa cardinalidade pode reduzir seletividade de certos índices tradicionais; o plano depende do SGBD e da consulta\item índice B-tree sempre torna qualquer consulta mais rápida\item cardinalidade não influencia otimização\item índice elimina custo de escrita\item o banco deixa de ser relacional\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.16}Em modelo dimensional, a granularidade deve ser definida antes das medidas porque:\begin{enumerate}[label=\Alph*)]\item determina o que cada linha da tabela fato representa\item define o endereço IP do DW\item substitui dimensões\item determina obrigatoriamente o SGBD\item elimina necessidade de ETL\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.17}Uma medida de saldo de conta pode ser somada entre contas, mas não necessariamente ao longo de datas. Ela é tipicamente:\begin{enumerate}[label=\Alph*)]\item semi-aditiva\item totalmente aditiva em todas as dimensões\item não numérica\item chave degenerada\item dimensão lentamente mutável\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.18}Em ELT, a diferença central em relação a ETL é:\begin{enumerate}[label=\Alph*)]\item carregar dados antes de executar parte relevante das transformações no ambiente de destino\item eliminar extração\item não usar armazenamento\item proibir transformação\item exigir banco relacional\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.19}Um pipeline recebe o mesmo evento duas vezes após retry e deve evitar efeito duplicado. A propriedade desejada é:\begin{enumerate}[label=\Alph*)]\item idempotência\item cardinalidade\item normalização BCNF\item compressão\item serialização física\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.20}Qual dimensão de qualidade verifica se campos obrigatórios estão presentes?\begin{enumerate}[label=\Alph*)]\item completude\item unicidade exclusivamente\item atualidade\item consistência semântica apenas\item latência\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.21}Em uma transação bancária, debitar uma conta e creditar outra devem ocorrer juntos ou nenhum ocorrer. Isso exemplifica:\begin{enumerate}[label=\Alph*)]\item atomicidade\item isolamento apenas\item durabilidade apenas\item disponibilidade\item particionamento\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.22}Leitura de dado ainda não confirmado por outra transação é denominada:\begin{enumerate}[label=\Alph*)]\item dirty read\item phantom write\item deadlock obrigatório\item full scan\item cache miss\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.23}Uma consulta possui filtro em coluna sem índice, retornando 0,01\% de tabela de 500 milhões de linhas. Qual ação deve ser avaliada primeiro?\begin{enumerate}[label=\Alph*)]\item examinar plano, estatísticas e possibilidade de índice adequado ao padrão de acesso\item adicionar índice em todas as colunas sem análise\item normalizar para 1FN novamente necessariamente\item trocar SQL por CSV\item eliminar filtro\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.24}Em um data lake, catálogo de metadados é importante porque:\begin{enumerate}[label=\Alph*)]\item facilita descoberta, significado, esquema, ownership e governança dos conjuntos\item substitui backup\item cifra todos os dados automaticamente\item impede qualquer dado duplicado\item elimina necessidade de qualidade\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 11.25}Em integração via arquivos, um controle básico para detectar carga incompleta é:\begin{enumerate}[label=\Alph*)]\item reconciliar contagem, tamanho/hash e totais de controle entre origem e destino\item confiar apenas no nome do arquivo\item remover logs\item aceitar qualquer encoding\item impedir reprocessamento\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N2} 11.11 — FGV/normalização}
+Considere \texttt{Matricula(AlunoID, DisciplinaID, NomeAluno, Curso, Nota)}, com chave composta $(AlunoID,DisciplinaID)$, e as dependências \texttt{AlunoID -> NomeAluno, Curso}. A decomposição mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item manter tudo junto e criar índice em NomeAluno;
+\item separar dados do aluno em relação própria e manter a matrícula com as chaves e a nota;
+\item remover DisciplinaID da chave;
+\item converter a tabela em JSON;
+\item adicionar surrogate key sem alterar as dependências.
+\end{enumerate}
+\end{questao}
 
-\subsection*{N3 — Nível de concurso}
+\begin{questao}{\nivel{N2} 11.12 — FCC/SQL}
+Uma consulta deve retornar todos os órgãos, inclusive os que não possuem contratos, exibindo zero para a quantidade de contratos. A construção mais apropriada parte de:
+\begin{enumerate}[label=\Alph*)]
+\item INNER JOIN de órgão com contrato;
+\item LEFT JOIN de órgão com contrato e agregação adequada;
+\item CROSS JOIN sem condição;
+\item HAVING sem GROUP BY;
+\item DELETE com RETURNING.
+\end{enumerate}
+\end{questao}
 
-\begin{questao}{\nivel{N3} 11.26}Uma tabela tem chave composta $(AlunoID,DisciplinaID)$ e \texttt{NomeAluno} depende de \texttt{AlunoID}. A decomposição correta deve:\begin{enumerate}[label=\Alph*)]\item separar dados do aluno para remover dependência parcial\item duplicar NomeAluno em cada matrícula para melhorar integridade\item eliminar DisciplinaID\item converter tudo para JSON obrigatoriamente\item adicionar índice sem alterar modelo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.27}Uma consulta usa \texttt{LEFT JOIN}, mas coloca em \texttt{WHERE} condição \texttt{t2.status='ATIVO'} sobre a tabela direita, sem aceitar NULL. O efeito provável é:\begin{enumerate}[label=\Alph*)]\item eliminar linhas sem correspondência, aproximando o resultado de INNER JOIN para esse predicado\item preservar sempre todas as linhas da esquerda\item gerar CROSS JOIN\item impedir qualquer uso de índice\item transformar a consulta em DDL\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.28}Uma aplicação sofre lost update entre transações concorrentes. Qual tema deve ser avaliado?\begin{enumerate}[label=\Alph*)]\item isolamento/controle de concorrência e padrão de atualização\item normalização de dimensões apenas\item RAID\item DNS\item compressão de backup\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.29}MVCC é usado por diversos SGBDs para:\begin{enumerate}[label=\Alph*)]\item manter múltiplas versões e reduzir bloqueios entre leitores e escritores conforme isolamento\item substituir WAL e backup em todos os casos\item tornar transações não atômicas\item eliminar necessidade de vacuum/limpeza em qualquer implementação\item impedir índices\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.30}Um índice composto é \texttt{(orgao_id, data)}. Em regra, qual consulta tende a aproveitar melhor o prefixo do índice?\begin{enumerate}[label=\Alph*)]\item filtro por \texttt{orgao_id} e intervalo de \texttt{data}\item filtro somente por coluna não relacionada\item consulta sem predicado sempre\item filtro apenas por expressão não sargable obrigatoriamente\item nenhuma consulta pode usar índice composto\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.31}Uma tabela fato registra uma linha por item de nota fiscal. Somar \texttt{valor_total_nota} repetido em cada item causa:\begin{enumerate}[label=\Alph*)]\item dupla contagem por incompatibilidade entre medida e granularidade\item normalização excessiva apenas\item melhoria de precisão\item eliminação de dimensão\item consistência automática\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.32}Em slowly changing dimension tipo 2, uma alteração de atributo histórico é tratada tipicamente por:\begin{enumerate}[label=\Alph*)]\item nova linha/versionamento com período de validade\item sobrescrever sempre sem histórico\item apagar a dimensão\item atualizar a tabela fato apenas\item converter chave para hash sem versão\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.33}No teorema CAP, durante uma partição de rede, um sistema distribuído não consegue garantir simultaneamente:\begin{enumerate}[label=\Alph*)]\item consistência forte e disponibilidade para todas as requisições\item persistência e criptografia\item SQL e NoSQL\item backup e replicação\item compressão e deduplicação\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.34}Um banco chave-valor é especialmente natural quando:\begin{enumerate}[label=\Alph*)]\item o principal padrão de acesso é recuperar valor por chave conhecida com esquema simples\item são necessárias junções relacionais complexas como requisito central\item toda consulta é OLAP dimensional\item não existe chave\item é obrigatório usar SQL ANSI completo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.35}Em streaming, ``exactly once'' deve ser interpretado com cuidado porque:\begin{enumerate}[label=\Alph*)]\item a garantia depende do limite do sistema e dos efeitos externos; idempotência continua relevante\item significa que a rede nunca retransmite\item elimina falhas\item dispensa transações\item impede duplicatas em qualquer sistema externo automaticamente\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.36}Um pipeline usa timestamp de processamento para agrupar eventos que chegam atrasados. Para refletir quando o evento realmente ocorreu, deve-se considerar:\begin{enumerate}[label=\Alph*)]\item event time, janelas e política para dados atrasados/watermarks\item somente CPU do consumidor\item RAID 6\item DNS TTL\item chave primária numérica\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.37}Um data warehouse recebe dados de fornecedores com CNPJ em formatos diferentes. Qual controle de qualidade é mais apropriado?\begin{enumerate}[label=\Alph*)]\item padronizar, validar domínio/formato, deduplicar e manter regra de transformação rastreável\item converter CNPJ em endereço IP\item apagar registros divergentes sem evidência\item substituir por nome fantasia\item aceitar qualquer valor\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.38}Em otimização SQL, uma função aplicada diretamente à coluna indexada no predicado pode tornar o filtro não sargable. A consequência possível é:\begin{enumerate}[label=\Alph*)]\item dificultar uso eficiente do índice, dependendo do SGBD e de índices funcionais disponíveis\item garantir index seek\item eliminar custo de CPU\item converter consulta em transação serializável\item impedir qualquer resultado\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.39}Um índice acelera SELECTs, mas aumenta custo de INSERT/UPDATE/DELETE porque:\begin{enumerate}[label=\Alph*)]\item estruturas de índice também precisam ser mantidas\item o índice elimina páginas de dados\item todo índice duplica o banco integralmente\item índices impedem cache\item índices removem estatísticas\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 11.40}Um DBA possui acesso para alterar dados de negócio e também apagar logs de auditoria. O principal problema é:\begin{enumerate}[label=\Alph*)]\item segregação de funções e confiabilidade da trilha de auditoria\item normalização insuficiente\item ausência de ETL\item falta de data lake\item cardinalidade baixa\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N2} 11.13 — Cebraspe/Certo ou Errado}
+Em uma consulta com \texttt{LEFT JOIN}, colocar no \texttt{WHERE} um predicado que exige valor não nulo da tabela direita pode eliminar as linhas sem correspondência e alterar o efeito esperado da junção externa.
+\end{questao}
 
-\subsection*{N4 — Avançado / Auditoria}
+\begin{questao}{\nivel{N2} 11.14 — FGV/índice composto}
+Existe índice composto \texttt{(orgao_id, data_evento)}. Qual consulta tende a aproveitar melhor esse índice?
+\begin{enumerate}[label=\Alph*)]
+\item filtro por \texttt{orgao_id} e intervalo de \texttt{data_evento};
+\item filtro apenas por coluna não indexada;
+\item função não sargable sobre outra coluna;
+\item consulta sem qualquer predicado sempre;
+\item agregação sobre coluna inexistente no índice necessariamente.
+\end{enumerate}
+\end{questao}
 
-\begin{questao}{\nivel{N4} 11.41}Um pipeline de fiscalização recebe eventos com reenvio após falhas e grava cada pagamento sem chave idempotente, inflando valores. A recomendação principal é:\begin{enumerate}[label=\Alph*)]\item usar identificador estável, deduplicação/transação e processamento idempotente\item desabilitar todo retry\item remover chave única\item trocar relacional por NoSQL sem mudar lógica\item aumentar partições apenas\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.42}Um órgão publica dataset aberto extraído do sistema transacional, mas sem catálogo, definição de campos, periodicidade ou versão. Qual risco é mais relevante?\begin{enumerate}[label=\Alph*)]\item baixa interpretabilidade, reprodutibilidade e governança do dado publicado\item excesso de normalização\item impossibilidade de usar HTTP\item falta de RAID\item ausência de VLAN\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.43}Uma carga ETL apaga a tabela destino e recarrega 2 bilhões de linhas diariamente. O SLA está sendo violado. Qual abordagem deve ser avaliada?\begin{enumerate}[label=\Alph*)]\item carga incremental/CDC, particionamento e estratégia de atualização compatível com a semântica\item aumentar full scan\item eliminar índices permanentemente sem análise\item converter tudo para planilha\item remover validações\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.44}Auditoria identifica que relatório financeiro usa dimensão de fornecedor atualizada por sobrescrita, apagando razão social histórica e reescrevendo análises antigas. O problema é:\begin{enumerate}[label=\Alph*)]\item gestão inadequada de histórico dimensional para requisito temporal\item falta de NAT\item conflito de deadlock\item ausência de RAID 10\item erro de TCP\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.45}Uma base de risco foi construída juntando dados por nome de pessoa, causando falsos matches entre homônimos. Qual melhoria é prioritária?\begin{enumerate}[label=\Alph*)]\item adotar regras de entity resolution com identificadores confiáveis, score e validação de ambiguidade\item aumentar tamanho da fonte do relatório\item usar apenas LIKE em nome\item remover metadados\item ignorar duplicidades\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.46}O data lake permite que qualquer analista leia dados pessoais brutos ``porque o ambiente é interno''. Qual princípio de controle foi violado?\begin{enumerate}[label=\Alph*)]\item mínimo privilégio e governança de acesso/classificação\item integridade referencial apenas\item normalização 2FN\item compressão\item particionamento\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.47}Um dashboard soma valores de contrato após JOIN 1:N com pagamentos e apresenta total duplicado. Qual procedimento de auditoria é mais adequado?\begin{enumerate}[label=\Alph*)]\item verificar granularidade de cada fonte, cardinalidade do JOIN e reconciliar total com fonte independente\item confiar no dashboard porque há SQL\item adicionar DISTINCT sem entender semântica\item apagar pagamentos duplicados automaticamente\item aumentar CPU\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.48}Uma equipe mantém backup de banco, mas nunca testa point-in-time recovery. O banco usa WAL/binlog para recuperação. Qual conclusão é correta?\begin{enumerate}[label=\Alph*)]\item existência dos logs não prova recuperabilidade; cadeia, retenção e restauração precisam ser testadas\item WAL substitui full backup em qualquer caso\item PITR independe de logs\item backup não precisa de consistência\item teste é desnecessário se storage é RAID\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.49}Um SGBD foi particionado por data, mas quase todas as consultas filtram por órgão e varrem todas as partições. Qual avaliação é correta?\begin{enumerate}[label=\Alph*)]\item estratégia de particionamento pode estar desalinhada ao padrão de acesso e deve ser reavaliada com plano/métricas\item particionamento sempre melhora qualquer consulta\item basta adicionar mais partições\item o problema é normalização\item partições substituem índices\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 11.50}Um pipeline de dados críticos não registra versão do código de transformação nem parâmetros. O relatório muda e ninguém consegue explicar por quê. O controle faltante é principalmente:\begin{enumerate}[label=\Alph*)]\item versionamento, reprodutibilidade e linhagem de transformação\item DHCP\item VLAN\item RAID\item autenticação Wi-Fi\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N2} 11.15 — Cebraspe/Certo ou Errado}
+Aplicar função à coluna indexada no predicado pode impedir o uso eficiente do índice, salvo quando o SGBD dispõe de reescrita adequada ou índice funcional compatível.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.16 — FCC/concorrência}
+Duas transações leem o mesmo saldo, calculam novos valores e gravam em sequência, fazendo com que a segunda sobrescreva o efeito da primeira. A anomalia é:
+\begin{enumerate}[label=\Alph*)]
+\item dirty read;
+\item lost update;
+\item phantom apenas;
+\item deadlock necessariamente;
+\item cache miss.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.17 — FGV/modelagem dimensional}
+Uma tabela fato registra uma linha por item de nota fiscal, mas a coluna \texttt{valor_total_nota} é repetida em todos os itens. Somar essa coluna por órgão produzirá:
+\begin{enumerate}[label=\Alph*)]
+\item resultado correto, pois a tabela é fato;
+\item dupla contagem proporcional à quantidade de itens;
+\item apenas perda de performance, sem erro lógico;
+\item normalização automática;
+\item erro de integridade referencial.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.18 — Cebraspe/Certo ou Errado}
+Saldo de conta é exemplo típico de medida semi-aditiva: pode ser somado entre contas, mas não necessariamente ao longo de datas.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.19 — FGV/ETL}
+Uma carga diária lê 2 bilhões de linhas para identificar 1 milhão de alterações. O banco de origem fornece CDC confiável. A alternativa tecnicamente mais apropriada a avaliar é:
+\begin{enumerate}[label=\Alph*)]
+\item continuar o full load por simplicidade;
+\item usar CDC/carga incremental com controles de reconciliação e reprocessamento;
+\item remover logs para acelerar;
+\item desabilitar chaves;
+\item exportar para planilha.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.20 — Cebraspe/Certo ou Errado}
+A completude de um dataset pode estar alta e, ainda assim, a acurácia ser baixa, pois campos podem estar preenchidos com valores incorretos.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.21 — FCC/qualidade}
+Uma base contém CNPJs com pontuação variável, zeros à esquerda removidos e duplicidades após união de fontes. O tratamento adequado deve incluir:
+\begin{enumerate}[label=\Alph*)]
+\item padronização, validação de domínio e regras de deduplicação rastreáveis;
+\item remoção de todos os registros divergentes sem log;
+\item conversão dos CNPJs em número de ponto flutuante;
+\item uso do nome fantasia como único identificador;
+\item manutenção de todos os formatos sem regra.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.22 — Cebraspe/Certo ou Errado}
+Um catálogo de dados pode melhorar descoberta e governança, mas não substitui regras de qualidade, controle de acesso ou backup.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.23 — FGV/streaming}
+Um consumidor recebe o mesmo evento novamente após retry. A melhor forma de evitar dupla contabilização é:
+\begin{enumerate}[label=\Alph*)]
+\item desabilitar qualquer retry;
+\item usar identificador estável do evento e processamento idempotente/transacional;
+\item aumentar o número de partições apenas;
+\item remover restrições de unicidade;
+\item trocar o banco por NoSQL sem alterar a lógica.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.24 — Cebraspe/Certo ou Errado}
+Em dados temporais, uma divisão aleatória de treino/teste pode introduzir vazamento temporal em análises preditivas quando observações futuras passam a influenciar modelos usados para decisões anteriores.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 11.25 — FCC/administração}
+Para demonstrar capacidade de point-in-time recovery, a evidência mais forte é:
+\begin{enumerate}[label=\Alph*)]
+\item existência de WAL/binlog;
+\item restore test documentado usando backup base e logs até um ponto definido;
+\item RAID no servidor;
+\item tamanho do banco;
+\item presença de índice clustered.
+\end{enumerate}
+\end{questao}
+
+\subsection*{N3 — Integração de concurso}
+
+\begin{questao}{\nivel{N3} 11.26 — FGV/assertivas}
+Considere:
+
+I. 3FN é menos restritiva que BCNF.
+
+II. Toda relação em BCNF está em 3FN.
+
+III. Desnormalização pode ser deliberada em sistemas analíticos, desde que os custos de consistência sejam controlados.
+
+Assinale a alternativa correta.
+\begin{enumerate}[label=\Alph*)]
+\item Apenas I.
+\item Apenas I e II.
+\item Apenas II e III.
+\item I, II e III.
+\item Apenas III.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.27 — Cebraspe/Certo ou Errado}
+MVCC pode reduzir contenção entre leitores e escritores por meio de versões, mas não elimina a possibilidade de deadlocks entre transações concorrentes que disputam recursos de escrita.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.28 — FCC/plano de execução}
+Uma consulta altamente seletiva passou de index seek para full scan após grande mudança na distribuição dos dados, sem alteração do SQL. A primeira hipótese a investigar é:
+\begin{enumerate}[label=\Alph*)]
+\item estatísticas desatualizadas ou estimativa incorreta de cardinalidade;
+\item perda de integridade referencial necessariamente;
+\item violação de 1FN;
+\item falha do DNS;
+\item ausência de ETL.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.29 — FGV/SCD}
+Relatórios históricos mudam retroativamente sempre que a razão social do fornecedor é atualizada na dimensão. O requisito é preservar o nome válido à época. A abordagem mais aderente é:
+\begin{enumerate}[label=\Alph*)]
+\item SCD tipo 1;
+\item SCD tipo 2 com versionamento e período de validade;
+\item remover a dimensão;
+\item recalcular a fato;
+\item transformar fornecedor em medida.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.30 — Cebraspe/Certo ou Errado}
+No CAP, durante uma partição de rede, oferecer disponibilidade para toda requisição pode exigir aceitar respostas que não observem consistência forte global.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.31 — FCC/particionamento}
+Uma tabela foi particionada por data, porém quase todas as consultas filtram apenas por órgão e varrem todas as partições. A conclusão adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item particionamento sempre melhora a consulta;
+\item a chave de particionamento pode estar desalinhada ao padrão de acesso;
+\item basta duplicar o número de partições;
+\item partições eliminam a necessidade de índices;
+\item o problema é necessariamente normalização.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.32 — FGV/streaming}
+Eventos chegam fora de ordem e precisam ser agregados pelo momento em que ocorreram, não pelo instante de processamento. O desenho deve considerar:
+\begin{enumerate}[label=\Alph*)]
+\item event time, janelas e política de atraso/watermark;
+\item somente CPU do consumidor;
+\item RAID do broker;
+\item DNS TTL;
+\item normalização 3FN.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.33 — Cebraspe/Certo ou Errado}
+Uma garantia de ``exactly once'' deve ser interpretada segundo o escopo do sistema, pois efeitos externos podem exigir idempotência, transações ou padrões adicionais para evitar duplicação lógica.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.34 — FCC/data lake}
+Um data lake armazena milhares de arquivos, mas não possui catálogo, owner, classificação ou regras de qualidade. O cenário é mais bem descrito como:
+\begin{enumerate}[label=\Alph*)]
+\item data lake plenamente governado;
+\item risco de data swamp e baixa confiabilidade do consumo;
+\item normalização excessiva;
+\item alta disponibilidade;
+\item garantia de lineage.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.35 — FGV/entity resolution}
+Uma base cruza fornecedores de sistemas diferentes apenas pelo nome, gerando falsos vínculos entre homônimos. A melhoria mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item usar regras de entity resolution com identificadores adicionais, score e tratamento de ambiguidade;
+\item aplicar \texttt{DISTINCT} ao nome;
+\item remover todos os homônimos;
+\item usar apenas LIKE;
+\item ignorar falsos positivos se a cobertura aumentar.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.36 — Cebraspe/Certo ou Errado}
+Um JOIN 1:N pode multiplicar medidas da relação do lado 1; por isso, o auditor deve compreender granularidade e cardinalidade antes de reconciliar totais.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.37 — FCC/índice}
+Uma tabela de alta escrita possui 18 índices, dos quais 9 nunca aparecem nos planos monitorados. O procedimento mais adequado é:
+\begin{enumerate}[label=\Alph*)]
+\item remover todos imediatamente;
+\item analisar redundância, uso, dependências e custo de manutenção antes de consolidar/remover;
+\item adicionar mais índices para equilibrar;
+\item desabilitar estatísticas;
+\item converter a tabela para arquivo CSV.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.38 — Cebraspe/Certo ou Errado}
+Baixa cardinalidade de uma coluna pode reduzir a seletividade de um índice B-tree, mas não significa que nenhum tipo de índice ou plano possa beneficiar consultas sobre essa coluna.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.39 — FGV/auditoria de pipeline}
+Um indicador oficial mudou após nova versão do pipeline, mas código, parâmetros e dados de entrada não foram versionados. A falha principal é:
+\begin{enumerate}[label=\Alph*)]
+\item ausência de reprodutibilidade e linhagem de transformação;
+\item excesso de normalização;
+\item falta de índice;
+\item ausência de DNS;
+\item problema de RAID.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 11.40 — Cebraspe/Certo ou Errado}
+Se o DBA pode alterar dados de negócio e excluir os próprios logs administrativos, há fragilidade de segregação de funções e confiabilidade da trilha de auditoria.
+\end{questao}
+
+\subsection*{N4 — Auditoria / avançado}
+
+\begin{questao}{\nivel{N4} 11.41 — FGV/dashboard}
+Um dashboard mostra despesas 12\% superiores ao sistema transacional. O ETL realiza JOIN entre contrato e pagamentos, e um contrato pode ter vários pagamentos. O primeiro procedimento técnico deve ser:
+\begin{enumerate}[label=\Alph*)]
+\item aplicar \texttt{DISTINCT} até o total coincidir;
+\item analisar granularidade/cardinalidade do JOIN e reconciliar totais por etapas;
+\item excluir pagamentos repetidos manualmente;
+\item trocar o banco por NoSQL;
+\item aumentar CPU.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.42 — Cebraspe/Certo ou Errado}
+Em pipeline com retries, desabilitar reprocessamento para evitar duplicidade pode reduzir resiliência; em geral, é preferível desenhar processamento idempotente e controlar duplicatas.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.43 — FCC/qualidade e evidência}
+Uma carga rejeita 8\% dos registros ``inválidos'', mas não armazena os registros rejeitados nem a regra violada. O risco principal é:
+\begin{enumerate}[label=\Alph*)]
+\item o dataset final ficar menor apenas;
+\item perda não rastreável de dados e impossibilidade de avaliar se a rejeição era legítima;
+\item excesso de lineage;
+\item alta disponibilidade;
+\item ausência de compressão.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.44 — FGV/PITR}
+O banco possui backup full semanal e WAL contínuo. Nunca foi testada recuperação para um ponto intermediário. O auditor pode concluir que:
+\begin{enumerate}[label=\Alph*)]
+\item o PITR está comprovado pela existência do WAL;
+\item a capacidade é apenas potencial; restore test deve validar cadeia, retenção, chaves e tempo;
+\item RAID torna o teste desnecessário;
+\item WAL substitui qualquer backup base;
+\item RPO não se aplica a banco de dados.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.45 — Cebraspe/Certo ou Errado}
+Um data warehouse pode apresentar alta disponibilidade e, simultaneamente, baixa confiabilidade analítica se suas regras de transformação não forem versionadas ou reconciliadas com as fontes.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.46 — FCC/acesso a dados}
+Todo analista do data lake possui leitura irrestrita de dados pessoais brutos porque ``o ambiente é interno''. O principal achado é:
+\begin{enumerate}[label=\Alph*)]
+\item falta de normalização;
+\item violação de mínimo privilégio, classificação e governança de acesso;
+\item baixa cardinalidade;
+\item ausência de CDC;
+\item excesso de catálogo.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.47 — FGV/modelo temporal}
+Um modelo de risco usa atributo ``valor final pago'' para prever irregularidade na fase em que a licitação ainda está aberta. O desempenho offline é excelente. O problema principal é:
+\begin{enumerate}[label=\Alph*)]
+\item atributo com baixa cardinalidade;
+\item leakage temporal por informação indisponível no momento da decisão;
+\item ausência de normalização;
+\item índice inadequado;
+\item falta de clustering.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.48 — Cebraspe/Certo ou Errado}
+A simples existência de catálogo e lineage não garante qualidade dos dados; esses mecanismos melhoram governança e rastreabilidade, mas regras de validação e reconciliação continuam necessárias.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.49 — FCC/particionamento}
+Uma tabela é particionada por órgão, mas um único órgão concentra 80\% das linhas e do tráfego. O principal risco é:
+\begin{enumerate}[label=\Alph*)]
+\item hotspot e distribuição desequilibrada;
+\item perda automática de ACID;
+\item impossibilidade de índices;
+\item normalização excessiva;
+\item ausência de primary key necessariamente.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 11.50 — FGV/matriz de achado}
+Um relatório oficial depende de pipeline manual em notebook local, sem versionamento, aprovação ou ambiente reproduzível. Qual achado está mais bem formulado?
+\begin{enumerate}[label=\Alph*)]
+\item ``Python é inadequado para governo'';
+\item ``O relatório é inválido porque usa notebook'';
+\item ``A ausência de versionamento, ambiente controlado e trilha de execução reduz reprodutibilidade e confiabilidade da transformação; recomenda-se pipeline versionado, parametrizado e auditável'';
+\item ``Deve-se migrar obrigatoriamente para SAS'';
+\item ``Basta salvar uma cópia em PDF''.
+\end{enumerate}
+\end{questao}
