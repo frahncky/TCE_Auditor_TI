@@ -1,0 +1,201 @@
+\section{Gabarito e resoluções comentadas — Infraestrutura de TI}
+
+\begin{solucao}{10.01}
+\textbf{Gabarito: D.} Em \texttt{/26}, restam $32-26=6$ bits para endereçamento dentro do bloco; portanto, $2^6=64$ endereços totais. A alternativa C (62) representa o número convencional de hosts utilizáveis após excluir rede e broadcast. As demais correspondem a tamanhos de blocos diferentes.
+\end{solucao}
+
+\begin{solucao}{10.02}
+\textbf{Gabarito: C.} TCP oferece conexão lógica, sequência, confirmações, retransmissão, controle de fluxo e congestionamento. UDP não fornece esses serviços nativamente. IP, ARP e ICMP pertencem a outras funções da pilha e não implementam transporte confiável orientado à conexão.
+\end{solucao}
+
+\begin{solucao}{10.03}
+\textbf{Gabarito: A.} Um switch Ethernet tradicional consulta sua tabela MAC usando o endereço MAC de destino do quadro. Porta TCP e IP pertencem a camadas superiores; DNS é resolução de nomes; número de sistema autônomo é associado ao roteamento interdomínio.
+\end{solucao}
+
+\begin{solucao}{10.04}
+\textbf{Gabarito: A.} IEEE 802.1Q define marcação de VLAN em quadros Ethernet, permitindo transportar múltiplas VLANs em enlaces trunk. As demais alternativas tratam criptografia, autenticação, roteamento e armazenamento e não têm relação direta com 802.1Q.
+\end{solucao}
+
+\begin{solucao}{10.05}
+\textbf{Gabarito: A.} A MIB organiza os objetos gerenciados acessíveis via SNMP. TLB é cache de tradução de memória, GPO pertence ao Active Directory, RAID trata armazenamento e ACL de sistema de arquivos controla acesso a arquivos.
+\end{solucao}
+
+\begin{solucao}{10.06}
+\textbf{Gabarito: A.} As condições de Coffman são exclusão mútua, posse e espera, ausência de preempção e espera circular. As demais alternativas apenas agrupam conceitos de memória, segurança ou redes, sem representar condições necessárias para deadlock.
+\end{solucao}
+
+\begin{solucao}{10.07}
+\textbf{Gabarito: A.} A TLB mantém traduções recentes de páginas virtuais para quadros físicos, reduzindo acessos às estruturas de paginação. Não é mecanismo de backup, VLAN, Kerberos nem substituto integral da RAM.
+\end{solucao}
+
+\begin{solucao}{10.08}
+\textbf{Gabarito: A.} LDAP é protocolo para acesso e manipulação de serviços de diretório. Active Directory é um produto/serviço de diretório que pode usar LDAP. Hyper-V é hipervisor; NTFS é sistema de arquivos; Docker é plataforma de contêineres.
+\end{solucao}
+
+\begin{solucao}{10.09}
+\textbf{Gabarito: A.} RAID 0 distribui blocos entre discos para desempenho/capacidade, sem redundância. RAID 1 espelha; RAID 5 e 6 usam paridade; RAID 10 combina espelhamento e striping.
+\end{solucao}
+
+\begin{solucao}{10.10}
+\textbf{Gabarito: A.} NAS disponibiliza arquivos por protocolos de rede, como NFS ou SMB. SAN normalmente oferece blocos. As demais alternativas tratam memória, roteamento ou autenticação.
+\end{solucao}
+
+\begin{solucao}{10.11}
+\textbf{Gabarito: C.} Um \texttt{/27} contém $2^{5}=32$ endereços. No uso convencional, rede e broadcast não são atribuídos a hosts, restando 30. As demais quantidades correspondem a outros prefixos ou confundem total com utilizáveis.
+\end{solucao}
+
+\begin{solucao}{10.12}
+\textbf{Gabarito: A.} 802.1X controla acesso baseado em porta e usa EAP para autenticação, com RADIUS frequentemente atuando no backend AAA. NAT e DNS não autenticam acesso; SNMP gerencia dispositivos; MPLS encaminha por rótulos; RAID não controla rede.
+\end{solucao}
+
+\begin{solucao}{10.13}
+\textbf{Gabarito: A.} DHCP distribui parâmetros de configuração de rede segundo política, inclusive endereço, gateway e DNS. DNS resolve nomes, ARP resolve endereços de enlace em cenários IPv4, ICMP sinaliza condições de rede e TCP é transporte.
+\end{solucao}
+
+\begin{solucao}{10.14}
+\textbf{Gabarito: A.} STP/RSTP cria topologia sem loops de camada 2 bloqueando caminhos redundantes conforme algoritmo. BGP é roteamento interdomínio; DNSSEC protege DNS; LDAP é diretório; NTP sincroniza tempo.
+\end{solucao}
+
+\begin{solucao}{10.15}
+\textbf{Gabarito: A.} O resolvedor recursivo trabalha em nome do cliente, usando cache e consultando servidores DNS até obter resposta ou erro. Ele não é gateway, autoridade certificadora, protocolo de camada 2 nem mecanismo de escalonamento.
+\end{solucao}
+
+\begin{solucao}{10.16}
+\textbf{Gabarito: A.} Se o processo não pode prosseguir até concluir I/O, ele fica bloqueado/esperando. ``Pronto'' significa apto a executar quando houver CPU; ``executando'' significa usar CPU naquele instante. Terminado e zombie não descrevem espera normal por I/O.
+\end{solucao}
+
+\begin{solucao}{10.17}
+\textbf{Gabarito: A.} Os três grupos são dono, grupo e outros. \texttt{rwx} dá leitura, escrita e execução ao dono; \texttt{r-x}, leitura e execução ao grupo; \texttt{---}, nenhum bit tradicional aos outros. As demais alternativas contradizem os bits indicados.
+\end{solucao}
+
+\begin{solucao}{10.18}
+\textbf{Gabarito: A.} GPOs centralizam políticas e configurações aplicáveis a usuários e computadores em ambientes AD. RAID, MIB, NAT e BGP communities têm finalidades completamente diferentes.
+\end{solucao}
+
+\begin{solucao}{10.19}
+\textbf{Gabarito: A.} Kerberos usa tickets para reduzir exposição de credenciais e permitir acesso autenticado a serviços após a autenticação inicial. Sincronização de tempo continua importante. Kerberos não substitui DNS, backup nem protocolos de transporte.
+\end{solucao}
+
+\begin{solucao}{10.20}
+\textbf{Gabarito: A.} Escala horizontal adiciona nós/instâncias. As alternativas B, C, D e E aumentam recursos de um único componente e são exemplos de escala vertical.
+\end{solucao}
+
+\begin{solucao}{10.21}
+\textbf{Gabarito: C.} Em RAID 5, a capacidade útil aproximada é $(N-1)\times S$. Com quatro discos de 4 TB, são $3\times4=12$ TB. 16 TB ignoraria a paridade; 4 e 8 TB subestimam; 20 TB excede a capacidade física.
+\end{solucao}
+
+\begin{solucao}{10.22}
+\textbf{Gabarito: A.} SAN é arquitetura de armazenamento em bloco, frequentemente apresentada como LUN a servidores. NAS é acesso a arquivos; CDN, DNS e VLAN de voz não fornecem LUNs de bloco.
+\end{solucao}
+
+\begin{solucao}{10.23}
+\textbf{Gabarito: A.} RPO expressa a perda temporal máxima tolerável de dados, isto é, até que ponto no passado a recuperação pode voltar. RTO é o tempo-alvo de restabelecimento; as demais opções confundem RPO com duração de backup, CPU ou DNS.
+\end{solucao}
+
+\begin{solucao}{10.24}
+\textbf{Gabarito: A.} Contêineres isolam processos compartilhando o kernel do host; VMs executam SO convidado sobre hipervisor. Contêineres podem ter sistemas de arquivos e não eliminam todos os usos de VM. Eles continuam sendo processos do sistema.
+\end{solucao}
+
+\begin{solucao}{10.25}
+\textbf{Gabarito: A.} Health checks fornecem sinal de saúde/prontidão para balanceadores, orquestradores ou mecanismos de failover. Não criam backup, IP, criptografia ou normalização automaticamente.
+\end{solucao}
+
+\begin{solucao}{10.26}
+\textbf{Gabarito: A.} Números de sequência permitem ordenar bytes e detectar lacunas/duplicações no TCP. TTL limita vida do pacote IP; MAC, MX e VLAN não reconstruem fluxo de transporte.
+\end{solucao}
+
+\begin{solucao}{10.27}
+\textbf{Gabarito: A.} VLANs formam domínios de camada 2 separados; para comunicação entre elas é necessário roteamento de camada 3 ou função equivalente, sobre a qual se aplicam ACLs/firewall. Trunk apenas transporta VLANs; STP evita loops; SNMP e RAID não roteiam.
+\end{solucao}
+
+\begin{solucao}{10.28}
+\textbf{Gabarito: A.} SNMPv3 acrescenta mecanismos de segurança capazes de fornecer autenticação e privacidade conforme configuração. As outras alternativas não tratam a proteção das mensagens SNMP.
+\end{solucao}
+
+\begin{solucao}{10.29}
+\textbf{Gabarito: A.} Thrashing ocorre quando o sistema passa tempo excessivo tratando faltas de página e trocando páginas, reduzindo trabalho útil. As outras opções descrevem fenômenos de rede ou criptografia.
+\end{solucao}
+
+\begin{solucao}{10.30}
+\textbf{Gabarito: A.} P1 espera recurso mantido por P2 e P2 espera recurso mantido por P1, formando ciclo. Isso materializa a condição de espera circular e pode compor deadlock. Não é thrashing, fragmentação ou cache poisoning.
+\end{solucao}
+
+\begin{solucao}{10.31}
+\textbf{Gabarito: A.} \texttt{777} concede leitura, escrita e execução a todos nos bits tradicionais, frequentemente violando privilégio mínimo. Não ativa criptografia nem torna o diretório somente leitura; tampouco é padrão seguro por definição.
+\end{solucao}
+
+\begin{solucao}{10.32}
+\textbf{Gabarito: A.} Contas compartilhadas impedem atribuição confiável de ações a indivíduos e fragilizam accountability. Os demais itens não decorrem do uso de contas genéricas. Kerberos pode funcionar tecnicamente, mas a governança permanece inadequada.
+\end{solucao}
+
+\begin{solucao}{10.33}
+\textbf{Gabarito: A.} O defeito é estado de sessão preso ao nó. Externalizar/replicar estado ou adotar sessão stateless permite continuidade após redirecionamento. TTL, UDP, RAID 0 e retirada de health checks não tratam a causa.
+\end{solucao}
+
+\begin{solucao}{10.34}
+\textbf{Gabarito: A.} Failover transfere atendimento para componente redundante quando o ativo falha ou é retirado conforme política. Redundância não substitui backup, não zera RTO e não impede manutenção.
+\end{solucao}
+
+\begin{solucao}{10.35}
+\textbf{Gabarito: A.} Snapshot no mesmo datastore compartilha riscos físicos, administrativos e de comprometimento com a origem. Pode ser útil para recuperação rápida, mas não substitui cópia independente, retenção e teste de restauração. As demais respostas absolutizam propriedades inexistentes.
+\end{solucao}
+
+\begin{solucao}{10.36}
+\textbf{Gabarito: A.} Em RAID 10, dois discos podem falhar se pertencem a espelhos diferentes; se ambos forem do mesmo par, os dados daquele espelho podem ser perdidos. Por isso, não é ``sempre'' nem ``nunca'' tolerado.
+\end{solucao}
+
+\begin{solucao}{10.37}
+\textbf{Gabarito: A.} Incremental guarda alterações desde o backup anterior de qualquer tipo. A restauração requer o último full e todos os incrementais posteriores na ordem. Apenas o último incremental é insuficiente.
+\end{solucao}
+
+\begin{solucao}{10.38}
+\textbf{Gabarito: A.} Disponibilidade trata acesso ao serviço; durabilidade trata preservação dos dados. Capacidade, throughput e latência são métricas diferentes. Confundir durabilidade com disponibilidade é pegadinha recorrente em storage e nuvem.
+\end{solucao}
+
+\begin{solucao}{10.39}
+\textbf{Gabarito: A.} Camadas anteriores da imagem podem continuar contendo o segredo mesmo após instrução posterior ``apagar''. Segredos devem ser injetados por mecanismos apropriados e não persistir na imagem. Docker não converte automaticamente senhas em hashes nem elimina histórico.
+\end{solucao}
+
+\begin{solucao}{10.40}
+\textbf{Gabarito: A.} Duas fontes que dependem do mesmo UPS compartilham uma causa comum de falha; a redundância é apenas parcial. As demais alternativas descrevem tolerância inexistente ou negam dependência evidente.
+\end{solucao}
+
+\begin{solucao}{10.41}
+\textbf{Gabarito: C.} RAID 6 mitiga falhas limitadas de discos, mas não corrupção lógica, exclusão, ransomware, comprometimento do storage ou desastre. Snapshot local continua no mesmo domínio de falha. A/B são absolutistas; D é irrelevante; E confunde continuidade de dados com redes.
+\end{solucao}
+
+\begin{solucao}{10.42}
+\textbf{Gabarito: A.} Se o único ponto recuperável é diário, a perda potencial pode chegar perto de 24 horas, incompatível com RPO de 15 minutos. Backup diário não prova cumprimento; RPO não é RTO; mecanismo e frequência importam diretamente.
+\end{solucao}
+
+\begin{solucao}{10.43}
+\textbf{Gabarito: A.} VLANs separam domínios, mas regra \texttt{any-any} entre zonas permite trânsito amplo e enfraquece contenção e privilégio mínimo. 802.1Q não cifra; STP não controla política de camada 3; segmentação não torna firewall desnecessário.
+\end{solucao}
+
+\begin{solucao}{10.44}
+\textbf{Gabarito: A.} Separar contas administrativas das contas de uso cotidiano reduz exposição a phishing, navegação e roubo de sessão, além de permitir políticas específicas. Conta única não melhora rastreabilidade; compartilhamento e privilégio generalizado pioram risco; apagar logs destrói evidência.
+\end{solucao}
+
+\begin{solucao}{10.45}
+\textbf{Gabarito: A.} HA precisa avaliar toda a cadeia: compute redundante sobre storage único continua vulnerável ao storage/controladora/caminho comum. Número de hosts, VLANs, fabricante ou IPv6 não eliminam esse ponto único de falha.
+\end{solucao}
+
+\begin{solucao}{10.46}
+\textbf{Gabarito: A.} Centralizar logs em repositório protegido, com segregação, retenção e sincronização de tempo, dificulta que o próprio administrador apague a trilha. Apenas aumentar disco não melhora integridade; editar/apagar logs destrói confiabilidade; RAID 0 não é controle de auditoria.
+\end{solucao}
+
+\begin{solucao}{10.47}
+\textbf{Gabarito: A.} Dois sites podem compartilhar dependência externa e física; o mesmo provedor e mesmo ponto de entrada criam falha de causa comum. A duplicação aparente não garante diversidade real.
+\end{solucao}
+
+\begin{solucao}{10.48}
+\textbf{Gabarito: A.} Média esconde picos. Planejamento de capacidade deve considerar percentis, períodos críticos, saturação, filas, throughput e SLA. Uma média baixa não prova sobra suficiente justamente quando a demanda é concentrada.
+\end{solucao}
+
+\begin{solucao}{10.49}
+\textbf{Gabarito: A.} Imagem sem assinatura dificulta verificar origem/integridade; \texttt{latest} reduz reprodutibilidade; privilégio padrão amplia impacto de comprometimento. As demais respostas tratam tópicos sem relação com cadeia de suprimentos de containers.
+\end{solucao}
+
+\begin{solucao}{10.50}
+\textbf{Gabarito: A.} Duas VMs no mesmo host compartilham CPU, memória, energia, hypervisor e hardware físico. A falha do host derruba ambas. HA precisa separar domínios de falha, e virtualização não substitui backup/DR.
+\end{solucao}
