@@ -13,25 +13,40 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  teoria:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX
+      - name: Compile teoria
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: |
-            main_teoria.tex
-            main_questoes.tex
+          root_file: main_teoria.tex
           latexmk_use_xelatex: false
           args: -pdf -interaction=nonstopmode -halt-on-error
 
-      - name: Upload apostilas
+      - name: Upload teoria
         uses: actions/upload-artifact@v4
         with:
-          name: TCE-MA-Auditor-TI-2026
-          path: |
-            main_teoria.pdf
-            main_questoes.pdf
+          name: TCE-MA-Auditor-TI-2026-Teoria
+          path: main_teoria.pdf
+
+  questoes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile questões
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main_questoes.tex
+          latexmk_use_xelatex: false
+          args: -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Upload questões
+        uses: actions/upload-artifact@v4
+        with:
+          name: TCE-MA-Auditor-TI-2026-Questoes
+          path: main_questoes.pdf
