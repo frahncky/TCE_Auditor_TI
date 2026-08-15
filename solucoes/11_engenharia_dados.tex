@@ -14,7 +14,7 @@
 \begin{solucao}{11.11}\textbf{B.} NomeAluno e Curso dependem apenas de AlunoID; separar Aluno remove a dependência parcial. Criar surrogate key sem alterar dependências não resolve a anomalia.\end{solucao}
 \begin{solucao}{11.12}\textbf{B.} LEFT JOIN preserva órgãos sem contrato; a agregação deve tratar NULL para produzir zero.\end{solucao}
 \begin{solucao}{11.13}\textbf{CERTO.} Predicado no WHERE sobre a direita elimina linhas em que os campos são NULL, neutralizando o efeito esperado do LEFT JOIN.\end{solucao}
-\begin{solucao}{11.14}\textbf{A.} O índice começa por orgao_id e, depois, data_evento; esse padrão aproveita o prefixo do índice.\end{solucao}
+\begin{solucao}{11.14}\textbf{A.} O índice começa por \texttt{orgao\_id} e, depois, \texttt{data\_evento}; esse padrão aproveita o prefixo do índice.\end{solucao}
 \begin{solucao}{11.15}\textbf{CERTO.} Funções/conversões podem tornar o predicado não sargable, salvo suporte específico.\end{solucao}
 \begin{solucao}{11.16}\textbf{B.} A segunda gravação sobrescreve a primeira sem perceber: lost update.\end{solucao}
 \begin{solucao}{11.17}\textbf{B.} Valor total da nota repetido em cada item é multiplicado pela quantidade de itens.\end{solucao}
