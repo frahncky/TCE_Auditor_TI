@@ -1,242 +1,1027 @@
 \chapter{Inteligência Artificial}
 
-\section{IA, Machine Learning e Deep Learning}
+\section{Inteligência Artificial, Machine Learning e Deep Learning}
 
-Inteligência Artificial é o campo amplo que desenvolve sistemas capazes de executar tarefas associadas a percepção, linguagem, raciocínio, previsão, decisão e geração de conteúdo. Machine Learning é uma subárea em que padrões são aprendidos a partir de dados; Deep Learning usa redes neurais profundas para aprender representações em múltiplas camadas.
+Inteligência Artificial (IA) é campo amplo que estuda sistemas capazes de executar tarefas associadas a percepção, raciocínio, linguagem, previsão, decisão e geração.
 
-\begin{teoria}[validade antes de sofisticação]
-Em concurso e auditoria, a pergunta mais importante não é ``qual modelo é mais moderno?'', mas:
+\termo{Machine Learning} (ML) é subárea na qual padrões são aprendidos a partir de dados, em vez de todas as regras serem programadas explicitamente.
+
+\termo{Deep Learning} utiliza redes neurais com múltiplas camadas para aprender representações hierárquicas.
+
+A relação pode ser representada por:
 \[
-\text{problema correto}\rightarrow\text{dados válidos}\rightarrow\text{avaliação realista}\rightarrow\text{controle do uso}.
+\text{IA}\supset\text{Machine Learning}\supset\text{Deep Learning}.
 \]
-Um modelo sofisticado com leakage, dados enviesados ou decisão mal definida é tecnicamente inválido para o objetivo.
-\end{teoria}
+
+Nem todo sistema de IA utiliza ML; um sistema especialista baseado em regras pode ser considerado IA sem aprendizagem estatística.
 
 \section{Paradigmas de aprendizado}
 
-No aprendizado supervisionado, exemplos possuem alvo/rótulo; tarefas comuns são classificação e regressão. No não supervisionado, busca-se estrutura sem rótulo explícito, como clustering e redução de dimensionalidade. No reforço, um agente interage com ambiente e otimiza retorno acumulado por recompensas.
+\subsection{Aprendizado supervisionado}
 
-\subsection{Generalização, overfitting e underfitting}
+Treina com pares $(x,y)$ em que $x$ contém atributos e $y$ o alvo.
 
-Overfitting ocorre quando o modelo se ajusta excessivamente às particularidades do treino e perde generalização. Underfitting ocorre quando a capacidade/representação é insuficiente até para capturar o padrão do treino.
+Tarefas:
+\begin{itemize}
+\item classificação — prever categoria;
+\item regressão — prever valor contínuo;
+\item ranking — ordenar itens segundo relevância/risco.
+\end{itemize}
 
-Regularização, mais dados representativos, data augmentation, early stopping e controle de capacidade são mecanismos possíveis, conforme o modelo.
+\subsection{Aprendizado não supervisionado}
 
-\section{Redes neurais}
+Não há rótulo-alvo explícito. Busca estrutura nos dados.
 
-Um neurônio artificial combina entradas:
+Exemplos:
+\begin{itemize}
+\item clustering;
+\item redução de dimensionalidade;
+\item detecção de anomalias;
+\item aprendizagem de representações.
+\end{itemize}
+
+\subsection{Aprendizado por reforço}
+
+Um agente interage com ambiente, observa estado, executa ações e recebe recompensas. Busca maximizar retorno acumulado.
+
+Elementos conceituais:
+\begin{itemize}
+\item estado $s$;
+\item ação $a$;
+\item recompensa $r$;
+\item política $\pi(a\mid s)$;
+\item valor esperado de longo prazo.
+\end{itemize}
+
+\section{Treino, validação e teste}
+
+Um dataset deve ser dividido de modo que a avaliação final represente dados não usados para ajustar modelo ou decisões de modelagem.
+
+\begin{itemize}
+\item treino: estima parâmetros;
+\item validação: seleciona hiperparâmetros/modelo;
+\item teste: estima generalização final.
+\end{itemize}
+
+\subsection{Data leakage}
+
+Leakage ocorre quando informação inacessível no momento real da previsão entra no treinamento.
+
+Exemplo: usar resultado final de auditoria como atributo para prever, no início, quais processos terão irregularidade.
+
+Também ocorre se scaler, imputação ou seleção de features forem ajustados usando o conjunto de teste.
+
+\section{Generalização, viés e variância}
+
+\termo{Underfitting} ocorre quando modelo é simples demais ou mal especificado e apresenta erro alto até no treino.
+
+\termo{Overfitting} ocorre quando modelo se ajusta a ruído/particularidades do treino e perde desempenho fora da amostra.
+
+A decomposição conceitual viés-variância ajuda a entender trade-off:
+\begin{itemize}
+\item alto viés: modelo pouco flexível;
+\item alta variância: modelo sensível demais à amostra.
+\end{itemize}
+
+Regularização, mais dados representativos, data augmentation, early stopping e controle de complexidade podem melhorar generalização.
+
+\section{Regressão linear}
+
+Modelo:
 \[
-z=\mathbf{w}^T\mathbf{x}+b,\qquad a=\phi(z).
+\hat y=\beta_0+\sum_{j=1}^{p}\beta_jx_j.
 \]
 
-Redes empilham transformações e ajustam parâmetros minimizando uma função de perda por variantes de gradiente e backpropagation. ReLU, sigmoid, tanh e GELU são ativações comuns. Softmax é frequentemente usada para normalizar logits em classificação multiclasse.
-
-\subsection{CNN, RNN e Transformers}
-
-CNNs exploram localidade e compartilhamento de pesos, historicamente fortes em visão. RNNs processam sequências com estado recorrente; LSTM/GRU mitigam parte do problema de dependências longas. Transformers usam atenção e permitem relacionar posições sem recorrência sequencial tradicional.
-
-\section{Atenção e Transformers}
-
-Uma forma simplificada da atenção escalada é:
+OLS minimiza:
 \[
-\operatorname{Attention}(Q,K,V)=\operatorname{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V.
+\sum_i(y_i-\hat y_i)^2.
 \]
 
-Queries representam o que uma posição busca, keys são usadas na comparação e values carregam a informação agregada. Multi-head attention permite aprender diferentes relações em subespaços distintos.
+É algoritmo preditivo e ferramenta estatística. Coeficiente não deve ser interpretado automaticamente como causal.
 
-Arquiteturas encoder-only são comuns em representação/classificação; decoder-only, em geração autoregressiva; encoder-decoder, em transformação sequência-a-sequência. Essa classificação é arquitetural, não uma proibição de uso fora desses exemplos.
+\section{Regressão logística}
 
-\section{Modelos fundacionais e IA generativa}
+Para classificação binária:
+\[
+p(y=1\mid x)=\frac{1}{1+e^{-z}},
+\]
+\[
+z=\beta_0+\mathbf{w}^{T}\mathbf{x}.
+\]
 
-Modelos fundacionais são treinados em grande escala e adaptados a múltiplas tarefas. LLMs geram texto token a token segundo distribuições condicionais; sistemas multimodais estendem a interação a imagem, áudio e outros sinais.
+O modelo aprende log-odds lineares:
+\[
+\log\frac{p}{1-p}=z.
+\]
 
-\subsection{Tokenização e janela de contexto}
+Um threshold transforma probabilidade em classe, mas threshold é decisão operacional, não parâmetro inevitavelmente 0,5.
 
-Texto é convertido em tokens, que podem representar palavras, subpalavras, bytes ou combinações. A janela de contexto limita a quantidade de informação fornecida diretamente em uma interação. Janela maior aumenta capacidade potencial, mas não garante uso uniforme de todos os trechos.
+\section{Árvores de decisão}
 
-\subsection{Amostragem}
+Árvore divide espaço por regras recursivas para aumentar pureza dos nós.
 
-Temperatura ajusta concentração da distribuição de próximos tokens. Top-$k$ restringe a quantidade de candidatos; top-$p$ restringe pela massa de probabilidade acumulada. Esses parâmetros alteram diversidade, não factualidade por definição.
+Critérios frequentes incluem Gini e entropia.
 
-\begin{cebraspe}
-``Temperatura zero elimina alucinação'' é falso. Uma saída determinística pode estar consistentemente errada.
-\end{cebraspe}
+Para proporção de classes $p_k$:
+\[
+Gini=1-\sum_kp_k^2.
+\]
 
-\section{Prompting, RAG e fine-tuning}
+Entropia:
+\[
+H=-\sum_kp_k\log_2p_k.
+\]
+
+Árvores são interpretáveis, lidam bem com relações não lineares e interações, mas árvores profundas podem overfitar.
+
+\section{Random Forest}
+
+Random Forest combina muitas árvores treinadas com bootstrap e subconjuntos aleatórios de atributos.
+
+A diversidade entre árvores reduz variância do ensemble.
+
+Predição de classificação é agregada por voto/probabilidade; regressão por média.
+
+\section{Gradient Boosting}
+
+Boosting constrói modelos sequencialmente para corrigir erros dos anteriores.
+
+Algoritmos como XGBoost e LightGBM dominam muitos problemas tabulares.
+
+Hiperparâmetros:
+\begin{itemize}
+\item learning rate;
+\item número de árvores;
+\item profundidade;
+\item subsampling;
+\item regularização.
+\end{itemize}
+
+Learning rate menor geralmente exige mais árvores e pode melhorar generalização até certo ponto.
+
+\section{k-Nearest Neighbors}
+
+k-NN classifica ou estima valor com base nos vizinhos mais próximos.
+
+É sensível a:
+\begin{itemize}
+\item escala;
+\item escolha de distância;
+\item valor de $k$;
+\item alta dimensionalidade.
+\end{itemize}
+
+Não há fase pesada de treinamento, mas inferência pode ser cara porque busca vizinhos.
+
+\section{Support Vector Machines}
+
+SVM busca hiperplano de margem máxima. Com kernels, pode representar fronteiras não lineares.
+
+Função RBF:
+\[
+K(x,x')=\exp(-\gamma\|x-x'\|^2).
+\]
+
+Parâmetro $C$ controla penalização de erros; $\gamma$ controla alcance da influência no kernel RBF.
+
+\section{Clustering k-means}
+
+Minimiza:
+\[
+J=\sum_{j=1}^{k}\sum_{x_i\in C_j}\|x_i-\mu_j\|^2.
+\]
+
+É sensível à escala e a outliers. K-means++ melhora inicialização de centroides.
+
+O número de clusters pode ser explorado por elbow, silhouette e conhecimento de domínio.
+
+\section{PCA — Principal Component Analysis}
+
+PCA encontra direções ortogonais de máxima variância.
+
+Após centralização, componentes são autovetores da matriz de covariância, ordenados pelos autovalores.
+
+PCA reduz dimensionalidade e correlação, mas componentes são combinações lineares e podem ser menos interpretáveis.
+
+\section{Métricas de classificação}
+
+\[
+Precision=\frac{TP}{TP+FP},\qquad
+Recall=\frac{TP}{TP+FN}.
+\]
+
+\[
+F_1=2\frac{Precision\times Recall}{Precision+Recall}.
+\]
+
+ROC-AUC mede qualidade de ranking ao variar threshold. Precision-Recall é especialmente útil em classes raras.
+
+Um modelo pode ter AUC alta e ser mal calibrado.
+
+\section{Métricas de regressão}
+
+\[
+MAE=\frac{1}{n}\sum_i|y_i-\hat y_i|.
+\]
+
+\[
+MSE=\frac{1}{n}\sum_i(y_i-\hat y_i)^2.
+\]
+
+\[
+RMSE=\sqrt{MSE}.
+\]
+
+RMSE penaliza mais fortemente erros grandes. Métrica deve refletir custo do problema.
+
+\section{Redes neurais artificiais}
+
+Um neurônio calcula:
+\[
+z=\mathbf{w}^{T}\mathbf{x}+b,
+\qquad
+a=\phi(z).
+\]
+
+Uma rede empilha transformações:
+\[
+h^{(l)}=\phi(W^{(l)}h^{(l-1)}+b^{(l)}).
+\]
+
+Treinamento busca minimizar função de perda ajustando parâmetros.
+
+\section{Funções de ativação}
+
+\subsection{Sigmoid}
+
+\[
+\sigma(z)=\frac{1}{1+e^{-z}}.
+\]
+Usada em saídas binárias, mas satura em regiões extremas.
+
+\subsection{tanh}
+
+Mapeia para $[-1,1]$ e também sofre saturação.
+
+\subsection{ReLU}
+
+\[
+ReLU(z)=\max(0,z).
+\]
+Simples e eficiente, mas neurônios podem tornar-se permanentemente inativos em alguns regimes.
+
+\subsection{GELU}
+
+Ativação suave comum em Transformers modernos.
+
+\section{Funções de perda}
+
+Regressão pode usar MSE. Classificação binária usa frequentemente binary cross-entropy:
+\[
+L=-[y\log p+(1-y)\log(1-p)].
+\]
+
+Multiclasse usa cross-entropy sobre softmax.
+
+\section{Gradiente e backpropagation}
+
+Gradient descent atualiza:
+\[
+\theta_{t+1}=\theta_t-\eta\nabla_{\theta}L,
+\]
+onde $\eta$ é learning rate.
+
+Backpropagation aplica regra da cadeia para calcular gradientes da perda em relação a parâmetros de todas as camadas.
+
+Otimizers como SGD, Momentum e Adam diferem na forma de acumular/normalizar gradientes.
+
+\section{Batch, epoch e learning rate}
+
+\termo{Batch} é subconjunto usado numa atualização.
+
+\termo{Epoch} corresponde a uma passagem pelo conjunto de treino.
+
+Learning rate muito alto pode divergir; muito baixo pode treinar lentamente ou ficar preso em regiões pouco úteis.
+
+\section{Regularização em redes}
+
+\subsection{L2/weight decay}
+
+Penaliza pesos grandes.
+
+\subsection{Dropout}
+
+Durante treino desativa aleatoriamente unidades, reduzindo coadaptação. Na inferência, comportamento muda conforme implementação.
+
+\subsection{Early stopping}
+
+Interrompe quando métrica de validação deixa de melhorar, evitando overfitting tardio.
+
+\section{CNNs}
+
+Convolutional Neural Networks utilizam filtros locais compartilhados.
+
+Uma convolução 2D combina kernel com regiões da entrada e produz feature maps.
+
+Vantagens:
+\begin{itemize}
+\item compartilhamento de pesos;
+\item localidade;
+\item invariância aproximada a pequenas translações.
+\end{itemize}
+
+Historicamente fundamentais em visão computacional.
+
+\section{RNN, LSTM e GRU}
+
+RNN processa sequência mantendo estado:
+\[
+h_t=f(x_t,h_{t-1}).
+\]
+
+Gradientes podem desaparecer/explodir em sequências longas.
+
+LSTM e GRU usam gates para controlar memória e fluxo de informação, mitigando dependências longas.
+
+Transformers reduziram dependência de recorrência em diversas tarefas.
+
+\section{Transformers}
+
+Transformer utiliza mecanismo de atenção para relacionar posições de uma sequência.
+
+\subsection{Self-attention}
+
+Matrizes são projetadas em Queries, Keys e Values:
+\[
+Q=XW_Q,\quad K=XW_K,\quad V=XW_V.
+\]
+
+Atenção escalada:
+\[
+Attention(Q,K,V)=softmax\left(\frac{QK^T}{\sqrt{d_k}}\right)V.
+\]
+
+$QK^T$ mede compatibilidade entre posições; softmax transforma scores em pesos; combinação pondera Values.
+
+\subsection{Por que dividir por $\sqrt{d_k}$?}
+
+À medida que dimensão cresce, produtos internos podem aumentar magnitude e saturar softmax. Escala estabiliza gradientes.
+
+\section{Multi-Head Attention}
+
+Múltiplas cabeças aprendem projeções diferentes:
+\[
+head_i=Attention(QW_i^Q,KW_i^K,VW_i^V).
+\]
+
+As cabeças são concatenadas e projetadas.
+
+Não existe garantia de que cada head corresponda a um conceito humano isolado.
+
+\section{Positional encoding}
+
+Self-attention pura não representa ordem por si só. Modelos adicionam informação posicional por embeddings aprendidos, senos/cossenos ou mecanismos rotacionais, conforme arquitetura.
+
+\section{Encoder, decoder e masking}
+
+Encoder processa contexto bidirecional em arquiteturas clássicas como BERT.
+
+Decoder autoregressivo usa causal mask para impedir que posição veja tokens futuros durante treinamento de next-token prediction.
+
+Encoder-decoder é comum em tarefas sequência-a-sequência.
+
+\section{Tokenização}
+
+LLMs operam sobre tokens, não diretamente sobre palavras.
+
+Token pode ser palavra, subpalavra, byte ou combinação conforme tokenizer.
+
+A mesma frase pode ocupar números distintos de tokens em modelos diferentes. Janela de contexto é medida em tokens.
+
+\section{Embeddings}
+
+Embedding mapeia item para vetor denso.
+
+Similaridade cosseno:
+\[
+cos(\theta)=\frac{a\cdot b}{\|a\|\|b\|}.
+\]
+
+Embedding contextual de uma palavra pode mudar segundo frase.
+
+Proximidade vetorial significa similaridade segundo representação aprendida; não prova equivalência factual.
+
+\section{Large Language Models}
+
+LLMs decoder-only comuns aprendem distribuição:
+\[
+P(x_1,\ldots,x_T)=\prod_{t=1}^{T}P(x_t\mid x_{<t}).
+\]
+
+Treinamento autoregressivo prediz próximo token em grandes corpora.
+
+Modelo aprende regularidades estatísticas; não possui banco explícito de fatos garantidamente verdadeiros.
+
+\section{Pré-treinamento e pós-treinamento}
+
+\subsection{Pré-treinamento}
+
+Aprende capacidades gerais em grandes dados.
+
+\subsection{Supervised Fine-Tuning}
+
+Ajusta modelo com pares instrução-resposta e tarefas desejadas.
+
+\subsection{RLHF}
+
+Reinforcement Learning from Human Feedback pode treinar modelo de recompensa a partir de preferências humanas e otimizar política.
+
+\subsection{DPO}
+
+Direct Preference Optimization otimiza diretamente preferências relativas sem necessidade explícita de treinar um reward model separado em formulação original.
+
+Essas técnicas melhoram comportamento/alinhamento, não garantem factualidade.
+
+\section{Decoding}
+
+Modelo produz logits para próximos tokens. Softmax converte em probabilidades.
+
+\subsection{Temperature}
+
+\[
+p_i=\frac{e^{z_i/T}}{\sum_j e^{z_j/T}}.
+\]
+
+$T<1$ concentra distribuição; $T>1$ aumenta diversidade. Temperatura zero ou greedy decoding pode tornar saída determinística, mas não a torna verdadeira.
+
+\subsection{Top-k}
+
+Restringe candidatos aos $k$ mais prováveis.
+
+\subsection{Top-p}
+
+Seleciona menor conjunto de tokens cuja probabilidade acumulada atinge $p$.
+
+\section{Janela de contexto}
+
+Context window limita tokens que podem ser considerados diretamente em determinada inferência.
+
+Janela maior não significa memória perfeita. Modelos podem usar partes do contexto de maneira desigual; posição, ruído e quantidade de evidência afetam desempenho.
+
+\section{Alucinação}
+
+Alucinação é geração plausível, mas não sustentada ou incorreta.
+
+Causas incluem:
+\begin{itemize}
+\item objetivo de gerar próxima sequência provável;
+\item conhecimento incompleto/desatualizado;
+\item pergunta ambígua;
+\item contexto insuficiente;
+\item conflito entre fontes;
+\item pressão para responder em vez de abster-se.
+\end{itemize}
+
+Controles incluem RAG, ferramentas determinísticas, verificação, citações, output estruturado e revisão humana conforme risco.
+
+\section{Prompt engineering}
+
+Prompt define instrução e contexto.
+
+Técnicas:
+\begin{itemize}
+\item zero-shot;
+\item few-shot;
+\item delimitação clara de contexto;
+\item saída estruturada;
+\item decomposição de tarefa;
+\item exemplificação de critérios.
+\end{itemize}
+
+Prompt não deve ser tratado como fronteira de segurança. Usuário ou conteúdo externo pode tentar modificar comportamento.
+
+\section{Structured output e tool calling}
+
+Saídas estruturadas por schema reduzem ambiguidade de parsing. Tool calling permite modelo selecionar função e argumentos.
+
+O sistema executor deve validar:
+\begin{itemize}
+\item ferramenta permitida;
+\item tipos e limites dos parâmetros;
+\item identidade/autorização;
+\item destino;
+\item impacto;
+\item necessidade de aprovação humana.
+\end{itemize}
+
+O modelo sugerir uma chamada não constitui autorização.
+
+\section{Retrieval-Augmented Generation — RAG}
+
+RAG adiciona recuperação de informação externa ao processo de geração.
+
+Pipeline:
+\[
+\text{documentos}
+\rightarrow
+\text{ingestão}
+\rightarrow
+\text{chunking}
+\rightarrow
+\text{indexação}
+\rightarrow
+\text{consulta}
+\rightarrow
+\text{retrieval}
+\rightarrow
+\text{reranking}
+\rightarrow
+\text{contexto}
+\rightarrow
+\text{LLM}.
+\]
+
+\section{Chunking}
+
+Chunks muito pequenos perdem contexto; muito grandes diluem informação e ocupam janela.
+
+Estratégias:
+\begin{itemize}
+\item tamanho fixo com overlap;
+\item por parágrafo/seção;
+\item semântico;
+\item hierárquico;
+\item preservar tabelas e metadados.
+\end{itemize}
+
+Documento jurídico deve preservar artigo, parágrafo e versão; cortar no meio pode distorcer alcance.
+
+\section{Busca lexical — BM25}
+
+BM25 pontua documentos usando frequência do termo, raridade no corpus e normalização por tamanho.
+
+Busca lexical é forte em nomes, números, siglas e termos exatos.
+
+\section{Busca vetorial}
+
+Consulta e chunks são convertidos em embeddings e comparados por similaridade.
+
+Busca aproximada por vizinhos (ANN) usa índices como HNSW ou IVF para evitar comparar vetor com todo corpus.
+
+ANN troca pequena perda de recall por grande ganho de velocidade.
+
+\section{Busca híbrida}
+
+Combina lexical e vetorial. É útil quando consulta possui termos jurídicos exatos e semântica mais ampla.
+
+Scores de mecanismos diferentes precisam de combinação/normalização apropriada.
+
+\section{Reranking}
+
+Primeiro estágio recupera muitos candidatos rapidamente. Reranker mais caro avalia consulta e documento em conjunto e reordena top resultados.
+
+Cross-encoder tende a ser mais preciso que similaridade bi-encoder, mas mais custoso.
+
+\section{Métricas de retrieval}
+
+\subsection{Recall@k}
+
+Proporção de itens relevantes recuperados nos primeiros $k$.
+
+\subsection{Precision@k}
+
+Proporção dos top-$k$ que é relevante.
+
+\subsection{MRR}
+
+Mean Reciprocal Rank enfatiza posição do primeiro resultado relevante:
+\[
+MRR=\frac{1}{N}\sum_i\frac{1}{rank_i}.
+\]
+
+\subsection{nDCG}
+
+Considera relevância graduada e posição no ranking.
+
+Avaliar apenas resposta final esconde se falha ocorreu no retrieval ou no gerador.
+
+\section{Groundedness e faithfulness}
+
+Após recuperar fonte correta, resposta deve permanecer sustentada por ela.
+
+Separar:
+\begin{itemize}
+\item retrieval quality;
+\item contextual relevance;
+\item groundedness/faithfulness;
+\item answer correctness;
+\item citation correctness.
+\end{itemize}
+
+\begin{exemplo}[diagnóstico de RAG]
+Fonte correta não apareceu $\Rightarrow$ problema de retrieval/index/chunk/query.
+
+Fonte correta apareceu, mas resposta contradiz $\Rightarrow$ problema de geração/grounding.
+
+Resposta correta, mas citação aponta trecho irrelevante $\Rightarrow$ problema de attribution.
+\end{exemplo}
+
+\section{RAG versus fine-tuning}
 
 \begin{table}[ht]
 \centering
 \small
 \begin{tabularx}{\textwidth}{l X X}
 \toprule
-Técnica & Melhor quando & Limitação \\
+Técnica & Melhor para & Limitação \\
 \midrule
-Prompting & regra/tarefa cabe no contexto & sensível a instrução, contexto e limites. \\
-RAG & fatos estão em acervo externo e mudam & depende da recuperação e da fidelidade à fonte. \\
-Fine-tuning & comportamento, formato ou tarefa precisam ser internalizados & custo, manutenção e risco de dados; não é banco de fatos atualizados. \\
+Prompting & instruções/contexto pequeno & não internaliza comportamento de forma persistente. \\
+RAG & conhecimento factual mutável/privado & depende da recuperação e disponibilidade da fonte. \\
+Fine-tuning & estilo, formato e comportamento especializado & não é banco confiável de fatos atualizados. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Uma arquitetura pode combinar fine-tuning para comportamento e RAG para conhecimento mutável.
+Sistemas podem combinar fine-tuning para comportamento e RAG para fatos.
 
-\section{RAG em profundidade}
+\section{Fine-tuning eficiente e LoRA}
 
-Pipeline típico:
+Fine-tuning completo atualiza muitos parâmetros e pode ser caro.
+
+LoRA adiciona matrizes de baixa ordem às transformações e treina pequeno subconjunto de parâmetros:
 \[
-\text{documentos}\rightarrow\text{chunking}\rightarrow\text{índice}\rightarrow\text{consulta}\rightarrow\text{retrieval/rerank}\rightarrow\text{contexto}\rightarrow\text{geração}.
+W'=W+BA,
 \]
+com rank pequeno em $A$ e $B$.
 
-\subsection{Recuperação}
-
-Busca lexical favorece termos exatos; embeddings favorecem semântica. Busca híbrida combina os dois. Chunking inadequado pode separar conceito e evidência ou produzir trechos grandes demais.
-
-\subsection{Avaliação}
-
-É útil separar:
-\begin{itemize}
-\item \textbf{retrieval quality}: a fonte correta apareceu entre os trechos recuperados?;
-\item \textbf{groundedness/fidelity}: a resposta é sustentada pelo contexto?;
-\item \textbf{answer quality}: a resposta resolve a tarefa?;
-\item \textbf{citation quality}: a citação realmente sustenta a afirmação?
-\end{itemize}
-
-Se a fonte correta não é recuperada, aumentar temperatura do gerador não corrige a causa.
-
-\section{Embeddings e busca vetorial}
-
-Embedding representa objeto em vetor denso. Similaridade do cosseno:
-\[
-\cos(\theta)=\frac{\mathbf{a}\cdot\mathbf{b}}{\|\mathbf{a}\|\|\mathbf{b}\|}.
-\]
-
-Bancos vetoriais indexam embeddings para busca aproximada. Proximidade vetorial indica semelhança segundo o modelo e o treinamento; não prova equivalência factual, identidade de pessoa ou relação causal.
-
-\section{NLP}
-
-Tarefas: classificação, NER, tradução, sumarização, pergunta-resposta e geração. Representações clássicas incluem bag-of-words e TF-IDF; modernas incluem embeddings contextuais. Pré-processamento deve respeitar o modelo: remover stopwords ou reduzir palavras indiscriminadamente pode apagar sinais úteis.
+Reduz memória e custo e permite adapters por tarefa.
 
 \section{Agentes de IA}
 
-Agente combina modelo, objetivo, estado/memória, ferramentas e laço de decisão. Pode consultar bases, chamar APIs, executar código e acionar workflows.
+Agente combina modelo, objetivo, ferramentas, memória/estado e loop de decisão.
 
-\begin{atencao}[autonomia e blast radius]
-Capacidade de raciocinar não é autorização. Um agente com ferramenta de alto impacto deve operar com allowlist, validação de parâmetros, privilégios mínimos, limites de destino, sandbox e aprovação humana para ações críticas.
-\end{atencao}
+Ciclo possível:
+\[
+\text{observar}\rightarrow
+\text{planejar}\rightarrow
+\text{agir com ferramenta}\rightarrow
+\text{observar resultado}\rightarrow
+\text{continuar/parar}.
+\]
 
-\subsection{Prompt injection em agentes}
+\subsection{Ferramentas}
 
-Conteúdo externo pode conter instruções maliciosas. Documento, e-mail e página web devem ser tratados como dados não confiáveis. Separar instruções de sistema, contexto e parâmetros de ferramentas reduz risco, mas segurança também depende de limitar o poder efetivo das ferramentas.
+APIs, banco, busca, código, e-mail ou sistemas transacionais ampliam poder do modelo.
+
+Autoridade deve ser limitada por controles externos ao modelo.
+
+\section{Prompt injection}
+
+Prompt injection acontece quando conteúdo não confiável tenta alterar instruções do modelo.
+
+\subsection{Direta}
+
+Usuário fornece instrução maliciosa.
+
+\subsection{Indireta}
+
+Documento, página, e-mail ou arquivo recuperado contém instruções que o agente interpreta como comando.
+
+Controles:
+\begin{itemize}
+\item separar instruções de dados;
+\item tratar conteúdo recuperado como não confiável;
+\item allowlist de ferramentas;
+\item validação de argumentos;
+\item privilégio mínimo;
+\item sandbox;
+\item aprovação humana em ações críticas.
+\end{itemize}
+
+Não existe prompt textual que sozinho forneça isolamento de segurança equivalente a controle de autorização.
+
+\section{Memória em agentes}
+
+Memória pode ser:
+\begin{itemize}
+\item contexto de curto prazo;
+\item histórico persistente;
+\item memória semântica em banco vetorial;
+\item estado estruturado da tarefa.
+\end{itemize}
+
+Memória persistente cria riscos de privacidade, contaminação e instruções maliciosas armazenadas. Deve ter escopo, retenção e controle de acesso.
 
 \section{MLOps}
 
-Ciclo:
+MLOps aplica princípios de automação, versionamento, teste e operação ao ciclo de modelos.
+
+Pipeline:
 \[
-\text{dados}\rightarrow\text{treino}\rightarrow\text{validação}\rightarrow\text{registro}\rightarrow\text{deploy}\rightarrow\text{monitoramento}\rightarrow\text{re-treino}.
+\text{dados}
+\rightarrow
+\text{features}
+\rightarrow
+\text{treino}
+\rightarrow
+\text{validação}
+\rightarrow
+\text{registry}
+\rightarrow
+\text{deploy}
+\rightarrow
+\text{monitoramento}
+\rightarrow
+\text{re-treino}.
 \]
 
-Devem ser versionados ou referenciados de modo reproduzível: código, dados, features, hiperparâmetros, ambiente, modelo e métricas. Model registry registra versões, metadados, aprovação e estágio de promoção.
+\section{Reprodutibilidade}
 
-\subsection{Drift}
-
-Data drift: distribuição das entradas muda. Concept drift: relação entre entradas e alvo muda. O endpoint pode estar 100\% disponível enquanto a qualidade estatística cai.
-
-Monitoramento deve combinar:
+Devem ser versionados/referenciados:
 \begin{itemize}
-\item qualidade/esquema das entradas;
-\item distribuição e drift;
-\item latência/throughput;
-\item métricas preditivas quando rótulos chegam;
-\item métricas de negócio e impacto.
+\item código;
+\item dados e snapshot;
+\item features;
+\item hiperparâmetros;
+\item seed;
+\item dependências;
+\item imagem de runtime;
+\item métricas;
+\item artefato do modelo.
 \end{itemize}
 
-\subsection{Deploy seguro}
+Salvar apenas arquivo do modelo não permite reconstruir como foi produzido.
 
-Canary expõe nova versão a parte do tráfego. Shadow executa nova versão com cópia do tráfego sem usar sua saída na decisão real. Ambas reduzem risco, mas dependem de critérios de sucesso e rollback.
+\section{Feature store}
 
-\section{Riscos de IA generativa}
+Feature store gerencia definições e disponibilização de features para treino e inferência.
 
-\subsection{Alucinação}
+Ajuda a evitar \termo{training-serving skew}, quando feature calculada de modo diferente no treino e produção.
 
-Modelo pode produzir conteúdo plausível e incorreto. Controles: RAG, ferramentas determinísticas, validação, saída estruturada, delimitação da tarefa e revisão humana proporcional ao impacto.
+Feature deve respeitar disponibilidade temporal para não vazar futuro.
 
-\subsection{Prompt injection}
+\section{Model registry}
 
-Ataques tentam fazer o modelo seguir instrução embutida em conteúdo não confiável. O controle efetivo não é apenas ``pedir ao modelo que ignore ataques'': é limitar autoridade, dados acessíveis e ferramentas.
+Registry registra versões, métricas, lineage, aprovação e estágio de promoção.
 
-\subsection{Vazamento e retenção}
+Rollback exige saber qual modelo, código e dados estavam ativos.
 
-Prompts, arquivos, logs e datasets podem conter dados pessoais ou sigilosos. Devem existir classificação, minimização, redaction, políticas de retenção, controle de acesso e avaliação contratual do provedor.
+\section{Deploy de modelos}
 
-\section{Viés e fairness}
+\subsection{Batch inference}
 
-Viés pode surgir de amostragem, rótulos, história institucional, proxies, objetivo de otimização e feedback após implantação. Remover atributo sensível explícito não remove proxies.
+Processa lotes periodicamente.
 
-\begin{exemplo}[viés de seleção]
-Se apenas contratos historicamente auditados possuem rótulo de irregularidade, o modelo aprende também a política histórica de seleção. Áreas pouco auditadas podem parecer artificialmente ``seguras'' por ausência de rótulo.
-\end{exemplo}
+\subsection{Online inference}
 
-Métricas de fairness dependem do contexto e podem ser incompatíveis entre si quando taxas-base diferem. A escolha deve considerar direito, finalidade e impacto.
+Endpoint responde em baixa latência.
+
+\subsection{Canary}
+
+Nova versão atende pequena fração de tráfego, com comparação de métricas.
+
+\subsection{Shadow}
+
+Recebe cópia de requisições, mas não controla resposta real.
+
+Shadow permite comparar sem risco decisório direto, porém ainda requer proteção de dados enviados à nova versão.
+
+\section{Drift}
+
+\termo{Data drift}: distribuição das entradas muda.
+
+\termo{Concept drift}: relação $P(Y\mid X)$ muda.
+
+\termo{Label drift}: distribuição do alvo muda.
+
+Modelo pode continuar disponível e rápido enquanto qualidade cai.
+
+\section{Detecção de drift}
+
+Técnicas:
+\begin{itemize}
+\item PSI;
+\item KS test;
+\item Jensen-Shannon divergence;
+\item comparação de quantis/categorias;
+\item métricas preditivas quando labels chegam.
+\end{itemize}
+
+Drift estatístico não implica necessidade automática de retreino. É sinal a ser relacionado a impacto.
+
+\section{Fairness e viés}
+
+Viés pode surgir em:
+\begin{itemize}
+\item amostragem;
+\item rótulos históricos;
+\item proxies;
+\item objetivo de otimização;
+\item feedback após implantação;
+\item uso fora do contexto original.
+\end{itemize}
+
+\section{Métricas de fairness}
+
+\subsection{Demographic parity}
+
+Taxa de decisão positiva semelhante entre grupos:
+\[
+P(\hat Y=1\mid A=a)\approx P(\hat Y=1\mid A=b).
+\]
+
+\subsection{Equal opportunity}
+
+Recall/TPR semelhante entre grupos.
+
+\subsection{Equalized odds}
+
+Busca TPR e FPR semelhantes.
+
+\subsection{Predictive parity}
+
+Precisão/PPV semelhante.
+
+Essas métricas podem ser incompatíveis simultaneamente quando taxas-base diferem. Escolha é normativa e contextual, não puramente matemática.
+
+\section{Proxy discrimination}
+
+Remover atributo sensível não elimina discriminação se outras features o reconstruírem.
+
+CEP, escola, renda e padrões de consumo podem atuar como proxies de raça, classe ou território.
 
 \section{Explicabilidade}
 
-Modelos interpretáveis permitem compreender diretamente parte do mecanismo; métodos pós-hoc explicam saídas de modelos complexos. Feature importance, PDP, LIME e SHAP são exemplos.
+\subsection{Modelos interpretáveis}
 
-Explicação não é causalidade. Uma feature com SHAP alto não é necessariamente causa do resultado. Explicabilidade também não substitui robustez, validação e fairness.
+Regressão e árvores pequenas permitem interpretação relativamente direta.
+
+\subsection{Feature importance}
+
+Importância global mostra contribuição para modelo, mas diferentes métodos têm vieses.
+
+\subsection{LIME}
+
+Aproxima localmente modelo complexo por modelo interpretável sobre perturbações.
+
+\subsection{SHAP}
+
+Usa valores inspirados em Shapley para atribuir contribuição de features à diferença entre previsão e baseline.
+
+SHAP explica comportamento do modelo sob pressupostos do método; não prova causalidade.
+
+Features correlacionadas podem dividir atribuições de formas contraintuitivas.
 
 \section{Supervisão humana}
 
-Human-in-the-loop só é controle real quando o humano possui:
+Human-in-the-loop é controle apenas se o humano possui:
 \begin{itemize}
 \item informação suficiente;
-\item tempo para revisar;
-\item competência técnica/substantiva;
-\item autoridade para rejeitar;
-\item incentivo para não aprovar automaticamente.
+\item tempo;
+\item competência;
+\item autoridade para discordar;
+\item interface que permita revisar evidência;
+\item incentivo para evitar aprovação automática.
 \end{itemize}
 
-Uma tela com botão ``aprovar'' pode criar \emph{automation bias} e falsa sensação de controle.
+Automation bias ocorre quando humanos confiam excessivamente no sistema.
 
 \section{Governança de IA}
 
-Controles essenciais:
+Governança deve registrar:
 \begin{itemize}
-\item inventário de modelos e sistemas;
 \item finalidade e owner;
-\item classificação de risco/impacto;
-\item origem e restrições dos dados;
-\item validação pré-deploy;
-\item registry/versionamento;
-\item supervisão humana;
-\item monitoramento de drift/incidentes;
+\item usuários e afetados;
+\item classificação de impacto;
+\item dados e direitos de uso;
+\item versão/modelo/provedor;
+\item métricas e limites;
+\item validação antes do deploy;
+\item supervisão;
+\item incidentes;
+\item drift;
 \item processo de contestação;
-\item gestão de fornecedores/modelos externos;
 \item critérios de descontinuação.
 \end{itemize}
 
-Referências de governança e risco de IA, como o NIST AI Risk Management Framework e perfis específicos de IA generativa, ajudam a estruturar avaliação, mas não substituem obrigações legais e análise contextual.
+\section{NIST AI RMF}
 
-\section{Mapa mental funcional}
+O AI Risk Management Framework 1.0 do NIST organiza gestão de riscos de IA em quatro funções:
+\begin{itemize}
+\item Govern;
+\item Map;
+\item Measure;
+\item Manage.
+\end{itemize}
+
+Em 2026, a versão 1.0 encontra-se em processo de revisão pelo NIST. Portanto, deve-se distinguir o framework publicado da revisão em andamento.
+
+\section{NIST AI 600-1 — perfil de IA generativa}
+
+O perfil de IA generativa complementa o AI RMF 1.0 com riscos e ações específicas para GenAI.
+
+Riscos incluem, entre outros temas:
+\begin{itemize}
+\item confabulação/alucinação;
+\item privacidade;
+\item segurança da informação;
+\item conteúdo nocivo;
+\item vieses;
+\item propriedade intelectual;
+\item dependência excessiva;
+\item integridade da informação;
+\item riscos de cadeia de valor.
+\end{itemize}
+
+O perfil é recurso voluntário de gestão de risco, não certificação de segurança.
+
+\section{Avaliação de sistemas generativos}
+
+Avaliação deve combinar:
+\begin{itemize}
+\item qualidade da tarefa;
+\item factualidade/groundedness;
+\item segurança;
+\item robustez a adversarial prompts;
+\item privacidade;
+\item latência/custo;
+\item grupos/idiomas;
+\item comportamento de abstention;
+\item testes humanos.
+\end{itemize}
+
+Benchmark público pode não representar documentos, linguagem ou riscos do órgão.
+
+\section{LLM-as-a-Judge}
+
+Usar outro LLM para avaliar respostas escala testes qualitativos, mas introduz vieses:
+\begin{itemize}
+\item preferência por estilo;
+\item posição;
+\item modelo semelhante;
+\item sensibilidade ao prompt;
+\item incapacidade de verificar fato externo sem fonte.
+\end{itemize}
+
+Deve ser calibrado contra avaliação humana e critérios verificáveis.
+
+\section{Segurança e privacidade de IA}
+
+Riscos:
+\begin{itemize}
+\item dados pessoais em prompt/log;
+\item memorization;
+\item model inversion;
+\item membership inference;
+\item prompt injection;
+\item data poisoning;
+\item model theft;
+\item supply chain;
+\item secrets em contexto;
+\item tool abuse.
+\end{itemize}
+
+\section{Data poisoning}
+
+Atacante manipula dados de treino/fine-tuning/retrieval para alterar comportamento.
+
+Em RAG, inserir documento malicioso no corpus pode gerar tanto desinformação quanto prompt injection indireta.
+
+Controles incluem origem, aprovação, integridade, versionamento e monitoramento do corpus.
+
+\section{Model extraction e membership inference}
+
+Model extraction tenta reproduzir comportamento ou obter propriedade do modelo por consultas.
+
+Membership inference tenta inferir se determinado registro participou do treino.
+
+Rate limits, monitoramento, privacidade diferencial em determinados cenários e minimização de exposição podem reduzir risco.
+
+\section{IA no setor público}
+
+Casos:
+\begin{itemize}
+\item triagem e classificação;
+\item detecção de anomalias;
+\item apoio a auditoria;
+\item sumarização;
+\item busca semântica;
+\item atendimento;
+\item previsão de demanda;
+\item geração assistida de documentos.
+\end{itemize}
+
+Quanto maior impacto sobre direitos ou recursos, maior deve ser exigência de validação, explicabilidade apropriada, supervisão e possibilidade de contestação.
+
+\section{Síntese conceitual}
 
 \mapafuncional{Inteligência Artificial}
-{IA confiável = problema correto + dados válidos + avaliação realista + uso governado}
-{ML: supervisionado/não supervisionado/reforço.\\GenAI: prompt $\rightarrow$ contexto/RAG $\rightarrow$ geração $\rightarrow$ validação.\\MLOps: dados $\rightarrow$ treino $\rightarrow$ registry $\rightarrow$ deploy $\rightarrow$ drift.\\Governança: inventário $\rightarrow$ risco $\rightarrow$ owner $\rightarrow$ monitoramento.}
-{Fato mutável: pense em RAG.\\Resposta errada com fonte ausente: revise retrieval.\\Fonte correta + resposta errada: revise groundedness.\\Agente com ação crítica: reduza privilégios e exija aprovação.\\Métrica caiu sem erro de infraestrutura: procure drift.}
-{Temperatura 0 $\neq$ verdade.\\Embedding próximo $\neq$ identidade.\\Remover atributo sensível $\neq$ fairness.\\Explicação SHAP $\neq$ causalidade.\\Humano na tela $\neq$ supervisão efetiva.}
-{O dado existia no momento da decisão?\\Qual versão do modelo está em produção?\\Quais fontes o RAG pode recuperar?\\O conteúdo externo pode acionar ferramenta?\\Há métricas por grupo?\\Quem pode contestar/desligar o modelo?}
+{IA confiável = problema correto + dados válidos + modelo avaliado + uso governado}
+{ML $\rightarrow$ regressão, árvores, ensembles, SVM e clustering.\\Deep Learning $\rightarrow$ neurônio, backprop, CNN/RNN e Transformer.\\LLM $\rightarrow$ tokens, pretraining, decoding e alinhamento.\\RAG $\rightarrow$ chunking, retrieval, reranking e grounding.\\Agentes $\rightarrow$ ferramentas, memória e autoridade.\\MLOps $\rightarrow$ lineage, registry, deploy e drift.\\Governança $\rightarrow$ fairness, explicabilidade, risco e supervisão.}
+{Fonte mutável: RAG.\\Comportamento/formato: fine-tuning.\\Fonte ausente: problema de retrieval.\\Fonte correta e resposta errada: grounding.\\AUC alta não garante calibração.\\Prompt não substitui autorização.}
+{Temperature 0 $\neq$ verdade.\\Embedding próximo $\neq$ identidade factual.\\SHAP $\neq$ causalidade.\\Remover atributo sensível $\neq$ fairness.\\Humano no fluxo $\neq$ supervisão efetiva.\\LLM com ferramenta $\neq$ agente autorizado.}
+{O dado existia na época?\\Qual versão do modelo?\\Qual corpus do RAG?\\A citação sustenta a resposta?\\Que ferramenta pode ser chamada?\\Há métricas por grupo?\\Quem pode contestar e desligar?}
 
 \begin{resumo}
-\textbf{Regra de prova:} se a questão envolver IA generativa, separe quatro camadas — fonte de conhecimento, comportamento do modelo, autoridade para agir e governança do resultado. Misturar essas camadas gera os principais erros de arquitetura e de auditoria.
+IA deve ser estudada em camadas. Machine Learning trata inferência a partir de dados; Deep Learning aprende representações; Transformers fundamentam LLMs; RAG conecta modelos a fontes externas; agentes adicionam ação; MLOps mantém reproduzibilidade e operação; governança controla impacto e risco. Misturar essas camadas é origem de muitas pegadinhas de prova e erros de projeto.
 \end{resumo}
-
-\input{questoes/18_inteligencia_artificial}
-
-\section{Treino discursivo}
-\begin{discursiva}[IA generativa no setor público]
-Um TCE pretende usar LLM com RAG para resumir processos e sugerir achados preliminares. Em até 30 linhas, proponha controles para fontes, autorização, dados pessoais, alucinação, prompt injection, registro de versões/prompts, validação humana e responsabilização.
-\end{discursiva}
-\begin{discursiva}[modelo de risco]
-Um modelo classifica fornecedores por risco e apresenta bom desempenho global, mas não há validação por grupos, registro das features nem monitoramento de drift. Em até 30 linhas, estruture os procedimentos de auditoria e a governança necessária antes do uso decisório.
-\end{discursiva}
-
-\input{solucoes/18_inteligencia_artificial}
