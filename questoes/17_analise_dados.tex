@@ -1,0 +1,401 @@
+\section{Banco de questões — Análise de Dados}
+
+\subsection*{N1 — Fundamento competitivo}
+
+\begin{questao}{\nivel{N1} 17.01 — Cebraspe/Certo ou Errado}
+Em problema de classificação altamente desbalanceado, acurácia elevada pode coexistir com recall nulo para a classe de interesse.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.02 — Cebraspe/Certo ou Errado}
+Precisão responde à pergunta ``entre os casos previstos como positivos, quantos eram realmente positivos?'', enquanto recall mede a fração dos positivos reais detectados.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.03 — Cebraspe/Certo ou Errado}
+AUC-ROC elevada garante que as probabilidades previstas estejam bem calibradas.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.04 — Cebraspe/Certo ou Errado}
+Em validação de modelo temporal, divisão aleatória pode produzir avaliação excessivamente otimista se informações futuras vazarem para o treino.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.05 — Cebraspe/Certo ou Errado}
+Padronização deve ser ajustada apenas no conjunto de treino e depois aplicada aos conjuntos de validação e teste, para evitar leakage.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.06 — Cebraspe/Certo ou Errado}
+K-means é sensível à escala das variáveis e à inicialização dos centroides.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.07 — Cebraspe/Certo ou Errado}
+Lift maior que 1 em regra de associação indica associação positiva em relação à frequência-base, mas não demonstra causalidade.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.08 — Cebraspe/Certo ou Errado}
+Um outlier estatístico deve ser removido automaticamente antes de qualquer modelagem, pois representa necessariamente erro de dado.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.09 — Cebraspe/Certo ou Errado}
+RMSE penaliza erros grandes mais fortemente que MAE, em razão do quadrado dos resíduos antes da média e da raiz.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 17.10 — Cebraspe/Certo ou Errado}
+Correlação elevada entre duas variáveis é suficiente para concluir que uma causa a outra.
+\end{questao}
+
+\subsection*{N2 — Aplicação}
+
+\begin{questao}{\nivel{N2} 17.11 — FCC/matriz de confusão}
+Um classificador produziu 80 verdadeiros positivos, 20 falsos negativos e 40 falsos positivos. O recall da classe positiva é:
+\begin{enumerate}[label=\Alph*)]
+\item 50\%;
+\item 66,7\%;
+\item 80\%;
+\item 90\%;
+\item 100\%.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.12 — FGV/métrica}
+Uma equipe de fiscalização só consegue analisar 100 alertas por semana. O custo principal é desperdiçar vagas com falsos positivos. A métrica a enfatizar entre os alertas selecionados é:
+\begin{enumerate}[label=\Alph*)]
+\item precisão;
+\item recall apenas;
+\item R\textsuperscript{2};
+\item silhouette;
+\item RMSE.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.13 — Cebraspe/Certo ou Errado}
+Quando o custo de perder um caso positivo grave é elevado, recall pode ser mais relevante que precisão, dependendo da capacidade operacional e do contexto.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.14 — FCC/F1}
+Se precisão = 0,75 e recall = 0,60, o F1 é aproximadamente:
+\begin{enumerate}[label=\Alph*)]
+\item 0,45;
+\item 0,60;
+\item 0,67;
+\item 0,75;
+\item 0,90.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.15 — FGV/preprocessamento}
+Uma equipe calcula média e desvio-padrão de todas as observações, inclusive do teste, antes de padronizar os dados. O problema é:
+\begin{enumerate}[label=\Alph*)]
+\item underflow;
+\item data leakage;
+\item normalização relacional;
+\item deadlock;
+\item somente overfitting de árvore.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.16 — Cebraspe/Certo ou Errado}
+Árvores de decisão, em geral, são menos sensíveis ao escalonamento das variáveis do que algoritmos baseados em distância, como k-NN.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.17 — FCC/categóricas}
+Uma variável ``UF'' foi codificada como MA=1, PI=2, CE=3. Para algoritmo que interpreta distância numérica, o risco é:
+\begin{enumerate}[label=\Alph*)]
+\item criar ordem/distância artificial entre categorias nominais;
+\item eliminar todas as categorias;
+\item garantir melhor desempenho;
+\item reduzir cardinalidade a zero;
+\item tornar o modelo não supervisionado.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.18 — FGV/CRISP-DM}
+Um projeto alcançou AUC 0,94, mas os auditores não conseguem usar o ranking porque o modelo foi treinado para um alvo sem relação com a decisão de fiscalização. A falha principal ocorreu em:
+\begin{enumerate}[label=\Alph*)]
+\item entendimento do negócio/definição do problema;
+\item armazenamento;
+\item visualização apenas;
+\item normalização de banco;
+\item clustering.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.19 — Cebraspe/Certo ou Errado}
+No CRISP-DM, a passagem entre fases é iterativa; resultados da modelagem podem exigir retorno à preparação ou ao entendimento dos dados.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.20 — FCC/ROC}
+Ao reduzir o threshold de classificação, tende-se, em muitos modelos, a:
+\begin{enumerate}[label=\Alph*)]
+\item reduzir simultaneamente TPR e FPR sempre;
+\item aumentar TPR e, em geral, também FPR;
+\item manter matriz de confusão invariável;
+\item eliminar falsos positivos;
+\item tornar AUC igual a 1.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.21 — FGV/PR curve}
+Em detecção de fraude com 0,2\% de positivos, a curva Precision-Recall pode ser particularmente informativa porque:
+\begin{enumerate}[label=\Alph*)]
+\item ignora a classe positiva;
+\item enfatiza desempenho sobre a classe rara e os falsos positivos;
+\item é equivalente a R\textsuperscript{2};
+\item elimina a necessidade de threshold;
+\item garante calibração.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.22 — Cebraspe/Certo ou Errado}
+DBSCAN pode identificar ruído e clusters de forma não esférica, mas seu resultado depende de parâmetros de densidade e escala dos dados.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.23 — FCC/regras de associação}
+Se $P(B)=0,20$ e $P(B\mid A)=0,50$, o lift de $A\Rightarrow B$ é:
+\begin{enumerate}[label=\Alph*)]
+\item 0,10;
+\item 0,40;
+\item 1,0;
+\item 2,5;
+\item 5,0.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.24 — FGV/regressão}
+Dois modelos têm MAE semelhante, mas o modelo X possui RMSE muito maior. Isso sugere que X:
+\begin{enumerate}[label=\Alph*)]
+\item possui alguns erros grandes que pesam fortemente no RMSE;
+\item não possui outliers de erro;
+\item é necessariamente melhor calibrado;
+\item tem R\textsuperscript{2}=1;
+\item não pode ser regressão.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 17.25 — Cebraspe/Certo ou Errado}
+Em análise de texto, TF-IDF tende a aumentar o peso de termos importantes em um documento e relativamente raros no corpus, quando comparado à contagem bruta.
+\end{questao}
+
+\subsection*{N3 — Integração de concurso}
+
+\begin{questao}{\nivel{N3} 17.26 — FGV/assertivas}
+Considere:
+
+I. Acurácia pode ser inadequada em classe rara.
+
+II. AUC-ROC mede capacidade de ordenação ao longo de thresholds, não calibração diretamente.
+
+III. Precision-Recall é inútil quando a classe positiva é rara.
+
+Assinale a alternativa correta.
+\begin{enumerate}[label=\Alph*)]
+\item Apenas I.
+\item Apenas II.
+\item Apenas I e II.
+\item Apenas II e III.
+\item I, II e III.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.27 — Cebraspe/Certo ou Errado}
+Um modelo com AUC elevada pode ter probabilidades sistematicamente superestimadas ou subestimadas; nesse caso, técnicas de calibração podem ser relevantes.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.28 — FCC/leakage}
+Um modelo de risco de contratos usa a variável ``quantidade final de aditivos'', calculada após encerramento do contrato, para decidir quais contratos em andamento serão fiscalizados. O problema é:
+\begin{enumerate}[label=\Alph*)]
+\item alta dimensionalidade;
+\item leakage temporal;
+\item falta de one-hot encoding;
+\item clustering inadequado;
+\item baixo recall necessariamente.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.29 — FGV/validação temporal}
+Dados de 2019--2025 serão usados para prever casos de 2026. A estratégia de avaliação mais realista é:
+\begin{enumerate}[label=\Alph*)]
+\item embaralhar todos os anos e dividir aleatoriamente;
+\item preservar ordem temporal, treinando no passado e validando/testando em períodos posteriores;
+\item usar apenas 2025 para tudo;
+\item calcular preprocessing em toda a série antes da divisão;
+\item remover datas do dataset e dividir aleatoriamente.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.30 — Cebraspe/Certo ou Errado}
+Se o processo de geração dos rótulos depende de quais casos foram historicamente auditados, o modelo pode reproduzir vieses de seleção existentes no processo de fiscalização.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.31 — FCC/clustering}
+K-means aplicado a duas variáveis, uma em reais de milhões e outra entre 0 e 1, sem escalonamento, tende a ser dominado por:
+\begin{enumerate}[label=\Alph*)]
+\item variável de maior escala;
+\item variável binária apenas;
+\item número de linhas;
+\item target supervisionado;
+\item matriz de confusão.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.32 — FGV/anomalias}
+Um pagamento de R\$ 30 milhões é extremo globalmente, mas normal para grandes obras de infraestrutura. Isso ilustra:
+\begin{enumerate}[label=\Alph*)]
+\item necessidade de considerar anomalia contextual e porte do objeto;
+\item que todo outlier é fraude;
+\item que z-score sempre resolve;
+\item que contexto deve ser removido;
+\item que clustering é supervisionado.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.33 — Cebraspe/Certo ou Errado}
+Uma regra de associação com alto confidence pode ser pouco informativa se o consequente já for muito frequente; o lift ajuda a comparar com essa frequência-base.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.34 — FCC/visualização}
+Um gráfico de barras começa o eixo Y em 98 em vez de 0 e compara valores 99 e 100, produzindo diferença visual enorme. O risco é:
+\begin{enumerate}[label=\Alph*)]
+\item distorção perceptiva da magnitude da diferença;
+\item aumento de acurácia;
+\item correção automática por legenda;
+\item perda de dados do banco;
+\item leakage.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.35 — FGV/SQL analítico}
+Para ranquear fornecedores por valor dentro de cada órgão sem colapsar as linhas, a construção mais apropriada é:
+\begin{enumerate}[label=\Alph*)]
+\item função de janela com \texttt{PARTITION BY orgao};
+\item apenas \texttt{GROUP BY fornecedor};
+\item \texttt{DELETE};
+\item \texttt{CROSS JOIN};
+\item índice hash.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.36 — Cebraspe/Certo ou Errado}
+Uma função de janela pode calcular agregados ou rankings sobre conjuntos relacionados sem reduzir o número de linhas como ocorre em um \texttt{GROUP BY} tradicional.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.37 — FCC/Python}
+Em pandas, um \texttt{groupby} seguido de agregação pode alterar a granularidade do dataset; por isso, ao fazer merge posterior, o analista deve verificar:
+\begin{enumerate}[label=\Alph*)]
+\item cardinalidade e chaves do merge;
+\item apenas cor do gráfico;
+\item memória da GPU;
+\item versão do sistema operacional apenas;
+\item somente nome das colunas.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.38 — FGV/planilhas}
+Uma análise recorrente é realizada manualmente em planilha com fórmulas ocultas e cópias divergentes por e-mail. O principal risco é:
+\begin{enumerate}[label=\Alph*)]
+\item baixa reprodutibilidade, controle de versão e auditabilidade;
+\item excesso de automação;
+\item impossibilidade de calcular média;
+\item falta de banco NoSQL;
+\item uso de gráficos.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.39 — Cebraspe/Certo ou Errado}
+Um embedding aproxima objetos em espaço vetorial por relações aprendidas, mas similaridade vetorial não equivale automaticamente a identidade ou causalidade.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 17.40 — FCC/avaliação de anomalia}
+Um detector sinaliza 500 contratos como anômalos. Após revisão humana, apenas 30 são relevantes. Antes de concluir que o algoritmo é inútil, deve-se avaliar:
+\begin{enumerate}[label=\Alph*)]
+\item threshold, objetivo, capacidade de investigação e custo de falsos positivos;
+\item somente CPU;
+\item número de colunas;
+\item formato CSV;
+\item apenas o nome do algoritmo.
+\end{enumerate}
+\end{questao}
+
+\subsection*{N4 — Auditoria / avançado}
+
+\begin{questao}{\nivel{N4} 17.41 — Cebraspe/caso integrado}
+Um modelo para selecionar licitações tem AUC 0,93, foi treinado com divisão aleatória de 2018--2025 e usa atributos disponíveis apenas após a assinatura do contrato. Julgue o item:
+
+O AUC elevado é evidência suficiente de que o modelo pode ser usado na fase pré-contratual.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.42 — FGV/auditoria analítica}
+Um dashboard oficial mostra total 8\% acima da fonte. O pipeline une contratos e pagamentos em relação 1:N. O primeiro procedimento é:
+\begin{enumerate}[label=\Alph*)]
+\item aplicar \texttt{DISTINCT} indiscriminadamente;
+\item mapear granularidade, cardinalidade dos joins e reconciliar totais por etapa;
+\item excluir registros grandes;
+\item trocar ferramenta de BI;
+\item aumentar memória.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.43 — FCC/viés de seleção}
+Somente contratos já auditados possuem rótulo confiável de irregularidade. Um modelo treinado nesses dados pode:
+\begin{enumerate}[label=\Alph*)]
+\item reproduzir o padrão histórico de seleção e ignorar áreas nunca fiscalizadas;
+\item eliminar qualquer viés por ser supervisionado;
+\item garantir fairness;
+\item dispensar validação externa;
+\item produzir causalidade.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.44 — Cebraspe/Certo ou Errado}
+Em auditoria de modelo, é insuficiente verificar apenas métrica global; desempenho por subgrupo, drift, disponibilidade das features no momento da decisão e processo de supervisão humana podem ser materialmente relevantes.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.45 — FGV/reprodutibilidade}
+Um relatório de fiscalização foi produzido por notebook sem versão, com dados sobrescritos e sem registro de parâmetros. A principal recomendação é:
+\begin{enumerate}[label=\Alph*)]
+\item salvar somente o PDF final;
+\item versionar código, parâmetros, referências dos dados e ambiente de execução;
+\item migrar obrigatoriamente para SAS;
+\item remover comentários;
+\item impedir qualquer notebook.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.46 — Cebraspe/Certo ou Errado}
+Um modelo pode manter métricas técnicas estáveis e, ainda assim, perder valor operacional se a capacidade da equipe para investigar alertas mudar significativamente.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.47 — FCC/calibração}
+Um modelo ordena bem os riscos, mas casos com probabilidade prevista de 80\% apresentam frequência real de 45\%. O problema é principalmente de:
+\begin{enumerate}[label=\Alph*)]
+\item calibração;
+\item clustering;
+\item normalização de banco;
+\item cardinalidade de SQL;
+\item encoding de texto apenas.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.48 — FGV/governança}
+Uma área altera o threshold do modelo para aumentar o número de alertas, mas não registra a mudança. Qual risco surge?
+\begin{enumerate}[label=\Alph*)]
+\item perda de rastreabilidade, comparabilidade e controle da decisão analítica;
+\item aumento automático de recall sem custo;
+\item melhoria garantida de precisão;
+\item nenhuma mudança, pois o modelo é o mesmo;
+\item somente aumento de storage.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.49 — Cebraspe/Certo ou Errado}
+Explicabilidade local de uma predição não substitui validação global do modelo nem análise de qualidade dos dados usados para produzi-la.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 17.50 — FGV/matriz de achado}
+Um painel de risco não registra versão do modelo, data do dataset, threshold ou responsáveis pela validação. Qual achado é mais adequado?
+\begin{enumerate}[label=\Alph*)]
+\item ``Machine learning não deve ser usado no setor público'';
+\item ``A ausência de versionamento e governança dos parâmetros reduz reprodutibilidade e accountability das decisões; recomenda-se registry, documentação, aprovação e trilha de execução'';
+\item ``Basta aumentar o AUC'';
+\item ``O painel deve ser substituído por planilha'';
+\item ``Não há problema se os resultados parecem plausíveis''.
+\end{enumerate}
+\end{questao}
