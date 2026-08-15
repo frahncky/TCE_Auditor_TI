@@ -1,265 +1,394 @@
 \section{Banco de questões — Infraestrutura de TI}
 
-\subsection*{N1 — Fundamentos}
+\subsection*{N1 — Fundamento competitivo}
 
-\begin{questao}{\nivel{N1} 10.01}
-Em uma rede IPv4 \texttt{/26}, qual é o número total de endereços do bloco?
-\begin{enumerate}[label=\Alph*)]\item 16\item 32\item 62\item 64\item 128\end{enumerate}
+\begin{questao}{\nivel{N1} 10.01 — Cebraspe/Certo ou Errado}
+Em uma rede IPv4 \texttt{/27}, o bloco contém 32 endereços; em uso convencional, 30 podem ser atribuídos a hosts, pois um endereço identifica a rede e outro o broadcast.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.02}
-Qual protocolo da camada de transporte fornece, nativamente, estabelecimento de conexão, numeração de sequência, retransmissão e controle de fluxo?
-\begin{enumerate}[label=\Alph*)]\item IP\item UDP\item TCP\item ARP\item ICMP\end{enumerate}
+\begin{questao}{\nivel{N1} 10.02 — Cebraspe/Certo ou Errado}
+O fato de o UDP não fornecer retransmissão e ordenação nativamente implica que qualquer aplicação baseada em UDP seja, necessariamente, incapaz de oferecer entrega confiável.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.03}
-Em uma LAN Ethernet comutada, o encaminhamento de quadros por um switch de camada 2 baseia-se principalmente em:
-\begin{enumerate}[label=\Alph*)]\item endereço MAC de destino\item porta TCP de destino\item endereço IP de origem apenas\item nome DNS\item número de sistema autônomo\end{enumerate}
+\begin{questao}{\nivel{N1} 10.03 — Cebraspe/Certo ou Errado}
+Uma VLAN separa domínios de broadcast em camada 2, mas não impede, por si só, comunicação entre redes quando existe roteamento inter-VLAN com política permissiva.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.04}
-O padrão IEEE 802.1Q está diretamente relacionado a:
-\begin{enumerate}[label=\Alph*)]\item marcação de VLAN em quadros Ethernet\item criptografia de disco\item autenticação Kerberos\item roteamento BGP\item armazenamento em bloco\end{enumerate}
+\begin{questao}{\nivel{N1} 10.04 — Cebraspe/Certo ou Errado}
+Em um switch Ethernet, o endereço MAC de origem recebido em um quadro é usado para aprendizado da tabela de encaminhamento, ao passo que o endereço MAC de destino é usado na decisão de encaminhamento.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.05}
-No SNMP, a estrutura que organiza os objetos gerenciados é denominada:
-\begin{enumerate}[label=\Alph*)]\item MIB\item RAID\item TLB\item GPO\item ACL de sistema de arquivos\end{enumerate}
+\begin{questao}{\nivel{N1} 10.05 — Cebraspe/Certo ou Errado}
+SNMPv3 pode fornecer autenticação e privacidade, mas sua mera adoção não garante gerenciamento seguro se credenciais, perfis e acesso à rede de gerenciamento forem mal configurados.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.06}
-Qual conjunto apresenta as quatro condições clássicas necessárias para ocorrência de deadlock?
-\begin{enumerate}[label=\Alph*)]
-\item exclusão mútua, posse e espera, ausência de preempção e espera circular
-\item paginação, segmentação, swapping e cache
-\item autenticação, autorização, auditoria e contabilização
-\item latência, jitter, perda e throughput
-\item disponibilidade, integridade, confidencialidade e autenticidade
-\end{enumerate}
+\begin{questao}{\nivel{N1} 10.06 — Cebraspe/Certo ou Errado}
+LDAP e Active Directory são termos equivalentes, pois ambos designam um serviço de diretório completo e independente de outros protocolos.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.07}
-Em memória virtual paginada, a TLB é usada principalmente para:
-\begin{enumerate}[label=\Alph*)]\item acelerar traduções recentes de endereços virtuais para físicos\item armazenar arquivos de backup\item substituir a RAM por completo\item controlar VLANs\item manter tickets Kerberos\end{enumerate}
+\begin{questao}{\nivel{N1} 10.07 — Cebraspe/Certo ou Errado}
+RAID 6 tolera, em condições normais do arranjo, a falha de até dois discos, mas isso não o transforma em substituto de backup.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.08}
-Qual tecnologia é um protocolo de acesso a serviços de diretório e não, por si só, um produto de diretório específico?
-\begin{enumerate}[label=\Alph*)]\item LDAP\item Active Directory\item Hyper-V\item NTFS\item Docker\end{enumerate}
+\begin{questao}{\nivel{N1} 10.08 — Cebraspe/Certo ou Errado}
+Uma snapshot armazenada no mesmo storage da máquina virtual constitui cópia independente suficiente contra perda total do storage original.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.09}
-Qual nível RAID usa striping sem redundância?
-\begin{enumerate}[label=\Alph*)]\item RAID 0\item RAID 1\item RAID 5\item RAID 6\item RAID 10\end{enumerate}
+\begin{questao}{\nivel{N1} 10.09 — Cebraspe/Certo ou Errado}
+Em um sistema paginado, thrashing caracteriza situação em que o tempo gasto com faltas e substituição de páginas cresce a ponto de reduzir significativamente o trabalho útil da CPU.
 \end{questao}
 
-\begin{questao}{\nivel{N1} 10.10}
-Em termos gerais, NAS fornece armazenamento por meio de:
-\begin{enumerate}[label=\Alph*)]\item acesso a arquivos pela rede\item acesso exclusivamente a blocos Fibre Channel\item memória virtual de processos\item roteamento de pacotes\item autenticação multifator\end{enumerate}
+\begin{questao}{\nivel{N1} 10.10 — Cebraspe/Certo ou Errado}
+Duas máquinas virtuais executadas no mesmo host físico eliminam o ponto único de falha do hardware, pois cada VM constitui um domínio de falha independente.
 \end{questao}
 
 \subsection*{N2 — Aplicação}
 
-\begin{questao}{\nivel{N2} 10.11}
-A rede \texttt{10.10.8.0/27} foi atribuída a uma VLAN. Considerando uso IPv4 convencional, quantos endereços de host podem ser atribuídos?
-\begin{enumerate}[label=\Alph*)]\item 14\item 16\item 30\item 32\item 62\end{enumerate}
+\begin{questao}{\nivel{N2} 10.11 — FCC/subnetting}
+Um segmento precisa suportar 50 hosts IPv4 em uma única sub-rede, sem considerar endereçamento especial além de rede e broadcast. O menor prefixo CIDR adequado é:
+\begin{enumerate}[label=\Alph*)]
+\item /28
+\item /27
+\item /26
+\item /25
+\item /24
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.12}
-Uma organização deseja autenticação centralizada para acesso cabeado e Wi-Fi, liberando a porta de rede somente após autenticação do usuário ou dispositivo. A arquitetura mais aderente é:
-\begin{enumerate}[label=\Alph*)]\item 802.1X com EAP e backend RADIUS\item NAT com DNS autoritativo\item SNMPv2 com comunidade pública\item MPLS com LDP\item RAID 1 com LDAP\end{enumerate}
+\begin{questao}{\nivel{N2} 10.12 — FGV/roteamento}
+A tabela de rotas de um roteador contém \texttt{10.0.0.0/8}, \texttt{10.20.0.0/16} e \texttt{10.20.30.0/24}. Um pacote destinado a \texttt{10.20.30.55} será encaminhado, em regra, pela rota:
+\begin{enumerate}[label=\Alph*)]
+\item \texttt{10.0.0.0/8}, por ser a mais antiga;
+\item \texttt{10.20.0.0/16}, por possuir métrica intermediária;
+\item \texttt{10.20.30.0/24}, por ser o prefixo mais específico;
+\item default, porque existem rotas sobrepostas;
+\item aleatoriamente entre as três.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.13}
-Um host configurado por DHCP precisa descobrir automaticamente parâmetros como endereço IP, máscara/prefixo, gateway e DNS. Qual afirmação é correta?
-\begin{enumerate}[label=\Alph*)]\item DHCP automatiza a concessão desses parâmetros conforme política\item DNS substitui completamente DHCP\item ARP entrega nomes de domínio ao host\item ICMP distribui endereços IPv4 em leases\item TCP realiza a descoberta de gateway\end{enumerate}
+\begin{questao}{\nivel{N2} 10.13 — Cebraspe/Certo ou Errado}
+Um trunk 802.1Q permite transportar múltiplas VLANs entre switches, mas não substitui o roteamento necessário para comunicação entre VLANs distintas.
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.14}
-Dois switches Ethernet foram ligados por enlaces redundantes sem agregação. Surgiram tempestades de broadcast e instabilidade na tabela MAC. O protocolo projetado para impedir loops de camada 2 é:
-\begin{enumerate}[label=\Alph*)]\item STP/RSTP\item BGP\item DNSSEC\item LDAP\item NTP\end{enumerate}
+\begin{questao}{\nivel{N2} 10.14 — FGV/802.1X}
+Uma instituição deseja liberar portas cabeadas e acesso Wi-Fi apenas após autenticação centralizada. A arquitetura mais aderente é:
+\begin{enumerate}[label=\Alph*)]
+\item 802.1X com supplicant, autenticador e backend RADIUS/EAP;
+\item STP com DNS recursivo;
+\item SNMP com community string pública;
+\item LACP com NAT;
+\item MPLS com DHCP relay.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.15}
-Uma consulta DNS recursiva precisa resolver \texttt{www.exemplo.gov.br}. Qual é a função conceitual de um resolvedor recursivo?
-\begin{enumerate}[label=\Alph*)]\item obter a resposta em nome do cliente consultando/caminhando pela hierarquia e usando cache quando possível\item substituir o roteador default\item emitir certificados TLS\item atribuir endereços MAC\item bloquear deadlocks\end{enumerate}
+\begin{questao}{\nivel{N2} 10.15 — Cebraspe/Certo ou Errado}
+O bloqueio indiscriminado de ICMP pode prejudicar funcionalidades legítimas de rede, como diagnóstico e mecanismos relacionados a descoberta de MTU de caminho.
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.16}
-Um processo em sistema operacional solicita leitura de disco e não pode continuar até a conclusão. O estado mais coerente durante a espera é:
-\begin{enumerate}[label=\Alph*)]\item bloqueado/esperando\item executando\item terminado necessariamente\item pronto e usando CPU continuamente\item zombie por definição\end{enumerate}
+\begin{questao}{\nivel{N2} 10.16 — FCC/processos}
+Um processo em execução solicita leitura de disco e não pode prosseguir até a conclusão do I/O. O estado mais coerente, imediatamente após a solicitação, é:
+\begin{enumerate}[label=\Alph*)]
+\item pronto;
+\item bloqueado/esperando;
+\item terminado;
+\item zombie;
+\item executando com prioridade máxima.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.17}
-Em Linux, um arquivo possui permissão simbólica \texttt{rwxr-x---}. Qual interpretação é correta?
-\begin{enumerate}[label=\Alph*)]\item dono: leitura/escrita/execução; grupo: leitura/execução; outros: nenhum acesso tradicional\item todos possuem leitura e escrita\item apenas o grupo pode executar\item outros possuem leitura\item dono não pode escrever\end{enumerate}
+\begin{questao}{\nivel{N2} 10.17 — FGV/deadlock}
+Dois processos mantêm recursos distintos e cada um espera indefinidamente pelo recurso mantido pelo outro. O cenário evidencia diretamente:
+\begin{enumerate}[label=\Alph*)]
+\item thrashing;
+\item starvation sem espera circular;
+\item uma cadeia de espera circular compatível com deadlock;
+\item fragmentação externa;
+\item falha de paginação.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.18}
-Em ambiente Active Directory, políticas de configuração aplicadas centralmente a usuários e computadores são comumente distribuídas por:
-\begin{enumerate}[label=\Alph*)]\item Group Policy Objects (GPO)\item RAID groups\item MIBs\item NAT pools\item BGP communities\end{enumerate}
+\begin{questao}{\nivel{N2} 10.18 — Cebraspe/Certo ou Errado}
+Em Linux, conceder \texttt{chmod 777} para resolver um erro de acesso pode eliminar a causa imediata, mas cria risco de privilégio excessivo e não deve ser tratado como solução segura por padrão.
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.19}
-Em Kerberos, após autenticação inicial, o uso de tickets permite principalmente:
-\begin{enumerate}[label=\Alph*)]\item autenticar-se a serviços sem reenviar a senha em cada acesso\item eliminar a necessidade de sincronização de tempo\item substituir DNS\item realizar backup de diretório\item converter TCP em UDP\end{enumerate}
+\begin{questao}{\nivel{N2} 10.19 — FGV/AD}
+Em um domínio Active Directory, usuários conseguem autenticar-se localmente, mas falham ao localizar controladores de domínio após alteração incorreta do DNS. Isso é coerente porque:
+\begin{enumerate}[label=\Alph*)]
+\item o AD depende de DNS para localização de serviços e controladores;
+\item LDAP substitui integralmente o DNS;
+\item Kerberos não utiliza nomes de serviço;
+\item GPO dispensa resolução de nomes;
+\item o Global Catalog funciona sem qualquer infraestrutura DNS.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.20}
-Qual situação representa escalabilidade horizontal?
-\begin{enumerate}[label=\Alph*)]\item adicionar novas instâncias de aplicação atrás de balanceador\item aumentar memória RAM de um único servidor\item trocar CPU por outra mais rápida no mesmo host\item expandir um único volume local\item aumentar frequência de clock\end{enumerate}
+\begin{questao}{\nivel{N2} 10.20 — FCC/RAID}
+Um arranjo RAID 5 utiliza quatro discos de 6 TB. Desprezando overhead e diferenças de unidade, a capacidade útil aproximada é:
+\begin{enumerate}[label=\Alph*)]
+\item 6 TB
+\item 12 TB
+\item 18 TB
+\item 24 TB
+\item 30 TB
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.21}
-Um conjunto RAID 5 com quatro discos idênticos de 4 TB possui, desprezando diferenças de unidade e overhead, capacidade útil aproximada de:
-\begin{enumerate}[label=\Alph*)]\item 4 TB\item 8 TB\item 12 TB\item 16 TB\item 20 TB\end{enumerate}
+\begin{questao}{\nivel{N2} 10.21 — Cebraspe/Certo ou Errado}
+Em RAID 10 com quatro discos, a tolerância a duas falhas simultâneas depende de quais discos falham; perder os dois membros do mesmo espelho pode causar perda do conjunto.
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.22}
-Uma aplicação usa storage apresentado ao servidor como LUN em bloco sobre uma rede dedicada. Essa arquitetura é mais compatível com:
-\begin{enumerate}[label=\Alph*)]\item SAN\item NAS exclusivamente em NFS\item CDN\item DNS recursivo\item VLAN de voz\end{enumerate}
+\begin{questao}{\nivel{N2} 10.22 — FGV/NAS e SAN}
+Uma aplicação exige volume em bloco apresentado ao servidor como LUN, enquanto outra precisa de compartilhamento de arquivos SMB para usuários. As tecnologias mais aderentes são, respectivamente:
+\begin{enumerate}[label=\Alph*)]
+\item NAS e SAN;
+\item SAN e NAS;
+\item CDN e SAN;
+\item SAN e DNS;
+\item NAS e DHCP.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.23}
-Uma política define RPO de 15 minutos. Qual interpretação é correta?
-\begin{enumerate}[label=\Alph*)]\item em cenário de desastre, a perda temporal de dados tolerada deve ser de até aproximadamente 15 minutos, conforme desenho do serviço\item o serviço deve voltar em 15 minutos necessariamente\item o backup completo deve durar 15 minutos\item a CPU deve permanecer 15 minutos ociosa\item o DNS deve ter TTL de 15 minutos\end{enumerate}
+\begin{questao}{\nivel{N2} 10.23 — FCC/backup}
+Uma estratégia utiliza backup full aos domingos e incrementais de segunda a sábado. Para restaurar o estado de sexta-feira, normalmente será necessário:
+\begin{enumerate}[label=\Alph*)]
+\item apenas o incremental de sexta;
+\item o full de domingo e todos os incrementais de segunda a sexta;
+\item o full de domingo e somente o incremental de segunda;
+\item todos os fulls do mês;
+\item apenas o último snapshot de memória.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.24}
-Uma máquina virtual executa sistema operacional convidado completo sobre hipervisor, enquanto um contêiner típico:
-\begin{enumerate}[label=\Alph*)]\item compartilha o kernel do host e isola processos por mecanismos do sistema operacional\item contém obrigatoriamente um hipervisor próprio\item não pode ter sistema de arquivos\item substitui qualquer necessidade de VM\item executa sem processos\end{enumerate}
+\begin{questao}{\nivel{N2} 10.24 — Cebraspe/Certo ou Errado}
+Um RPO de 15 minutos pode ser incompatível com a realização de apenas um backup completo diário, na ausência de mecanismos adicionais de replicação ou captura contínua de alterações.
 \end{questao}
 
-\begin{questao}{\nivel{N2} 10.25}
-Em alta disponibilidade, um health check serve para:
-\begin{enumerate}[label=\Alph*)]\item avaliar se uma instância/serviço está apto conforme critérios e apoiar decisão de encaminhamento/failover\item criar cópia de backup automaticamente em qualquer cenário\item fornecer endereçamento IP\item criptografar discos\item normalizar banco de dados\end{enumerate}
+\begin{questao}{\nivel{N2} 10.25 — FGV/containers}
+Uma aplicação mantém estado de sessão exclusivamente na memória local de cada contêiner e passa a ser escalada horizontalmente. A medida arquitetural mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item fixar o tráfego permanentemente a um único contêiner;
+\item externalizar/replicar o estado ou adotar desenho stateless compatível;
+\item desabilitar health checks;
+\item substituir TCP por UDP;
+\item armazenar sessão em camada temporária da imagem.
+\end{enumerate}
 \end{questao}
 
-\subsection*{N3 — Nível de concurso}
+\subsection*{N3 — Integração de concurso}
 
-\begin{questao}{\nivel{N3} 10.26}
-Um servidor TCP recebe dados fora de ordem devido a caminhos e retransmissões. Qual mecanismo permite ao receptor reconstruir a sequência lógica do fluxo?
-\begin{enumerate}[label=\Alph*)]\item números de sequência TCP\item endereço MAC de broadcast\item TTL do IP\item registro MX\item identificador de VLAN apenas\end{enumerate}
+\begin{questao}{\nivel{N3} 10.26 — FGV/assertivas de redes}
+Considere:
+
+I. STP/RSTP busca impedir loops de camada 2.
+
+II. LACP pode agregar enlaces físicos em um canal lógico.
+
+III. A existência de LACP implica que um único fluxo TCP utilizará sempre a soma integral da largura de banda de todos os membros.
+
+Assinale a alternativa correta.
+\begin{enumerate}[label=\Alph*)]
+\item Apenas I.
+\item Apenas II.
+\item Apenas I e II.
+\item Apenas II e III.
+\item I, II e III.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.27}
-Uma rede corporativa possui VLANs 10 e 20 em um mesmo switch. Hosts de uma VLAN não devem alcançar a outra sem política explícita. Para comunicação entre elas é necessário, em regra:
-\begin{enumerate}[label=\Alph*)]\item roteamento de camada 3 entre as VLANs, sujeito às políticas aplicáveis\item apenas STP\item apenas trunk 802.1Q, sem função de camada 3\item SNMP trap\item RAID 10\end{enumerate}
+\begin{questao}{\nivel{N3} 10.27 — Cebraspe/Certo ou Errado}
+Uma rede segmentada em VLANs continua vulnerável a movimento lateral se o firewall ou roteador inter-VLAN permitir tráfego amplo entre as zonas, pois a segmentação lógica sem política restritiva não garante isolamento efetivo.
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.28}
-Uma organização usa SNMPv2c com comunidade de leitura transmitida sem proteção em rede administrativa compartilhada. A melhoria que trata diretamente autenticação e privacidade do protocolo é:
-\begin{enumerate}[label=\Alph*)]\item migrar para SNMPv3 com modelo de segurança adequadamente configurado\item aumentar o TTL IP\item habilitar RAID 6\item usar STP\item trocar DNS por DHCP\end{enumerate}
+\begin{questao}{\nivel{N3} 10.28 — FCC/desempenho TCP}
+Um link de 1 Gbit/s entre dois datacenters possui RTT elevado e baixa perda. Uma única transferência TCP atinge apenas fração da banda disponível. A explicação mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item banda nominal é o único fator relevante, logo o comportamento é impossível;
+\item janela TCP, RTT, congestionamento e produto largura de banda-atraso podem limitar o throughput de um fluxo;
+\item UDP resolveria automaticamente qualquer problema de confiabilidade;
+\item VLAN reduz throughput de longa distância por definição;
+\item DNS é o principal limitador de transferência contínua após a conexão.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.29}
-Um sistema apresenta thrashing. Qual combinação é mais coerente com o fenômeno?
-\begin{enumerate}[label=\Alph*)]\item alta taxa de page faults e tempo excessivo dedicado a movimentação de páginas, com pouca execução útil\item aumento de largura de banda Ethernet por agregação\item excesso de cache DNS apenas\item loop de camada 2\item colisão de hash em certificado\end{enumerate}
+\begin{questao}{\nivel{N3} 10.29 — Cebraspe/Certo ou Errado}
+O uso de MPLS VPN por uma operadora fornece isolamento lógico de tráfego, mas não deve ser confundido automaticamente com criptografia fim a fim do conteúdo transportado.
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.30}
-Dois processos P1 e P2 possuem, respectivamente, recursos R1 e R2 e cada um espera indefinidamente pelo recurso do outro. O cenário caracteriza diretamente:
-\begin{enumerate}[label=\Alph*)]\item espera circular associada a deadlock\item thrashing\item fragmentação IP\item starvation necessariamente sem deadlock\item cache poisoning\end{enumerate}
+\begin{questao}{\nivel{N3} 10.30 — FGV/SNMP}
+Uma rede de gerenciamento usa SNMPv3, mas todos os equipamentos compartilham o mesmo usuário, a mesma chave e aceitam acesso de qualquer VLAN. A melhor avaliação é:
+\begin{enumerate}[label=\Alph*)]
+\item SNMPv3 torna o desenho seguro independentemente da configuração;
+\item o protocolo oferece controles melhores, mas a configuração ainda viola segregação e mínimo privilégio;
+\item deve-se voltar a SNMPv2c para reduzir risco;
+\item MIB e SMI substituem autenticação;
+\item community strings tornam-se mais seguras em SNMPv3.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.31}
-Em sistema Linux, conceder permissão \texttt{777} a diretório de aplicação sensível resolve um erro de acesso, mas cria qual problema de segurança?
-\begin{enumerate}[label=\Alph*)]\item permissões excessivas violam privilégio mínimo e podem permitir alterações indevidas\item elimina qualquer risco por ser configuração padrão segura\item impede execução por todos\item ativa criptografia automática\item converte o diretório em somente leitura\end{enumerate}
+\begin{questao}{\nivel{N3} 10.31 — FCC/memória virtual}
+Um servidor apresenta alta utilização de disco, taxa elevada de page faults e CPU frequentemente ociosa esperando I/O. Aumentar apenas a frequência da CPU tende a produzir pouco efeito porque o gargalo principal pode ser:
+\begin{enumerate}[label=\Alph*)]
+\item excesso de memória disponível;
+\item thrashing por pressão de memória/working set;
+\item tabela MAC cheia;
+\item DNS recursivo;
+\item RAID 1.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.32}
-Um administrador cria duas contas genéricas \texttt{admin1} e \texttt{admin2}, compartilhadas por toda a equipe, para operar Active Directory. Qual risco de auditoria é mais evidente?
-\begin{enumerate}[label=\Alph*)]\item perda de responsabilização individual e dificuldade de atribuir ações\item impossibilidade de usar DNS\item perda automática de redundância RAID\item ausência de roteamento BGP\item impossibilidade de autenticação Kerberos em qualquer forma\end{enumerate}
+\begin{questao}{\nivel{N3} 10.32 — Cebraspe/Certo ou Errado}
+MV e contêiner oferecem isolamento por mecanismos distintos; em geral, uma VM inclui sistema operacional convidado sobre hipervisor, enquanto contêineres compartilham o kernel do host.
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.33}
-Após falha de um nó de aplicação, o balanceador envia requisições a outro nó, porém usuários perdem sessões porque o estado está apenas na memória local da instância original. A correção arquitetural mais aderente é:
-\begin{enumerate}[label=\Alph*)]\item externalizar/replicar o estado ou adotar desenho stateless quando possível\item aumentar o TTL do DNS\item substituir TCP por UDP\item usar RAID 0\item desabilitar health checks\end{enumerate}
+\begin{questao}{\nivel{N3} 10.33 — FGV/HA}
+Dois servidores de aplicação estão em hosts físicos distintos, mas ambos dependem do mesmo storage sem controladora redundante. A arquitetura possui:
+\begin{enumerate}[label=\Alph*)]
+\item alta disponibilidade completa, pois o compute é redundante;
+\item ponto único de falha no storage compartilhado;
+\item redundância 2N em todas as camadas;
+\item tolerância a desastre regional;
+\item independência total entre os servidores.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.34}
-Em cluster ativo-passivo, qual é a ideia central do failover?
-\begin{enumerate}[label=\Alph*)]\item transferir a prestação do serviço para componente de reserva após detecção de falha segundo critérios definidos\item manter todos os nós sempre desligados\item substituir backup por redundância\item eliminar RTO\item impedir qualquer manutenção\end{enumerate}
+\begin{questao}{\nivel{N3} 10.34 — Cebraspe/Certo ou Errado}
+A disponibilidade de um serviço não pode ser inferida apenas pela redundância de servidores, porque dependências comuns de DNS, storage, banco, energia ou telecomunicações podem permanecer como pontos únicos de falha.
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.35}
-Uma organização afirma que snapshots de VM no mesmo datastore constituem estratégia completa de backup. A crítica correta é:
-\begin{enumerate}[label=\Alph*)]\item snapshot no mesmo domínio de falha pode ser perdido ou comprometido junto com a origem e não substitui, por si só, cópia independente\item snapshot é sempre cópia offline imutável\item snapshot garante restauração de qualquer aplicação sem consistência\item backup e snapshot são sinônimos normativos\item snapshots eliminam necessidade de teste de restauração\end{enumerate}
+\begin{questao}{\nivel{N3} 10.35 — FCC/RPO-RTO}
+Um sistema possui RPO de 30 minutos e RTO de 1 hora. O restore test mais recente recuperou dados de 10 minutos antes da falha, mas o serviço demorou 3 horas para voltar. Nesse teste:
+\begin{enumerate}[label=\Alph*)]
+\item RPO e RTO foram cumpridos;
+\item somente o RPO foi cumprido;
+\item somente o RTO foi cumprido;
+\item nenhum foi cumprido;
+\item não é possível avaliar nenhum dos dois.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.36}
-Em RAID 10 formado por quatro discos, a perda simultânea de dois discos:
-\begin{enumerate}[label=\Alph*)]\item pode ser tolerada ou não, dependendo de quais membros dos pares espelhados falhem\item é sempre tolerada\item nunca é tolerada\item transforma automaticamente o arranjo em RAID 6\item não afeta disponibilidade em nenhuma topologia\end{enumerate}
+\begin{questao}{\nivel{N3} 10.36 — FGV/backup}
+Um banco usa RAID 6, snapshots locais a cada hora e backup externo semanal. A administração afirma que o risco de ransomware está totalmente coberto. A melhor avaliação é:
+\begin{enumerate}[label=\Alph*)]
+\item correta, porque RAID 6 protege contra ransomware;
+\item correta, porque snapshots locais são imunes à exclusão;
+\item inadequada; é preciso avaliar independência, imutabilidade, credenciais e janela de perda do backup externo;
+\item correta se o banco for ACID;
+\item correta se o storage usar SSD.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.37}
-Um backup incremental diário registra somente alterações desde o último backup de qualquer tipo. Para restaurar após vários dias, normalmente são necessários:
-\begin{enumerate}[label=\Alph*)]\item o último full e a cadeia de incrementais subsequentes\item somente o último incremental\item todos os fulls históricos\item apenas um snapshot de memória\item nenhum catálogo\end{enumerate}
+\begin{questao}{\nivel{N3} 10.37 — Cebraspe/Certo ou Errado}
+A deduplicação pode reduzir consumo de armazenamento, mas aumenta dependência de metadados e não substitui a existência de cópias em domínios de falha independentes.
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.38}
-Qual afirmação melhor diferencia disponibilidade de durabilidade no armazenamento?
-\begin{enumerate}[label=\Alph*)]\item disponibilidade mede possibilidade de acesso ao serviço em determinado período; durabilidade relaciona preservação dos dados ao longo do tempo\item são sinônimos\item durabilidade é apenas latência\item disponibilidade mede somente capacidade em TB\item durabilidade equivale a throughput\end{enumerate}
+\begin{questao}{\nivel{N3} 10.38 — FGV/Kerberos}
+Uma conta administrativa utiliza a mesma identidade para e-mail, navegação e administração de controladores de domínio. Ainda que Kerberos funcione corretamente, o desenho é inadequado porque:
+\begin{enumerate}[label=\Alph*)]
+\item a mesma conta aumenta superfície de exposição de credencial privilegiada;
+\item Kerberos proíbe e-mail;
+\item LDAP deixa de funcionar;
+\item GPO exige uma conta por aplicação;
+\item DNS não suporta contas administrativas.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.39}
-Uma imagem de contêiner inclui senha de banco no Dockerfile. Mesmo que a camada seja apagada em instrução posterior, qual risco persiste?
-\begin{enumerate}[label=\Alph*)]\item o segredo pode permanecer recuperável no histórico/camadas da imagem; deve ser fornecido por mecanismo de segredos em runtime/build seguro\item Docker elimina automaticamente todo histórico sensível\item a senha vira hash criptográfico automaticamente\item contêiner não usa banco de dados\item o risco só existe em Windows\end{enumerate}
+\begin{questao}{\nivel{N3} 10.39 — Cebraspe/Certo ou Errado}
+Uma liveness probe que dependa de serviço externo pode provocar reinícios desnecessários de instâncias saudáveis durante indisponibilidade da dependência, amplificando a falha.
 \end{questao}
 
-\begin{questao}{\nivel{N3} 10.40}
-Em um datacenter, duas fontes de energia redundantes alimentam servidores, mas ambas dependem do mesmo único UPS. Qual conceito de risco se aplica?
-\begin{enumerate}[label=\Alph*)]\item ponto único de falha comum à redundância aparente\item balanceamento de carga perfeito\item tolerância completa a falhas\item segregação física total\item ausência de dependência\end{enumerate}
+\begin{questao}{\nivel{N3} 10.40 — FCC/capacidade}
+A CPU média de um servidor é 22\%, mas o p99 de CPU chega a 100\% durante fechamento mensal, período em que o SLA é violado. A conclusão mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item a média prova excesso de capacidade;
+\item planejamento deve considerar picos, filas, percentis e janela crítica, não apenas média global;
+\item CPU não influencia SLA;
+\item o servidor está subutilizado em qualquer momento;
+\item a única solução possível é scale-up.
+\end{enumerate}
 \end{questao}
 
-\subsection*{N4 — Avançado / Auditoria}
+\subsection*{N4 — Auditoria / avançado}
 
-\begin{questao}{\nivel{N4} 10.41}
-Em auditoria de continuidade, encontra-se banco em RAID 6, snapshots diários no mesmo storage e ausência de cópia externa. A administração afirma que ``RAID e snapshot tornam backup desnecessário''. A conclusão mais correta é:
-\begin{enumerate}[label=\Alph*)]\item correta, pois RAID 6 tolera qualquer perda de dados\item correta se snapshots forem frequentes\item incorreta, pois RAID trata falhas limitadas de disco e snapshots no mesmo domínio de falha não substituem backup independente\item incorreta somente se o banco for NoSQL\item irrelevante, pois RPO/RTO aplicam-se apenas a redes\end{enumerate}
+\begin{questao}{\nivel{N4} 10.41 — Cebraspe/caso integrado}
+Em auditoria de continuidade, a equipe encontra: RAID 6; snapshots no mesmo storage; backup externo mensal; RPO declarado de 15 minutos; e nenhum restore test nos últimos 18 meses. Julgue o item:
+
+A presença de RAID 6 e snapshots frequentes é suficiente para demonstrar o atendimento ao RPO, ainda que o storage seja perdido integralmente.
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.42}
-Um órgão declara RPO de 15 minutos, porém realiza apenas backup completo a cada 24 horas, sem replicação ou journal externo. Qual achado técnico é mais defensável?
-\begin{enumerate}[label=\Alph*)]\item a estratégia observada não demonstra capacidade de cumprir o RPO declarado\item o RPO está cumprido porque existe backup diário\item RPO mede apenas tempo de retorno\item RPO independe de frequência e mecanismo de captura de alterações\item o problema é somente de DNS\end{enumerate}
+\begin{questao}{\nivel{N4} 10.42 — FGV/rede corporativa}
+Usuários, servidores e administração estão em VLANs distintas, porém a política do firewall interno é \texttt{any-any} entre todas as zonas. Em um teste de comprometimento de estação de usuário, o atacante alcança RDP e SMB dos servidores. O achado principal é:
+\begin{enumerate}[label=\Alph*)]
+\item inexistência de VLANs;
+\item segmentação nominal sem política efetiva de contenção, permitindo movimento lateral;
+\item falha exclusiva de DNS;
+\item ausência de STP;
+\item necessidade de trocar Ethernet por MPLS.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.43}
-Durante auditoria de rede, a equipe encontra todas as VLANs de usuários, servidores e administração terminando no mesmo firewall, com regra ampla \texttt{any-any} entre zonas internas. Qual risco principal permanece apesar da segmentação lógica nominal?
-\begin{enumerate}[label=\Alph*)]\item a política permissiva elimina grande parte do efeito de contenção da segmentação e facilita movimento lateral\item VLAN torna firewall desnecessário\item 802.1Q cifra o tráfego entre zonas\item STP impede movimento lateral de camada 3\item a regra any-any melhora privilégio mínimo\end{enumerate}
+\begin{questao}{\nivel{N4} 10.43 — FCC/AD e logs}
+Administradores de domínio usam contas compartilhadas e conseguem excluir logs locais dos controladores. Qual conjunto de controles é mais adequado?
+\begin{enumerate}[label=\Alph*)]
+\item contas nominativas, separação de privilégio, MFA/PAM e envio de logs para repositório protegido;
+\item aumentar apenas o tamanho das senhas compartilhadas;
+\item manter contas compartilhadas e reduzir retenção de logs;
+\item desabilitar auditoria para melhorar desempenho;
+\item migrar os controladores para RAID 0.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.44}
-A auditoria encontra domínio Active Directory no qual contas de administradores usam o mesmo usuário para e-mail, navegação e administração de controladores de domínio. Qual recomendação é mais adequada?
-\begin{enumerate}[label=\Alph*)]\item separar identidades administrativas das contas de uso cotidiano, restringir logon e aplicar controles de privilégio e MFA conforme risco\item manter conta única para simplificar rastreabilidade\item compartilhar senha entre administradores\item desabilitar logs para proteger privacidade\item colocar todos no grupo Domain Admins\end{enumerate}
+\begin{questao}{\nivel{N4} 10.44 — Cebraspe/Certo ou Errado}
+Dois datacenters podem continuar compartilhando uma causa comum de falha se ambos dependem do mesmo provedor e do mesmo ponto físico de entrada de fibra, de modo que redundância geográfica aparente não garante diversidade de conectividade.
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.45}
-Um cluster virtualizado possui três hosts, mas todos acessam um único storage sem redundância de controladora nem caminho alternativo. A gestão apresenta o ambiente como ``sem ponto único de falha''. A avaliação correta é:
-\begin{enumerate}[label=\Alph*)]\item incorreta; o storage/caminho comum pode constituir ponto único de falha e comprometer o cluster inteiro\item correta, pois três hosts bastam para eliminar todos os SPOFs\item correta se houver muitas VLANs\item incorreta somente por não usar IPv6\item correta se o hypervisor for comercial\end{enumerate}
+\begin{questao}{\nivel{N4} 10.45 — FGV/containers}
+Um cluster de contêineres aceita imagens sem assinatura, usa tag \texttt{latest} em produção e permite execução privilegiada por padrão. O risco combinado mais relevante é:
+\begin{enumerate}[label=\Alph*)]
+\item supply chain não verificável, baixa reprodutibilidade e privilégio excessivo;
+\item apenas falta de espaço em disco;
+\item somente indisponibilidade de DNS;
+\item ausência de VLAN;
+\item perda de capacidade RAID.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.46}
-Logs de infraestrutura são armazenados localmente em cada servidor, com permissão de exclusão para os mesmos administradores cujas ações são auditadas. Qual controle melhor aumenta a confiabilidade da evidência?
-\begin{enumerate}[label=\Alph*)]\item encaminhamento centralizado/imutável ou protegido, com segregação de acesso e sincronização temporal\item aumentar espaço local apenas\item apagar logs antigos diariamente sem retenção definida\item usar RAID 0\item permitir edição para corrigir eventos\end{enumerate}
+\begin{questao}{\nivel{N4} 10.46 — Cebraspe/Certo ou Errado}
+Se todos os logs de infraestrutura permanecem apenas nos próprios servidores e podem ser apagados pelos mesmos administradores cujas ações são auditadas, a trilha de auditoria apresenta risco de integridade e accountability.
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.47}
-Um serviço crítico possui dois datacenters, mas ambos dependem do mesmo provedor de telecom e do mesmo ponto físico de entrada de fibra no prédio. O principal risco é:
-\begin{enumerate}[label=\Alph*)]\item falha de causa comum na conectividade, apesar da duplicação de sites\item ausência de virtualização\item excesso de DNS\item uso de TCP\item existência de rotas redundantes\end{enumerate}
+\begin{questao}{\nivel{N4} 10.47 — FCC/HA}
+Um serviço está em duas VMs no mesmo host, com banco em storage local do host e balanceador externo. A gestão classifica a arquitetura como altamente disponível. A avaliação correta é:
+\begin{enumerate}[label=\Alph*)]
+\item a classificação é adequada, pois existem duas VMs;
+\item compute e dados compartilham o mesmo domínio de falha físico, logo a redundância é insuficiente;
+\item o balanceador externo elimina qualquer SPOF interno;
+\item o uso de virtualização substitui DR;
+\item a única deficiência é o uso de storage local.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.48}
-Em revisão de capacidade, servidores apresentam CPU média de 20\%, mas picos de 100\% por 10 minutos no fechamento mensal, causando violações de SLA. Qual conclusão é mais adequada?
-\begin{enumerate}[label=\Alph*)]\item média mensal isolada é insuficiente; capacidade deve considerar distribuição temporal, picos, filas e requisitos de serviço\item 20\% médio prova excesso de capacidade sem qualquer risco\item SLA não depende de capacidade\item a solução obrigatória é desabilitar monitoramento\item throughput e latência são sempre independentes\end{enumerate}
+\begin{questao}{\nivel{N4} 10.48 — FGV/evidência de backup}
+O software de backup registra ``job successful'' todas as noites. O auditor deseja concluir sobre recuperabilidade. A evidência mais apropriada é:
+\begin{enumerate}[label=\Alph*)]
+\item apenas o status verde do job;
+\item teste documentado de restauração com validação de integridade e tempo obtido;
+\item tamanho do arquivo de log;
+\item capacidade bruta do storage;
+\item existência de RAID no repositório.
+\end{enumerate}
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.49}
-Um ambiente de contêineres permite imagens sem assinatura, uso de tag \texttt{latest} em produção e execução privilegiada por padrão. Qual conjunto de riscos é mais evidente?
-\begin{enumerate}[label=\Alph*)]\item cadeia de suprimentos não verificável, baixa reprodutibilidade e privilégio excessivo\item apenas fragmentação IP\item somente falta de espaço em disco\item impossibilidade de usar logs\item ausência de DHCP\end{enumerate}
+\begin{questao}{\nivel{N4} 10.49 — Cebraspe/Certo ou Errado}
+Um hash calculado sobre uma imagem forense e preservado durante a análise ajuda a demonstrar que a cópia não foi alterada, mas não prova, por si só, que a fonte original continha informação verdadeira.
 \end{questao}
 
-\begin{questao}{\nivel{N4} 10.50}
-Uma unidade afirma possuir alta disponibilidade porque o serviço está em duas VMs no mesmo host físico. Qual avaliação é tecnicamente correta?
-\begin{enumerate}[label=\Alph*)]\item há redundância lógica, mas a falha do host permanece causa comum; HA exige avaliar domínios de falha reais\item duas VMs no mesmo host eliminam qualquer indisponibilidade\item HA depende somente de quantidade de IPs\item o uso de VM substitui backup e DR\item basta configurar RAID 0 no host\end{enumerate}
+\begin{questao}{\nivel{N4} 10.50 — FGV/capacidade e risco}
+Uma aplicação crítica possui p95 de 800 ms, p99 de 11 s e média de 320 ms. O SLA considera apenas média inferior a 1 s. Usuários relatam travamentos em operações de fechamento. A recomendação de auditoria mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item manter o SLA, pois a média está cumprida;
+\item revisar o indicador para incluir percentis e jornadas críticas, correlacionando latência, filas e saturação;
+\item medir apenas disponibilidade;
+\item remover monitoramento para reduzir overhead;
+\item aumentar CPU sem diagnóstico adicional.
+\end{enumerate}
 \end{questao}
