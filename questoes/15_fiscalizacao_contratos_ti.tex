@@ -1,59 +1,388 @@
 \section{Banco de questões — Fiscalização de Contratos de TI}
 
-\subsection*{N1 — Fundamentos}
-\begin{questao}{\nivel{N1} 15.01}Segundo a IN SGD/ME nº 94/2022, o processo de contratação de TIC organiza-se em:\begin{enumerate}[label=\Alph*)]\item Planejamento da Contratação, Seleção do Fornecedor e Gestão do Contrato\item ETP, pagamento e auditoria\item orçamento, empenho e liquidação apenas\item desenvolvimento, teste e produção\item demanda, homologação e encerramento\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.02}O Estudo Técnico Preliminar tem como função principal:\begin{enumerate}[label=\Alph*)]\item caracterizar a necessidade, avaliar alternativas e demonstrar viabilidade da solução\item substituir o contrato\item atestar pagamento\item aplicar penalidade\item executar aceite definitivo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.03}O Termo de Referência deve definir, entre outros elementos:\begin{enumerate}[label=\Alph*)]\item requisitos, execução, gestão, medição e pagamento\item somente nome do fornecedor\item apenas dotação orçamentária\item senha de sistemas\item marca específica obrigatoriamente\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.04}SLA significa, em contexto contratual de TI:\begin{enumerate}[label=\Alph*)]\item acordo/nível de serviço com metas e critérios mensuráveis\item sistema de licitação automática\item assinatura eletrônica\item licença de software anual\item lista de ativos\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.05}Pesquisa de preços tem por objetivo principal:\begin{enumerate}[label=\Alph*)]\item estimar valor de mercado da contratação com base documentada e crítica\item garantir contratação do menor preço isolado\item selecionar fornecedor antecipadamente\item substituir ETP\item eliminar competição\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.06}Na fiscalização, termo de recebimento definitivo busca registrar:\begin{enumerate}[label=\Alph*)]\item aceitação após verificação das condições previstas\item mera entrega física sem conferência\item orçamento inicial\item pesquisa de mercado\item abertura de chamado\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.07}Gerenciamento de riscos na contratação deve:\begin{enumerate}[label=\Alph*)]\item acompanhar o ciclo da contratação, não ser exercício único no início\item ocorrer apenas após pagamento\item ser responsabilidade exclusiva da contratada\item substituir fiscalização\item ser dispensado em TIC\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.08}Lock-in tecnológico significa:\begin{enumerate}[label=\Alph*)]\item dependência que dificulta migração/substituição de fornecedor ou tecnologia\item criptografia de disco\item falha de rede\item bloqueio de usuário\item indisponibilidade temporária\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.09}Um indicador contratual deve possuir:\begin{enumerate}[label=\Alph*)]\item fórmula, fonte, período, regra de medição e meta\item apenas nome\item apenas cor em dashboard\item somente opinião do fiscal\item nenhum critério de exclusão\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 15.10}Segregação de funções busca:\begin{enumerate}[label=\Alph*)]\item reduzir concentração incompatível de decisão, execução e validação em uma mesma pessoa\item aumentar burocracia por si só\item impedir qualquer automação\item eliminar gestores\item substituir auditoria\end{enumerate}\end{questao}
+\subsection*{N1 — Fundamento competitivo}
+
+\begin{questao}{\nivel{N1} 15.01 — Cebraspe/Certo ou Errado}
+No planejamento de uma contratação de TIC, a existência de três cotações de fornecedores é suficiente, por si só, para demonstrar adequação da pesquisa de preços, desde que a média aritmética das propostas seja usada como valor estimado.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.02 — Cebraspe/Certo ou Errado}
+O Estudo Técnico Preliminar deve partir da necessidade administrativa e avaliar alternativas de solução; por isso, um ETP elaborado apenas para justificar produto previamente escolhido pode indicar inversão da lógica de planejamento.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.03 — Cebraspe/Certo ou Errado}
+Em contratação de serviço crítico, a previsão contratual de RTO de duas horas é suficiente para demonstrar capacidade de recuperação, ainda que não existam testes de restauração ou evidência de arquitetura compatível.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.04 — Cebraspe/Certo ou Errado}
+Um SLA de disponibilidade somente é auditável de forma consistente quando o contrato define, além da meta, a janela de medição, a fonte dos dados e as hipóteses de exclusão do cálculo.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.05 — Cebraspe/Certo ou Errado}
+A ausência de penalidades aplicadas ao fornecedor constitui evidência suficiente de que o contrato foi integralmente cumprido.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.06 — Cebraspe/Certo ou Errado}
+Em contratação SaaS, cláusulas de portabilidade, exportação de dados e apoio à transição reduzem risco de lock-in e devem ser consideradas antes da seleção do fornecedor, não apenas no encerramento contratual.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.07 — Cebraspe/Certo ou Errado}
+Segregação de funções significa, necessariamente, que nenhuma pessoa pode participar de mais de uma fase da contratação, independentemente do porte da organização e do risco envolvido.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.08 — Cebraspe/Certo ou Errado}
+Em serviços de TI, a simples comprovação de presença dos profissionais alocados é suficiente para justificar pagamento integral quando o objeto contratado prevê resultados e níveis de serviço mensuráveis.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.09 — Cebraspe/Certo ou Errado}
+A pesquisa de preços deve preservar memória de cálculo e justificativas para inclusão ou exclusão de valores, de forma que um terceiro consiga reproduzir a estimativa adotada.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 15.10 — Cebraspe/Certo ou Errado}
+No gerenciamento de riscos da contratação, a matriz inicialmente aprovada deve permanecer inalterada durante a execução para preservar a comparabilidade do planejamento original.
+\end{questao}
 
 \subsection*{N2 — Aplicação}
-\begin{questao}{\nivel{N2} 15.11}Um ETP escolhe produto específico antes de comparar alternativas e depois apenas justifica a escolha. Qual problema?\begin{enumerate}[label=\Alph*)]\item inversão do planejamento e possível direcionamento\item excesso de competição\item falta de SLA exclusivamente\item ausência de backup\item problema de TCP\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.12}Um contrato paga 100 postos mensais, mas não mede resultados nem demanda efetiva. O principal risco é:\begin{enumerate}[label=\Alph*)]\item pagamento por disponibilidade de mão de obra sem relação clara com resultado/necessidade\item falta de normalização\item ausência de VLAN\item excesso de qualidade\item RPO baixo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.13}Disponibilidade contratual de 99,9\% em 30 dias 24x7 permite aproximadamente:\begin{enumerate}[label=\Alph*)]\item 43,2 minutos de indisponibilidade\item 4,32 horas\item 432 minutos\item 14,4 minutos\item zero minuto\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.14}Uma métrica exclui ``manutenções programadas'', mas o contrato não define limite ou aviso. O risco é:\begin{enumerate}[label=\Alph*)]\item manipulação da disponibilidade por exclusões discricionárias\item falta de criptografia\item ausência de licitação\item excesso de auditoria\item impossibilidade de backup\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.15}A contratada produz a única planilha que determina seu próprio pagamento, sem evidência independente. Isso fragiliza:\begin{enumerate}[label=\Alph*)]\item confiabilidade e independência da medição\item normalização do banco\item rede física\item assinatura digital\item arquitetura de software\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.16}Pesquisa de preços com três propostas idênticas de empresas do mesmo grupo econômico deve ser:\begin{enumerate}[label=\Alph*)]\item questionada quanto à independência e representatividade\item aceita automaticamente por ter três cotações\item considerada prova de competição\item usada sem memória de cálculo\item tratada como inexigibilidade\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.17}Contratações públicas recentes comparáveis foram ignoradas e usaram-se só cotações mais altas. A auditoria deve verificar:\begin{enumerate}[label=\Alph*)]\item justificativa das fontes e aderência aos parâmetros da IN 65\item apenas assinatura do fiscal\item somente quantidade de páginas\item código-fonte do sistema\item versão do Windows\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.18}Contrato SaaS deve prever plano de saída principalmente para:\begin{enumerate}[label=\Alph*)]\item assegurar portabilidade de dados, continuidade e transição\item aumentar lock-in\item impedir exportação\item eliminar documentação\item dispensar backup\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.19}Um aceite funcional deve ser baseado em:\begin{enumerate}[label=\Alph*)]\item critérios objetivos e evidências de testes/entrega\item opinião informal da contratada\item pagamento antecipado\item marca do produto\item quantidade de reuniões\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.20}Se serviço crítico exige RTO de 2 h, o contrato deve conter:\begin{enumerate}[label=\Alph*)]\item responsabilidades, arquitetura/controles e evidência de testes compatíveis com o RTO\item somente preço mensal\item apenas cláusula de confidencialidade\item nenhum procedimento de desastre\item RPO necessariamente igual ao RTO\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.21}Uma licença anual foi contratada para 5.000 usuários, mas só 1.200 estão ativos. A auditoria deve avaliar:\begin{enumerate}[label=\Alph*)]\item dimensionamento, uso efetivo e oportunidade de otimização\item apenas se a nota foi paga\item somente segurança física\item inexistência de contrato\item apenas marca da licença\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.22}Uma penalidade contratual deve ser aplicada:\begin{enumerate}[label=\Alph*)]\item segundo previsão contratual/legal, contraditório e evidência do descumprimento\item automaticamente sem processo\item somente se fornecedor concordar\item sem medir o SLA\item por qualquer atraso informal\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.23}A prorrogação de contrato contínuo deve considerar:\begin{enumerate}[label=\Alph*)]\item vantajosidade, desempenho, condições legais e risco de transição\item apenas conveniência do fornecedor\item ausência de fiscalização\item preço original sem atualização\item obrigação automática de prorrogar\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.24}Em contrato que trata dados pessoais, deve-se definir:\begin{enumerate}[label=\Alph*)]\item papéis, instruções de tratamento, segurança, incidentes, retenção e destino dos dados\item apenas endereço do datacenter\item somente preço\item dispensa de LGPD\item acesso irrestrito da contratada\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 15.25}Uma ordem de serviço deve permitir:\begin{enumerate}[label=\Alph*)]\item rastrear escopo, prazo, responsável, critérios e resultado demandado\item executar qualquer atividade sem autorização\item alterar objeto do contrato livremente\item eliminar aceite\item ocultar custo\end{enumerate}\end{questao}
 
-\subsection*{N3 — Nível de concurso}
-\begin{questao}{\nivel{N3} 15.26}Um contrato mede SLA pelo próprio sistema da contratada, mas o órgão recebe logs brutos assinados e recalcula amostras. Isso:\begin{enumerate}[label=\Alph*)]\item aumenta verificabilidade e reduz dependência da medição unilateral\item elimina qualquer risco\item torna auditoria desnecessária\item substitui contrato\item invalida o SLA\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.27}O fornecedor classifica 80\% dos incidentes como ``força maior'' sem critérios contratuais, excluindo-os do SLA. A falha é:\begin{enumerate}[label=\Alph*)]\item ausência de regra objetiva para exclusões e potencial manipulação do indicador\item falta de RAID\item excesso de logs\item ausência de Scrum\item erro de banco\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.28}Uma especificação exige processador de marca/modelo exato sem justificativa técnica. O risco é:\begin{enumerate}[label=\Alph*)]\item restrição indevida à competição/direcionamento\item aumento de interoperabilidade automaticamente\item redução de custo garantida\item ausência de objeto\item melhoria da pesquisa de preços\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.29}Um contrato de desenvolvimento paga por ponto de função, mas entrega código com alto retrabalho. O auditor deve:\begin{enumerate}[label=\Alph*)]\item verificar se métrica de tamanho está acompanhada de critérios de qualidade, aceite e resultado\item concluir que ponto de função mede qualidade\item ignorar defeitos\item pagar apenas por linhas de código\item eliminar testes\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.30}Em contratação de cloud, estimar apenas mensalidade-base e ignorar egress, suporte e crescimento viola principalmente:\begin{enumerate}[label=\Alph*)]\item análise de custo total e planejamento da solução\item sigilo\item integridade referencial\item disponibilidade do edital\item processo legislativo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.31}Um contrato exige 99,99\% de disponibilidade, mas não há arquitetura redundante nem orçamento compatível. Isso indica:\begin{enumerate}[label=\Alph*)]\item requisito possivelmente inexequível ou desconectado do desenho/custo\item SLA forte sempre reduz custo\item disponibilidade independe de arquitetura\item contrato é automaticamente nulo\item RPO igual a zero\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.32}O fiscal atesta serviço com base em e-mail ``tudo certo'', sem verificar chamados e logs. A deficiência é:\begin{enumerate}[label=\Alph*)]\item aceite sem evidência suficiente e objetiva\item excesso de formalismo\item boa segregação\item redundância de controle\item falta de nuvem\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.33}A mesma pessoa elabora requisitos, conduz seleção e atesta recebimento sem revisão. O risco é:\begin{enumerate}[label=\Alph*)]\item concentração de funções e conflito de interesses\item perda de disponibilidade apenas\item falta de teste unitário\item excesso de competição\item integridade criptográfica\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.34}O Mapa de Gerenciamento de Riscos não é atualizado após mudança tecnológica relevante. O problema é:\begin{enumerate}[label=\Alph*)]\item gestão de risco tratada como documento estático, sem refletir risco atual\item excesso de revisão\item risco eliminado\item contrato automaticamente encerrado\item problema de DNS\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.35}Um fornecedor retém código-fonte e documentação essenciais sem cláusula clara de propriedade/licenciamento. O risco é:\begin{enumerate}[label=\Alph*)]\item dependência e dificuldade de continuidade/manutenção\item aumento de portabilidade\item redução de lock-in\item ausência de dados\item apenas problema de SLA\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.36}Pesquisa de preços mistura assinatura SaaS mensal com licença perpétua sem normalizar horizonte e escopo. A consequência é:\begin{enumerate}[label=\Alph*)]\item comparação inválida por bases econômicas distintas\item maior precisão\item mediana sempre corrige\item preço deixa de importar\item inexigibilidade automática\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.37}Um indicador mede ``chamados resolvidos'', mas a contratada fecha e reabre chamados para melhorar resultado. O controle adequado é:\begin{enumerate}[label=\Alph*)]\item incluir reabertura, aceite do usuário e regras anti-gaming\item aumentar meta de fechamentos\item remover logs\item aceitar dados da contratada\item trocar SLA por horas\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.38}Na transição contratual, contas privilegiadas do fornecedor antigo permanecem ativas. O risco é:\begin{enumerate}[label=\Alph*)]\item acesso indevido após término e falha de offboarding\item indisponibilidade do novo fornecedor apenas\item ausência de pesquisa de preço\item erro de licitação\item melhoria da continuidade\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.39}Contrato de backup prevê retenção, mas não exige restore test. A avaliação correta é:\begin{enumerate}[label=\Alph*)]\item retenção não prova recuperabilidade; testes devem validar restauração\item retenção torna teste desnecessário\item backup é igual a RAID\item RTO não importa\item RPO é preço\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 15.40}Uma contratação emergencial é renovada repetidamente por falta de planejamento. A auditoria deve investigar:\begin{enumerate}[label=\Alph*)]\item causas da emergência recorrente e falha de planejamento/gestão\item apenas preço atual\item somente segurança física\item linguagem de programação\item número de funcionários do fornecedor\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N2} 15.11 — FGV/estudo de caso}
+Um órgão pretende contratar 5.000 licenças de software. O histórico mostra 2.300 usuários cadastrados, 1.650 usuários ativos mensais e pico de 1.120 acessos simultâneos. O ETP apenas registra: ``contratar 5.000 licenças para crescimento futuro''. A providência mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item manter o quantitativo, pois margem de segurança elevada é sempre compatível com economicidade;
+\item revisar o dimensionamento com séries históricas, perfis de licença, crescimento e possibilidade de contratação escalável;
+\item substituir a estimativa por declaração do fornecedor;
+\item adotar 1.120 licenças necessariamente, pois simultaneidade é o único critério possível;
+\item dispensar memória de cálculo por se tratar de software.
+\end{enumerate}
+\end{questao}
 
-\subsection*{N4 — Avançado / Auditoria}
-\begin{questao}{\nivel{N4} 15.41}Plataforma SaaS crítica foi contratada sem exportação padronizada nem documentação de APIs. Após dois anos, migração é estimada em 18 meses. O risco principal é:\begin{enumerate}[label=\Alph*)]\item lock-in tecnológico/contratual e ausência de estratégia de saída\item fragmentação IP\item colisão de hash\item deadlock\item falta de compressão\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.42}Contrato de sustentação paga valor fixo, não possui catálogo de serviços, SLA é genérico e não há penalidades registradas por 24 meses. O auditor deve prioritariamente:\begin{enumerate}[label=\Alph*)]\item testar demanda, medição, qualidade, cumprimento e relação entre pagamento e resultado\item concluir que não houve falha porque não houve penalidade\item verificar apenas assinatura\item aceitar relatórios da contratada\item ignorar chamados\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.43}A contratada administra o sistema de monitoramento e pode alterar históricos antes da medição mensal. O controle mais adequado é:\begin{enumerate}[label=\Alph*)]\item logs/telemetria imutáveis ou sob controle do órgão, com reconciliação independente\item confiar na boa-fé\item aumentar SLA\item remover monitoramento\item pagar antecipado\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.44}Uma licitação de SOC exige equipe 24x7, mas não define casos de uso, cobertura de logs, MTTD/MTTR ou qualidade de investigação. O risco é:\begin{enumerate}[label=\Alph*)]\item contratar presença de pessoas sem resultado de segurança mensurável\item excesso de requisitos\item ausência de firewall apenas\item falta de licitação\item custo necessariamente baixo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.45}O órgão contrata 1 PB de storage ``para crescimento futuro'', sem histórico de consumo. Após 18 meses, usa 180 TB. O achado deve focar:\begin{enumerate}[label=\Alph*)]\item dimensionamento sem premissas, possível supercontratação e custo de ociosidade\item falta de RAID exclusivamente\item baixa segurança física\item inexistência de software\item uso insuficiente de nuvem\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.46}Um reequilíbrio é pedido por aumento previsível de custos que já integravam risco normal do negócio. O auditor deve:\begin{enumerate}[label=\Alph*)]\item examinar fundamento jurídico, matriz de risco e demonstração do evento, sem presumir direito automático\item aceitar qualquer pedido\item negar qualquer pedido sempre\item usar apenas inflação geral\item ignorar contrato\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.47}Contrato de IA permite ao fornecedor usar dados do órgão para ``melhoria de modelos'' sem limites. Qual risco?\begin{enumerate}[label=\Alph*)]\item tratamento secundário, confidencialidade, LGPD, propriedade e vazamento de informação\item apenas custo computacional\item somente disponibilidade\item nenhuma, por ser IA\item problema de VLAN\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.48}Após término de contrato cloud, o fornecedor afirma ter apagado dados, mas não há evidência de eliminação de backups. O controle esperado é:\begin{enumerate}[label=\Alph*)]\item procedimento contratual de retorno/eliminação, prazos, evidência/certificação e tratamento de cópias\item confiar verbalmente\item deixar dados indefinidamente\item apagar apenas contas de usuário\item remover logs do órgão\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.49}Um SLA de atendimento mede resposta inicial, mas não solução; a contratada responde em 5 min e deixa incidentes abertos por dias. A correção é:\begin{enumerate}[label=\Alph*)]\item combinar métricas de resposta, restauração/resolução, severidade e qualidade\item reduzir resposta para 1 min apenas\item eliminar SLA\item pagar por chamados abertos\item medir somente e-mail\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 15.50}O gestor deseja aceitar entrega com defeitos críticos para não perder saldo orçamentário. A atuação adequada do fiscal é:\begin{enumerate}[label=\Alph*)]\item aplicar critérios de aceite e registrar não conformidade; conveniência orçamentária não substitui evidência de entrega\item aceitar e corrigir depois sem registro\item alterar critério retroativamente\item deixar fornecedor atestar\item pagar integralmente sem teste\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N2} 15.12 — FCC/indicador}
+Um contrato define disponibilidade mensal de 99,9\% em janela 24x7. Em mês de 30 dias, houve 70 minutos de indisponibilidade não excluída. Desconsiderando arredondamentos adicionais, a conclusão correta é:
+\begin{enumerate}[label=\Alph*)]
+\item o SLA foi cumprido, pois indisponibilidade inferior a 0,9\% é aceitável;
+\item o SLA não foi cumprido, pois 99,9\% admite aproximadamente 43,2 minutos de indisponibilidade;
+\item o SLA foi cumprido porque qualquer indisponibilidade inferior a 1 hora é irrelevante;
+\item só seria possível concluir se o contrato previsse RPO;
+\item a disponibilidade deve ser calculada sobre horas úteis, ainda que o contrato defina 24x7.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.13 — Cebraspe/Certo ou Errado}
+Se a contratada produz o relatório que determina o próprio pagamento, mas o órgão recebe os logs brutos, protegidos contra alteração, e recalcula mensalmente uma amostra dos indicadores, a confiabilidade da medição é superior à de um modelo baseado apenas em planilha unilateral do fornecedor.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.14 — Vunesp/caso}
+Três propostas comerciais apresentam valores de R\$ 8,9 milhões, R\$ 9,1 milhões e R\$ 9,0 milhões. Contratações públicas recentes e comparáveis, porém, variam entre R\$ 5,5 milhões e R\$ 6,2 milhões. A equipe de planejamento ignora essas referências porque ``já possui três propostas''. O principal problema é:
+\begin{enumerate}[label=\Alph*)]
+\item inexistência de três fontes privadas;
+\item ausência de análise crítica das fontes e possível distorção da estimativa;
+\item uso obrigatório da mediana dos três fornecedores;
+\item necessidade de sempre escolher o menor preço encontrado na Internet;
+\item impossibilidade de usar contratações públicas como parâmetro.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.15 — FGV/aceite}
+Uma ordem de serviço para sustentação é encerrada pela contratada com a informação ``atividade realizada''. O fiscal técnico não verifica logs, testes, chamados nem resultado para o usuário. A fragilidade principal é:
+\begin{enumerate}[label=\Alph*)]
+\item excesso de formalização do aceite;
+\item ausência de evidência apropriada para demonstrar a entrega;
+\item falta de pagamento antecipado;
+\item uso inadequado de metodologia ágil;
+\item inexistência de cláusula de propriedade intelectual.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.16 — Cebraspe/Certo ou Errado}
+A adoção de mediana em pesquisa de preços torna desnecessária a análise de comparabilidade entre objetos, pois a mediana neutraliza diferenças de escopo e modelo de licenciamento.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.17 — FCC/custo total}
+Na comparação entre solução on-premises e SaaS, o ETP considera apenas o valor das licenças. Foram ignorados suporte, infraestrutura, equipe operacional, egress, integração, backup e desativação. Nesse caso, a comparação é inadequada porque:
+\begin{enumerate}[label=\Alph*)]
+\item licenciamento é sempre irrelevante;
+\item o custo total de propriedade/uso não foi adequadamente estimado;
+\item SaaS deve ser sempre escolhido;
+\item on-premises deve ser sempre escolhido;
+\item custos futuros não podem ser considerados em ETP.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.18 — Cebraspe/Certo ou Errado}
+Em um contrato no qual o pagamento é calculado por ponto de função, a quantidade de pontos de função, isoladamente, não demonstra a qualidade do software entregue.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.19 — AOCP/segregação}
+Em pequena unidade administrativa, a mesma servidora participou da elaboração do ETP e, posteriormente, atuará como fiscal técnica. A avaliação mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item a situação é automaticamente ilegal, pois qualquer repetição de agente entre fases viola segregação;
+\item a situação deve ser avaliada conforme riscos, incompatibilidades, independência necessária e controles compensatórios;
+\item a situação é sempre recomendada por garantir conhecimento técnico;
+\item a segregação só se aplica ao setor privado;
+\item não há necessidade de registrar justificativas de designação.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.20 — FGV/lock-in}
+O contrato de plataforma de dados prevê APIs proprietárias e cobrança elevada para exportação massiva. O fornecedor oferece desconto inicial de 35\%. Qual elemento deveria ser incluído na análise de vantajosidade?
+\begin{enumerate}[label=\Alph*)]
+\item somente o desconto do primeiro ano;
+\item custos de saída, portabilidade, dependência tecnológica e cenários de migração;
+\item apenas o número de funcionalidades;
+\item somente o SLA de atendimento;
+\item nenhum, porque custos de saída são posteriores ao contrato.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.21 — Cebraspe/Certo ou Errado}
+A previsão contratual de retenção de backups, sem qualquer obrigação de teste de restauração, é evidência suficiente de que o serviço atende ao RTO contratado.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.22 — FCC/SLA}
+A contratada atende 100\% das chamadas críticas em até cinco minutos, mas o tempo mediano de restauração é de nove horas e o contrato só mede a primeira resposta. O desenho do indicador:
+\begin{enumerate}[label=\Alph*)]
+\item está adequado, pois primeira resposta mede integralmente qualidade;
+\item cria incentivo para resposta rápida sem assegurar restauração do serviço;
+\item deve ser substituído apenas por satisfação do usuário;
+\item elimina necessidade de medir severidade;
+\item demonstra necessariamente sobrepreço.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.23 — Cebraspe/Certo ou Errado}
+A prorrogação de contrato de serviço contínuo não deve ocorrer por inércia: desempenho, vantajosidade, condições legais e risco de transição precisam ser considerados.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.24 — FGV/LGPD}
+Em contrato de processamento de dados pessoais, o fornecedor solicita autorização genérica para reutilizar dados do órgão no treinamento de modelos próprios. A providência mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item aceitar, pois tratamento por fornecedor contratado é automaticamente compatível com qualquer finalidade;
+\item avaliar finalidade, papéis, base jurídica, necessidade, riscos, propriedade e limites contratuais antes de autorizar;
+\item aceitar desde que os dados permaneçam criptografados em repouso;
+\item negar apenas se o provedor estiver fora do Brasil;
+\item considerar a LGPD inaplicável a contratos administrativos.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 15.25 — Cebraspe/Certo ou Errado}
+Uma pesquisa de preços pode utilizar fontes distintas, mas valores precisam ser comparáveis quanto a objeto, unidade, quantidade, período e condições relevantes antes da aplicação de média ou mediana.
+\end{questao}
+
+\subsection*{N3 — Integração de concurso}
+
+\begin{questao}{\nivel{N3} 15.26 — FGV/assertivas}
+Considere as assertivas sobre contratação de TIC:
+
+I. O ETP deve justificar a solução escolhida a partir de necessidades e alternativas.
+
+II. O TR deve permitir medir a execução e o pagamento.
+
+III. O gerenciamento de riscos se encerra após a assinatura do contrato, porque a fase de execução é controlada apenas pelos SLAs.
+
+Assinale a alternativa correta.
+\begin{enumerate}[label=\Alph*)]
+\item Apenas I.
+\item Apenas II.
+\item Apenas I e II.
+\item Apenas II e III.
+\item I, II e III.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.27 — Cebraspe/Certo ou Errado}
+A existência de prova de conceito tecnicamente complexa não afasta risco de direcionamento se os critérios tiverem sido construídos com características desnecessárias que apenas um fornecedor consegue atender.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.28 — FCC/cálculo e evidência}
+Contrato de nuvem define teto mensal de R\$ 500 mil. O consumo apurado pelo provedor foi de R\$ 540 mil, dos quais R\$ 70 mil correspondem a recursos sem tag e sem owner. Antes de autorizar pagamento integral, o fiscal deve prioritariamente:
+\begin{enumerate}[label=\Alph*)]
+\item pagar, pois a fatura do provedor é evidência suficiente;
+\item verificar autorização, finalidade e rastreabilidade do consumo excedente e dos recursos sem identificação;
+\item rejeitar toda a fatura automaticamente;
+\item considerar o teto apenas informativo;
+\item excluir os R\$ 70 mil sem qualquer apuração.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.29 — Cebraspe/Certo ou Errado}
+A medição de disponibilidade baseada em monitoramento controlado pela contratada pode ser considerada adequada se houver mecanismos que permitam ao órgão validar completude, integridade e cálculo da telemetria; o fato de a fonte ser operada pelo fornecedor não torna a evidência automaticamente inválida.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.30 — FGV/contratação de SOC}
+Um órgão contrata SOC 24x7. O TR especifica quantidade de analistas por turno, mas não define fontes de log, casos de uso, tempos de detecção, critérios de escalonamento ou qualidade das investigações. O risco central é:
+\begin{enumerate}[label=\Alph*)]
+\item contratar presença de pessoas sem resultado de segurança objetivamente mensurável;
+\item excesso de requisitos técnicos;
+\item impossibilidade de usar SIEM;
+\item falta de segregação entre turnos;
+\item obrigatoriedade de adoção de metodologia Scrum.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.31 — FCC/pesquisa de preços}
+Foram obtidos os seguintes preços anuais para uma solução: R\$ 1,9 mi, R\$ 2,0 mi, R\$ 2,1 mi, R\$ 2,05 mi e R\$ 8,7 mi. O último valor decorre de escopo incompatível e foi justificado tecnicamente como outlier. Nesse caso:
+\begin{enumerate}[label=\Alph*)]
+\item a exclusão pode ser adequada se documentada e tecnicamente fundamentada;
+\item nenhum valor pode ser excluído em pesquisa de preços;
+\item a média deve obrigatoriamente incluir todos os valores;
+\item a mediana não pode ser usada;
+\item o maior valor deve ser adotado para evitar inexequibilidade.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.32 — Cebraspe/Certo ou Errado}
+O fato de uma contratação ter sido realizada pelo menor preço não basta para demonstrar economicidade se o objeto entregue tiver baixa utilização ou gerar custos de operação incompatíveis com o benefício obtido.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.33 — FGV/transição}
+No encerramento de contrato de infraestrutura, o fornecedor anterior permanece com contas VPN e privilégios administrativos durante 45 dias ``para eventual suporte'', sem ordem de serviço ativa. A principal fragilidade é:
+\begin{enumerate}[label=\Alph*)]
+\item offboarding incompleto e manutenção de acesso sem necessidade demonstrada;
+\item ausência de pesquisa de preços;
+\item impossibilidade de executar backup;
+\item falta de SLA de disponibilidade;
+\item uso inadequado de RAID.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.34 — Cebraspe/Certo ou Errado}
+Se o contrato prevê 99,99\% de disponibilidade, mas a arquitetura contratada possui ponto único de falha conhecido e não há mecanismo de contingência, o auditor pode questionar a coerência entre requisito, arquitetura e preço da solução.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.35 — FCC/assertivas}
+Considere os seguintes possíveis indícios em uma contratação de software:
+
+I. requisitos copiados de catálogo de fabricante;
+
+II. prazo de implantação compatível apenas com fornecedor que já opera o ambiente;
+
+III. certificação rara sem relação demonstrada com o objeto.
+
+Esses elementos:
+\begin{enumerate}[label=\Alph*)]
+\item provam, isoladamente, fraude;
+\item são irrelevantes se houver três propostas;
+\item podem indicar restrição indevida à competição e justificam procedimentos adicionais;
+\item tornam obrigatória a contratação direta;
+\item impedem qualquer especificação técnica.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.36 — Cebraspe/Certo ou Errado}
+Em contrato de desenvolvimento, recompilar o software para produção a partir do mesmo código-fonte testado é equivalente, para fins de rastreabilidade, a promover exatamente o mesmo artefato binário aprovado em homologação.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.37 — FGV/recebimento}
+Um fornecedor entrega sistema com todas as funcionalidades previstas, mas testes de segurança identificam vulnerabilidade crítica explicitamente vedada pelos critérios de aceite. A melhor decisão é:
+\begin{enumerate}[label=\Alph*)]
+\item aceitar integralmente porque escopo funcional foi cumprido;
+\item aplicar os critérios de aceite e tratar a não conformidade antes do recebimento definitivo, conforme contrato;
+\item aceitar sem registro para não atrasar o cronograma;
+\item alterar retroativamente o critério de segurança;
+\item considerar segurança matéria alheia à fiscalização contratual.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.38 — Cebraspe/Certo ou Errado}
+O uso de catálogo de serviços, severidades, critérios de aceite e métricas de reabertura tende a produzir medição mais robusta do que um indicador baseado apenas na quantidade de chamados encerrados.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.39 — FCC/reequilíbrio}
+A contratada pede reequilíbrio porque seus custos operacionais cresceram acima do previsto, mas o evento alegado integra riscos ordinários já considerados em sua proposta. O auditor deve:
+\begin{enumerate}[label=\Alph*)]
+\item presumir direito ao reequilíbrio;
+\item rejeitar qualquer reequilíbrio em contratos de TI;
+\item analisar fundamento jurídico, matriz de riscos e demonstração do evento antes de concluir;
+\item usar apenas a inflação acumulada como critério;
+\item ignorar a alocação contratual de riscos.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 15.40 — Cebraspe/Certo ou Errado}
+Uma prorrogação pode ser economicamente desvantajosa mesmo quando o preço unitário permanece inalterado, caso o consumo real tenha caído significativamente e o modelo contratual não permita ajuste do quantitativo.
+\end{questao}
+
+\subsection*{N4 — Auditoria / avançado}
+
+\begin{questao}{\nivel{N4} 15.41 — Cebraspe/caso integrado}
+Em auditoria de contrato de sustentação, constatou-se: pagamento mensal fixo; inexistência de catálogo de serviços; SLAs genéricos; 92\% dos chamados encerrados pela contratada sem aceite do usuário; nenhuma penalidade em 24 meses; e ausência de trilha que relacione chamados a notas fiscais. Julgue o item:
+
+A ausência de penalidades, combinada com alto percentual de chamados encerrados, permite concluir que o contrato apresenta desempenho satisfatório, salvo prova de fraude.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.42 — FGV/auditoria de SaaS}
+Em SaaS crítico, o órgão não possui exportação testada, o fornecedor controla as chaves de criptografia e a única integração usa API proprietária. O contrato termina em oito meses. A prioridade de auditoria deve ser:
+\begin{enumerate}[label=\Alph*)]
+\item negociar somente desconto de renovação;
+\item testar plano de saída, exportação, dependências, chaves, continuidade e cronograma de transição;
+\item aumentar o SLA de disponibilidade;
+\item concentrar-se apenas em disponibilidade histórica;
+\item postergar análise até o término do contrato.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.43 — FCC/auditoria de capacidade}
+Storage contratado: 1 PB. Uso após 18 meses: 180 TB. Crescimento observado: 4 TB/mês. Contrato restante: 24 meses. Mesmo projetando linearmente o crescimento, o uso final seria muito inferior ao contratado. O procedimento mais adequado é:
+\begin{enumerate}[label=\Alph*)]
+\item concluir imediatamente pela existência de dano sem examinar premissas;
+\item avaliar memória de cálculo, previsões originais, alternativas escaláveis e custo de capacidade ociosa;
+\item considerar ociosidade irrelevante porque capacidade livre aumenta disponibilidade;
+\item exigir uso artificial do espaço contratado;
+\item analisar apenas o preço por TB.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.44 — Cebraspe/Certo ou Errado}
+Em fiscalização contratual, evidência produzida pela própria contratada não é necessariamente inválida; sua suficiência depende, entre outros fatores, da possibilidade de validação, da integridade da fonte e do risco de manipulação.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.45 — FGV/contratação de IA}
+Contrato de IA generativa permite que o fornecedor retenha prompts e documentos para ``melhoria contínua'', sem prazo de retenção, segregação por cliente ou restrição de treinamento. Para o auditor, a combinação de riscos mais relevante é:
+\begin{enumerate}[label=\Alph*)]
+\item apenas aumento de latência e custo de GPU;
+\item confidencialidade, finalidade do tratamento, propriedade, memorização e exposição de dados;
+\item somente indisponibilidade do modelo;
+\item apenas obsolescência tecnológica;
+\item somente lock-in de linguagem de programação.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.46 — Cebraspe/Certo ou Errado}
+Se o gestor deseja aceitar entrega com defeito crítico para não perder saldo orçamentário, o fiscal pode flexibilizar informalmente o critério de aceite desde que registre posteriormente a correção do defeito.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.47 — FGV/logs e pagamento}
+A contratada opera o sistema de monitoramento que mede SLA e possui permissão para alterar históricos. O órgão recebe apenas PDF mensal. Qual combinação de controles melhor reduz o risco?
+\begin{enumerate}[label=\Alph*)]
+\item aumentar a penalidade sem alterar a evidência;
+\item exportar telemetria para repositório protegido sob controle do órgão, preservar logs brutos e recalcular indicadores;
+\item confiar no PDF assinado;
+\item eliminar o SLA;
+\item substituir a medição por pesquisa de satisfação.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.48 — FCC/continuidade}
+Um contrato de backup prevê RPO de 15 minutos e RTO de 2 horas. O fornecedor executa backup completo diário e não mantém logs transacionais/replicação. O último restore test durou 5 horas. A conclusão mais apropriada é:
+\begin{enumerate}[label=\Alph*)]
+\item ambos os objetivos estão demonstrados;
+\item o RPO está demonstrado, mas o RTO não;
+\item os controles observados não demonstram capacidade de atender nem ao RPO nem ao RTO;
+\item o RTO é irrelevante porque existe backup;
+\item o RPO depende apenas do tamanho do storage.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.49 — Cebraspe/Certo ou Errado}
+Uma contratação pode ser formalmente regular e, ainda assim, apresentar falha de economicidade se quantitativos, consumo e benefícios não justificarem o custo incorrido.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 15.50 — FGV/matriz de achado}
+Em contrato cloud, 14\% da fatura anual corresponde a recursos sem owner, 9\% a ambientes de teste ligados 24x7 e 6\% a snapshots sem política de retenção. Qual achado está mais bem estruturado?
+\begin{enumerate}[label=\Alph*)]
+\item ``A nuvem é cara e deve ser substituída por datacenter próprio'';
+\item ``Há desperdício, logo todo gasto cloud é irregular'';
+\item ``Ausência de governança de consumo e tagging permitiu recursos sem responsável e retenção não controlada, aumentando custo sem benefício demonstrado; recomenda-se estabelecer ownership, políticas de desligamento/retenção e monitoramento de custo'';
+\item ``O fornecedor é responsável porque emitiu a fatura'';
+\item ``O problema será resolvido aumentando o orçamento''.
+\end{enumerate}
+\end{questao}
