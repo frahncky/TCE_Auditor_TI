@@ -1,32 +1,107 @@
 \documentclass[11pt,oneside,openany]{book}
 \input{config/preambulo}
 
-% No volume de questões, os títulos de nível também são exibidos por estrelas.
+% O banco é apresentado por nível: questões do nível e, logo depois,
+% suas respectivas resoluções comentadas. Não há bloco de gabarito separado.
 \ExplSyntaxOn
-\tl_new:N \l_tce_titulo_nivel_tl
-\cs_new_protected:Npn \tce_prepara_titulo_nivel:n #1
+\tl_new:N \l_tce_nivel_alvo_tl
+
+\cs_new_protected:Npn \tce_define_nivel:n #1
+  { \tl_set:Nn \l_tce_nivel_alvo_tl {#1} }
+
+\prg_new_conditional:Npnn \tce_questao_do_nivel:n #1 {TF}
   {
-    \tl_set:Nn \l_tce_titulo_nivel_tl {#1}
-    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N1} {\nivel{N1}}
-    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N2} {\nivel{N2}}
-    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N3} {\nivel{N3}}
-    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N4} {\nivel{N4}}
+    \str_case:VnF \l_tce_nivel_alvo_tl
+      {
+        {N1}{\tl_if_in:nnTF {#1}{N1}{\prg_return_true:}{\prg_return_false:}}
+        {N2}{\tl_if_in:nnTF {#1}{N2}{\prg_return_true:}{\prg_return_false:}}
+        {N3}{\tl_if_in:nnTF {#1}{N3}{\prg_return_true:}{\prg_return_false:}}
+        {N4}{\tl_if_in:nnTF {#1}{N4}{\prg_return_true:}{\prg_return_false:}}
+      }
+      {\prg_return_false:}
   }
-\cs_new:Npn \tce_titulo_nivel: {\tl_use:N \l_tce_titulo_nivel_tl}
+
+\prg_new_conditional:Npnn \tce_solucao_do_nivel:n #1 {TF}
+  {
+    \str_case:VnF \l_tce_nivel_alvo_tl
+      {
+        {N1}{\regex_match:nnTF {\.(0[1-9]|10)\Z} {#1}{\prg_return_true:}{\prg_return_false:}}
+        {N2}{\regex_match:nnTF {\.(1[1-9]|2[0-5])\Z} {#1}{\prg_return_true:}{\prg_return_false:}}
+        {N3}{\regex_match:nnTF {\.(2[6-9]|3[0-9]|40)\Z} {#1}{\prg_return_true:}{\prg_return_false:}}
+        {N4}{\regex_match:nnTF {\.(4[1-9]|50)\Z} {#1}{\prg_return_true:}{\prg_return_false:}}
+      }
+      {\prg_return_false:}
+  }
+
+\NewDocumentCommand{\TCEDefineNivel}{m}
+  {\tce_define_nivel:n{#1}}
+\NewDocumentCommand{\TCEQuestaoDoNivelTF}{m +m +m}
+  {\tce_questao_do_nivel:nTF{#1}{#2}{#3}}
+\NewDocumentCommand{\TCESolucaoDoNivelTF}{m +m +m}
+  {\tce_solucao_do_nivel:nTF{#1}{#2}{#3}}
 \ExplSyntaxOff
 
-\let\TCEOriginalSubsection\subsection
-\RenewDocumentCommand{\subsection}{s o m}{%
-  \csname tce_prepara_titulo_nivel:n\endcsname{#3}%
-  \IfBooleanTF{#1}{%
-    \TCEOriginalSubsection*{\csname tce_titulo_nivel:\endcsname}%
-  }{%
-    \IfNoValueTF{#2}{%
-      \TCEOriginalSubsection{\csname tce_titulo_nivel:\endcsname}%
-    }{%
-      \TCEOriginalSubsection[#2]{\csname tce_titulo_nivel:\endcsname}%
-    }%
+\NewDocumentCommand{\TCERenderQuestao}{m +m}{%
+  \csname tce_prepara_titulo_questao:n\endcsname{#1}%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=azulMedio,
+    title={Questão \csname tce_titulo_questao:\endcsname},
+    fonttitle=\bfseries
+  ]
+  #2
+  \csname tce_opcoes_ce:\endcsname
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand{\TCERenderSolucao}{m +m}{%
+  \begin{tcolorbox}[
+    colback=cinzaClaro,
+    colframe=verdeAcerto,
+    title={Resolução #1},
+    fonttitle=\bfseries
+  ]
+  #2
+  \end{tcolorbox}%
+}
+
+\NewDocumentCommand{\TCEInputQuestoesNivel}{m m}{%
+  \begingroup
+  \TCEDefineNivel{#1}%
+  \RenewDocumentCommand{\section}{s o m}{}%
+  \RenewDocumentCommand{\subsection}{s o m}{}%
+  \RenewEnviron{questao}[1]{%
+    \TCEQuestaoDoNivelTF{##1}{\TCERenderQuestao{##1}{\BODY}}{}%
   }%
+  \input{#2}%
+  \endgroup
+}
+
+\NewDocumentCommand{\TCEInputSolucoesNivel}{m m}{%
+  \begingroup
+  \TCEDefineNivel{#1}%
+  \RenewDocumentCommand{\section}{s o m}{}%
+  \RenewDocumentCommand{\subsection}{s o m}{}%
+  \RenewEnviron{solucao}[1]{%
+    \TCESolucaoDoNivelTF{##1}{\TCERenderSolucao{##1}{\BODY}}{}%
+  }%
+  \input{#2}%
+  \endgroup
+}
+
+\NewDocumentCommand{\TCENivelCompleto}{m m m m}{%
+  \subsection*{\nivel{#1}\enspace #2}%
+  \TCEInputQuestoesNivel{#1}{#3}%
+  \subsubsection*{Resoluções comentadas \nivel{#1}}%
+  \TCEInputSolucoesNivel{#1}{#4}%
+}
+
+\NewDocumentCommand{\TCEBancoCapitulo}{m m}{%
+  \chapter{#1}%
+  \TCENivelCompleto{N1}{Fundamento competitivo}{questoes/#2}{solucoes/#2}%
+  \TCENivelCompleto{N2}{Aplicação}{questoes/#2}{solucoes/#2}%
+  \TCENivelCompleto{N3}{Integração de concurso}{questoes/#2}{solucoes/#2}%
+  \TCENivelCompleto{N4}{Auditoria / avançado}{questoes/#2}{solucoes/#2}%
 }
 
 \title{\textbf{TCE-MA 2026}\\[0.4em]\Large Auditor Estadual de Controle Externo\\[0.2em]\large Tecnologia da Informação — Questões}
@@ -51,7 +126,7 @@
 \vspace{1.2cm}
 {\color{white}\LARGE\bfseries APOSTILA DE QUESTÕES\par}
 \vfill
-{\color{white}\normalsize Questões por dificuldade \nivel{N1}--\nivel{N4} \textbullet\ Discursivas \textbullet\ Simulado \textbullet\ Resoluções\par}
+{\color{white}\normalsize Questões por dificuldade \nivel{N1}--\nivel{N4} \textbullet\ Resoluções comentadas por nível \textbullet\ Discursivas \textbullet\ Simulado\par}
 {\color{white}\normalsize Banca: Cebraspe \quad | \quad Prova de Auditor: 29/11/2026\par}
 {\color{white}\small Atualização-base: 15/08/2026\par}
 \end{titlepage}
@@ -62,83 +137,28 @@
 \mainmatter
 \part{Conhecimentos gerais}
 
-\chapter{Língua Portuguesa}
-\input{questoes/01_portugues}
-\input{solucoes/01_portugues}
-
-\chapter{Competências Digitais e Informática Aplicada ao Setor Público}
-\input{questoes/02_competencias_digitais}
-\input{solucoes/02_competencias_digitais}
-
-\chapter{Raciocínio Lógico}
-\input{questoes/03_raciocinio_logico}
-\input{solucoes/03_raciocinio_logico}
-
-\chapter{Direito Administrativo}
-\input{questoes/04_direito_administrativo}
-\input{solucoes/04_direito_administrativo}
-
-\chapter{Direito Constitucional}
-\input{questoes/05_direito_constitucional}
-\input{solucoes/05_direito_constitucional}
-
-\chapter{Controle Externo}
-\input{questoes/06_controle_externo}
-\input{solucoes/06_controle_externo}
-
-\chapter{Legislação Específica do TCE-MA}
-\input{questoes/07_legislacao_tce_ma}
-\input{solucoes/07_legislacao_tce_ma}
-
-\chapter{História e Geografia do Estado do Maranhão}
-\input{questoes/08_historia_geografia_ma}
-\input{solucoes/08_historia_geografia_ma}
-
-\chapter{Noções de Direitos Humanos}
-\input{questoes/09_direitos_humanos}
-\input{solucoes/09_direitos_humanos}
+\TCEBancoCapitulo{Língua Portuguesa}{01_portugues}
+\TCEBancoCapitulo{Competências Digitais e Informática Aplicada ao Setor Público}{02_competencias_digitais}
+\TCEBancoCapitulo{Raciocínio Lógico}{03_raciocinio_logico}
+\TCEBancoCapitulo{Direito Administrativo}{04_direito_administrativo}
+\TCEBancoCapitulo{Direito Constitucional}{05_direito_constitucional}
+\TCEBancoCapitulo{Controle Externo}{06_controle_externo}
+\TCEBancoCapitulo{Legislação Específica do TCE-MA}{07_legislacao_tce_ma}
+\TCEBancoCapitulo{História e Geografia do Estado do Maranhão}{08_historia_geografia_ma}
+\TCEBancoCapitulo{Noções de Direitos Humanos}{09_direitos_humanos}
 
 \part{Conhecimentos específicos — Auditor/TI}
 
-\chapter{Infraestrutura de TI}
-\input{questoes/10_infraestrutura_ti}
-\input{solucoes/10_infraestrutura_ti}
-
-\chapter{Engenharia de Dados}
-\input{questoes/11_engenharia_dados}
-\input{solucoes/11_engenharia_dados}
-
-\chapter{Engenharia de Software}
-\input{questoes/12_engenharia_software}
-\input{solucoes/12_engenharia_software}
-
-\chapter{Segurança da Informação}
-\input{questoes/13_seguranca_informacao}
-\input{solucoes/13_seguranca_informacao}
-
-\chapter{Gestão e Governança de TI}
-\input{questoes/14_gestao_governanca_ti}
-\input{solucoes/14_gestao_governanca_ti}
-
-\chapter{Fiscalização de Contratos de TI}
-\input{questoes/15_fiscalizacao_contratos_ti}
-\input{solucoes/15_fiscalizacao_contratos_ti}
-
-\chapter{Computação em Nuvem}
-\input{questoes/16_computacao_nuvem}
-\input{solucoes/16_computacao_nuvem}
-
-\chapter{Análise de Dados}
-\input{questoes/17_analise_dados}
-\input{solucoes/17_analise_dados}
-
-\chapter{Inteligência Artificial}
-\input{questoes/18_inteligencia_artificial}
-\input{solucoes/18_inteligencia_artificial}
-
-\chapter{Auditoria do Setor Público}
-\input{questoes/19_auditoria_setor_publico}
-\input{solucoes/19_auditoria_setor_publico}
+\TCEBancoCapitulo{Infraestrutura de TI}{10_infraestrutura_ti}
+\TCEBancoCapitulo{Engenharia de Dados}{11_engenharia_dados}
+\TCEBancoCapitulo{Engenharia de Software}{12_engenharia_software}
+\TCEBancoCapitulo{Segurança da Informação}{13_seguranca_informacao}
+\TCEBancoCapitulo{Gestão e Governança de TI}{14_gestao_governanca_ti}
+\TCEBancoCapitulo{Fiscalização de Contratos de TI}{15_fiscalizacao_contratos_ti}
+\TCEBancoCapitulo{Computação em Nuvem}{16_computacao_nuvem}
+\TCEBancoCapitulo{Análise de Dados}{17_analise_dados}
+\TCEBancoCapitulo{Inteligência Artificial}{18_inteligencia_artificial}
+\TCEBancoCapitulo{Auditoria do Setor Público}{19_auditoria_setor_publico}
 
 \part{Prova discursiva e simulados}
 
