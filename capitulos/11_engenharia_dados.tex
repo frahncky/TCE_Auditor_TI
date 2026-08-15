@@ -1,18 +1,32 @@
 \chapter{Engenharia de Dados}
 
-\section{Dado, informação, conhecimento e inteligência}
+\section{Visão geral e escopo do edital}
 
-\begin{teoria}
-\termo{Dado} é uma representação bruta de fato ou evento. \termo{Informação} surge quando dados são contextualizados e adquirem significado. \termo{Conhecimento} combina informação, experiência e regras para orientar compreensão ou ação. Em contextos de controle, \termo{inteligência} é o uso organizado desse conhecimento para apoiar decisão, priorização e detecção de risco.
+Engenharia de Dados trata do ciclo completo que transforma dados brutos em ativos confiáveis para sistemas operacionais, análises, fiscalização e inteligência. Para Auditor/TI, o foco não pode ficar restrito a SQL. É necessário compreender \textbf{origem}, \textbf{modelo}, \textbf{qualidade}, \textbf{integração}, \textbf{armazenamento}, \textbf{processamento}, \textbf{desempenho}, \textbf{segurança}, \textbf{linhagem} e \textbf{reprodutibilidade}.
+
+\begin{teoria}[dado como evidência]
+Um dado usado em auditoria só é útil quando sua origem, significado, período, transformação e integridade são conhecidos. Um número correto no banco errado, referente ao período errado ou obtido por uma transformação não rastreável pode sustentar uma conclusão incorreta. Engenharia de dados e auditoria convergem, portanto, em quatro atributos: \textbf{confiabilidade}, \textbf{rastreabilidade}, \textbf{reprodutibilidade} e \textbf{controle de acesso}.
 \end{teoria}
 
-Dados podem ser estruturados, semiestruturados ou não estruturados. Bancos relacionais trabalham naturalmente com estruturas tabulares e esquema definido; documentos JSON são exemplo comum de estrutura semiestruturada; textos livres, imagens e áudio são exemplos não estruturados.
+\section{Dado, informação, conhecimento e inteligência}
+
+\termo{Dado} é representação de fato, evento ou estado. \termo{Informação} surge quando dados recebem contexto e significado. \termo{Conhecimento} combina informação, experiência, regras e modelos. \termo{Inteligência}, em contexto de controle, é a aplicação organizada desse conhecimento para apoiar seleção, decisão, detecção de risco e priorização.
+
+A distinção importa porque uma base com milhões de registros não gera automaticamente conhecimento. Sem semântica, qualidade e contexto, volume apenas amplia ruído.
+
+\subsection{Dados estruturados, semiestruturados e não estruturados}
+
+Dados estruturados seguem esquema bem definido, como tabelas relacionais. Semiestruturados possuem marcadores e organização flexível, como JSON, XML e eventos. Não estruturados incluem texto livre, imagem, áudio e vídeo, embora sempre existam metadados e representações estruturadas ao redor desses objetos.
+
+\subsection{Dados abertos}
+
+Dado aberto deve ser acessível em formato que permita reutilização, acompanhado de metadados, licença e documentação adequadas. Publicar PDF escaneado ou CSV sem dicionário não satisfaz, do ponto de vista técnico, o objetivo de reutilização eficiente. Em setor público, abertura também deve respeitar sigilo, LGPD e outras restrições.
 
 \section{Ciclo de engenharia de dados}
 
 \begin{center}
-\begin{tikzpicture}[node distance=7mm and 7mm]
-\tikzset{p/.style={draw=azulPetroleo,rounded corners,fill=azulClaro,minimum width=2.3cm,minimum height=.9cm,align=center}}
+\begin{tikzpicture}[node distance=6mm and 5mm]
+\tikzset{p/.style={draw=azulPetroleo,rounded corners,fill=azulClaro,minimum width=2.25cm,minimum height=.9cm,align=center}}
 \node[p] (c) {Coleta};
 \node[p,right=of c] (i) {Ingestão};
 \node[p,right=of i] (a) {Armazenamento};
@@ -25,169 +39,291 @@ Dados podem ser estruturados, semiestruturados ou não estruturados. Bancos rela
 \end{tikzpicture}
 \end{center}
 
-Qualidade deve ser tratada ao longo de todo o fluxo: completude, validade, unicidade, consistência, atualidade e acurácia são dimensões comuns. Linhagem de dados registra origem, transformações e destinos, essencial em auditoria e reprodutibilidade.
+Cada etapa deve registrar metadados: origem, horário, schema, versão do código, parâmetros, contagens, rejeições e destino. Esse registro sustenta observabilidade e auditoria.
 
-\section{Modelagem conceitual, lógica e física}
+\section{Qualidade de dados}
 
-O modelo conceitual representa entidades, relacionamentos e regras do negócio sem se comprometer com SGBD. O lógico traduz essas estruturas para um paradigma, como o relacional. O físico define tipos concretos, índices, particionamento, armazenamento e demais decisões de implementação.
-
-\subsection{Chaves e integridade}
-
-Chave primária identifica unicamente uma tupla. Chave estrangeira referencia chave candidata/primária de outra relação e apoia integridade referencial. Restrições \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK} e regras de domínio protegem consistência.
-
-\section{Normalização}
-
-Normalização reduz redundância e anomalias de inserção, atualização e exclusão.
+Qualidade é aderência do dado ao uso pretendido. Dimensões frequentes:
 
 \begin{table}[ht]
 \centering
-\begin{tabularx}{\textwidth}{l X}
+\begin{tabularx}{\textwidth}{l X X}
 \toprule
-Forma & Ideia central \\
+Dimensão & Pergunta & Exemplo \\
 \midrule
-1FN & valores atômicos no contexto do modelo relacional e ausência de grupos repetitivos. \\
-2FN & 1FN + nenhum atributo não-chave depende apenas de parte de uma chave candidata composta. \\
-3FN & 2FN + eliminação de dependências transitivas inadequadas de atributos não-chave em relação à chave. \\
-BCNF & para toda dependência funcional não trivial $X\to Y$, $X$ deve ser superchave. \\
+Completude & os valores necessários existem? & contratos sem CNPJ do fornecedor. \\
+Validade & o valor respeita domínio/regra? & data impossível ou CPF inválido. \\
+Unicidade & a entidade/evento está duplicado? & mesma nota carregada duas vezes. \\
+Consistência & fontes/campos concordam? & situação ``paga'' com saldo integral aberto. \\
+Atualidade & o dado está disponível no tempo necessário? & cadastro atualizado meses depois. \\
+Acurácia & representa corretamente o mundo real? & valor digitado errado mas formalmente válido. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Desnormalização pode ser deliberada para desempenho analítico, mas aumenta custo de consistência. A banca pode explorar o erro de tratar normalização como objetivo absoluto.
+Qualidade deve ser medida, não presumida. Regras precisam de limiar, owner, severidade e tratamento. Um pipeline que rejeita dados inválidos sem guardar a causa pode produzir base ``limpa'' e, simultaneamente, ocultar perda relevante.
 
-\begin{exemplo}[dependência parcial]
-Considere \texttt{Matricula(AlunoID, DisciplinaID, NomeAluno, Nota)} com chave composta $(AlunoID,DisciplinaID)$. Se \texttt{NomeAluno} depende apenas de \texttt{AlunoID}, há dependência parcial e violação de 2FN.
-\end{exemplo}
+\section{Metadados, catálogo e linhagem}
 
-\section{SQL: DDL, DML e consultas}
+Metadados técnicos descrevem schema, tipos, localização e formatos; metadados de negócio registram significado, owner, classificação e regras; metadados operacionais registram execução, volume e falhas.
 
-DDL define estruturas: \texttt{CREATE}, \texttt{ALTER}, \texttt{DROP}. DML manipula dados: \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE}; \texttt{SELECT} é frequentemente tratado separadamente como DQL em classificações didáticas, embora taxonomias variem.
+\termo{Data lineage} registra dependências entre origem, transformações e destinos. Em auditoria, a linhagem permite responder: ``de quais registros e regras surgiu este indicador?''. Sem isso, dashboards podem ser irreproduzíveis.
 
-\begin{lstlisting}[language=SQL]
-SELECT u.orgao_id,
-       COUNT(*) AS achados,
-       SUM(a.valor_estimado) AS valor
-FROM unidade u
-JOIN achado a ON a.unidade_id = u.id
-WHERE a.status = 'ABERTO'
-GROUP BY u.orgao_id
-HAVING SUM(a.valor_estimado) > 1000000;
-\end{lstlisting}
+\section{Modelagem conceitual, lógica e física}
 
-\begin{cebraspe}
-\texttt{WHERE} filtra linhas antes da agregação; \texttt{HAVING} filtra grupos após o \texttt{GROUP BY}. Um \texttt{LEFT JOIN} preserva as linhas do lado esquerdo mesmo sem correspondência, preenchendo colunas do lado direito com \texttt{NULL}.
-\end{cebraspe}
+\subsection{Modelo conceitual}
 
-\section{Transações e propriedades ACID}
+Representa entidades, relacionamentos, atributos e regras de negócio sem compromisso com tecnologia. A pergunta é \emph{o que existe e como se relaciona?}
+
+\subsection{Modelo lógico}
+
+Traduz o modelo conceitual para um paradigma, como o relacional: relações, atributos, chaves e restrições. Ainda evita detalhes de armazenamento específicos do produto.
+
+\subsection{Modelo físico}
+
+Define tipos concretos, índices, particionamento, tablespaces/filegroups, compressão, distribuição e parâmetros do SGBD. A mesma modelagem lógica pode ter desenhos físicos diferentes conforme workload.
+
+\section{Modelo relacional}
+
+Uma relação é conjunto de tuplas sobre atributos definidos por domínios. Chaves candidatas identificam unicamente tuplas; uma é escolhida como primária. Chave estrangeira referencia chave candidata/primária e viabiliza integridade referencial.
+
+\subsection{Integridade}
 
 \begin{itemize}
-\item \textbf{Atomicidade}: transação é aplicada por inteiro ou desfeita.
-\item \textbf{Consistência}: regras e invariantes válidos são preservados por transações corretas.
-\item \textbf{Isolamento}: concorrência deve produzir comportamento compatível com o nível de isolamento adotado.
-\item \textbf{Durabilidade}: após confirmação, efeitos sobrevivem a falhas previstas no modelo.
+\item \textbf{entidade}: chave primária identifica tupla e não é nula;
+\item \textbf{referencial}: referência deve apontar para valor existente ou respeitar nulidade/regra definida;
+\item \textbf{domínio}: valores obedecem tipo e restrições;
+\item \textbf{negócio}: regras específicas, implementadas por constraints, aplicação ou mecanismos controlados.
 \end{itemize}
 
-Fenômenos de concorrência incluem leitura suja, leitura não repetível e fantasma. MVCC mantém versões para reduzir contenção e sustentar isolamento em diversos SGBDs.
+A escolha entre \texttt{CASCADE}, \texttt{RESTRICT}, \texttt{SET NULL} e outras ações deve refletir semântica. Cascata não é ``mais correta'' por padrão.
 
-\section{Índices e desempenho}
+\section{Dependências funcionais e normalização}
 
-Índices aceleram certas leituras ao custo de espaço e manutenção em escrita. Um índice B-tree é útil para igualdade e intervalos em colunas com ordenação; índices hash favorecem igualdade em implementações que os suportam. Cardinalidade, seletividade, distribuição e ordem das colunas importam. O otimizador avalia planos de execução com estatísticas.
+Se $X\rightarrow Y$, valores de $X$ determinam unicamente valores de $Y$ na relação. Normalização usa dependências para decompor estruturas e reduzir anomalias.
 
-\begin{atencao}
-Mais índices não significam banco mais rápido. Índices redundantes degradam \texttt{INSERT/UPDATE/DELETE}, ocupam memória/armazenamento e exigem manutenção.
-\end{atencao}
+\subsection{1FN}
+
+Na interpretação clássica usada em concursos, cada atributo contém valor atômico no contexto do domínio e não há grupos repetitivos. Atomicidade é relativa ao uso: um endereço pode ser atômico em um sistema e decomponível em outro.
+
+\subsection{2FN}
+
+Exige 1FN e ausência de dependência parcial de atributo não-chave em parte de chave candidata composta. Se a chave é simples, a relação já satisfaz automaticamente essa condição específica.
+
+\begin{exemplo}[dependência parcial]
+\texttt{Matricula(AlunoID, DisciplinaID, NomeAluno, Nota)} tem chave $(AlunoID,DisciplinaID)$. Se \texttt{NomeAluno} depende apenas de \texttt{AlunoID}, deve ser separado em entidade Aluno.
+\end{exemplo}
+
+\subsection{3FN e BCNF}
+
+3FN elimina dependências transitivas inadequadas de atributos não-chave em relação à chave. BCNF é mais forte: para toda dependência funcional não trivial $X\rightarrow Y$, $X$ deve ser superchave.
+
+Normalização reduz anomalias, mas não é objetivo absoluto. Sistemas analíticos frequentemente desnormalizam para reduzir joins e simplificar consumo. A decisão é trade-off entre consistência, escrita, leitura e complexidade.
+
+\section{SQL aprofundado}
+
+\subsection{DDL e DML}
+
+DDL define estrutura: \texttt{CREATE}, \texttt{ALTER}, \texttt{DROP}. DML manipula dados: \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE}; SELECT é frequentemente classificado como DQL em taxonomias didáticas.
+
+\subsection{Ordem lógica da consulta}
+
+Uma ordem conceitual útil é:
+\[
+FROM/JOIN \rightarrow WHERE \rightarrow GROUP\ BY \rightarrow HAVING \rightarrow SELECT \rightarrow ORDER\ BY.
+\]
+Ela explica por que agregados não podem ser filtrados diretamente no WHERE da mesma camada lógica e por que alias do SELECT nem sempre estão disponíveis antes.
+
+\subsection{JOINs e cardinalidade}
+
+INNER JOIN mantém correspondências. LEFT JOIN preserva a esquerda. CROSS JOIN gera produto cartesiano. O auditor deve verificar cardinalidade 1:1, 1:N ou N:M antes de somar medidas; um JOIN 1:N pode multiplicar valores.
+
+\begin{cebraspe}[LEFT JOIN que vira INNER]
+\texttt{LEFT JOIN t2 ... WHERE t2.status='A'} elimina linhas sem t2 porque \texttt{NULL='A'} não é verdadeiro. Para preservar ausência, o predicado pode precisar ficar no \texttt{ON} ou tratar NULL explicitamente, conforme objetivo.
+\end{cebraspe}
+
+\subsection{Agregações e funções de janela}
+
+GROUP BY colapsa linhas em grupos. Funções de janela calculam sobre partições preservando linhas, por exemplo:
+
+\begin{lstlisting}[language=SQL]
+SELECT orgao, fornecedor, valor,
+       SUM(valor) OVER (PARTITION BY orgao) AS total_orgao,
+       DENSE_RANK() OVER (
+         PARTITION BY orgao ORDER BY valor DESC
+       ) AS posicao
+FROM despesa;
+\end{lstlisting}
+
+\subsection{CTE, subquery e recursão}
+
+CTEs melhoram legibilidade e podem expressar recursão. Não presuma que CTE materializa resultado ou melhora desempenho: comportamento depende do SGBD e do otimizador.
+
+\section{Transações, concorrência e ACID}
+
+\begin{itemize}
+\item \textbf{Atomicidade}: tudo ou nada.
+\item \textbf{Consistência}: invariantes válidos são preservados por transações corretas.
+\item \textbf{Isolamento}: efeitos concorrentes respeitam garantias do nível adotado.
+\item \textbf{Durabilidade}: commit sobrevive às falhas previstas pelo sistema.
+\end{itemize}
+
+\subsection{Anomalias}
+
+\termo{Dirty read}: leitura de dado não confirmado. \termo{Non-repeatable read}: releitura da mesma linha retorna valor diferente após commit concorrente. \termo{Phantom}: nova consulta de predicado encontra linhas adicionadas/removidas. \termo{Lost update}: atualização sobrescreve outra sem perceber.
+
+Níveis de isolamento controlam parte dessas anomalias, mas detalhes variam por implementação. Serializable busca efeito equivalente a execução serial, com custo potencial de bloqueio/abort.
+
+\subsection{MVCC}
+
+MVCC mantém versões e permite leituras consistentes com menor bloqueio entre leitores e escritores. Versões antigas precisam de limpeza; transações longas podem reter versões e aumentar bloat. MVCC não elimina deadlocks entre escritores nem substitui controle de concorrência.
+
+\subsection{WAL e recuperação}
+
+Write-ahead logging registra mudanças antes de páginas de dados correspondentes, permitindo redo/undo conforme arquitetura. WAL/binlog pode sustentar point-in-time recovery quando combinado com backup base, retenção, cadeia íntegra e procedimento testado.
+
+\section{Índices e otimização}
+
+\subsection{B-tree e seletividade}
+
+B-tree suporta igualdade, ordenação e intervalos. Índice composto segue ordenação de colunas; o princípio do prefixo esquerdo ajuda a entender quais predicados podem aproveitá-lo. Seletividade indica quanto o predicado reduz linhas; estatísticas ajudam o otimizador a estimar cardinalidade.
+
+\subsection{Sargabilidade}
+
+Predicado é sargable quando pode ser usado eficientemente para buscar no índice. Funções sobre a coluna, conversões e expressões podem impedir busca direta, salvo índices funcionais ou otimizações específicas.
+
+\begin{exemplo}
+Em vez de \texttt{WHERE YEAR(data)=2026}, uma forma frequentemente mais sargable é \texttt{data >= '2026-01-01' AND data < '2027-01-01'}.
+\end{exemplo}
+
+\subsection{Custo dos índices}
+
+Índices ocupam armazenamento, cache e precisam ser mantidos em escrita. Índice duplicado ou pouco usado pode degradar desempenho. Auditoria de banco deve basear conclusão em workload, plano de execução e métricas, não em quantidade de índices.
+
+\section{Particionamento e desempenho em larga escala}
+
+Particionamento divide tabela fisicamente/logicamente por chave de faixa, lista, hash ou estratégia do SGBD. Partition pruning permite ler subconjuntos quando predicado inclui a chave adequada. Particionamento desalinhado ao padrão de consulta pode apenas aumentar complexidade.
+
+Escala também envolve replicação, sharding, cache, compressão e distribuição. Sharding divide dados entre nós por chave; escolher chave ruim causa hotspots e joins distribuídos caros.
 
 \section{Modelagem dimensional}
 
-Modelos dimensionais são orientados a análise. A \termo{tabela fato} registra medidas e chaves para dimensões; \termo{dimensões} descrevem contexto como tempo, órgão, programa, fornecedor. Esquema estrela mantém dimensões mais desnormalizadas; floco de neve normaliza partes das dimensões.
+\subsection{Fato, dimensão e granularidade}
 
-Granularidade define o que uma linha da fato representa e deve ser estabelecida antes de selecionar medidas. Medidas podem ser aditivas, semi-aditivas ou não aditivas.
+A primeira decisão é a granularidade: ``uma linha por quê?''. Tabela fato registra evento/medidas; dimensões descrevem contexto. Exemplo: uma linha por item de pagamento, com dimensões tempo, órgão, fornecedor, função e contrato.
 
-\section{Big data e NoSQL}
+Medidas podem ser:
+\begin{itemize}
+\item \textbf{aditivas}: somáveis em todas as dimensões relevantes;
+\item \textbf{semi-aditivas}: somáveis em algumas, não em outras, como saldo ao longo do tempo;
+\item \textbf{não aditivas}: percentuais e razões, que exigem recomputação.
+\end{itemize}
 
-NoSQL não significa ausência de consulta estruturada nem rejeição a consistência. A categoria inclui bancos chave-valor, documentos, colunas largas e grafos. A escolha depende do padrão de acesso, volume, velocidade, variedade, disponibilidade, consistência e modelo de dados.
+\subsection{Estrela e snowflake}
 
-Em sistemas distribuídos, replicação e particionamento aumentam escala e disponibilidade, mas criam problemas de consenso, latência e consistência. O teorema CAP afirma que, na presença de partição de rede, um sistema distribuído não pode garantir simultaneamente consistência forte e disponibilidade para todas as requisições.
+Esquema estrela usa dimensões desnormalizadas ao redor da fato, simplificando consultas. Snowflake normaliza dimensões, reduz redundância mas aumenta joins. Não há superioridade absoluta.
 
-\section{ETL, ELT e ingestão}
+\subsection{Slowly Changing Dimensions}
 
-Em ETL, dados são extraídos, transformados e depois carregados no destino. Em ELT, dados brutos são carregados antes e transformados no ambiente de destino. ELT é comum em plataformas analíticas escaláveis, mas não é intrinsecamente melhor.
+Tipo 1 sobrescreve atributo, sem histórico. Tipo 2 cria nova versão e preserva histórico. Tipo 3 mantém histórico limitado em colunas. Em auditoria temporal, SCD2 é relevante quando relatórios antigos precisam refletir atributo válido à época.
 
-Ingestão pode ocorrer em lote ou fluxo. Sistemas de streaming lidam com eventos contínuos, ordenação, reprocessamento, semântica de entrega e janelas temporais. Idempotência é valiosa para permitir reexecução sem duplicar efeitos indevidos.
+\section{Big Data e NoSQL}
 
-\section{Administração e políticas de armazenamento}
+Big Data envolve volume, velocidade, variedade e desafios de processamento/governança. Escala distribuída adiciona falha parcial, consistência, particionamento e observabilidade.
 
-Administração inclui capacidade, backup, recuperação, segurança, usuários, privilégios, replicação, atualização, monitoramento e tuning. Separe funções administrativas de funções de negócio para reduzir risco de abuso. Logs de auditoria devem ser protegidos contra alteração pelo próprio usuário monitorado.
+\subsection{Famílias NoSQL}
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+Modelo & Estrutura & Uso típico \\
+\midrule
+Chave-valor & chave $\rightarrow$ valor & cache, sessão, lookup simples. \\
+Documentos & documentos semiestruturados & conteúdo e entidades flexíveis. \\
+Wide-column & linhas/colunas distribuídas & grande volume e acesso por chave/partição. \\
+Grafo & nós e arestas & relacionamentos e caminhos. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+NoSQL não significa ``sem consistência'' nem ``sem esquema''. Muitas soluções aplicam schema-on-read ou validação de documento e oferecem diferentes níveis de consistência.
+
+\subsection{CAP}
+
+Na presença de partição de rede, um sistema distribuído não pode garantir simultaneamente consistência forte e disponibilidade para todas as operações. CAP não afirma que é preciso escolher permanentemente apenas duas letras em funcionamento normal.
+
+\section{ETL, ELT e integração}
+
+\subsection{ETL versus ELT}
+
+ETL transforma antes de carregar no destino analítico. ELT carrega e usa capacidade do destino para transformar. ELT facilita retenção de dados brutos e reprocessamento, mas exige forte governança para não virar depósito desorganizado.
+
+\subsection{Full load, incremental e CDC}
+
+Carga completa substitui/recarrega todo conjunto. Incremental processa somente alterações identificadas. CDC captura inserts, updates e deletes por logs, triggers ou mecanismos nativos. Incremental reduz volume, mas exige controle de watermark, exclusões, reprocessamento e idempotência.
+
+\subsection{Integração por arquivos}
+
+Arquivos exigem contrato de schema, encoding, delimitador, naming, atomicidade de entrega e reconciliação. Uma prática é entregar primeiro com nome temporário e renomear apenas após conclusão, evitando consumidor ler arquivo parcial.
+
+\section{Streaming e eventos}
+
+Streaming trata fluxo contínuo. Conceitos fundamentais: partição, offset, consumer group, ordering, retry, dead-letter queue, event time e processing time.
+
+\subsection{Idempotência}
+
+Se evento pode ser reenviado, o consumidor deve reconhecer identificador estável ou usar transação para evitar efeito duplicado. ``Exactly once'' é uma garantia de escopo; não significa que toda infraestrutura física transmite mensagem uma única vez.
+
+\subsection{Janelas e dados tardios}
+
+Eventos podem chegar fora de ordem. Janelas tumbling, sliding e session agregam períodos. Watermark expressa progresso estimado do event time e define tolerância a atraso conforme motor.
+
+\section{Administração de banco de dados}
+
+DBA gerencia instalação, configuração, usuários, privilégios, capacidade, backup, recuperação, replicação, patching, monitoramento e tuning. Em ambiente crítico, separar administração técnica de autorização sobre dados de negócio reduz risco.
+
+\subsection{Backup e PITR}
+
+Backup deve incluir restore test. Point-in-time recovery combina backup base e logs transacionais. RPO depende de frequência/continuidade dos logs e RTO do tempo para restaurar, aplicar logs e validar aplicação.
+
+\subsection{Auditoria de banco}
+
+Controles importantes:
+\begin{itemize}
+\item contas nominativas e privilégio mínimo;
+\item segregação entre DBA e usuário de negócio;
+\item logs protegidos contra alteração pelo próprio administrador;
+\item criptografia e gestão de chaves quando aplicável;
+\item monitoramento de alterações de schema e permissões;
+\item revisão de contas órfãs e acessos de serviço.
+\end{itemize}
 
 \section{Mapa mental}
 
 \mapamental{Engenharia de dados}{
- child {node[concept]{Modelagem} child {node[concept]{conceitual}} child {node[concept]{lógica/física}}}
- child {node[concept]{Relacional} child {node[concept]{normalização}} child {node[concept]{SQL}}}
- child {node[concept]{Analytics} child {node[concept]{dimensional}} child {node[concept]{fato/dimensão}}}
- child {node[concept]{Escala} child {node[concept]{NoSQL}} child {node[concept]{big data}}}
- child {node[concept]{Pipelines} child {node[concept]{ETL/ELT}} child {node[concept]{batch/stream}}}
- child {node[concept]{Operação} child {node[concept]{índices}} child {node[concept]{backup}}}
+ child {node[concept]{Modelagem} child {node[concept]{conceitual/lógica}} child {node[concept]{normalização}}}
+ child {node[concept]{SQL/SGBD} child {node[concept]{transações}} child {node[concept]{índices/planos}}}
+ child {node[concept]{Analytics} child {node[concept]{dimensional}} child {node[concept]{histórico}}}
+ child {node[concept]{Escala} child {node[concept]{NoSQL/CAP}} child {node[concept]{particionamento}}}
+ child {node[concept]{Pipelines} child {node[concept]{ETL/ELT}} child {node[concept]{stream/idempotência}}}
+ child {node[concept]{Governança} child {node[concept]{qualidade}} child {node[concept]{linhagem/acesso}}}
 }
 
-\section{Questões por nível}
+\begin{resumo}
+\textbf{Fixação:} normalize para controlar anomalias, desnormalize quando o workload justificar; defina granularidade antes de medir; examine cardinalidade antes de fazer JOIN; índice é trade-off; ETL/ELT precisam de reconciliação e lineage; retry exige idempotência; backup só é confiável quando restauração é comprovada.
+\end{resumo}
 
-\begin{questao}{\nivel{N1} 11.1}
-Em um esquema estrela, a tabela que normalmente concentra medidas quantitativas e chaves para dimensões é denominada:
-\begin{enumerate}[label=\Alph*)]
-\item catálogo.
-\item fato.
-\item índice.
-\item domínio.
-\item catálogo de metadados.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{11.1}
-\textbf{Gabarito: B.} Tabela fato representa eventos/medidas na granularidade definida. As demais alternativas representam estruturas diferentes e não exercem esse papel dimensional.
-\end{solucao}
+\input{questoes/11_engenharia_dados}
 
-\begin{questao}{\nivel{N2} 11.2}
-Uma relação possui chave composta $(A,B)$ e atributo $C$ que depende apenas de $A$. Mantidas as demais condições, isso caracteriza problema que a normalização para qual forma busca eliminar diretamente?
-\begin{enumerate}[label=\Alph*)]
-\item 1FN
-\item 2FN
-\item 3FN exclusivamente por dependência transitiva
-\item BCNF apenas quando $B$ é multivalorado
-\item 4FN por dependência de junção
-\end{enumerate}
-\end{questao}
-\begin{solucao}{11.2}
-\textbf{Gabarito: B.} Dependência de atributo não-chave em parte de chave composta é dependência parcial, alvo da 2FN. 1FN trata atomicidade/grupos repetitivos; 3FN trata dependências transitivas inadequadas; 4FN e formas superiores lidam com outras classes de dependência.
-\end{solucao}
+\section{Treino discursivo}
 
-\begin{questao}{\nivel{N3} 11.3}
-Uma consulta precisa retornar todos os órgãos, inclusive aqueles sem achados associados, exibindo zero quando não houver ocorrência. Qual construção preserva naturalmente os órgãos sem correspondência?
-\begin{enumerate}[label=\Alph*)]
-\item \texttt{INNER JOIN} de órgão para achado.
-\item \texttt{CROSS JOIN} com filtro em \texttt{WHERE}.
-\item \texttt{LEFT JOIN} partindo da tabela de órgãos, com agregação adequada.
-\item \texttt{DELETE JOIN}.
-\item \texttt{HAVING} sem agregação.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{11.3}
-\textbf{Gabarito: C.} \texttt{LEFT JOIN} preserva cada linha da relação esquerda. \texttt{INNER JOIN} removeria órgãos sem achados; \texttt{CROSS JOIN} produz produto cartesiano; D não é operação padrão de consulta; E não cria correspondências inexistentes.
-\end{solucao}
-
-\begin{questao}{\nivel{N4} 11.4}
-Em um pipeline de fiscalização, eventos podem ser reenviados após falhas. O consumidor grava cada pagamento recebido em tabela de risco. Duplicatas estão inflando valores. Qual desenho é mais apropriado?
-\begin{enumerate}[label=\Alph*)]
-\item eliminar qualquer retry para impedir duplicatas.
-\item tornar o processamento idempotente, usando identificador estável do evento e controle de duplicidade/transação.
-\item trocar banco relacional por qualquer NoSQL.
-\item aumentar o número de partições sem alterar lógica.
-\item remover chaves únicas para acelerar ingestão.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{11.4}
-\textbf{Gabarito: B.} Reenvio é esperado em sistemas distribuídos; idempotência permite processar a mesma mensagem mais de uma vez sem duplicar o efeito lógico. A reduz resiliência; C e D não resolvem semântica de processamento; E piora controle de integridade.
-\end{solucao}
-
-\begin{discursiva}[engenharia de dados]
+\begin{discursiva}[pipeline de fiscalização]
 O TCE pretende integrar dados de licitações municipais provenientes de APIs, arquivos CSV e bases relacionais, com atualização diária e trilha de auditoria. Em até 30 linhas, proponha uma arquitetura lógica de ingestão, qualidade, armazenamento e disponibilização, destacando controles de linhagem, idempotência e acesso.
 \end{discursiva}
+
+\begin{discursiva}[qualidade e evidência]
+Um painel de despesas apresenta valores 8\% maiores que o sistema de origem após integração de contratos e pagamentos. Em até 30 linhas, descreva procedimentos para identificar se o erro decorre de duplicidade, granularidade, JOIN, carga incremental ou regra de negócio, indicando evidências a preservar.
+\end{discursiva}
+
+\input{solucoes/11_engenharia_dados}
