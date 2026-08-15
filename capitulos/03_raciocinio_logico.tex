@@ -1,0 +1,218 @@
+\chapter{Raciocínio Lógico}
+
+\section{Estratégia de resolução}
+
+Raciocínio lógico exige transformar linguagem natural em estrutura formal. O erro mais comum é calcular antes de modelar.
+
+\begin{teoria}[roteiro]
+\begin{enumerate}
+\item identifique as variáveis/proposições;
+\item traduza conectivos e quantificadores;
+\item determine exatamente o que é pedido;
+\item escolha método: equivalência, tabela-verdade, álgebra, conjuntos ou equação;
+\item faça teste de plausibilidade do resultado.
+\end{enumerate}
+\end{teoria}
+
+\section{Proposições}
+
+Proposição é sentença declarativa à qual se pode atribuir valor lógico verdadeiro ou falso. Perguntas, ordens e sentenças abertas com variável livre não são proposições completas.
+
+\subsection{Proposições simples e compostas}
+
+Simples não contêm conectivos lógicos principais. Compostas combinam proposições por negação, conjunção, disjunção, condicional e bicondicional.
+
+\section{Conectivos}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{c c c}
+\toprule
+Forma & Símbolo & Verdadeira quando \\
+\midrule
+não $p$ & $\neg p$ & $p$ é falsa \\
+$p$ e $q$ & $p\land q$ & ambas verdadeiras \\
+$p$ ou $q$ & $p\lor q$ & ao menos uma verdadeira \\
+se $p$, então $q$ & $p\to q$ & falsa apenas em $V\to F$ \\
+$p$ se e somente se $q$ & $p\leftrightarrow q$ & mesmos valores \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A disjunção lógica padrão é inclusiva, salvo indicação em contrário.
+
+\section{Condicional}
+
+$p\to q$ pode ser lida como ``$p$ é condição suficiente para $q$'' e ``$q$ é condição necessária para $p$''.
+
+\begin{atencao}
+A recíproca $q\to p$ não é equivalente à condicional. A contrapositiva $\neg q\to\neg p$ é equivalente.
+\end{atencao}
+
+\section{Equivalências lógicas}
+
+\subsection{Condicional}
+\[
+p\to q\equiv \neg p\lor q.
+\]
+
+\subsection{Negação da condicional}
+\[
+\neg(p\to q)\equiv p\land\neg q.
+\]
+
+\subsection{Leis de De Morgan}
+\[
+\neg(p\land q)\equiv \neg p\lor\neg q,
+\]
+\[
+\neg(p\lor q)\equiv \neg p\land\neg q.
+\]
+
+\subsection{Bicondicional}
+\[
+p\leftrightarrow q\equiv(p\to q)\land(q\to p).
+\]
+
+\section{Tautologia, contradição e contingência}
+
+Tautologia é sempre verdadeira; contradição, sempre falsa; contingência assume ambos os valores conforme a valoração.
+
+Exemplos:
+\[
+p\lor\neg p \quad \text{tautologia},
+\]
+\[
+p\land\neg p \quad \text{contradição}.
+\]
+
+\section{Argumentos e validade}
+
+Um argumento é válido quando não existe situação em que todas as premissas sejam verdadeiras e a conclusão falsa.
+
+\subsection{Modus ponens}
+\[
+p\to q,\ p\ \therefore q.
+\]
+
+\subsection{Modus tollens}
+\[
+p\to q,\ \neg q\ \therefore \neg p.
+\]
+
+Afirmar o consequente e negar o antecedente são falácias formais.
+
+\section{Quantificadores}
+
+\subsection{Universal e existencial}
+
+``Todo A é B'' pode ser representado por $\forall x(A(x)\to B(x))$.
+
+``Algum A é B'' corresponde a $\exists x(A(x)\land B(x))$.
+
+\subsection{Negação}
+
+\[
+\neg\forall x\,P(x)\equiv\exists x\,\neg P(x),
+\]
+\[
+\neg\exists x\,P(x)\equiv\forall x\,\neg P(x).
+\]
+
+Logo, negar ``todos foram aprovados'' é ``pelo menos um não foi aprovado'', e não ``nenhum foi aprovado''.
+
+\section{Diagramas lógicos}
+
+Relações categóricas podem ser representadas por conjuntos:
+\begin{itemize}
+\item todo A é B: $A\subseteq B$;
+\item nenhum A é B: $A\cap B=\varnothing$;
+\item algum A é B: $A\cap B\neq\varnothing$.
+\end{itemize}
+
+Diagramas ajudam a verificar se uma conclusão é necessária ou apenas possível.
+
+\section{Conjuntos}
+
+\subsection{Operações}
+
+União $A\cup B$, interseção $A\cap B$, diferença $A-B$, complemento $A^c$.
+
+Para dois conjuntos finitos:
+\[
+|A\cup B|=|A|+|B|-|A\cap B|.
+\]
+
+Para três conjuntos:
+\[
+|A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|.
+\]
+
+\section{Porcentagem}
+
+Aumento de $r\%$ multiplica por $1+r$ (com $r$ decimal); redução multiplica por $1-r$.
+
+Aumentos sucessivos não se somam diretamente:
+\[
+100\times1,10\times1,20=132,
+\]
+logo 10\% e 20\% sucessivos produzem 32\%, não 30\%.
+
+\section{Razão e proporção}
+
+Razão compara grandezas. Proporção é igualdade entre razões:
+\[
+\frac{a}{b}=\frac{c}{d}\Rightarrow ad=bc.
+\]
+
+Grandezas diretamente proporcionais mantêm razão; inversamente proporcionais mantêm produto.
+
+\section{Regra de três}
+
+Antes da conta, identifique se a relação é direta ou inversa. Mais trabalhadores podem reduzir tempo para mesma tarefa, se produtividade individual for constante: relação inversa.
+
+\section{Equações de primeiro grau}
+
+Forma geral:
+\[
+ax+b=c,\quad a\neq0.
+\]
+
+Problemas textuais devem ser traduzidos para equação. O resultado deve ser validado no contexto — número de pessoas não pode ser negativo ou fracionário quando a situação exige inteiro.
+
+\section{Sistemas simples}
+
+Quando há duas incógnitas e duas relações independentes:
+\[
+\begin{cases}
+x+y=20\\
+2x+3y=50
+\end{cases}
+\]
+Substituição ou eliminação resolve o sistema.
+
+\section{Sequências e padrões simples}
+
+Embora não esteja destacado como tópico autônomo, problemas lógicos podem envolver padrões numéricos derivados de relações do enunciado. Não assuma progressão sem evidência; procure a regra mais simples compatível com todos os termos.
+
+\section{Mapa mental funcional}
+
+\mapafuncional{Raciocínio Lógico}
+{Resolver = traduzir linguagem para estrutura formal antes de calcular}
+{Lógica: proposição $\rightarrow$ conectivo $\rightarrow$ equivalência $\rightarrow$ argumento.\\Quantificadores: todo/algum $\rightarrow$ negação.\\Conjuntos: união/interseção/complemento.\\Álgebra: porcentagem $\rightarrow$ razão/proporção $\rightarrow$ equação.}
+{Condicional falsa somente em $V\to F$.\\Negação de $p\to q$ = $p\land\neg q$.\\Negar ``todos'' = ``algum não''.\\Aumentos sucessivos multiplicam fatores.\\Proporção inversa: produto constante.}
+{Recíproca $\neq$ contrapositiva.\\Ou lógico geralmente inclusivo.\\Nem todos $\neq$ nenhum.\\+10\% e -10\% $\neq$ zero líquido.\\Regra de três sem identificar direção gera erro.}
+{Qual é a proposição?\\Qual o conectivo principal?\\É necessária ou apenas possível a conclusão?\\Há dupla contagem em conjuntos?\\A relação é direta ou inversa?\\O resultado faz sentido no contexto?}
+
+\begin{resumo}
+\textbf{Método de prova:} traduza primeiro. Se a questão diz ``se'', ``todo'', ``algum'', ``somente se'', ``ao menos'' ou ``no máximo'', transforme a expressão em relação lógica antes de raciocinar em linguagem natural.
+\end{resumo}
+
+\input{questoes/03_raciocinio_logico}
+
+\section{Treino discursivo}
+\begin{discursiva}[formalização]
+Explique a diferença entre condição necessária e suficiente e demonstre, com um exemplo de auditoria, por que a contrapositiva de uma implicação é equivalente à proposição original, enquanto a recíproca não é.
+\end{discursiva}
+
+\input{solucoes/03_raciocinio_logico}
