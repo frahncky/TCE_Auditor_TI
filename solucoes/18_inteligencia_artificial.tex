@@ -1,0 +1,55 @@
+\section{Gabarito e resoluções comentadas — Inteligência Artificial}
+
+\begin{solucao}{18.01}\textbf{CERTO.} Supervisionado aprende a partir de entrada-alvo; clustering busca estrutura sem rótulo explícito.\end{solucao}
+\begin{solucao}{18.02}\textbf{ERRADO.} A descrição é de underfitting. Overfitting combina desempenho muito bom no treino e pior generalização.\end{solucao}
+\begin{solucao}{18.03}\textbf{CERTO.} Atenção compara queries e keys e usa os pesos resultantes para combinar values.\end{solucao}
+\begin{solucao}{18.04}\textbf{CERTO.} Temperatura altera distribuição de amostragem; diversidade não é sinônimo de correção factual.\end{solucao}
+\begin{solucao}{18.05}\textbf{CERTO.} RAG desacopla o conhecimento externo do conhecimento paramétrico e permite atualização do corpus sem retreinar a cada alteração.\end{solucao}
+\begin{solucao}{18.06}\textbf{ERRADO.} Fine-tuning é útil para comportamento/tarefa; fatos mutáveis são, em geral, melhor atendidos por recuperação ou ferramentas atualizadas.\end{solucao}
+\begin{solucao}{18.07}\textbf{CERTO.} Embeddings refletem similaridade aprendida; não fornecem prova de identidade jurídica ou factual.\end{solucao}
+\begin{solucao}{18.08}\textbf{ERRADO.} Determinismo não implica verdade. O modelo pode produzir consistentemente a mesma informação incorreta.\end{solucao}
+\begin{solucao}{18.09}\textbf{CERTO.} Data drift altera $P(X)$; concept drift altera a relação relevante entre $X$ e $Y$.\end{solucao}
+\begin{solucao}{18.10}\textbf{ERRADO.} Proxies podem codificar atributos sensíveis indiretamente. Fairness exige análise de dados, resultados e contexto.\end{solucao}
+
+\begin{solucao}{18.11}\textbf{B.} RAG é adequado quando o conhecimento muda e deve ser fundamentado em fontes versionadas.\end{solucao}
+\begin{solucao}{18.12}\textbf{B.} Os vetores são ortogonais; produto escalar é zero, logo a similaridade do cosseno é zero.\end{solucao}
+\begin{solucao}{18.13}\textbf{CERTO.} Busca lexical captura termos exatos; vetorial captura similaridade semântica. Combinar as duas pode melhorar recall/precisão da recuperação.\end{solucao}
+\begin{solucao}{18.14}\textbf{B.} A instrução maliciosa chega por conteúdo recuperado e tenta alterar o comportamento do modelo.\end{solucao}
+\begin{solucao}{18.15}\textbf{CERTO.} Autorização do documento não torna seu conteúdo uma instrução confiável para o agente.\end{solucao}
+\begin{solucao}{18.16}\textbf{C.} Recall $=90/(90+10)=90\%$.\end{solucao}
+\begin{solucao}{18.17}\textbf{B.} A diferença treino-validação sugere overfitting; regularização, early stopping e dados representativos são respostas coerentes.\end{solucao}
+\begin{solucao}{18.18}\textbf{CERTO.} Early stopping limita o ajuste excessivo após o ponto de melhor validação.\end{solucao}
+\begin{solucao}{18.19}\textbf{A.} Softmax normaliza logits em valores positivos cuja soma é 1 no uso multiclasse típico.\end{solucao}
+\begin{solucao}{18.20}\textbf{B.} Ação financeira exige política, least privilege, validação e human-in-the-loop conforme impacto.\end{solucao}
+\begin{solucao}{18.21}\textbf{CERTO.} Autonomia amplia a superfície de ação; controles precisam limitar poder, destinos e efeitos.\end{solucao}
+\begin{solucao}{18.22}\textbf{A.} Sem dataset, código e hiperparâmetros, não se reproduz nem se audita a versão implantada.\end{solucao}
+\begin{solucao}{18.23}\textbf{A.} A distribuição das entradas mudou e a relação com o alvo permaneceu, caracterizando data drift.\end{solucao}
+\begin{solucao}{18.24}\textbf{CERTO.} Endpoint pode estar disponível e o modelo, estatisticamente degradado.\end{solucao}
+\begin{solucao}{18.25}\textbf{A.} Saída estruturada e validação de schema reduzem variação sintática e permitem rejeitar formatos inválidos.\end{solucao}
+
+\begin{solucao}{18.26}\textbf{C.} I e III corretas. II é falsa: transformers ainda operam sob limites de contexto e recursos.\end{solucao}
+\begin{solucao}{18.27}\textbf{CERTO.} Mais contexto aumenta capacidade potencial, não atenção perfeita a cada token.\end{solucao}
+\begin{solucao}{18.28}\textbf{B.} Se a fonte correta não chega ao gerador, é preciso atuar em retrieval: chunking, embeddings, filtros e ranking.\end{solucao}
+\begin{solucao}{18.29}\textbf{A.} O contexto adequado foi recuperado; a falha está em usar/fidelizar-se à evidência.\end{solucao}
+\begin{solucao}{18.30}\textbf{CERTO.} Métricas separadas ajudam a localizar se a falha vem de retrieval ou generation.\end{solucao}
+\begin{solucao}{18.31}\textbf{A.} Fine-tuning pode internalizar comportamento; RAG mantém fatos mutáveis atualizáveis.\end{solucao}
+\begin{solucao}{18.32}\textbf{A.} O agente recebeu instrução não confiável e tinha ferramenta privilegiada sem barreira adequada.\end{solucao}
+\begin{solucao}{18.33}\textbf{CERTO.} Separar autoridade de instruções e dados externos é parte importante do desenho resistente a injection.\end{solucao}
+\begin{solucao}{18.34}\textbf{A.} Drift e queda de recall exigem investigação, revalidação e eventual retreino controlado.\end{solucao}
+\begin{solucao}{18.35}\textbf{A.} Canary libera a nova versão para fração do tráfego e compara sinais antes do rollout completo.\end{solucao}
+\begin{solucao}{18.36}\textbf{CERTO.} Shadow permite observar a nova versão sem afetar a decisão retornada ao usuário.\end{solucao}
+\begin{solucao}{18.37}\textbf{B.} CEP pode funcionar como proxy; remover a coluna sensível explícita não encerra a análise.\end{solucao}
+\begin{solucao}{18.38}\textbf{B.} SHAP é técnica explicativa e não demonstra causalidade, robustez ou justiça.\end{solucao}
+\begin{solucao}{18.39}\textbf{CERTO.} Explicação local responde a uma saída específica; avaliação global continua necessária.\end{solucao}
+\begin{solucao}{18.40}\textbf{A.} Owner, finalidade e critérios de descontinuação integram governança do ciclo de vida.\end{solucao}
+
+\begin{solucao}{18.41}\textbf{CERTO.} Correção da resposta não compensa violação de autorização e exposição em logging. Segurança e privacidade são dimensões independentes da qualidade textual.\end{solucao}
+\begin{solucao}{18.42}\textbf{B.} Conteúdo externo deve ser dado não confiável; ferramentas e destinos precisam ser restritos e ações sensíveis validadas.\end{solucao}
+\begin{solucao}{18.43}\textbf{B.} Satisfação mede experiência, não factualidade. Citação inexistente em contexto jurídico é erro de alto impacto.\end{solucao}
+\begin{solucao}{18.44}\textbf{CERTO.} Human-in-the-loop de fachada não reduz risco. O humano precisa conseguir revisar e contrariar a saída.\end{solucao}
+\begin{solucao}{18.45}\textbf{A.} O resultado da auditoria contém o próprio futuro/label e torna a avaliação artificialmente perfeita.\end{solucao}
+\begin{solucao}{18.46}\textbf{CERTO.} Média global pode ocultar diferença de erro entre grupos.\end{solucao}
+\begin{solucao}{18.47}\textbf{A.} \texttt{latest.pkl} não identifica artefato, origem, aprovação ou conjunto de treino.\end{solucao}
+\begin{solucao}{18.48}\textbf{B.} Serviço não governado pode reter, reutilizar ou transferir dados fora das condições esperadas.\end{solucao}
+\begin{solucao}{18.49}\textbf{CERTO.} Política sem inventário, classificação, ownership e monitoramento é governança apenas documental.\end{solucao}
+\begin{solucao}{18.50}\textbf{B.} O achado deve tratar rastreabilidade, avaliação de viés, reprodutibilidade e supervisão, sem condenar a tecnologia em abstrato.\end{solucao}
