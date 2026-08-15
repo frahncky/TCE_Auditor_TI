@@ -81,14 +81,85 @@
 \newtcolorbox{atencao}[1][]{colback=white,colframe=vermelhoErro,title={Atenção\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
 \newtcolorbox{resumo}[1][]{colback=white,colframe=verdeAcerto,title={Revisão rápida\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
 \newtcolorbox{discursiva}[1][]{colback=white,colframe=azulPetroleo,title={Treino discursivo\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
-\newtcolorbox{questao}[1][]{colback=white,colframe=azulMedio,title={Questão #1},fonttitle=\bfseries}
-\newtcolorbox{solucao}[1][]{colback=cinzaClaro,colframe=verdeAcerto,title={Resolução #1},fonttitle=\bfseries}
 \newtcolorbox{mapabox}[1][]{colback=white,colframe=azulPetroleo,title={Mapa mental funcional\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries,breakable}
 
-\newcommand{\nivel}[1]{\textcolor{ambar}{\textbf{[#1]}}}
+% Níveis de dificuldade exibidos apenas por estrelas: N1=★ ... N4=★★★★.
+% Os identificadores N1--N4 permanecem somente no código-fonte para facilitar manutenção.
+\newcommand{\tceestrela}{\textcolor{ambar}{\ensuremath{\bigstar}}}
+\ExplSyntaxOn
+\cs_new:Npn \tce_nivel:n #1
+  {
+    \str_case:nnF {#1}
+      {
+        {N1}{\tceestrela}
+        {N2}{\tceestrela\,\tceestrela}
+        {N3}{\tceestrela\,\tceestrela\,\tceestrela}
+        {N4}{\tceestrela\,\tceestrela\,\tceestrela\,\tceestrela}
+      }
+      {#1}
+  }
+
+% Prepara o título da questão sem exibir a expressão "Certo ou Errado".
+\bool_new:N \l_tce_questao_ce_bool
+\tl_new:N \l_tce_questao_titulo_tl
+\cs_new_protected:Npn \tce_prepara_titulo_questao:n #1
+  {
+    \tl_set:Nn \l_tce_questao_titulo_tl {#1}
+    \bool_set_false:N \l_tce_questao_ce_bool
+    \tl_if_in:NnT \l_tce_questao_titulo_tl {Certo~ou~Errado}
+      {\bool_set_true:N \l_tce_questao_ce_bool}
+    \tl_if_in:NnT \l_tce_questao_titulo_tl {Certo/Errado}
+      {\bool_set_true:N \l_tce_questao_ce_bool}
+    \tl_replace_all:Nnn \l_tce_questao_titulo_tl {Cebraspe/Certo~ou~Errado} {Cebraspe}
+    \tl_replace_all:Nnn \l_tce_questao_titulo_tl {CEBRASPE/Certo~ou~Errado} {CEBRASPE}
+    \tl_replace_all:Nnn \l_tce_questao_titulo_tl {Cebraspe/Certo/Errado} {Cebraspe}
+    \tl_replace_all:Nnn \l_tce_questao_titulo_tl {CEBRASPE/Certo/Errado} {CEBRASPE}
+    \tl_replace_all:Nnn \l_tce_questao_titulo_tl {Certo~ou~Errado} {}
+    \tl_replace_all:Nnn \l_tce_questao_titulo_tl {Certo/Errado} {}
+  }
+\cs_new:Npn \tce_titulo_questao: {\tl_use:N \l_tce_questao_titulo_tl}
+\cs_new:Npn \tce_opcoes_ce:
+  {
+    \bool_if:NT \l_tce_questao_ce_bool
+      {
+        \par\medskip
+        \noindent(\hspace{1em})~certo\par
+        \noindent(\hspace{1em})~errado
+      }
+  }
+\ExplSyntaxOff
+
+\newcommand{\nivel}[1]{\csname tce_nivel:n\endcsname{#1}}
 \newcommand{\termo}[1]{\textbf{\color{azulPetroleo}#1}}
 \newcommand{\certo}{\textcolor{verdeAcerto}{\textbf{CORRETA}}}
 \newcommand{\errado}{\textcolor{vermelhoErro}{\textbf{INCORRETA}}}
+
+% Questões usam título obrigatório: \begin{questao}{...}.
+% Itens de julgamento recebem automaticamente as duas opções ao final do enunciado.
+\newenvironment{questao}[1]{%
+  \csname tce_prepara_titulo_questao:n\endcsname{#1}%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=azulMedio,
+    title={Questão \csname tce_titulo_questao:\endcsname},
+    fonttitle=\bfseries
+  ]
+}{%
+  \csname tce_opcoes_ce:\endcsname
+  \end{tcolorbox}
+}
+
+% Resoluções também usam identificador obrigatório no título.
+\newenvironment{solucao}[1]{%
+  \begin{tcolorbox}[
+    colback=cinzaClaro,
+    colframe=verdeAcerto,
+    title={Resolução #1},
+    fonttitle=\bfseries
+  ]
+}{%
+  \end{tcolorbox}
+}
 
 \lstset{
   basicstyle=\ttfamily\small,
