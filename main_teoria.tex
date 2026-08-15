@@ -1,30 +1,5 @@
 \documentclass[11pt,oneside,openany]{book}
 \input{config/preambulo}
-\usepackage{xstring}
-
-% Nesta versão, os capítulos mantêm uma única fonte de conteúdo,
-% mas bancos de questões, soluções e simulados são ignorados.
-\let\TCEOriginalInput\input
-\renewcommand{\input}[1]{%
-  \IfBeginWith{#1}{questoes/}{}{% 
-    \IfBeginWith{#1}{solucoes/}{}{% 
-      \IfBeginWith{#1}{simulados/}{}{\TCEOriginalInput{#1}}% 
-    }%
-  }%
-}
-
-% Remove dos capítulos os treinos discursivos embutidos.
-\RenewDocumentEnvironment{discursiva}{O{Questão discursiva} +b}{}{}
-\let\TCESection\section
-\RenewDocumentCommand{\section}{s o m}{%
-  \IfSubStr{#3}{Treino discursivo}{}{% 
-    \IfBooleanTF{#1}{%
-      \TCESection*{#3}%
-    }{%
-      \IfNoValueTF{#2}{\TCESection{#3}}{\TCESection[#2]{#3}}%
-    }%
-  }%
-}
 
 \title{\textbf{TCE-MA 2026}\\[0.4em]\Large Auditor Estadual de Controle Externo\\[0.2em]\large Tecnologia da Informação — Teoria}
 \author{Apostila de preparação}
@@ -48,6 +23,7 @@
 \vspace{1.2cm}
 {\color{white}\LARGE\bfseries APOSTILA DE TEORIA\par}
 \vfill
+{\color{white}\normalsize Teoria aprofundada \textbullet\ Exemplos resolvidos \textbullet\ Tabelas \textbullet\ Diagramas \textbullet\ Sínteses conceituais\par}
 {\color{white}\normalsize Baseada no Edital nº 1 -- TCE/MA, de 6 de julho de 2026\par}
 {\color{white}\normalsize Banca: Cebraspe \quad | \quad Prova de Auditor: 29/11/2026\par}
 {\color{white}\small Atualização-base: 15/08/2026\par}
