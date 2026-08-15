@@ -52,23 +52,53 @@ TCE_Auditor_TI/
 └── .github/workflows/build-pdf.yml
 ```
 
+## Padrão obrigatório de profundidade
+
+A apostila **não deve ser escrita como resumo, fichamento ou lista de definições**. Cada tópico do edital deve ser tratado até o nível necessário para o candidato:
+
+1. compreender o fundamento e a motivação do conceito;
+2. conhecer estrutura, componentes, funcionamento e relações internas;
+3. distinguir conceitos próximos e reconhecer exceções;
+4. aplicar o conteúdo em situações concretas;
+5. analisar riscos, controles, evidências e consequências quando houver relação com Auditoria/TI;
+6. resolver questões conceituais, interpretativas, quantitativas e situacionais no nível Cebraspe;
+7. redigir resposta discursiva tecnicamente fundamentada.
+
+Quando o assunto exigir, a teoria deve incluir **deduções, equações, algoritmos, protocolos, arquitetura, fluxos, tabelas comparativas, casos completos, limitações, trade-offs, falhas recorrentes e pegadinhas de prova**. Um conceito não deve aparecer apenas em um parágrafo se sua compreensão exigir desenvolvimento maior.
+
 ## Método didático
 
 Cada capítulo é estruturado, conforme a natureza do assunto, com:
 
-1. **Teoria orientada ao Cebraspe**, sem virar mero resumo de definições.
+1. **Teoria aprofundada e orientada ao Cebraspe**, sem superficialidade.
 2. **Exemplos resolvidos** e situações de auditoria/controle público.
 3. **Figuras, fluxos e diagramas** em TikZ quando agregam entendimento.
 4. **Tabelas comparativas** para normas, modelos, protocolos e frameworks.
 5. **Mapas mentais de revisão** ao fim das unidades.
-6. **Questões N1–N4**, em progressão:
-   - **N1 — Fundamentos:** reconhecimento e conceitos essenciais;
-   - **N2 — Aplicação:** combinação de conceitos e interpretação;
-   - **N3 — Concurso:** nível esperado da prova, com distratores fortes;
-   - **N4 — Avançado/Auditoria:** estudo de caso, integração entre áreas e julgamento técnico.
-7. **Resoluções comentadas**, explicando por que a alternativa correta procede e por que as demais não.
-8. **Blocos “Cebraspe pode cobrar assim”**, com pegadinhas e distinções conceituais.
-9. **Treino discursivo**, incluindo peça técnica e respostas de até 30 linhas.
+6. **Banco de questões N1–N4**, sempre com **diversas questões por nível**, em progressão:
+   - **N1 — Fundamentos:** reconhecimento, conceitos essenciais e relações básicas;
+   - **N2 — Aplicação:** combinação de conceitos, cálculo e interpretação;
+   - **N3 — Concurso:** nível esperado da prova, com distratores fortes e integração de tópicos;
+   - **N4 — Avançado/Auditoria:** estudos de caso, integração entre áreas, risco, evidência, decisão e julgamento técnico.
+7. **As respostas não aparecem após cada questão.** Todas as questões são apresentadas primeiro, sem gabarito visível.
+8. **Gabarito e resoluções comentadas ficam somente no final do capítulo**, em seção própria, explicando:
+   - por que a resposta correta está correta;
+   - por que cada alternativa errada está errada;
+   - qual conceito ou pegadinha a questão explora;
+   - quando pertinente, qual seria a conclusão de auditoria.
+9. **Blocos “Cebraspe pode cobrar assim”**, com pegadinhas e distinções conceituais.
+10. **Treino discursivo**, incluindo peça técnica e respostas de até 30 linhas.
+
+### Meta mínima de questões por capítulo
+
+A quantidade depende da extensão do assunto, mas o padrão de produção é:
+
+- **N1:** mínimo de 10 questões;
+- **N2:** mínimo de 15 questões;
+- **N3:** mínimo de 15 questões;
+- **N4:** mínimo de 10 questões.
+
+Esses valores são **mínimos, não máximos**. Capítulos extensos ou de maior peso podem excedê-los. Questões já existentes não devem ser removidas apenas para ajustar quantidade.
 
 ## Conteúdo do edital coberto
 
