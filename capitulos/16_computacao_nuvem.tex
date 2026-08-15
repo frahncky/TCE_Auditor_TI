@@ -1,192 +1,628 @@
 \chapter{Computação em Nuvem}
 
-\section{Nuvem como modelo operacional}
+\section{Conceito de computação em nuvem}
 
-Computação em nuvem não é apenas ``servidor fora do prédio''. O modelo combina autosserviço, pooling de recursos, acesso em rede, elasticidade e medição de uso. Para Auditor/TI, a mudança central é que infraestrutura se torna programável e consumida como serviço, enquanto responsabilidade fica distribuída entre cliente e provedor.
+Computação em nuvem é um modelo de disponibilização de recursos computacionais compartilhados por rede, provisionados rapidamente e medidos conforme consumo. Não é sinônimo de simplesmente hospedar servidores em data center de terceiros.
 
-\begin{teoria}[responsabilidade compartilhada]
-A pergunta de auditoria não é ``quem é o provedor?'', mas ``quem controla cada camada?''. Quanto mais gerenciado o serviço, mais responsabilidades de infraestrutura migram ao provedor; identidade, dados, configuração, finalidade do tratamento e uso seguro continuam, em grande parte, no cliente.
-\end{teoria}
+A definição clássica do NIST destaca cinco características essenciais:
+\begin{enumerate}
+\item autosserviço sob demanda;
+\item amplo acesso por rede;
+\item pooling de recursos;
+\item elasticidade rápida;
+\item serviço mensurado.
+\end{enumerate}
+
+\subsection{Autosserviço sob demanda}
+
+O consumidor provisiona capacidade sem depender de interação humana com o provedor a cada solicitação.
+
+\subsection{Pooling de recursos}
+
+Recursos físicos atendem múltiplos consumidores com isolamento lógico e alocação dinâmica.
+
+\subsection{Elasticidade}
+
+Capacidade pode crescer ou reduzir conforme demanda, frequentemente de forma automatizada.
+
+\subsection{Medição}
+
+Uso é monitorado por métricas como horas de computação, GB armazenados, requisições, transferência ou unidades específicas de serviço.
 
 \section{Modelos de serviço}
+
+\subsection{IaaS}
+
+Infrastructure as a Service disponibiliza recursos como máquinas virtuais, rede e armazenamento. O provedor administra infraestrutura física e virtualização; cliente normalmente administra sistema operacional, middleware, aplicações, identidades e dados.
+
+\subsection{PaaS}
+
+Platform as a Service abstrai parte maior da pilha. O provedor administra infraestrutura, sistema operacional e runtime/plataforma; cliente concentra-se em aplicação, configuração e dados.
+
+\subsection{SaaS}
+
+Software as a Service entrega aplicação pronta. O provedor administra a maior parte da pilha, enquanto cliente continua responsável por configuração, usuários, dados, permissões e uso adequado.
 
 \begin{table}[ht]
 \centering
 \small
 \begin{tabularx}{\textwidth}{l X X}
 \toprule
-Modelo & Provedor gerencia & Cliente gerencia \\
+Modelo & Maior responsabilidade do provedor & Responsabilidade típica do cliente \\
 \midrule
-IaaS & datacenter, hardware, virtualização & SO convidado, middleware, aplicação, dados, IAM/configuração. \\
-PaaS & infraestrutura e plataforma/runtime & aplicação, dados, identidades e parâmetros do serviço. \\
-SaaS & aplicação e pilha subjacente & usuários, dados, configuração funcional e governança do uso. \\
+IaaS & hardware, data center, virtualização & SO, patching do guest, aplicação, dados e IAM. \\
+PaaS & infraestrutura, SO e runtime & código, dados, identidades e configuração da plataforma. \\
+SaaS & aplicação e pilha subjacente & usuários, dados, configuração funcional e governança. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-O limite varia por produto. Banco gerenciado, Kubernetes gerenciado e funções serverless possuem divisões diferentes de responsabilidade.
+O limite real varia por serviço. Kubernetes gerenciado, banco de dados gerenciado e serverless possuem fronteiras específicas.
 
 \section{Modelos de implantação}
 
-Nuvem pública compartilha infraestrutura com isolamento lógico; privada é dedicada a uma organização; híbrida integra on-premises/privada e pública; multicloud usa múltiplos provedores. Soberania acrescenta requisitos de jurisdição, residência, controle operacional e capacidade de atender obrigações legais.
+\subsection{Nuvem pública}
 
-Multicloud não elimina causas comuns. Dois provedores podem depender do mesmo IdP, DNS, pipeline, telecom ou equipe de operação.
+Infraestrutura do provedor atende múltiplos clientes com isolamento lógico.
 
-\section{Escalabilidade, elasticidade e disponibilidade}
+\subsection{Nuvem privada}
 
-Escala vertical aumenta capacidade de uma instância. Escala horizontal adiciona instâncias. Elasticidade ajusta capacidade dinamicamente à demanda.
+Infraestrutura é dedicada a uma única organização, podendo estar em instalação própria ou de terceiro.
 
-Alta disponibilidade exige analisar domínios de falha. Distribuir instâncias em zonas diferentes reduz falha de datacenter; múltiplas regiões podem reduzir falha regional, mas aumentam custo, latência, replicação e complexidade de dados.
+\subsection{Nuvem híbrida}
 
-\begin{cebraspe}
-``Duas regiões'' não é sinônimo de ``sem SPOF''. Conta raiz, IdP, DNS, pipeline ou banco global podem permanecer causas comuns.
-\end{cebraspe}
+Integra ambientes privados/on-premises e nuvem pública por conectividade, identidade, dados ou aplicações.
 
-\section{SOA, microsserviços e eventos}
+\subsection{Community cloud}
 
-SOA organiza capacidades como serviços; microsserviços enfatizam autonomia de implantação, escopo menor e alinhamento a capacidades de negócio. A distribuição adiciona falha parcial, latência, observabilidade e consistência.
+Infraestrutura compartilhada por organizações com requisitos comuns específicos, segundo definição clássica do NIST.
 
-Arquiteturas orientadas a eventos desacoplam produtores e consumidores. Filas e tópicos introduzem decisões sobre ordering, retry, idempotência, dead-letter queue e semântica de entrega.
+\subsection{Multicloud}
 
-\section{Serverless}
+Uso de serviços de múltiplos provedores públicos. Multicloud não significa automaticamente alta disponibilidade: provedores podem compartilhar dependências externas como DNS, IdP, telecom ou pipeline.
 
-Serverless abstrai servidores para o consumidor. Funções são adequadas a cargas event-driven e variáveis, mas podem sofrer cold start, limites de execução, estado efêmero e lock-in de serviços. O custo por execução pode ser excelente para carga esparsa e ruim para workload contínuo dependendo do perfil.
+\section{Responsabilidade compartilhada}
 
-\section{Rede em nuvem}
+Migrar para nuvem não terceiriza toda responsabilidade de segurança ou continuidade.
 
-\subsection{VPC/VNet e sub-redes}
-
-Redes virtuais isolam endereçamento e políticas. Sub-redes públicas/privadas são decisões de roteamento e exposição, não atributos mágicos do nome. Tabelas de rotas, gateways, endpoints privados e NAT controlam caminhos.
-
-\subsection{Controles de tráfego}
-
-Security groups, firewalls e ACLs podem atuar em níveis distintos. A prova pode cobrar stateful/stateless e escopo; quando houver nome de produto, detalhes do provedor importam.
-
-\subsection{Conectividade híbrida}
-
-VPN site-to-site protege tráfego sobre a Internet. Circuitos dedicados reduzem dependência da Internet pública, mas não devem ser presumidos como criptografia fim a fim. É possível combinar circuito dedicado e VPN/TLS.
-
-\section{Identidade e acesso}
-
-Identidade é perímetro central em nuvem. Práticas:
+Uma decomposição útil é:
 \begin{itemize}
-\item federação em vez de usuários locais permanentes;
-\item MFA para privilégios;
-\item roles e credenciais temporárias;
-\item workload identity em vez de chaves estáticas;
-\item revisão de permissões;
-\item segregação de ambientes e contas/projetos;
-\item break-glass protegido e monitorado.
+\item provedor protege infraestrutura e partes da plataforma conforme modelo;
+\item cliente protege identidades, configurações, aplicações e dados sob seu controle;
+\item algumas responsabilidades são compartilhadas ou variam por serviço.
 \end{itemize}
 
-RBAC organiza permissões por papel; ABAC adiciona contexto/atributos. Privilégio mínimo continua necessário mesmo com MFA.
-
-\section{KMS, criptografia e segredos}
-
-TLS protege trânsito; criptografia de storage protege repouso; KMS gerencia chaves e políticas. Envelope encryption usa data key para o conteúdo e chave mestra/KEK para proteger a data key.
-
-Segredos não devem ser persistidos em código ou imagem. Cofres, rotação e identidade de workload reduzem exposição.
-
-\section{Zero Trust}
-
-Zero Trust orienta verificar explicitamente, usar privilégio mínimo e presumir comprometimento. A localização na rede não concede confiança automática. Identidade, postura, contexto e recurso devem compor a decisão de acesso.
-
-\section{IaC e automação}
-
-Infrastructure as Code descreve infraestrutura de forma versionável e reprodutível. Terraform e equivalentes permitem plano e aplicação controlados.
-
-Controles importantes:
-\begin{itemize}
-\item revisão de código e proteção de branch;
-\item policy-as-code;
-\item state protegido e com acesso restrito;
-\item separação entre plan e apply;
-\item credenciais temporárias;
-\item detecção de drift;
-\item trilha de execução.
-\end{itemize}
-
-IaC sem governança pode transformar erro manual localizado em erro automatizado de grande escala.
-
-\section{Observabilidade}
-
-Métricas, logs e traces precisam ser centralizados e correlacionáveis. Sincronização de tempo e correlation IDs são essenciais em ambientes distribuídos. Serviços nativos de cada provedor ajudam, mas não eliminam necessidade de retenção, acesso e correlação entre contas/regiões.
-
-\section{FinOps e economia da nuvem}
-
-FinOps maximiza valor do gasto em tecnologia, não apenas redução de custo. Práticas:
-\begin{itemize}
-\item tagging/labels e ownership;
-\item budgets/alerts;
-\item quotas e limits;
-\item rightsizing;
-\item desligamento de ociosos;
-\item compromissos/reservas para cargas previsíveis;
-\item unit economics e showback/chargeback.
-\end{itemize}
-
-\begin{exemplo}[ociosidade]
-Quarenta VMs a R\$0,80/h, ligadas 24x7 por 30 dias, custam:
-\[
-40\times0,80\times24\times30=R\$23.040.
-\]
-Otimização deve preservar requisitos de serviço; desligar redundância e violar RTO não é economia real.
+\begin{exemplo}[SaaS]
+Em um serviço SaaS de colaboração, o provedor pode gerenciar patching, aplicação e infraestrutura. A organização continua responsável por definir quem possui acesso, habilitar MFA, revisar compartilhamentos públicos, configurar retenção e decidir quais dados podem ser enviados.
 \end{exemplo}
 
-\section{Armazenamento}
+\section{Regiões, zonas de disponibilidade e domínios de falha}
 
-\begin{table}[ht]
-\centering
-\begin{tabularx}{\textwidth}{l X X}
-\toprule
-Tipo & Interface & Uso \\
-\midrule
-Objeto & API/HTTP & data lake, backup, mídia, logs. \\
-Bloco & volume anexado & banco e filesystem de host. \\
-Arquivo & namespace compartilhado & aplicações legadas e colaboração. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+Uma \termo{região} é área geográfica de implantação do provedor. \termo{Availability Zone} normalmente representa domínio de falha fisicamente separado dentro de região, com conectividade de baixa latência.
 
-Durabilidade, disponibilidade, retenção, versionamento e imutabilidade são propriedades diferentes.
+Distribuir réplicas entre zonas protege contra falha de uma zona, mas não necessariamente contra falha regional ou causa comum de controle plane.
 
-\section{Data lakes, Big Data e IA}
+\subsection{Arquitetura Multi-AZ}
 
-Data lake armazena dados brutos e curados com catálogo e governança. Sem owner, classificação, metadados e qualidade, vira data swamp. Serviços gerenciados de Big Data/IA reduzem administração, mas criam decisões de custo, residência, dados de treino e dependência do provedor.
+Aplicação pode distribuir instâncias por duas ou mais zonas e utilizar balanceador regional. Banco deve possuir mecanismo compatível de replicação/failover.
 
-\section{Migração}
+\subsection{Multi-região}
 
-Estratégias clássicas: rehost, replatform, refactor/rearchitect, repurchase, retain e retire. A avaliação deve preceder a migração: nem todo sistema merece ser movido.
+Pode reduzir risco de desastre regional, mas aumenta:
+\begin{itemize}
+\item custo;
+\item latência;
+\item complexidade de replicação;
+\item problemas de consistência;
+\item operação e testes de failover.
+\end{itemize}
 
-Ferramentas de avaliação ajudam a inventariar dependências, dimensionar e planejar ondas, mas não substituem estratégia, teste e plano de rollback.
+\section{Escalabilidade e elasticidade}
 
-\section{Soberania, multicloud e conformidade}
+\termo{Escala vertical} aumenta CPU/memória de uma instância.
 
-Soberania envolve mais que local físico: jurisdição, acesso, operação, chaves e controle administrativo. A LGPD não impõe residência nacional genérica, mas transferências internacionais devem atender requisitos legais.
+\termo{Escala horizontal} adiciona instâncias.
 
-Certificações do provedor são evidência relevante dentro de escopo. O cliente continua responsável por configurações, IAM, dados e controles não cobertos pelo provedor.
+\termo{Elasticidade} é capacidade de ajustar recursos dinamicamente conforme demanda.
 
-\section{Mapa mental funcional}
+\begin{exemplo}[autoscaling]
+Se cada instância processa com segurança 100 requisições/s e o pico esperado é 750 req/s, pelo menos 8 instâncias seriam necessárias pela capacidade bruta. A política deve considerar margem, falha de instância, tempo de inicialização e comportamento do balanceador.
+\end{exemplo}
+
+Escalabilidade não garante elasticidade. Sistema pode suportar expansão manual, mas não reagir automaticamente à carga.
+
+\section{Load balancing}
+
+Balanceadores distribuem tráfego entre backends saudáveis.
+
+Algoritmos incluem:
+\begin{itemize}
+\item round robin;
+\item least connections;
+\item weighted distribution;
+\item hash por origem ou chave.
+\end{itemize}
+
+Health check precisa representar capacidade real de atender. Checar apenas porta TCP pode manter backend que perdeu acesso ao banco.
+
+\section{Redes virtuais — VPC/VNet}
+
+Uma rede virtual em nuvem fornece domínio lógico de endereçamento e roteamento.
+
+Elementos:
+\begin{itemize}
+\item CIDR da VPC/VNet;
+\item sub-redes;
+\item tabelas de rotas;
+\item gateways;
+\item security groups/firewalls;
+\item endpoints privados;
+\item NAT;
+\item peering e hubs/transit gateways.
+\end{itemize}
+
+\section{Sub-redes públicas e privadas}
+
+O nome ``pública'' não é propriedade intrínseca. Uma sub-rede é considerada pública quando possui rota e mecanismo que permite acesso direto adequado à Internet para recursos com endereço público.
+
+Sub-rede privada pode acessar Internet de saída por NAT sem aceitar conexões iniciadas externamente diretamente.
+
+\section{NAT Gateway}
+
+NAT permite que hosts privados iniciem conexões para Internet usando endereço público compartilhado, conforme serviço.
+
+NAT não substitui firewall. Regras de acesso e egress devem ser tratadas explicitamente.
+
+\section{Security Groups e Network ACLs}
+
+Security groups costumam operar junto a interfaces/recursos e, em provedores conhecidos, são stateful. Network ACLs frequentemente atuam em sub-rede e podem ser stateless.
+
+O candidato deve compreender conceito e verificar semântica específica quando a questão citar provedor.
+
+\section{Conectividade híbrida}
+
+\subsection{VPN site-to-site}
+
+Cria túnel criptografado sobre Internet ou outra rede subjacente.
+
+\subsection{Circuito dedicado}
+
+Conexão privada dedicada reduz dependência da Internet pública e pode oferecer desempenho previsível. Não deve ser presumida como criptografia fim a fim.
+
+\subsection{BGP em conectividade híbrida}
+
+BGP pode trocar prefixos entre rede local e cloud. Configuração inadequada pode anunciar rotas erradas, criar blackholes ou assimetria.
+
+\section{DNS em nuvem}
+
+Serviços DNS gerenciados podem hospedar zonas públicas e privadas.
+
+Private DNS permite nomes resolvíveis apenas dentro de redes vinculadas. Split-horizon DNS pode fornecer respostas distintas conforme origem.
+
+DNS é dependência crítica de arquiteturas multirregião. Failover baseado em DNS depende de TTL, health checks e cache de clientes; alteração não é instantânea para todos.
+
+\section{IAM em nuvem}
+
+Identidade é um dos principais planos de controle.
+
+\subsection{Usuários, grupos, roles e políticas}
+
+Usuário representa identidade persistente. Grupo agrega usuários. Role representa conjunto de permissões assumido temporariamente por usuários ou workloads. Políticas definem ações permitidas/negadas sobre recursos.
+
+\subsection{Federação}
+
+Federação integra IdP corporativo a cloud usando padrões como SAML ou OpenID Connect, reduzindo contas locais permanentes.
+
+\subsection{Credenciais temporárias}
+
+Roles e tokens temporários reduzem risco de chaves estáticas de longa duração.
+
+\begin{atencao}
+MFA protege autenticação, mas não corrige política IAM excessiva. Uma conta autenticada fortemente pode continuar autorizada a excluir recursos críticos.
+\end{atencao}
+
+\section{Workload identity}
+
+Aplicações devem preferir identidade atribuída ao workload em vez de secrets fixos em arquivo ou variável permanente.
+
+Isso permite credenciais curtas, rotação automática e políticas associadas à função do serviço.
+
+\section{KMS e HSM}
+
+\termo{KMS} gerencia ciclo de vida de chaves criptográficas e políticas de uso.
+
+\termo{HSM} é hardware especializado para proteger material criptográfico e realizar operações de chave sob fronteira de segurança reforçada.
+
+\subsection{Envelope encryption}
+
+Dados são cifrados com uma Data Encryption Key (DEK). A DEK é protegida por Key Encryption Key (KEK) gerenciada em KMS/HSM.
+
+Isso permite cifrar grandes volumes com chave de dados eficiente sem expor chave mestra diretamente.
+
+\section{Armazenamento em bloco}
+
+Block storage apresenta volumes ao sistema operacional. É adequado a filesystem e bancos que exigem acesso em bloco e baixa latência.
+
+Características podem incluir IOPS provisionadas, throughput, snapshots e replicação zonal.
+
+\section{Armazenamento de arquivos}
+
+File storage apresenta namespace de arquivos compartilhado, frequentemente por NFS ou SMB. É útil para aplicações que exigem semântica de filesystem compartilhado.
+
+\section{Object storage}
+
+Object storage usa objetos identificados por chave em buckets/containers e acessados por API.
+
+Características:
+\begin{itemize}
+\item alta durabilidade;
+\item escala massiva;
+\item metadados;
+\item versionamento;
+\item classes de armazenamento;
+\item políticas de lifecycle;
+\item object lock/imutabilidade em serviços compatíveis.
+\end{itemize}
+
+\subsection{Durabilidade versus disponibilidade}
+
+Durabilidade mede probabilidade de dado não ser perdido. Disponibilidade mede capacidade de acessar o serviço naquele momento.
+
+Um serviço pode possuir durabilidade muito alta e indisponibilidade temporária.
+
+\section{Classes de armazenamento e lifecycle}
+
+Dados acessados frequentemente podem ficar em classe hot; dados raros em classes cold/archive mais baratas, porém com custo/tempo de recuperação.
+
+Lifecycle automatiza transição e expiração.
+
+\begin{exemplo}[retenção]
+Logs de auditoria podem permanecer 90 dias em classe quente para investigação rápida e depois 5 anos em classe de arquivo. A política deve respeitar requisitos legais e tempo de recuperação.
+\end{exemplo}
+
+\section{Bancos de dados gerenciados}
+
+DBaaS reduz administração de infraestrutura, mas cliente continua responsável por modelo, consultas, permissões, retenção e configurações sob seu controle.
+
+Serviços podem oferecer:
+\begin{itemize}
+\item backup automático;
+\item point-in-time recovery;
+\item réplicas de leitura;
+\item Multi-AZ;
+\item criptografia;
+\item patching gerenciado.
+\end{itemize}
+
+Uma réplica de leitura não é necessariamente nó de failover; depende da arquitetura do serviço.
+
+\section{Cache gerenciado}
+
+Caches como Redis/Memcached reduzem latência e carga de banco.
+
+Estratégias incluem cache-aside, write-through e write-back.
+
+Cache introduz problemas de invalidação e consistência. TTL baixo reduz staleness, mas aumenta carga no backend.
+
+\section{Filas, tópicos e integração assíncrona}
+
+Serviços de mensageria desacoplam produtores e consumidores.
+
+Conceitos:
+\begin{itemize}
+\item visibility timeout;
+\item dead-letter queue;
+\item retry;
+\item ordering;
+\item deduplicação;
+\item fan-out/pub-sub.
+\end{itemize}
+
+Em entrega at-least-once, consumidor deve ser idempotente.
+
+\section{Serverless e FaaS}
+
+Serverless executa código sem que consumidor gerencie servidores diretamente.
+
+Características:
+\begin{itemize}
+\item event-driven;
+\item escala automática;
+\item cobrança por execução/tempo/recursos;
+\item ambiente efêmero;
+\item limites de duração/concurrency;
+\item cold start possível.
+\end{itemize}
+
+\subsection{Cold start}
+
+Primeira execução em novo ambiente pode exigir inicialização de runtime, dependências e conexão, aumentando latência.
+
+Provisioned concurrency ou instâncias pré-aquecidas podem reduzir o efeito com custo adicional.
+
+\subsection{Estado}
+
+Função deve assumir que memória local não é persistente. Estado durável vai para banco, objeto, cache ou serviço externo.
+
+\section{Contêineres e Kubernetes na nuvem}
+
+Cloud fornece clusters gerenciados e serviços de contêiner.
+
+Kubernetes gerenciado reduz responsabilidade sobre parte do control plane, mas cliente continua responsável por workloads, RBAC, imagens, network policies e configurações conforme serviço.
+
+Cluster não deve ser unidade única de confiança. Namespaces, node pools, contas/projetos e políticas podem separar ambientes e workloads.
+
+\section{Autoscaling em Kubernetes}
+
+Horizontal Pod Autoscaler ajusta réplicas com base em métricas. Vertical Pod Autoscaler ajusta requests/recomendações conforme configuração. Cluster Autoscaler adiciona/remove nós quando Pods não podem ser agendados ou há capacidade ociosa.
+
+Escala de Pods sem escala de banco pode apenas deslocar gargalo.
+
+\section{Infrastructure as Code}
+
+IaC representa infraestrutura por arquivos versionados.
+
+Benefícios:
+\begin{itemize}
+\item repetibilidade;
+\item revisão;
+\item automação;
+\item rastreabilidade;
+\item ambientes consistentes.
+\end{itemize}
+
+\subsection{Declarativo e imperativo}
+
+Modelo declarativo descreve estado desejado. Imperativo descreve passos.
+
+\termo{Idempotência} significa que reaplicar definição converge para mesmo estado desejado sem duplicações indevidas.
+
+\section{State de IaC}
+
+Ferramentas como Terraform mantêm state associando configuração a recursos reais. State pode conter identificadores e informações sensíveis; precisa de acesso restrito, versionamento e locking.
+
+Drift ocorre quando ambiente é alterado fora do IaC e diverge da definição.
+
+\section{Policy as Code}
+
+Políticas podem bloquear configurações proibidas automaticamente:
+\begin{itemize}
+\item bucket público;
+\item banco sem criptografia;
+\item porta administrativa aberta à Internet;
+\item região não autorizada;
+\item recurso sem tags obrigatórias.
+\end{itemize}
+
+Guardrails reduzem dependência de revisão manual.
+
+\section{Landing Zone}
+
+Landing Zone estabelece fundação de cloud:
+\begin{itemize}
+\item hierarquia de contas/projetos;
+\item identidade;
+\item logging central;
+\item redes;
+\item políticas;
+\item segurança;
+\item billing;
+\item automação.
+\end{itemize}
+
+É preferível criar ambiente governado antes de dezenas de equipes criarem recursos de forma incompatível.
+
+\section{Observabilidade em nuvem}
+
+Cloud produz logs de control plane, rede e serviços.
+
+Fontes:
+\begin{itemize}
+\item audit logs de API;
+\item flow logs de rede;
+\item logs de aplicação;
+\item métricas de infraestrutura;
+\item traces;
+\item eventos de IAM.
+\end{itemize}
+
+Logs precisam ser centralizados em conta/ambiente protegido contra alteração por administradores comuns.
+
+\section{Resiliência e Disaster Recovery}
+
+Estratégias podem ser classificadas por custo e rapidez.
+
+\subsection{Backup and restore}
+
+Menor custo, RTO maior.
+
+\subsection{Pilot light}
+
+Componentes críticos mínimos permanecem ativos e capacidade é expandida no desastre.
+
+\subsection{Warm standby}
+
+Ambiente reduzido permanece operacional e escala após falha.
+
+\subsection{Active-active}
+
+Múltiplos ambientes recebem tráfego simultaneamente, com maior custo e complexidade de dados.
+
+\section{RTO e RPO em cloud}
+
+RPO determina quanto dado pode ser perdido. RTO determina tempo de restauração.
+
+Replicação síncrona entre zonas pode reduzir RPO, mas não protege contra exclusão lógica propagada. Backups históricos continuam necessários.
+
+\begin{exemplo}[arquitetura e requisito]
+Sistema exige RPO=5 min e RTO=30 min. Backup diário não atende. Uma solução pode combinar replicação Multi-AZ, logs contínuos/PITR e automação de failover, validada por teste de desastre.
+\end{exemplo}
+
+\section{Migração para nuvem}
+
+Estratégias conhecidas como Rs incluem:
+\begin{itemize}
+\item rehost — mover quase sem mudança;
+\item replatform — pequenas otimizações;
+\item refactor/rearchitect — alterar arquitetura;
+\item repurchase — substituir por produto/SaaS;
+\item retain — manter;
+\item retire — descontinuar;
+\item relocate — em algumas taxonomias, mover plataforma virtualizada sem redesenho.
+\end{itemize}
+
+A quantidade/nomenclatura dos Rs varia entre autores e provedores; o conceito das estratégias é mais importante que decorar uma lista única.
+
+\section{Avaliação pré-migração}
+
+Inventariar:
+\begin{itemize}
+\item servidores e aplicações;
+\item dependências;
+\item bancos;
+\item tráfego;
+\item licenças;
+\item latência;
+\item requisitos de segurança;
+\item RTO/RPO;
+\item compatibilidade;
+\item custo atual.
+\end{itemize}
+
+Migrar aplicação obsoleta sem racionalização pode apenas mover dívida técnica para outro ambiente.
+
+\section{FinOps}
+
+FinOps cria responsabilidade compartilhada por valor de cloud entre engenharia, finanças e negócio.
+
+\subsection{Alocação de custos}
+
+Tags, labels, contas e centros de custo permitem showback/chargeback.
+
+Recurso sem owner é difícil de justificar e otimizar.
+
+\subsection{Rightsizing}
+
+Redimensiona recursos conforme utilização. CPU média baixa não basta; picos, memória, I/O e requisitos de HA devem ser considerados.
+
+\subsection{On-demand, commitments e spot}
+
+On-demand oferece flexibilidade sem compromisso longo.
+
+Reserved instances/savings plans/committed use oferecem desconto por compromisso de uso, dependendo do provedor.
+
+Spot/preemptible usa capacidade ociosa com grande desconto e possibilidade de interrupção. É adequada a workloads tolerantes a falha, batch e escaláveis.
+
+\begin{example}[economia de compromisso]
+Carga estável custa R\$ 100 mil/ano on-demand. Um compromisso oferece 30\% de desconto:
+\[
+100.000\times0{,}70=R\$70.000.
+\]
+Mas se apenas metade da capacidade for realmente utilizada, o compromisso pode ser pior que flexibilidade. Desconto não é economia quando capacidade fica ociosa.
+\end{example}
+
+\section{Egress}
+
+Transferência de dados para fora do provedor/região pode ter custo relevante.
+
+Arquitetura com 500 TB/mês de egress a R\$ 0,20/GB teria ordem de grandeza:
+\[
+500.000\text{ GB}\times0{,}20=R\$100.000/mês.
+\]
+Valores reais dependem de faixas e provedor, mas o exemplo mostra por que tráfego deve entrar no TCO.
+
+\section{Soberania e residência de dados}
+
+\termo{Residência} refere-se à localização física/lógica definida para armazenamento/processamento.
+
+\termo{Soberania} inclui jurisdição, controle, acesso administrativo e capacidade de cumprir normas nacionais.
+
+Hospedar no Brasil não resolve sozinho todos os aspectos de soberania; hospedar fora não implica automaticamente ilegalidade. A análise depende da legislação e dos dados.
+
+\section{LGPD e transferências internacionais}
+
+Tratamento em cloud continua sujeito à LGPD. Devem ser avaliados papéis, finalidades, segurança, suboperadores e mecanismos aplicáveis a transferência internacional.
+
+A LGPD não estabelece regra genérica de que todo dado pessoal deve permanecer fisicamente no Brasil.
+
+\section{Lock-in em nuvem}
+
+Serviços proprietários podem gerar produtividade e valor, mas aumentam custo de saída.
+
+Fontes de lock-in:
+\begin{itemize}
+\item APIs exclusivas;
+\item bancos proprietários;
+\item formato de dados;
+\item serviços de identidade;
+\item egress elevado;
+\item infraestrutura específica;
+\item conhecimento especializado.
+\end{itemize}
+
+\subsection{Portabilidade}
+
+Contêineres e Kubernetes ajudam em alguns níveis, mas não tornam aplicação automaticamente portátil se ela depende de banco, fila, IAM e observabilidade proprietários.
+
+\section{Plano de saída cloud}
+
+Deve responder:
+\begin{itemize}
+\item como exportar dados e metadados;
+\item quanto custa egress;
+\item em quanto tempo a exportação ocorre;
+\item quais formatos são fornecidos;
+\item como migrar identidades/chaves;
+\item como apagar dados residuais;
+\item como preservar logs;
+\item como testar portabilidade.
+\end{itemize}
+
+\section{Arquitetura híbrida}
+
+Híbrido exige coordenação de:
+\begin{itemize}
+\item identidade;
+\item DNS;
+\item roteamento;
+\item latência;
+\item segurança;
+\item observabilidade;
+\item dados.
+\end{itemize}
+
+Uma aplicação distribuída entre on-premises e cloud pode sofrer latência elevada se fizer chamadas síncronas frequentes através de link WAN.
+
+\section{Arquitetura multicloud}
+
+Benefícios potenciais:
+\begin{itemize}
+\item negociação e redução de dependência;
+\item acesso a serviços especializados;
+\item estratégia regulatória;
+\item resiliência em determinados cenários.
+\end{itemize}
+
+Custos:
+\begin{itemize}
+\item equipes com múltiplas competências;
+\item duplicação de ferramentas;
+\item IAM e rede mais complexos;
+\item observabilidade fragmentada;
+\item menor poder de compromisso de volume.
+\end{itemize}
+
+Multicloud deve resolver requisito concreto; não é objetivo arquitetural universal.
+
+\section{Síntese conceitual}
 
 \mapafuncional{Computação em Nuvem}
-{Nuvem = responsabilidade compartilhada + infraestrutura programável + consumo medido}
-{Serviço: IaaS $\rightarrow$ PaaS $\rightarrow$ SaaS muda a fronteira de responsabilidade.\\Arquitetura: região $\rightarrow$ zona $\rightarrow$ rede $\rightarrow$ workload $\rightarrow$ dados.\\Operação: IaC $\rightarrow$ CI/CD $\rightarrow$ observabilidade $\rightarrow$ FinOps.}
-{Se a falha atravessa regiões, procure causa comum: IdP/DNS/conta.\\Se custo cresce, procure recursos sem owner, escala e retenção.\\Se há link dedicado, ainda pergunte pela criptografia.\\Se há certificação, pergunte pelo escopo e pelos controles do cliente.}
-{SaaS $\neq$ terceirização total do risco.\\Multicloud $\neq$ HA automática.\\Dedicated link $\neq$ criptografia.\\Durabilidade $\neq$ disponibilidade.\\FinOps $\neq$ cortar custo a qualquer preço.}
-{Quem gerencia cada camada?\\Qual o domínio de falha?\\Como o IAM é federado?\\Há chaves estáticas?\\O IaC representa o ambiente real?\\Quem paga cada recurso?\\Como sair do provedor?}
+{Nuvem = recursos programáveis + elasticidade + medição + responsabilidade compartilhada}
+{Fundamentos $\rightarrow$ características, IaaS/PaaS/SaaS e implantação.\\Arquitetura $\rightarrow$ região, zona, VPC, IAM, storage, DB e serverless.\\Automação $\rightarrow$ IaC, landing zone e policy as code.\\Resiliência $\rightarrow$ Multi-AZ, multi-região, RTO/RPO e DR.\\Economia $\rightarrow$ FinOps, commitments e egress.\\Governança $\rightarrow$ soberania, LGPD, lock-in e saída.}
+{SaaS reduz operação, não responsabilidade sobre dados.\\Elasticidade $\neq$ escalabilidade apenas.\\Durabilidade $\neq$ disponibilidade.\\Circuito dedicado $\neq$ criptografia.\\Multi-região precisa tratar consistência e failover.\\Spot exige tolerância a interrupção.}
+{Cloud $\neq$ servidor remoto comum.\\Multicloud $\neq$ HA automática.\\MFA $\neq$ privilégio mínimo.\\Snapshot $\neq$ backup isolado.\\Kubernetes $\neq$ portabilidade total.\\Desconto de compromisso $\neq$ economia se houver ociosidade.}
+{Quem controla cada camada?\\Qual é o domínio de falha?\\Existe credencial estática?\\Como dados são recuperados?\\Qual custo por unidade?\\Quanto custa sair?\\Qual dependência continua comum entre regiões/provedores?}
 
 \begin{resumo}
-\textbf{Regra de prova:} sempre separe responsabilidade do provedor da responsabilidade do cliente e procure dependências comuns escondidas atrás de uma arquitetura aparentemente redundante.
+Computação em nuvem deve ser estudada como arquitetura operacional e econômica. A abstração do hardware facilita automação e escala, mas cria novas dependências em IAM, APIs, custos variáveis e serviços gerenciados. Questões de alto nível combinam responsabilidade compartilhada, disponibilidade, rede, dados, FinOps e estratégia de saída.
 \end{resumo}
-
-\input{questoes/16_computacao_nuvem}
-
-\section{Treino discursivo}
-\begin{discursiva}[migração e auditoria]
-Um órgão pretende migrar sistema de fiscalização para nuvem pública. O sistema contém dados pessoais, exige RTO de 1 hora e possui integrações com rede interna. Em até 30 linhas, descreva controles e decisões a verificar desde avaliação/migração até operação, contemplando arquitetura, identidade, rede, dados, continuidade, custos e saída do provedor.
-\end{discursiva}
-\begin{discursiva}[FinOps e governança]
-Uma auditoria identifica crescimento de 45\% da fatura cloud em seis meses, com recursos sem owner, snapshots sem retenção e ambientes de teste ligados continuamente. Em até 30 linhas, estruture o achado e proponha controles de FinOps sem comprometer disponibilidade.
-\end{discursiva}
-
-\input{solucoes/16_computacao_nuvem}
