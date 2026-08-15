@@ -9,14 +9,16 @@
 \cs_new_protected:Npn \tce_define_nivel:n #1
   { \tl_set:Nn \l_tce_nivel_alvo_tl {#1} }
 
+% O nível das questões é identificado pela faixa numérica do identificador.
+% Isso evita depender da expansão de \nivel{N1} etc. dentro do título.
 \prg_new_conditional:Npnn \tce_questao_do_nivel:n #1 {TF}
   {
     \str_case:VnF \l_tce_nivel_alvo_tl
       {
-        {N1}{\tl_if_in:nnTF {#1}{N1}{\prg_return_true:}{\prg_return_false:}}
-        {N2}{\tl_if_in:nnTF {#1}{N2}{\prg_return_true:}{\prg_return_false:}}
-        {N3}{\tl_if_in:nnTF {#1}{N3}{\prg_return_true:}{\prg_return_false:}}
-        {N4}{\tl_if_in:nnTF {#1}{N4}{\prg_return_true:}{\prg_return_false:}}
+        {N1}{\regex_match:nnTF {\.(0[1-9]|10)[^0-9]} {#1}{\prg_return_true:}{\prg_return_false:}}
+        {N2}{\regex_match:nnTF {\.(1[1-9]|2[0-5])[^0-9]} {#1}{\prg_return_true:}{\prg_return_false:}}
+        {N3}{\regex_match:nnTF {\.(2[6-9]|3[0-9]|40)[^0-9]} {#1}{\prg_return_true:}{\prg_return_false:}}
+        {N4}{\regex_match:nnTF {\.(4[1-9]|50)[^0-9]} {#1}{\prg_return_true:}{\prg_return_false:}}
       }
       {\prg_return_false:}
   }
@@ -70,7 +72,6 @@
   \TCEDefineNivel{#1}%
   \RenewDocumentCommand{\section}{s o m}{}%
   \RenewDocumentCommand{\subsection}{s o m}{}%
-  % Captura explicitamente o argumento do título e todo o corpo da questão.
   \RenewDocumentEnvironment{questao}{m +b}{%
     \TCEQuestaoDoNivelTF{##1}{\TCERenderQuestao{##1}{##2}}{}%
   }{}%
@@ -83,7 +84,6 @@
   \TCEDefineNivel{#1}%
   \RenewDocumentCommand{\section}{s o m}{}%
   \RenewDocumentCommand{\subsection}{s o m}{}%
-  % Mesmo mecanismo para manter apenas as resoluções pertencentes ao nível atual.
   \RenewDocumentEnvironment{solucao}{m +b}{%
     \TCESolucaoDoNivelTF{##1}{\TCERenderSolucao{##1}{##2}}{}%
   }{}%
