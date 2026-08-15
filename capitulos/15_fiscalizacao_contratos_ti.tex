@@ -1,0 +1,225 @@
+\chapter{Fiscalização de Contratos de TI}
+
+\section{Por que contratação de TI é matéria de Auditor/TI}
+
+Contratações de tecnologia concentram riscos de \termo{especificação inadequada}, \termo{dependência do fornecedor}, \termo{superdimensionamento}, \termo{subutilização}, \termo{medição subjetiva}, \termo{segurança}, \termo{proteção de dados}, \termo{continuidade} e \termo{sobrepreço}. O auditor deve verificar não apenas se houve rito formal, mas se a contratação resolve necessidade pública, possui critérios mensuráveis e produz valor compatível com o custo e o risco.
+
+\section{Lei nº 14.133/2021 aplicada a TIC}
+
+A Lei nº 14.133/2021 estabelece normas gerais de licitação e contratação e inclui expressamente contratações de tecnologia da informação e comunicação em seu âmbito. Entre seus princípios estão planejamento, transparência, segregação de funções, motivação, julgamento objetivo, competitividade, economicidade e desenvolvimento nacional sustentável.
+
+\begin{teoria}[ciclo lógico da contratação]
+Uma contratação consistente deve formar uma cadeia rastreável:
+\[
+\text{necessidade} \rightarrow \text{estudo da solução} \rightarrow \text{requisitos} \rightarrow \text{estimativa} \rightarrow \text{seleção} \rightarrow \text{execução} \rightarrow \text{medição} \rightarrow \text{resultado}
+\]
+Se um elo não estiver sustentado por evidência, o auditor deve avaliar se existe risco de desperdício, direcionamento, pagamento sem resultado ou impossibilidade de responsabilização.
+\end{teoria}
+
+\subsection{Planejamento e ETP}
+
+O Estudo Técnico Preliminar deve demonstrar o problema a resolver, alternativas, requisitos e viabilidade da solução. Em TI, isso exige evitar especificação baseada em marca sem justificativa, avaliar integração com ambiente existente, capacidade, segurança, portabilidade, suporte, licenciamento, dependências e custo total de propriedade.
+
+\begin{cebraspe}
+O ETP não é mero formulário anterior ao Termo de Referência. Ele deve sustentar a escolha da solução. Quando a decisão já está tomada e o estudo é preenchido apenas para justificá-la, há inversão do processo de planejamento.
+\end{cebraspe}
+
+\subsection{Termo de Referência e mensuração}
+
+O Termo de Referência deve descrever a solução, requisitos, modelo de execução, modelo de gestão, critérios de medição e pagamento, seleção e estimativas. Em serviços de TI, pagamento deve estar ligado a resultados verificáveis sempre que possível, e não simplesmente à disponibilidade nominal de pessoas.
+
+Exemplos de elementos mensuráveis:
+\begin{itemize}
+\item disponibilidade e janela de medição;
+\item tempo de resposta e restauração;
+\item volume processado com qualidade;
+\item critérios de aceite de funcionalidades;
+\item níveis de severidade e prazos;
+\item indicadores de segurança e continuidade;
+\item entrega de documentação, código, artefatos e conhecimento.
+\end{itemize}
+
+\section{IN SGD/ME nº 94/2022}
+
+A IN SGD/ME nº 94/2022 disciplina o processo de contratação de soluções de TIC no SISP do Poder Executivo Federal. Para a prova, memorize sua arquitetura antes dos detalhes.
+
+\begin{center}
+\begin{tikzpicture}[node distance=8mm]
+\tikzset{f/.style={draw=azulPetroleo,fill=azulClaro,rounded corners,minimum width=4cm,minimum height=1cm,align=center}}
+\node[f] (p) {1. Planejamento\\da Contratação};
+\node[f,right=of p] (s) {2. Seleção\\do Fornecedor};
+\node[f,right=of s] (g) {3. Gestão\\do Contrato};
+\draw[-Latex,thick,ambar] (p)--(s)--(g);
+\node[below=6mm of s,align=center,text width=10cm] {Gerenciamento de riscos atravessa todas as fases.};
+\end{tikzpicture}
+\end{center}
+
+Na fase de planejamento, a IN prevê, como estrutura central, instituição da Equipe de Planejamento da Contratação, elaboração do ETP e elaboração do Termo de Referência.
+
+\subsection{Papéis e segregação}
+
+Em uma contratação robusta, papéis de planejamento, seleção, fiscalização, gestão e recebimento devem ser atribuídos de forma a preservar segregação e capacidade técnica. O auditor deve observar conflitos de interesse, concentração excessiva de funções, ausência de substitutos, validações apenas formais e dependência técnica da própria contratada para atestar o que ela entregou.
+
+\subsection{Riscos}
+
+Gerenciamento de riscos deve ocorrer durante todo o processo. Para cada risco, é útil registrar causa, evento, consequência, probabilidade, impacto, responsável e resposta.
+
+\begin{exemplo}[risco de lock-in]
+\textbf{Causa:} solução usa formato proprietário sem exportação completa.\\
+\textbf{Evento:} término do contrato impede migração tempestiva.\\
+\textbf{Consequência:} prorrogação forçada, perda de dados ou contratação emergencial.\\
+\textbf{Controles:} requisitos de portabilidade, formatos abertos, documentação, testes de saída, propriedade de dados e plano de transição.
+\end{exemplo}
+
+\section{Pesquisa de preços — IN SEGES/ME nº 65/2021}
+
+A pesquisa de preços deve ser documentada com objeto, responsáveis, fontes, série de preços, método, justificativas, memória de cálculo e suporte documental. A IN prioriza, quando possível, sistemas oficiais e contratações similares da Administração antes de depender de cotações diretas de fornecedores.
+
+Métodos usuais para obter preço estimado incluem média, mediana ou menor valor sobre conjunto adequado, com análise crítica e exclusão fundamentada de preços inexequíveis, inconsistentes ou excessivamente elevados. Para itens de TIC constantes de catálogos padronizados do Governo Federal, a própria IN contém regra específica de referência.
+
+\begin{atencao}
+``Três propostas'' não é sinônimo de pesquisa de mercado adequada. Cotações podem vir de empresas relacionadas, conter especificações diferentes ou reproduzir preços artificialmente elevados. O auditor deve avaliar comparabilidade, independência, contemporaneidade e método estatístico.
+\end{atencao}
+
+\section{Fiscalização da execução}
+
+A fiscalização deve responder continuamente:
+\begin{enumerate}
+\item O que deveria ser entregue?
+\item O que foi efetivamente entregue?
+\item Como isso foi medido?
+\item Quem validou e com que evidência?
+\item Houve descumprimento? Qual efeito financeiro/operacional?
+\item O pagamento refletiu a entrega real?
+\end{enumerate}
+
+Documentos de execução podem incluir ordens de serviço, relatórios, chamados, logs, métricas, aceite, termos de recebimento, evidências de testes, registros de segurança e histórico de mudanças.
+
+\subsection{SLA e indicador}
+
+Um SLA precisa de fórmula e regra de medição. Considere disponibilidade mensal:
+\[
+A=\frac{T_{janela}-T_{indisponível}}{T_{janela}}\times100\%.
+\]
+É indispensável definir o que entra na janela, exclusões autorizadas, fonte do dado, precisão, manutenção programada e consequência por descumprimento.
+
+\begin{exemplo}[pegadinha de disponibilidade]
+Um serviço deve ter 99,9\% de disponibilidade em mês de 30 dias, medido 24x7. O orçamento máximo teórico de indisponibilidade é:
+\[
+43200\text{ min}\times0{,}001=43{,}2\text{ min}.
+\]
+Se o contrato exclui indisponibilidade programada, essa exclusão deve estar clara; do contrário, o indicador é manipulável.
+\end{exemplo}
+
+\section{Alterações, prorrogação e equilíbrio}
+
+Modificações contratuais exigem fundamento jurídico, motivação e preservação do objeto e do interesse público. Em TI, mudanças frequentes podem revelar requisitos mal definidos. Prorrogações não devem ocorrer por inércia: é necessário avaliar vantajosidade, desempenho, riscos de transição e condições legais.
+
+Reequilíbrio econômico-financeiro não é mecanismo para corrigir erro empresarial comum nem para garantir lucro esperado; exige enquadramento jurídico e demonstração do evento e de seus efeitos.
+
+\section{Segurança, LGPD e continuidade no contrato}
+
+Contratos de TI podem exigir:
+\begin{itemize}
+\item classificação e proteção de dados;
+\item papéis LGPD e instruções de tratamento;
+\item notificação de incidentes;
+\item gestão de acessos privilegiados;
+\item criptografia e gestão de chaves;
+\item localização/transferência de dados quando aplicável;
+\item requisitos de backup, RPO, RTO e testes;
+\item retorno/eliminação segura dos dados ao fim do contrato;
+\item direito de auditoria e preservação de evidências.
+\end{itemize}
+
+\section{Achados típicos de auditoria}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{X X X}
+\toprule
+Situação & Risco & Evidência esperada \\
+\midrule
+Quantitativo sem memória de cálculo & superdimensionamento & demanda histórica, projeção e premissas. \\
+SLA sem fonte independente & pagamento indevido & logs confiáveis e método de cálculo. \\
+Licença ociosa & desperdício & inventário, uso real, usuários ativos. \\
+Aceite genérico & entrega não comprovada & testes, checklist e critérios objetivos. \\
+Fornecedor controla logs & perda de evidência & cópia protegida sob domínio do órgão. \\
+Sem plano de saída & lock-in & exportação, documentação, transição e teste de reversibilidade. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Mapa mental}
+
+\mapamental{Contratos de TI}{
+ child {node[concept]{Planejamento} child {node[concept]{ETP}} child {node[concept]{TR}}}
+ child {node[concept]{Seleção} child {node[concept]{preços}} child {node[concept]{competição}}}
+ child {node[concept]{Execução} child {node[concept]{SLA}} child {node[concept]{aceite}}}
+ child {node[concept]{Risco} child {node[concept]{lock-in}} child {node[concept]{segurança}}}
+ child {node[concept]{Evidência} child {node[concept]{logs}} child {node[concept]{medição}}}
+ child {node[concept]{Normas} child {node[concept]{Lei 14.133}} child {node[concept]{IN 94/65}}}
+}
+
+\section{Questões por nível}
+
+\begin{questao}{\nivel{N1} 15.1}
+Segundo a arquitetura da IN SGD/ME nº 94/2022, as fases do processo de contratação de soluções de TIC são:
+\begin{enumerate}[label=\Alph*)]
+\item ETP, licitação e pagamento.
+\item Planejamento da Contratação, Seleção do Fornecedor e Gestão do Contrato.
+\item Demanda, homologação e auditoria.
+\item Projeto, desenvolvimento e operação.
+\item Orçamento, empenho e liquidação apenas.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{15.1}
+\textbf{Gabarito: B.} Essa é a divisão expressa da IN. ETP integra planejamento; as demais alternativas misturam etapas orçamentárias, técnicas ou artefatos com fases do processo.
+\end{solucao}
+
+\begin{questao}{\nivel{N2} 15.2}
+Contrato paga disponibilidade informada exclusivamente em planilha mensal produzida pela própria contratada, sem logs acessíveis ao órgão. Qual fragilidade é mais relevante?
+\begin{enumerate}[label=\Alph*)]
+\item excesso de normalização do banco.
+\item baixa independência e verificabilidade da evidência usada para pagamento.
+\item uso obrigatório de RAID.
+\item ausência de metodologia ágil.
+\item necessidade de substituir SLA por preço fixo sem medição.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{15.2}
+\textbf{Gabarito: B.} A medição financeira depende de evidência controlada por parte interessada, sem trilha independente. A/C/D são irrelevantes; E elimina justamente a relação entre resultado e pagamento.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} 15.3}
+Uma pesquisa de preços utilizou três cotações de fornecedores, todas 40\% acima de contratações públicas recentes comparáveis, que foram ignoradas sem justificativa. A conclusão mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item a pesquisa é automaticamente válida por ter três propostas.
+\item a pesquisa merece questionamento, pois quantidade de propostas não substitui análise crítica das fontes e a IN 65 prioriza parâmetros públicos relevantes quando disponíveis.
+\item a Administração é obrigada a usar sempre o maior preço.
+\item preço estimado não precisa de memória de cálculo.
+\item contratações similares nunca podem ser usadas.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{15.3}
+\textbf{Gabarito: B.} Pesquisa exige análise crítica e justificativa; a IN estabelece parâmetros e prioridade. A é erro clássico; C, D e E contrariam lógica normativa.
+\end{solucao}
+
+\begin{questao}{\nivel{N4} 15.4}
+Um órgão contrata plataforma SaaS crítica por cinco anos. O edital não exige exportação dos dados nem documentação de integração. Após dois anos, o fornecedor eleva custos de serviços acessórios e a migração é estimada em 18 meses. O principal risco que deveria ter sido tratado no planejamento é:
+\begin{enumerate}[label=\Alph*)]
+\item fragmentação IP.
+\item lock-in tecnológico e contratual, com ausência de estratégia de saída e portabilidade.
+\item colisão de hash.
+\item deadlock de banco exclusivamente.
+\item falta de compressão de arquivos.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{15.4}
+\textbf{Gabarito: B.} O caso é típico de dependência do provedor. Requisitos de portabilidade, APIs, formatos, documentação, propriedade dos dados e plano de transição deveriam integrar ETP/TR. As demais opções não explicam o problema contratual.
+\end{solucao}
+
+\begin{discursiva}[fiscalização contratual]
+Em auditoria de contrato de sustentação, verifica-se pagamento mensal fixo, ausência de catálogo de serviços, SLAs genéricos, chamados encerrados pela contratada sem aceite do usuário e nenhuma penalidade nos últimos 24 meses. Em até 30 linhas, apresente riscos, procedimentos de auditoria e recomendações.
+\end{discursiva}
