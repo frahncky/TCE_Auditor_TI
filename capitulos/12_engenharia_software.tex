@@ -1,266 +1,678 @@
 \chapter{Engenharia de Software}
 
-\section{Engenharia de software como sistema sociotécnico}
+\section{Ciclo de vida de software}
 
-Software de qualidade não resulta apenas de código correto. O produto nasce de decisões sobre problema, requisitos, arquitetura, experiência, testes, fluxo de entrega, operação, segurança e evolução. Em um Tribunal de Contas, falhas de software podem afetar sigilo, integridade de processos, evidência de auditoria e continuidade institucional.
+Engenharia de Software reúne métodos para especificar, projetar, construir, testar, implantar, operar e evoluir sistemas de modo controlado. O produto de software não termina no código: requisitos, arquitetura, testes, documentação, segurança, observabilidade e processo de entrega fazem parte da solução.
 
-\begin{teoria}[quatro perspectivas]
-Ao estudar qualquer prática de engenharia de software, analise:
-\begin{enumerate}
-\item \textbf{valor}: qual problema do usuário/órgão é resolvido;
-\item \textbf{qualidade}: como se demonstra que a solução atende requisitos;
-\item \textbf{fluxo}: como uma mudança sai da ideia e chega de forma controlada à produção;
-\item \textbf{operação}: como observar, recuperar e evoluir o sistema após o deploy.
-\end{enumerate}
-\end{teoria}
+Um ciclo genérico pode ser representado por:
+\[
+\text{necessidade}\rightarrow
+\text{requisitos}\rightarrow
+\text{projeto}\rightarrow
+\text{implementação}\rightarrow
+\text{verificação}\rightarrow
+\text{implantação}\rightarrow
+\text{operação}\rightarrow
+\text{evolução}.
+\]
 
-\section{Processos iterativos e incrementais}
+Modelos de processo diferem em como organizam e repetem essas atividades.
 
-\termo{Iteração} é ciclo de aprendizado/refinamento. \termo{Incremento} é parcela funcional adicionada ao produto. Um processo pode ser iterativo e incremental: em cada ciclo, requisitos e desenho são refinados e um incremento potencialmente utilizável é entregue.
+\section{Modelos de processo}
 
-Abordagens adaptativas reduzem risco de construir por meses sem feedback, mas não eliminam planejamento. O planejamento muda de formato: objetivos, backlog, arquitetura evolutiva, métricas e gestão de risco continuam necessários.
+\subsection{Cascata}
 
-\section{Elicitação e gerenciamento de requisitos}
+No modelo cascata clássico, fases são executadas predominantemente em sequência. Funciona melhor quando requisitos são estáveis e mudanças são pequenas, mas feedback tardio pode tornar descobertas caras.
+
+\subsection{Iterativo e incremental}
+
+\termo{Iteração} refina produto e compreensão em ciclos. \termo{Incremento} adiciona funcionalidade utilizável. Um processo pode ser simultaneamente iterativo e incremental.
+
+\subsection{Espiral}
+
+O modelo espiral organiza desenvolvimento em ciclos orientados por risco, com definição de objetivos, avaliação de alternativas/riscos, desenvolvimento e planejamento do ciclo seguinte.
+
+\section{Engenharia de requisitos}
+
+Requisito expressa necessidade, capacidade ou restrição que o sistema deve satisfazer.
 
 \subsection{Elicitação}
 
-Técnicas: entrevistas, workshops, observação, análise documental, questionários, protótipos, análise de dados e estudo de sistemas existentes. Elicitação não é ``perguntar ao usuário o que quer''; usuários podem expressar solução em vez de necessidade. O analista deve descobrir problema, regra, restrição, exceção e contexto.
+Técnicas incluem entrevistas, workshops, observação, protótipos, questionários, análise de documentos, análise de sistemas legados e exploração de dados.
 
-\subsection{Requisitos funcionais e não funcionais}
+Elicitar não significa apenas perguntar ``o que o usuário quer''. Usuários frequentemente descrevem uma solução conhecida; a engenharia deve identificar o problema subjacente, regras, exceções e restrições.
 
-Funcionais especificam comportamentos/serviços. Não funcionais estabelecem atributos e restrições: desempenho, disponibilidade, segurança, privacidade, acessibilidade, interoperabilidade, auditabilidade e manutenibilidade.
+\subsection{Requisitos funcionais}
 
-Requisito não funcional deve ser mensurável. ``O sistema deve ser rápido'' é fraco; ``95\% das consultas do painel devem responder em até 2 s sob carga de 300 usuários concorrentes'' é verificável.
+Descrevem comportamentos ou serviços: cadastrar, calcular, consultar, emitir, autorizar, bloquear.
 
-\subsection{Histórias de usuário}
+\subsection{Requisitos não funcionais}
 
-Formato comum: ``Como [papel], quero [capacidade], para [benefício]''. A história é lembrete para conversa, não especificação completa. Deve vir acompanhada de critérios de aceitação, regras, exemplos e restrições.
+Expressam atributos e restrições como desempenho, segurança, disponibilidade, privacidade, acessibilidade, interoperabilidade, manutenibilidade e auditabilidade.
 
-\begin{exemplo}[história com critério]
-\textbf{História:} Como auditor, quero filtrar contratos por órgão e risco para priorizar fiscalização.
+\begin{exemplo}[requisito verificável]
+Fraco: ``o sistema deve ser rápido''.
 
-\textbf{Critérios:} dado conjunto de contratos classificados, quando o usuário selecionar órgão e faixa de risco, então a lista deve conter apenas contratos compatíveis, preservar paginação e informar quantidade total. O filtro deve ser auditável e manter tempo p95 inferior a 2 s no volume especificado.
+Verificável: ``sob carga de 300 usuários simultâneos, 95\% das consultas de processo devem responder em até 2 s e 99\% em até 5 s, medidos no servidor de borda, excluídas janelas de manutenção formalmente registradas''.
 \end{exemplo}
+
+\section{Critérios de qualidade de requisitos}
+
+Requisitos devem ser, conforme o contexto:
+\begin{itemize}
+\item corretos;
+\item necessários;
+\item não ambíguos;
+\item consistentes;
+\item verificáveis;
+\item rastreáveis;
+\item priorizados;
+\item modificáveis.
+\end{itemize}
 
 \subsection{Rastreabilidade}
 
-Rastreabilidade liga necessidade $\rightarrow$ requisito $\rightarrow$ item de backlog $\rightarrow$ código $\rightarrow$ teste $\rightarrow$ release. Em auditoria, essa cadeia ajuda a verificar se mudança foi autorizada, implementada e validada.
-
-\section{UX, projeto centrado no usuário, prototipação e storytelling}
-
-Projeto centrado no usuário investiga contexto, tarefas, limitações e objetivos reais. Prototipação pode variar de baixa fidelidade a protótipo navegável. O objetivo é reduzir incerteza cedo; um protótipo aprovado não prova escalabilidade, segurança ou arquitetura final.
-
-Storytelling organiza problema e jornada para comunicar valor, mas não substitui critério testável. Em serviços públicos, UX deve incluir acessibilidade, clareza, prevenção de erro e transparência.
-
-\section{MVP e gestão de produto}
-
-MVP é a menor solução capaz de testar hipótese de valor/aprendizado. Ele deve ser \emph{viável}: controles essenciais de segurança, privacidade, integridade e conformidade não podem ser omitidos sob pretexto de velocidade.
-
-Uma hipótese deve ter métrica de aprendizado. Exemplo: ``permitir pesquisa semântica reduzirá em 30\% o tempo mediano de localização de processos em tarefas selecionadas''. Sem critério, MVP vira apenas versão incompleta.
-
-\section{Scrum em profundidade}
-
-O Scrum Team é composto por Product Owner, Scrum Master e Developers. O Product Owner é responsável por maximizar valor e gestão efetiva do Product Backlog. Scrum Master estabelece Scrum e ajuda equipe/organização a melhorar. Developers criam Incremento utilizável.
-
-\subsection{Eventos}
-
-\begin{itemize}
-\item \textbf{Sprint}: container dos demais eventos; produz progresso em direção ao Product Goal.
-\item \textbf{Sprint Planning}: por que a Sprint é valiosa, o que pode ser feito e como será realizado.
-\item \textbf{Daily Scrum}: inspeção do progresso ao Sprint Goal e adaptação do plano.
-\item \textbf{Sprint Review}: inspeção do resultado com stakeholders e adaptação do Product Backlog.
-\item \textbf{Retrospective}: melhoria de qualidade e eficácia do modo de trabalho.
-\end{itemize}
-
-\subsection{Artefatos e compromissos}
-
-Product Backlog/Product Goal; Sprint Backlog/Sprint Goal; Increment/Definition of Done. DoD estabelece estado de qualidade compartilhado; item não conforme não integra Incremento utilizável.
-
-\begin{cebraspe}
-Daily não é reunião de status para gerente. Sprint Review não é apenas demonstração formal. Retrospective não discute produto prioritariamente, mas melhoria do sistema de trabalho.
-\end{cebraspe}
-
-\section{Kanban e fluxo}
-
-Kanban visualiza trabalho, limita WIP, gerencia fluxo e promove melhoria evolutiva. Métricas:
-\begin{itemize}
-\item \textbf{lead time}: da solicitação à conclusão;
-\item \textbf{cycle time}: tempo dentro de determinado estágio/processo;
-\item \textbf{throughput}: itens concluídos por unidade de tempo;
-\item \textbf{WIP}: trabalho em progresso.
-\end{itemize}
-
-Em sistema estável, Lei de Little:
+Uma matriz de rastreabilidade liga:
 \[
-L=\lambda W.
+\text{necessidade}\rightarrow
+\text{requisito}\rightarrow
+\text{história/caso}\rightarrow
+\text{código}\rightarrow
+\text{teste}\rightarrow
+\text{release}.
 \]
-Se throughput permanece 5 itens/dia e WIP cresce de 10 para 20, o tempo médio tende a dobrar de 2 para 4 dias. Limite WIP reduz filas e revela gargalos.
 
-\section{TDD, BDD e ATDD}
+Rastreabilidade bidirecional também ajuda a encontrar código ou teste sem requisito justificante e requisito nunca implementado.
 
-\subsection{TDD}
+\section{Casos de uso}
 
-Red: escrever teste que falha pelo motivo esperado. Green: implementação mínima. Refactor: melhorar desenho preservando comportamento. TDD fornece feedback e influencia design, mas não substitui integração, segurança, aceitação ou testes exploratórios.
+Caso de uso descreve interação entre ator e sistema para atingir objetivo.
 
-\subsection{BDD}
+Elementos típicos:
+\begin{itemize}
+\item ator principal;
+\item pré-condições;
+\item gatilho;
+\item fluxo principal;
+\item fluxos alternativos/exceções;
+\item pós-condições.
+\end{itemize}
 
-BDD descreve comportamento de negócio em linguagem comum. Given/When/Then expressa contexto, evento e resultado. O benefício principal é alinhamento sobre exemplos executáveis, não a sintaxe de uma ferramenta específica.
+\subsection{include e extend}
 
-\subsection{ATDD}
+Em UML, \texttt{include} reutiliza comportamento obrigatório comum. \texttt{extend} adiciona comportamento opcional/condicional a um caso base em pontos de extensão.
 
-ATDD antecipa testes/critérios de aceitação colaborativamente. Ajuda a criar entendimento compartilhado antes do desenvolvimento e reduz retrabalho.
+\section{Histórias de usuário}
 
-\section{Estratégia de testes}
+Formato comum:
+\begin{quote}
+Como [papel], quero [capacidade], para [benefício].
+\end{quote}
 
-\subsection{Níveis}
+A história não substitui especificação suficiente. Critérios de aceitação e exemplos concretos estabelecem entendimento compartilhado.
+
+\begin{exemplo}[Given--When--Then]
+\textbf{Dado} um contrato ativo com saldo insuficiente, \textbf{quando} o usuário tentar registrar pagamento acima do saldo, \textbf{então} a operação deve ser rejeitada, o motivo exibido e o evento registrado em trilha de auditoria.
+\end{exemplo}
+
+\section{UML}
+
+UML é linguagem de modelagem, não método de desenvolvimento.
+
+\subsection{Diagrama de classes}
+
+Representa classes, atributos, operações e relacionamentos.
+
+\begin{itemize}
+\item associação: relação estrutural;
+\item agregação: relação todo-parte fraca;
+\item composição: todo-parte forte, com ciclo de vida dependente;
+\item generalização: herança/especialização;
+\item dependência: uso temporário de outro elemento.
+\end{itemize}
+
+Multiplicidades como 1, 0..1, * e 1..* expressam cardinalidade.
+
+\subsection{Diagrama de sequência}
+
+Mostra interações ordenadas no tempo entre lifelines. É útil para compreender chamadas, respostas, assincronia e responsabilidades de componentes.
+
+\subsection{Diagrama de atividades}
+
+Modela fluxo de trabalho, decisões, paralelismo e sincronização.
+
+\subsection{Diagrama de estados}
+
+Representa estados, eventos e transições de entidade cujo comportamento depende de estado.
+
+\section{Princípios de orientação a objetos}
+
+\subsection{Encapsulamento}
+
+Oculta detalhes internos e expõe operações controladas.
+
+\subsection{Abstração}
+
+Modela características relevantes e ignora detalhes desnecessários para o contexto.
+
+\subsection{Herança}
+
+Permite especialização/reuso entre tipos relacionados, mas pode aumentar acoplamento. Composição é frequentemente preferível quando a relação não representa realmente ``é um''.
+
+\subsection{Polimorfismo}
+
+Permite usar diferentes implementações por uma interface comum.
+
+\section{SOLID}
 
 \begin{table}[ht]
 \centering
-\begin{tabularx}{\textwidth}{l X X}
+\small
+\begin{tabularx}{\textwidth}{l X}
 \toprule
-Nível & Foco & Falha típica detectada \\
+Princípio & Ideia \\
 \midrule
-Unitário & unidade pequena & lógica local, casos-limite. \\
-Integração & colaboração/interfaces & contrato/API, banco, mensageria. \\
-Sistema/funcional & comportamento ponta a ponta & fluxo e regra integrada. \\
-Aceitação & necessidade/critério & inadequação ao uso/regra. \\
-Desempenho/carga & capacidade e latência & saturação, fila, regressão. \\
-Vulnerabilidade & controles de segurança & falhas técnicas exploráveis. \\
+SRP & módulo deve ter uma razão coerente para mudar. \\
+OCP & aberto para extensão, fechado para modificação do núcleo estável. \\
+LSP & subtipo deve poder substituir supertipo sem quebrar expectativas contratuais. \\
+ISP & clientes não devem depender de interfaces que não utilizam. \\
+DIP & módulos de alto nível dependem de abstrações, não detalhes concretos. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Pirâmide e troféu de testes}
+SOLID não é conjunto de regras mecânicas; são heurísticas para controlar acoplamento e evolução.
 
-Heurísticas recomendam grande base de testes rápidos e menor quantidade de testes E2E caros. Não existe proporção universal. Microsserviços podem exigir testes de contrato; front-end pode valorizar testes de integração. O objetivo é maximizar feedback confiável por custo.
+\section{Coesão e acoplamento}
 
-\subsection{Caixa-preta}
+Alta \termo{coesão} significa que responsabilidades de um módulo estão fortemente relacionadas. Baixo \termo{acoplamento} significa menor dependência entre módulos.
 
-Classes de equivalência particionam domínio de entradas em classes semelhantes. Valores-limite testam bordas. Tabela de decisão testa combinações de regras. Transição de estados testa eventos válidos e inválidos conforme estado.
+Acoplamento excessivo aumenta efeito cascata de mudanças. Coesão muito baixa produz módulos genéricos que acumulam responsabilidades sem unidade conceitual.
 
-\subsection{Caixa-branca}
+\section{Padrões de projeto}
 
-Cobertura de instrução, decisão, condição e caminhos avalia estrutura. Complexidade ciclomática $M=E-N+2P$ em grafo de fluxo, ou heurísticas equivalentes, estima número de caminhos independentes. Cobertura alta sem asserts fortes pode ser inútil.
+\subsection{Factory}
 
-\section{Automação, análise estática e SonarQube}
+Encapsula criação de objetos e reduz dependência de classes concretas.
 
-Automatização deve priorizar testes repetíveis e de alto valor. Teste flaky é perigoso: quando falhas não são confiáveis, a equipe aprende a ignorar sinais.
+\subsection{Strategy}
 
-Análise estática detecta padrões de bug, vulnerabilidade, code smell, duplicação e complexidade sem executar aplicação. SonarQube calcula métricas e aplica quality gates. Um gate deve representar política de risco; exceção deve ser documentada, temporária e revisada.
+Representa algoritmos intercambiáveis por interface comum.
 
-\section{Métricas de software}
+\subsection{Observer}
 
-Métricas devem evitar Goodhart: quando medida vira alvo isolado, pessoas otimizam a medida. Linhas de código podem incentivar complexidade. Quantidade de commits não mede valor.
+Permite notificar interessados quando estado muda, comum em eventos e interfaces.
 
-Métricas úteis combinam:
+\subsection{Adapter}
+
+Converte interface de componente existente para interface esperada pelo cliente.
+
+\subsection{Decorator}
+
+Adiciona responsabilidades dinamicamente sem explosão de subclasses.
+
+\subsection{Singleton}
+
+Restringe instância a uma única ocorrência lógica, mas pode criar estado global e dificultar testes. Não deve ser aplicado apenas porque ``há um serviço''.
+
+\section{Arquitetura em camadas}
+
+Uma arquitetura clássica separa apresentação, domínio/aplicação e persistência. A principal vantagem é separar responsabilidades e dependências.
+
+A camada de domínio não deveria depender diretamente de detalhes de interface quando se busca forte isolamento arquitetural.
+
+\section{Arquitetura hexagonal e Clean Architecture}
+
+A ideia central é proteger regras de negócio de detalhes externos. Portas definem contratos; adaptadores conectam banco, API, fila e interface.
+
+Dependências apontam para abstrações internas. Isso facilita testes e substituição de infraestrutura.
+
+\section{Monólito e microsserviços}
+
+Monólito implanta aplicação como unidade. Pode ser modular e altamente bem estruturado.
+
+Microsserviços distribuem capacidades em serviços implantáveis independentemente, normalmente alinhados a domínios.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+Aspecto & Monólito & Microsserviços \\
+\midrule
+Deploy & uma unidade & múltiplas unidades independentes. \\
+Consistência & transações locais mais simples & transações distribuídas mais difíceis. \\
+Operação & menor overhead inicial & exige observabilidade, automação e rede madura. \\
+Escala & escala aplicação/unidades maiores & escala serviços específicos. \\
+Falhas & fronteira única & falhas parciais e latência de rede. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Microsserviços não são evolução obrigatória de monólitos. Para equipe pequena e domínio simples, overhead pode superar benefícios.
+
+\section{Domain-Driven Design}
+
+DDD busca modelar software a partir do domínio do negócio.
+
+\subsection{Ubiquitous Language}
+
+Equipe técnica e especialistas compartilham vocabulário coerente.
+
+\subsection{Bounded Context}
+
+Delimita área onde um modelo e seus termos possuem significado consistente. ``Fornecedor'' pode ter atributos e regras diferentes em contexto de contratação e em contexto financeiro.
+
+\subsection{Entity e Value Object}
+
+Entity possui identidade persistente. Value Object é definido por seus valores e tende a ser imutável.
+
+\subsection{Aggregate}
+
+Conjunto de objetos com raiz que protege invariantes transacionais. Referências externas devem respeitar limites do agregado.
+
+\section{SOA e microsserviços}
+
+SOA organiza capacidades como serviços com contratos e integração. Microsserviços compartilham princípios de serviço, mas enfatizam serviços menores, implantação independente e automação operacional.
+
+ESB centralizado é associado a muitas implementações SOA, mas SOA não é sinônimo de ESB.
+
+\section{REST}
+
+REST é estilo arquitetural com restrições como cliente-servidor, stateless, cache, interface uniforme e sistema em camadas.
+
+\subsection{Recursos e métodos HTTP}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+Método & Uso típico & Idempotência \\
+\midrule
+GET & ler recurso & sim. \\
+POST & criar/submeter processamento & em geral não. \\
+PUT & substituir estado do recurso & sim. \\
+PATCH & alteração parcial & depende da operação. \\
+DELETE & remover recurso & semanticamente idempotente. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Idempotente significa repetir mesma requisição produz o mesmo estado final pretendido, não que a resposta precise ser byte a byte idêntica.
+
+\subsection{Códigos HTTP}
+
+2xx = sucesso; 3xx = redirecionamento; 4xx = erro associado à requisição/cliente; 5xx = falha do servidor.
+
+Exemplos: 200 OK, 201 Created, 204 No Content, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 409 Conflict, 429 Too Many Requests, 500 Internal Server Error, 503 Service Unavailable.
+
+\section{Versionamento de API}
+
+Mudanças compatíveis podem adicionar campos opcionais. Remover campo ou alterar significado pode quebrar consumidores. Estratégias incluem versionamento em URI, header ou negociação, mas o mais importante é governar contrato e depreciação.
+
+\section{OpenAPI}
+
+OpenAPI descreve endpoints, parâmetros, schemas, respostas e segurança de APIs HTTP. Permite documentação, validação, geração de clientes e testes de contrato.
+
+Especificação não garante implementação correta; drift entre documentação e runtime precisa ser controlado.
+
+\section{Mensageria e arquitetura orientada a eventos}
+
+Mensagens desacoplam produtor e consumidor no tempo e espaço.
+
+\subsection{Fila e pub/sub}
+
+Fila normalmente distribui mensagem para um consumidor do grupo. Pub/sub permite múltiplos assinantes receberem eventos conforme topologia.
+
+\subsection{At-least-once e idempotência}
+
+Em entrega at-least-once, consumidor pode receber duplicata. Processamento deve ser idempotente ou possuir deduplicação.
+
+\begin{exemplo}[deduplicação]
+Evento possui \texttt{event_id}. Antes de aplicar pagamento, consumidor registra ID em tabela com restrição única dentro da mesma transação. Se mensagem for reenviada, tentativa de duplicar ID é reconhecida e efeito financeiro não se repete.
+\end{exemplo}
+
+\section{Transações distribuídas e Saga}
+
+Em microsserviços, uma transação ACID única entre bancos independentes pode ser inviável ou indesejada.
+
+Saga decompõe operação em transações locais com ações compensatórias.
+
+\begin{example}[saga]
+1. Reservar orçamento. 2. Criar ordem. 3. Confirmar pagamento.
+
+Se pagamento falhar, uma compensação libera orçamento e cancela ordem. Compensação é nova ação de negócio, não ``rollback mágico'' de tempo.
+\end{example}
+
+\section{CQRS e Event Sourcing}
+
+CQRS separa modelos de escrita e leitura quando necessidades divergem. Não exige Event Sourcing.
+
+Event Sourcing persiste sequência de eventos como fonte de verdade e reconstrói estado a partir deles. Facilita histórico, mas aumenta complexidade de evolução de schema, snapshots e consistência de projeções.
+
+\section{Scrum}
+
+Scrum é framework leve para problemas complexos.
+
+\subsection{Accountabilities}
+
+Product Owner maximiza valor e gerencia Product Backlog. Scrum Master promove entendimento/efetividade do Scrum. Developers criam Incremento utilizável.
+
+\subsection{Eventos}
+
+Sprint contém Planning, Daily Scrum, Review e Retrospective.
+
+Daily Scrum é evento dos Developers para inspecionar progresso ao Sprint Goal e adaptar plano; não é reunião de prestação de contas a gerente.
+
+Sprint Review inspeciona resultado com stakeholders e adapta futuro do produto. Retrospective inspeciona forma de trabalho e define melhorias.
+
+\subsection{Artefatos e compromissos}
+
+Product Backlog/Product Goal, Sprint Backlog/Sprint Goal, Increment/Definition of Done.
+
+\section{Kanban e fluxo}
+
+Kanban enfatiza visualização, limites de WIP, gestão de fluxo e melhoria evolutiva.
+
+Métricas:
 \begin{itemize}
-\item fluxo: lead time, throughput, WIP;
-\item qualidade: defeitos escapados, reabertura, cobertura efetiva;
-\item entrega: deployment frequency, change failure rate;
-\item operação: MTTR, disponibilidade, error budget;
-\item valor: adoção, sucesso de tarefa, resultado institucional.
+\item WIP: itens em andamento;
+\item throughput: itens concluídos por período;
+\item cycle time: tempo dentro do fluxo;
+\item lead time: solicitação até entrega.
 \end{itemize}
 
-\section{DevOps e CI/CD}
-
-DevOps integra pessoas, processo e tecnologia para reduzir lead time com qualidade e confiabilidade. Não é sinônimo de Jenkins, Docker ou ``equipe DevOps''.
-
-\begin{center}
-\begin{tikzpicture}[node distance=4mm]
-\tikzset{s/.style={draw=azulPetroleo,fill=azulClaro,rounded corners,minimum width=1.8cm,minimum height=.75cm}}
-\node[s] (c) {Commit}; \node[s,right=of c] (b) {Build}; \node[s,right=of b] (t) {Testes};
-\node[s,right=of t] (sec) {Segurança}; \node[s,right=of sec] (p) {Pacote};
-\node[s,below=of p] (d) {Deploy}; \node[s,left=of d] (m) {Monitorar};
-\draw[-Latex,thick] (c)--(b)--(t)--(sec)--(p)--(d)--(m);
-\end{tikzpicture}
-\end{center}
-
-\subsection{Build reprodutível}
-
-O mesmo código e dependências devem gerar artefato identificável. Pinning/lockfiles, repositórios controlados, hash/digest e build hermético reduzem variação. Produção deve receber o mesmo artefato testado, em vez de recompilar separadamente.
-
-\subsection{Segredos e identidade}
-
-Segredo não deve estar em código, variável pública ou imagem. Cofres e identidades temporárias reduzem exposição. Uma credencial vazada no Git deve ser rotacionada; apagar do HEAD não desfaz vazamento histórico.
-
-\subsection{Segregação}
-
-Pipelines críticos podem exigir revisão de código, proteção de branch, aprovação de ambiente, identidade nominativa, assinatura de artefato e logs protegidos. Automação bem controlada pode ser mais auditável que procedimento manual.
-
-\section{Docker}
-
-Imagem é conjunto de camadas imutáveis. Dockerfile deve minimizar contexto, dependências e privilégios. Multi-stage builds reduzem ferramentas no runtime. Tags mutáveis como \texttt{latest} dificultam rastreabilidade; digest imutável identifica exatamente a imagem.
-
-Volumes persistem dados fora da camada efêmera. Montar socket Docker ou executar privilegiado concede grande poder e deve ser evitado.
-
-\section{Kubernetes}
-
-\subsection{Objetos essenciais}
-
-\begin{itemize}
-\item \textbf{Pod}: unidade de execução.
-\item \textbf{Deployment}: estado desejado, réplicas e rollout de workloads stateless.
-\item \textbf{Service}: endpoint estável para Pods.
-\item \textbf{ConfigMap}: configuração não secreta.
-\item \textbf{Secret}: objeto para dados sensíveis; precisa de RBAC e criptografia/proteção adequada.
-\item \textbf{Ingress/Gateway}: entrada HTTP/serviços conforme controlador.
-\end{itemize}
-
-\subsection{Probes}
-
-Readiness retira Pod do tráfego sem necessariamente reiniciá-lo. Liveness detecta processo travado e pode reiniciar. Startup protege aplicações lentas durante inicialização. Liveness não deve depender de componente externo de forma que uma falha remota provoque restart storm.
-
-\subsection{Recursos e isolamento}
-
-Requests ajudam scheduler; limits restringem consumo. Ausência de requests prejudica planejamento; limites inadequados podem causar throttling/OOM. RBAC, NetworkPolicy, Pod Security e admission controls reduzem blast radius.
-
-\section{Monitoramento e observabilidade}
-
-Monitoramento pergunta ``o sistema está dentro dos estados conhecidos?''. Observabilidade busca permitir diagnosticar estados imprevistos por sinais externos.
-
-\subsection{Métricas, logs e traces}
-
-Métricas agregam séries temporais; logs registram eventos; traces mostram caminho distribuído. Correlation ID liga eventos. Sincronização de tempo é indispensável para reconstruir incidente.
-
-\subsection{SLI, SLO, SLA e error budget}
-
-SLI é medida; SLO é objetivo; SLA é acordo. Error budget é a margem de não confiabilidade permitida pelo SLO:
+Lei de Little:
 \[
-EB = 1-SLO.
+L=\lambda W,
 \]
-Para 99,9\% mensal em 30 dias 24x7, indisponibilidade teórica é cerca de $43,2$ min, ressalvadas definições da métrica.
+onde $L$ é WIP médio, $\lambda$ throughput e $W$ tempo médio no sistema.
+
+\begin{exemplo}
+Com 12 itens em WIP e throughput médio de 4 itens/dia:
+\[
+W=\frac{12}{4}=3\text{ dias}.
+\]
+Se WIP dobra sem aumento do throughput, o tempo médio tende a dobrar em sistema estável.
+\end{exemplo}
+
+\section{Qualidade de software}
+
+Qualidade inclui adequação funcional, desempenho, compatibilidade, usabilidade, confiabilidade, segurança, manutenibilidade e portabilidade, conforme modelos de qualidade adotados.
+
+Qualidade não é atributo adicionado no fim. Decisões arquiteturais determinam testabilidade, escalabilidade e resiliência.
+
+\section{Testes de software}
+
+\subsection{Unitário}
+
+Verifica pequena unidade isolada.
+
+\subsection{Integração}
+
+Verifica colaboração entre componentes, APIs, bancos e filas.
+
+\subsection{Sistema}
+
+Avalia produto integrado contra requisitos.
+
+\subsection{Aceitação}
+
+Verifica se solução atende necessidades e critérios de negócio.
+
+\section{Técnicas de caixa-preta}
+
+\subsection{Particionamento de equivalência}
+
+Divide domínio em classes que devem ter comportamento semelhante.
+
+\subsection{Valores-limite}
+
+Erros são frequentes nas fronteiras. Para faixa válida 1 a 100, valores 0, 1, 100 e 101 são especialmente importantes.
+
+\subsection{Tabela de decisão}
+
+Representa combinações de condições e ações para regras complexas.
+
+\subsection{Transição de estados}
+
+Verifica eventos permitidos e proibidos por estado.
+
+\section{Técnicas de caixa-branca}
+
+Cobertura de instruções verifica linhas executadas. Cobertura de decisão verifica resultados de branches. Cobertura de condição examina condições booleanas individuais.
+
+Cobertura 100\% não garante ausência de defeito. Teste pode executar linha sem verificar resultado correto.
+
+\subsection{Complexidade ciclomática}
+
+Para grafo de fluxo:
+\[
+M=E-N+2P,
+\]
+onde $E$ = arestas, $N$ = nós e $P$ = componentes conectados. Em função única, uma heurística é número de decisões + 1.
+
+Complexidade alta sugere maior quantidade de caminhos e dificuldade de teste/manutenção.
+
+\section{TDD, BDD e ATDD}
+
+TDD segue Red--Green--Refactor. Escreve-se teste falho, implementação mínima e refatoração.
+
+BDD utiliza exemplos de comportamento, frequentemente Given--When--Then, para criar linguagem comum entre negócio e desenvolvimento.
+
+ATDD define critérios/testes de aceitação colaborativamente antes da implementação.
+
+Nenhuma dessas práticas substitui testes de integração, segurança, desempenho ou exploratórios.
+
+\section{Mocks, stubs e fakes}
+
+Stub fornece respostas predefinidas. Mock também verifica interações esperadas. Fake é implementação funcional simplificada, como banco em memória.
+
+Excesso de mocks acopla testes à implementação e pode permitir que integração real falhe apesar de todos os testes unitários verdes.
+
+\section{CI/CD}
+
+Continuous Integration integra mudanças frequentemente com build e testes automatizados.
+
+Continuous Delivery mantém artefato apto a produção e permite deploy sob decisão controlada. Continuous Deployment automatiza promoção para produção quando critérios passam.
+
+\subsection{Pipeline típico}
+
+\[
+commit\rightarrow build\rightarrow unit\ tests\rightarrow static\ analysis\rightarrow integration\ tests\rightarrow package\rightarrow security\ scans\rightarrow deploy.
+\]
+
+\subsection{Artefato imutável}
+
+O mesmo artefato aprovado deve ser promovido. Recompilar separadamente em produção pode gerar software diferente do testado.
+
+\section{Controle de versão Git}
+
+Git é sistema distribuído. Commit referencia árvore e pais. Branch é referência móvel para commit.
+
+\subsection{Merge e rebase}
+
+Merge combina histórias e pode criar commit de merge. Rebase reaplica commits sobre nova base, reescrevendo seus hashes.
+
+Rebase em histórico já compartilhado pode causar conflitos de colaboração; não é ``sempre melhor'' nem ``sempre proibido''.
+
+\subsection{Pull request e revisão}
+
+PR/MR organiza revisão, discussão, checks e aprovação. Proteção de branch pode exigir revisão, testes e assinatura.
+
+\section{DevSecOps e segurança no ciclo}
+
+Segurança deve estar presente em requisitos, desenho, implementação e operação.
+
+\subsection{SAST}
+
+Analisa código sem executar. Bom para padrões estruturais; pode gerar falsos positivos.
+
+\subsection{DAST}
+
+Testa aplicação em execução de fora para dentro. Não possui visão completa do código.
+
+\subsection{SCA}
+
+Software Composition Analysis identifica dependências, versões, licenças e vulnerabilidades conhecidas.
+
+\subsection{Secret scanning}
+
+Detecta credenciais em repositórios. Se segredo foi publicado, deve ser revogado/rotacionado; apagar commit visível não torna segredo novamente confiável.
+
+\section{OWASP e falhas comuns}
+
+\subsection{Injection}
+
+Entrada não confiável altera comando/consulta. Prepared statements e APIs parametrizadas são defesa principal contra SQL injection.
+
+\subsection{Broken access control}
+
+Servidor deve autorizar cada operação; esconder botão no front-end não é controle.
+
+\subsection{Falhas criptográficas}
+
+Incluem dados em claro, algoritmos inadequados, chaves expostas e uso incorreto de primitivas.
+
+\subsection{SSRF}
+
+Servidor é induzido a acessar recursos arbitrários, podendo atingir serviços internos ou metadados de nuvem. Controles incluem allowlist de destinos, segmentação e proteção do serviço de metadados.
+
+\section{Supply chain de software}
+
+A cadeia inclui código, dependências, ferramentas de build, registry e pipeline.
+
+Riscos:
+\begin{itemize}
+\item dependência comprometida;
+\item typosquatting;
+\item CI comprometida;
+\item imagem adulterada;
+\item artefato sem proveniência;
+\item segredo em pipeline.
+\end{itemize}
+
+SBOM lista componentes. Assinatura e attestations ajudam a verificar proveniência, mas não provam que código é seguro.
+
+\section{Contêineres}
+
+Imagem é construída em camadas e deve ser tratada como imutável. Tags podem mudar; digest identifica conteúdo.
+
+Multi-stage build permite compilar em imagem com ferramentas e copiar apenas artefato necessário para runtime.
+
+Contêiner deve, quando possível, executar sem root, com filesystem restrito, capabilities mínimas e sem montar socket do runtime.
+
+\section{Kubernetes aplicado ao software}
+
+Deployment gerencia réplicas e rollout. Service fornece endpoint estável. ConfigMap separa configuração. Secret armazena dado sensível sob controles próprios.
+
+\subsection{Readiness, liveness e startup}
+
+Readiness controla recepção de tráfego. Liveness decide reinício. Startup adia avaliação de liveness/readiness em aplicação lenta.
+
+Uma liveness probe que testa banco externo pode reiniciar todos os Pods durante indisponibilidade do banco, piorando incidente.
+
+\section{Resiliência em sistemas distribuídos}
+
+\subsection{Timeout}
+
+Toda chamada remota deve ter limite de espera coerente com orçamento de latência.
+
+\subsection{Retry}
+
+Retries devem ser limitados e usar backoff/jitter. Repetir operação não idempotente pode duplicar efeito.
+
+\subsection{Circuit breaker}
+
+Após falhas repetidas, interrompe chamadas temporariamente e testa recuperação, evitando saturação do dependente.
+
+\subsection{Bulkhead}
+
+Isola pools/recursos para impedir que falha de uma dependência consuma toda capacidade.
+
+\begin{exemplo}[tempestade de retries]
+100 clientes enviam uma requisição. Serviço downstream falha e cada cliente faz 5 retries imediatos. Uma falha inicial de 100 chamadas transforma-se em até 600 tentativas, agravando sobrecarga. Backoff e limites reduzem amplificação.
+\end{exemplo}
+
+\section{Observabilidade}
+
+\subsection{Métricas}
+
+Representam valores agregados ao longo do tempo: taxa de erro, latência, fila, CPU.
+
+\subsection{Logs}
+
+Eventos estruturados devem incluir timestamp, severidade, contexto e identificadores de correlação, sem registrar dados sensíveis desnecessários.
+
+\subsection{Traces}
+
+Distributed tracing acompanha requisição por múltiplos serviços e permite localizar latência e erro.
 
 \subsection{Percentis}
 
-Média pode ocultar cauda. p95=2 s significa 95\% das observações até 2 s. p99 alto com média baixa indica sofrimento concentrado em parcela dos usuários.
+p95 de 800 ms significa 95\% das observações abaixo ou iguais a aproximadamente 800 ms. Média baixa pode coexistir com p99 muito alto.
 
-\section{Estratégias de release}
+\section{SLO e error budget}
 
-Blue-green mantém dois ambientes e alterna tráfego. Canary expõe nova versão gradualmente. Feature flags separam deploy de ativação. Shadow replica tráfego sem responder ao usuário. Todas reduzem risco, mas exigem rollback e observabilidade.
+SLI mede comportamento. SLO define objetivo. Error budget corresponde à parcela permitida de falhas:
+\[
+EB=1-SLO.
+\]
 
-\section{Mapa mental}
+SLO de 99,95\% mensal 24x7 em 30 dias admite teoricamente:
+\[
+43.200\times0{,}0005=21{,}6\text{ minutos}.
+\]
 
-\mapamental{Engenharia de software}{
- child {node[concept]{Produto} child {node[concept]{requisitos/UX}} child {node[concept]{MVP}}}
- child {node[concept]{Fluxo} child {node[concept]{Scrum/Kanban}} child {node[concept]{métricas}}}
- child {node[concept]{Qualidade} child {node[concept]{TDD/BDD/ATDD}} child {node[concept]{testes/Sonar}}}
- child {node[concept]{CI/CD} child {node[concept]{build/segredos}} child {node[concept]{release}}}
- child {node[concept]{Containers} child {node[concept]{Docker}} child {node[concept]{Kubernetes}}}
- child {node[concept]{Operação} child {node[concept]{observabilidade}} child {node[concept]{SLO/error budget}}}
-}
+\section{Estratégias de implantação}
+
+\subsection{Rolling}
+
+Substitui instâncias gradualmente.
+
+\subsection{Blue-green}
+
+Dois ambientes; tráfego é alternado após validação.
+
+\subsection{Canary}
+
+Nova versão recebe pequena parcela de tráfego e aumenta gradualmente conforme métricas.
+
+\subsection{Shadow}
+
+Nova versão processa cópia do tráfego, mas sua resposta não afeta usuário, útil para comparação.
+
+\section{Feature flags}
+
+Feature flag separa deploy de release. Código pode estar em produção desativado e ser habilitado para grupos.
+
+Flags precisam de owner e remoção; flags permanentes criam combinações e dívida de configuração.
+
+\section{Dívida técnica}
+
+Dívida técnica representa custo futuro provocado por decisões que facilitam entrega imediata. Pode ser consciente ou acidental.
+
+Não é sinônimo de ``código ruim''. Uma solução provisória deliberada com plano e prazo pode ser dívida gerenciada. Problema ocorre quando juros — defeitos, lentidão de mudança, risco — crescem sem visibilidade.
+
+\section{Manutenção de software}
+
+\begin{itemize}
+\item corretiva: corrige defeitos;
+\item adaptativa: adapta a ambiente externo;
+\item perfectiva/evolutiva: melhora desempenho, manutenção ou funcionalidade;
+\item preventiva: reduz risco futuro e dívida.
+\end{itemize}
+
+\section{Síntese conceitual}
+
+\mapafuncional{Engenharia de Software}
+{Software sustentável = requisito verificável + arquitetura coerente + testes + entrega controlada + operação observável}
+{Requisitos $\rightarrow$ casos/histórias e rastreabilidade.\\Design $\rightarrow$ OO, SOLID, padrões, DDD e arquitetura.\\Integração $\rightarrow$ REST, eventos, sagas.\\Qualidade $\rightarrow$ testes, análise estática e segurança.\\Entrega $\rightarrow$ Git, CI/CD, contêineres e Kubernetes.\\Operação $\rightarrow$ resiliência, SLO e observabilidade.}
+{História precisa de critérios.\\Microsserviço cria falhas distribuídas.\\At-least-once exige idempotência.\\Coverage mede execução, não correção.\\Artefato testado deve ser o implantado.\\Readiness controla tráfego; liveness reinicia.}
+{UML $\neq$ método.\\REST $\neq$ simplesmente JSON sobre HTTP.\\Microsserviços $\neq$ arquitetura sempre superior.\\CI $\neq$ CD.\\SBOM $\neq$ software seguro.\\100\% coverage $\neq$ ausência de bugs.}
+{O requisito é mensurável?\\Qual é a fronteira transacional?\\A API é idempotente?\\O teste verifica comportamento?\\O artefato possui proveniência?\\A falha de dependência está isolada?}
 
 \begin{resumo}
-\textbf{Fixação:} história não substitui critério; protótipo não prova qualidade final; cobertura não prova correção; CI não é deployment contínuo; imagem não é container; readiness não é liveness; SLI mede, SLO define alvo e SLA formaliza compromisso. Em auditoria, rastreie requisito, mudança, teste, artefato, aprovação e evidência operacional.
+Engenharia de Software é disciplina de redução de incerteza. Requisitos reduzem ambiguidade; arquitetura controla dependências; testes reduzem risco de defeito; CI/CD reduz variabilidade da entrega; observabilidade reduz tempo de diagnóstico. Questões avançadas normalmente exploram trade-offs entre essas camadas, não definições isoladas.
 \end{resumo}
-
-\input{questoes/12_engenharia_software}
-
-\section{Treino discursivo}
-\begin{discursiva}[CI/CD e controle]
-Descreva, em até 30 linhas, controles mínimos que um Auditor/TI esperaria em pipeline CI/CD de sistema que processa dados pessoais e atos de fiscalização, contemplando código-fonte, testes, segredos, artefatos, aprovação, implantação e logs.
-\end{discursiva}
-\begin{discursiva}[qualidade e observabilidade]
-Uma equipe possui alta frequência de deploy, mas 18\% das mudanças geram rollback e o p99 de latência subiu de 2 s para 9 s. Em até 30 linhas, proponha métricas, procedimentos de diagnóstico e controles de engenharia para reduzir risco sem abandonar automação.
-\end{discursiva}
-
-\input{solucoes/12_engenharia_software}
