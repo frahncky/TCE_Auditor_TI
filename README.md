@@ -21,8 +21,9 @@ Apostila exclusivamente de teoria:
 
 ### `main_questoes.tex`
 Apostila exclusivamente de questões:
-- bancos N1, N2, N3 e N4;
+- questões classificadas visualmente de ★ a ★★★★;
 - questões em perfil Cebraspe e principais bancas;
+- nos itens de julgamento, o enunciado é seguido apenas por `(  ) certo` e `(  ) errado`;
 - peças técnicas e questões discursivas;
 - simulado completo;
 - gabaritos e resoluções após os respectivos blocos de questões.
