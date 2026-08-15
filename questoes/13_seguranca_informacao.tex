@@ -1,59 +1,387 @@
 \section{Banco de questões — Segurança da Informação}
 
-\subsection*{N1 — Fundamentos}
-\begin{questao}{\nivel{N1} 13.01}Confidencialidade busca garantir que:\begin{enumerate}[label=\Alph*)]\item informação seja acessada apenas por entidades autorizadas\item dados nunca sejam apagados\item sistemas nunca falhem\item logs sejam públicos\item toda informação seja anônima\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.02}Integridade relaciona-se principalmente a:\begin{enumerate}[label=\Alph*)]\item proteção contra alteração/destruição não autorizada e preservação de exatidão\item tempo de resposta\item sigilo exclusivamente\item capacidade de armazenamento\item redundância elétrica\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.03}Qual alternativa representa autenticação multifator?\begin{enumerate}[label=\Alph*)]\item senha + token físico\item senha + PIN\item duas senhas\item duas perguntas secretas\item PIN + palavra-chave\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.04}Malware capaz de se propagar autonomamente pela rede é tipicamente:\begin{enumerate}[label=\Alph*)]\item worm\item trojan\item hoax\item adware apenas\item certificado\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.05}Phishing é:\begin{enumerate}[label=\Alph*)]\item engenharia social para induzir vítima a revelar dados ou executar ação\item RAID com falha\item algoritmo de hash\item protocolo de roteamento\item política de backup\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.06}Um IDS tem como função primária:\begin{enumerate}[label=\Alph*)]\item detectar atividade suspeita e gerar alerta\item cifrar discos\item autenticar usuários\item distribuir IP\item realizar backup\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.07}Criptografia simétrica utiliza:\begin{enumerate}[label=\Alph*)]\item segredo compartilhado para cifrar/decifrar\item par público/privado obrigatoriamente\item somente hash\item certificado sem chave\item DNSSEC apenas\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.08}Um hash criptográfico é, em regra:\begin{enumerate}[label=\Alph*)]\item função unidirecional que produz resumo de tamanho definido\item cifra reversível com mesma chave\item protocolo de VPN\item mecanismo de backup\item assinatura por si só\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.09}PKI tem como objetivo central:\begin{enumerate}[label=\Alph*)]\item gerenciar confiança, certificados e associação entre identidades e chaves públicas\item gerenciar VLAN\item agendar processos\item balancear tráfego\item normalizar bancos\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N1} 13.10}RPO de 30 minutos significa, de forma simplificada:\begin{enumerate}[label=\Alph*)]\item perda temporal de dados tolerável de até cerca de 30 minutos\item retorno do serviço em 30 minutos\item duração do backup\item senha válida por 30 minutos\item sessão VPN de 30 minutos\end{enumerate}\end{questao}
+\subsection*{N1 — Fundamento competitivo}
+
+\begin{questao}{\nivel{N1} 13.01 — Cebraspe/Certo ou Errado}
+Duas credenciais distintas baseadas em conhecimento, como senha e PIN, não constituem autenticação multifator apenas por serem dois segredos diferentes.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.02 — Cebraspe/Certo ou Errado}
+Assinatura digital, por si só, garante confidencialidade do conteúdo assinado, pois utiliza criptografia assimétrica.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.03 — Cebraspe/Certo ou Errado}
+A criptografia de disco reduz risco de exposição em caso de perda física da mídia, mas pode ser insuficiente contra atacante que compromete o sistema em execução e obtém acesso às chaves.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.04 — Cebraspe/Certo ou Errado}
+Um IDS e um IPS podem empregar técnicas de detecção semelhantes, mas diferem porque o IPS pode atuar inline e bloquear tráfego segundo política.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.05 — Cebraspe/Certo ou Errado}
+O uso de VPN garante que o dispositivo remoto esteja íntegro, pois o túnel criptografado impede que malware já presente no endpoint acesse a rede corporativa.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.06 — Cebraspe/Certo ou Errado}
+Hash criptográfico preservado desde a coleta de um arquivo pode demonstrar que a cópia não foi alterada, mas não prova que a origem do arquivo era legítima ou que o conteúdo era verdadeiro.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.07 — Cebraspe/Certo ou Errado}
+A certificação ISO/IEC 27001 de um provedor de nuvem implica, automaticamente, que qualquer workload implantado pelo cliente nesse provedor está coberto pelo mesmo escopo de certificação.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.08 — Cebraspe/Certo ou Errado}
+Risco residual é o risco que permanece após a aplicação dos controles, enquanto risco inerente é avaliado antes de considerar esses controles.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.09 — Cebraspe/Certo ou Errado}
+Uma DMZ bem projetada reduz exposição da rede interna, mas não deve ser interpretada como zona sem controles de segurança.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 13.10 — Cebraspe/Certo ou Errado}
+A existência de backup, sem teste de restauração, é evidência suficiente de que o RTO definido no plano de continuidade será cumprido.
+\end{questao}
 
 \subsection*{N2 — Aplicação}
-\begin{questao}{\nivel{N2} 13.11}Uma pessoa usa senha e PIN. Isso constitui MFA?\begin{enumerate}[label=\Alph*)]\item não necessariamente, pois ambos são fator de conhecimento\item sim, sempre\item sim, se tiverem 8 caracteres\item não, pois MFA só usa biometria\item sim, se houver TLS\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.12}RBAC concede permissões principalmente com base em:\begin{enumerate}[label=\Alph*)]\item papéis atribuídos aos usuários\item endereço MAC\item temperatura do servidor\item número de série\item hash do arquivo\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.13}Privilégio mínimo recomenda:\begin{enumerate}[label=\Alph*)]\item conceder somente acessos necessários à função e pelo tempo adequado\item dar administrador a todos\item compartilhar conta\item impedir logs\item usar uma única senha institucional\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.14}Credential stuffing utiliza principalmente:\begin{enumerate}[label=\Alph*)]\item pares usuário/senha vazados de outros serviços\item exploit de buffer overflow necessariamente\item certificado revogado\item DNSSEC\item RAID\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.15}SQL injection é mitigada diretamente por:\begin{enumerate}[label=\Alph*)]\item consultas parametrizadas/prepared statements e privilégio mínimo\item concatenar entrada do usuário\item exibir erro SQL completo\item executar banco como root\item desabilitar validação\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.16}DMZ é usada para:\begin{enumerate}[label=\Alph*)]\item separar serviços expostos da rede interna por controles de rede\item eliminar firewall\item armazenar backups offline necessariamente\item criar hashes\item substituir autenticação\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.17}Qual controle opera inline e pode bloquear tráfego malicioso conforme política?\begin{enumerate}[label=\Alph*)]\item IPS\item IDS passivo\item SIEM apenas\item honeypot\item hash\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.18}Uma VPN protege principalmente:\begin{enumerate}[label=\Alph*)]\item comunicação sobre rede não confiável por túnel/políticas criptográficas conforme tecnologia\item integridade do endpoint comprometido automaticamente\item disponibilidade física do link\item senha do usuário sem autenticação\item backup do sistema\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.19}Assinatura digital fornece diretamente:\begin{enumerate}[label=\Alph*)]\item autenticidade e integridade vinculadas à chave do signatário\item confidencialidade obrigatória do conteúdo\item disponibilidade\item compressão\item anonimato\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.20}AES é algoritmo:\begin{enumerate}[label=\Alph*)]\item simétrico\item assimétrico\item hash\item assinatura exclusivamente\item compressão\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.21}RSA é associado a criptografia:\begin{enumerate}[label=\Alph*)]\item assimétrica\item simétrica por bloco exclusivamente\item hash\item RAID\item VPN sem chaves\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.22}CRL e OCSP estão relacionados a:\begin{enumerate}[label=\Alph*)]\item status/revogação de certificados\item VLAN\item controle de processos\item backup incremental\item DHCP\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.23}Um honeypot deve ser:\begin{enumerate}[label=\Alph*)]\item monitorado e isolado para não virar plataforma de ataque\item colocado com acesso irrestrito à produção\item usado como backup\item substituto do firewall\item desconhecido pelos administradores\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.24}Risco residual é:\begin{enumerate}[label=\Alph*)]\item risco que permanece após aplicação dos controles\item risco antes de controles\item custo do ativo\item somente ameaça externa\item vulnerabilidade sem impacto\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N2} 13.25}A BIA serve principalmente para:\begin{enumerate}[label=\Alph*)]\item identificar processos críticos, dependências e impactos da interrupção ao longo do tempo\item fazer pentest\item gerar certificado\item criar VLAN\item substituir plano de continuidade\end{enumerate}\end{questao}
 
-\subsection*{N3 — Nível de concurso}
-\begin{questao}{\nivel{N3} 13.26}Uma conta administrativa é usada por cinco pessoas e os logs registram apenas o nome da conta. O problema central é:\begin{enumerate}[label=\Alph*)]\item baixa accountability e atribuição individual\item falta de disponibilidade\item excesso de criptografia\item baixa largura de banda\item ausência de RAID\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.27}Um atacante altera ARP para receber tráfego destinado ao gateway. O ataque é exemplo de:\begin{enumerate}[label=\Alph*)]\item spoofing/poisoning de ARP com possibilidade de MITM\item SQL injection\item buffer overflow\item hoax\item DDoS volumétrico necessariamente\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.28}Um site legítimo é substituído visualmente após exploração e páginas são modificadas. Isso é:\begin{enumerate}[label=\Alph*)]\item defacement\item pharming apenas\item sniffing\item hashing\item backup\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.29}Buffer overflow pode permitir corrupção de memória e controle de fluxo. Um mitigador é:\begin{enumerate}[label=\Alph*)]\item ASLR/DEP, canários e bounds checking conforme plataforma\item concatenar strings sem limite\item desabilitar atualizações\item executar como root\item remover validação\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.30}Um WAF bloqueia payload conhecido, mas a aplicação continua vulnerável a SQL injection. A conclusão correta é:\begin{enumerate}[label=\Alph*)]\item WAF é controle compensatório e não substitui correção no código\item WAF remove a vulnerabilidade do código\item banco não precisa de privilégio mínimo\item testes podem ser eliminados\item TLS corrige SQL injection\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.31}Um certificado TLS expirado causa indisponibilidade mesmo com chave privada intacta. Isso mostra que:\begin{enumerate}[label=\Alph*)]\item gestão do ciclo de vida de certificados é controle operacional essencial\item PKI elimina manutenção\item validade não importa\item certificado não possui período\item TLS não usa certificados\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.32}Criptografia em repouso com chave armazenada no mesmo servidor e acessível ao mesmo administrador reduz principalmente qual risco, mas não todos?\begin{enumerate}[label=\Alph*)]\item perda física de mídia pode ser mitigada, mas comprometimento do servidor/admin pode acessar chave e dados\item elimina insider\item elimina ransomware\item elimina necessidade de IAM\item garante anonimização\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.33}Assinar o hash de um arquivo ajuda a detectar alteração porque:\begin{enumerate}[label=\Alph*)]\item qualquer mudança relevante altera o digest e invalida verificação da assinatura\item hash é reversível\item assinatura cifra o arquivo sempre\item certificado substitui hash\item assinatura aumenta disponibilidade\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.34}Uma organização implementa backup online acessível pelas mesmas credenciais de domínio usadas na produção. Em ransomware com comprometimento do domínio, o risco é:\begin{enumerate}[label=\Alph*)]\item atacante alcançar e destruir/criptografar também backups\item backup torna-se offline automaticamente\item RPO fica zero\item RAID bloqueia ataque\item MFA no usuário final elimina risco\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.35}Um RTO de 1 hora e restore test de 6 horas indicam:\begin{enumerate}[label=\Alph*)]\item incompatibilidade entre capacidade demonstrada e objetivo de recuperação\item RTO cumprido\item RPO de 6 horas\item ausência de risco\item problema apenas de confidencialidade\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.36}Na gestão de risco, aceitar um risco significa:\begin{enumerate}[label=\Alph*)]\item reconhecer o risco residual dentro de critérios/apetite e assumir sua consequência com decisão autorizada\item ignorá-lo sem análise\item transferi-lo automaticamente\item eliminar vulnerabilidade\item garantir que não ocorrerá\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.37}ISO/IEC 27001 diferencia-se da ISO/IEC 27002 porque:\begin{enumerate}[label=\Alph*)]\item 27001 contém requisitos do SGSI; 27002 fornece orientação de controles\item ambas são idênticas\item 27002 é requisito de certificação do SGSI\item 27001 é só criptografia\item 27002 é norma de roteamento\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.38}ISO/IEC 27005 trata principalmente de:\begin{enumerate}[label=\Alph*)]\item gestão de riscos de segurança da informação\item gerenciamento de serviços\item desenvolvimento ágil\item data warehouse\item cabeamento\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.39}Um SIEM recebe logs, mas relógios dos sistemas variam 20 minutos. O impacto é:\begin{enumerate}[label=\Alph*)]\item correlação temporal e investigação ficam comprometidas\item aumenta confidencialidade\item reduz necessidade de retenção\item impede hash\item melhora detecção\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N3} 13.40}Uma política de senha exige troca a cada 15 dias, levando usuários a variações previsíveis. A avaliação madura é:\begin{enumerate}[label=\Alph*)]\item controle pode gerar comportamento fraco; política deve considerar risco, MFA, credenciais comprometidas e orientação atual\item trocas frequentes sempre aumentam segurança\item MFA torna senha irrelevante\item senha nunca precisa de gestão\item complexidade é único fator\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N2} 13.11 — FGV/IAM}
+Um administrador usa a mesma conta para e-mail, navegação e administração de controladores de domínio. A principal recomendação é:
+\begin{enumerate}[label=\Alph*)]
+\item manter a conta única para simplificar auditoria;
+\item separar identidade administrativa da conta cotidiana e restringir seu uso;
+\item compartilhar a conta com a equipe;
+\item remover MFA para reduzir atrito;
+\item manter a conta, mas trocar a senha semanalmente.
+\end{enumerate}
+\end{questao}
 
-\subsection*{N4 — Avançado / Auditoria}
-\begin{questao}{\nivel{N4} 13.41}Auditoria encontra administradores capazes de alterar registros de negócio e apagar seus próprios logs. A prioridade é:\begin{enumerate}[label=\Alph*)]\item segregar funções e proteger trilha contra alteração pelo usuário monitorado\item adicionar RAID 6\item aumentar largura de banda\item usar mais VLANs sem política\item remover logs\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.42}Após ransomware, backups foram criptografados porque estavam montados permanentemente. A recomendação mais completa é:\begin{enumerate}[label=\Alph*)]\item cópias offline/imutáveis, segregação de credenciais, teste de restore e monitoramento de backup\item apenas aumentar espaço\item manter backup montado e trocar extensão\item usar RAID 0\item eliminar versionamento\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.43}Um órgão usa MFA por push e registra várias aprovações fraudulentas após bombardeio de notificações. Qual controle adicional é adequado?\begin{enumerate}[label=\Alph*)]\item number matching/phishing-resistant MFA, limitação de prompts e detecção de MFA fatigue\item aumentar quantidade de pushes\item remover MFA\item usar senha compartilhada\item desabilitar alertas\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.44}Uma VPN permite acesso remoto à rede inteira após autenticação, sem verificar postura do dispositivo. O risco principal é:\begin{enumerate}[label=\Alph*)]\item endpoint comprometido ganha amplo movimento lateral; segmentação e acesso contextual devem ser avaliados\item VPN garante integridade do endpoint\item criptografia elimina malware\item não há risco interno\item DNS impede movimento lateral\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.45}Um fornecedor afirma conformidade ISO 27001 porque o provedor de nuvem possui certificado. A conclusão correta é:\begin{enumerate}[label=\Alph*)]\item certificação do provedor não comprova que o sistema/cliente esteja em conformidade; escopo e responsabilidades devem ser avaliados\item toda aplicação do cliente fica certificada\item conformidade é herdada integralmente\item controles do cliente são desnecessários\item certificado substitui auditoria\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.46}A matriz de risco classifica ransomware como baixo impacto porque só considera custo de hardware. Qual falha metodológica?\begin{enumerate}[label=\Alph*)]\item impacto ignora indisponibilidade, dados, reputação, sanções e missão institucional\item risco deve considerar só hardware\item probabilidade substitui impacto\item confidencialidade não importa\item ransomware não afeta serviço\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.47}Um restore test restaura arquivos, mas não valida aplicação, dependências nem consistência do banco. O auditor deve concluir que:\begin{enumerate}[label=\Alph*)]\item evidência é parcial; recuperação do serviço precisa testar cadeia completa e RTO/RPO\item DR está plenamente validado\item arquivo restaurado prova qualquer aplicação\item RTO é irrelevante\item backup substitui continuidade\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.48}Logs de autenticação mostram milhares de tentativas distribuídas, cada IP tentando poucas senhas contra muitas contas. Isso é compatível com:\begin{enumerate}[label=\Alph*)]\item password spraying distribuído, que evita limiar por conta/IP simples\item SQL injection\item buffer overflow\item RAID rebuild\item DNSSEC\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.49}Um honeypot comprometido possui rota irrestrita para a Internet e redes internas. Qual problema?\begin{enumerate}[label=\Alph*)]\item o ativo de engodo pode ser usado como pivô; isolamento e egress control são necessários\item honeypot deve ter privilégio máximo\item é impossível comprometer honeypot\item monitoramento é desnecessário\item honeypot substitui IPS\end{enumerate}\end{questao}
-\begin{questao}{\nivel{N4} 13.50}Em investigação, um arquivo possui hash preservado desde a coleta, mas a origem do arquivo não foi autenticada. O que o hash prova?\begin{enumerate}[label=\Alph*)]\item que a cópia não mudou desde o hash, não que o conteúdo original era verdadeiro\item que a fonte era legítima\item autoria do arquivo\item confidencialidade\item ausência de malware\end{enumerate}\end{questao}
+\begin{questao}{\nivel{N2} 13.12 — FCC/MFA}
+Usuários recebem dezenas de notificações push de MFA até que alguns aprovam por engano. A técnica explorada é conhecida como:
+\begin{enumerate}[label=\Alph*)]
+\item SQL injection;
+\item MFA fatigue/push bombing;
+\item DNS poisoning;
+\item session fixation apenas;
+\item ARP spoofing.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.13 — Cebraspe/Certo ou Errado}
+Mecanismos resistentes a phishing, number matching e limitação de prompts podem reduzir ataques de MFA fatigue, enquanto simplesmente aumentar o número de notificações tende a piorar o problema.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.14 — FGV/web security}
+Uma aplicação concatena diretamente entrada do usuário em consulta SQL. O controle mais importante é:
+\begin{enumerate}[label=\Alph*)]
+\item prepared statements/consultas parametrizadas, aliados a privilégio mínimo;
+\item apenas WAF;
+\item criptografia de disco;
+\item RAID 6;
+\item aumentar o timeout do banco.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.15 — Cebraspe/Certo ou Errado}
+Um WAF pode atuar como controle compensatório contra SQL injection, mas não remove a vulnerabilidade do código e pode ser contornado.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.16 — FCC/PKI}
+Um serviço fica indisponível porque o certificado TLS expirou. O incidente evidencia falha de:
+\begin{enumerate}[label=\Alph*)]
+\item gestão do ciclo de vida de certificados;
+\item integridade referencial;
+\item roteamento BGP;
+\item política de RAID;
+\item normalização de banco.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.17 — FGV/ransomware}
+Backups online usam as mesmas credenciais de domínio da produção. Após comprometimento de administrador, o atacante apaga backups antes de cifrar os servidores. O controle mais adequado é:
+\begin{enumerate}[label=\Alph*)]
+\item aumentar a capacidade do storage;
+\item separar credenciais, adotar cópias imutáveis/offline e testar restauração;
+\item manter os backups montados permanentemente;
+\item usar RAID 0;
+\item desabilitar logs.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.18 — Cebraspe/Certo ou Errado}
+Um backup imutável reduz risco de destruição pelo atacante, mas não elimina a necessidade de testar integridade, retenção e processo de recuperação.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.19 — FCC/continuidade}
+Um restore test recupera dados de 10 minutos antes da falha e leva 4 horas. Os objetivos eram RPO de 30 minutos e RTO de 2 horas. Nesse teste:
+\begin{enumerate}[label=\Alph*)]
+\item ambos foram cumpridos;
+\item somente o RPO foi cumprido;
+\item somente o RTO foi cumprido;
+\item nenhum foi cumprido;
+\item não é possível avaliar.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.20 — FGV/segurança de rede}
+Uma VPN de acesso remoto entrega conectividade ampla a toda a rede após autenticação, sem avaliar postura do dispositivo. O principal risco é:
+\begin{enumerate}[label=\Alph*)]
+\item endpoint comprometido obter movimento lateral amplo;
+\item perda automática de confidencialidade do túnel;
+\item impossibilidade de MFA;
+\item falta de DNSSEC;
+\item perda de integridade do certificado por definição.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.21 — Cebraspe/Certo ou Errado}
+Privilégio mínimo e segmentação continuam necessários mesmo quando a conexão utiliza VPN criptografada.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.22 — FCC/criptografia}
+Uma aplicação precisa proteger grandes volumes de dados após estabelecer identidade das partes. O desenho mais comum é:
+\begin{enumerate}[label=\Alph*)]
+\item usar apenas criptografia assimétrica para todo o volume;
+\item usar arquitetura híbrida, com assimétrica para autenticação/acordo e simétrica para os dados;
+\item usar hash como cifra reversível;
+\item usar assinatura digital para confidencialidade;
+\item usar certificado sem chave de sessão.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.23 — Cebraspe/Certo ou Errado}
+Reutilização incorreta de nonce em determinados modos autenticados de criptografia pode comprometer a segurança mesmo quando o algoritmo de cifra subjacente é robusto.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.24 — FGV/gestão de risco}
+Um risco tem perda estimada de R\$ 400 mil por evento e frequência média de 0,25 evento/ano. A perda anual esperada simplificada é:
+\begin{enumerate}[label=\Alph*)]
+\item R\$ 25 mil;
+\item R\$ 50 mil;
+\item R\$ 100 mil;
+\item R\$ 400 mil;
+\item R\$ 1,6 milhão.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 13.25 — Cebraspe/Certo ou Errado}
+Aceitar um risco significa decisão consciente e autorizada sobre o risco residual, e não simples ausência de tratamento documentado.
+\end{questao}
+
+\subsection*{N3 — Integração de concurso}
+
+\begin{questao}{\nivel{N3} 13.26 — FGV/assertivas}
+Considere:
+
+I. ISO/IEC 27001 estabelece requisitos para um SGSI.
+
+II. ISO/IEC 27002 fornece orientação sobre controles.
+
+III. ISO/IEC 27005 trata gestão de riscos de segurança da informação.
+
+Assinale a alternativa correta.
+\begin{enumerate}[label=\Alph*)]
+\item Apenas I.
+\item Apenas I e II.
+\item Apenas II e III.
+\item I, II e III.
+\item Apenas III.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.27 — Cebraspe/Certo ou Errado}
+A certificação ISO/IEC 27001 deve ser interpretada segundo seu escopo; um incidente fora desse escopo não demonstra, por si só, que a certificação era inválida.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.28 — FCC/forense}
+Durante coleta de evidência, uma imagem de disco é copiada, hashada e armazenada. Porém, o analista não registrou quem teve acesso ao equipamento antes da coleta. O principal problema remanescente é:
+\begin{enumerate}[label=\Alph*)]
+\item o hash não serve para integridade;
+\item a cadeia de custódia/origem pode estar incompleta, apesar da integridade da cópia posterior;
+\item o arquivo deixa de ser digital;
+\item assinatura digital torna-se obrigatoriamente inválida;
+\item o hash prova autoria.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.29 — FGV/logs}
+Um SIEM recebe logs de todos os servidores, mas os relógios diferem até 25 minutos. O impacto principal é:
+\begin{enumerate}[label=\Alph*)]
+\item perda de confidencialidade dos logs;
+\item dificuldade de correlação temporal e reconstrução causal;
+\item impossibilidade de usar TLS;
+\item redução de espaço;
+\item aumento de disponibilidade.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.30 — Cebraspe/Certo ou Errado}
+Uma conta compartilhada entre administradores pode continuar autenticando corretamente, mas fragiliza accountability porque os logs deixam de identificar de forma confiável o indivíduo que executou a ação.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.31 — FCC/ataque distribuído}
+Milhares de IPs realizam poucas tentativas de uma senha comum contra muitas contas. O padrão é mais compatível com:
+\begin{enumerate}[label=\Alph*)]
+\item password spraying distribuído;
+\item buffer overflow;
+\item SQL injection;
+\item ARP poisoning;
+\item ransomware de dupla extorsão.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.32 — FGV/DMZ}
+Um servidor web em DMZ possui conexão administrativa irrestrita para toda a rede interna. O risco principal é:
+\begin{enumerate}[label=\Alph*)]
+\item a DMZ deixa de ser rede TCP/IP;
+\item comprometimento do servidor exposto servir como pivô para a rede interna;
+\item impossibilidade de usar TLS;
+\item perda automática de certificado;
+\item aumento de RPO.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.33 — Cebraspe/Certo ou Errado}
+A criptografia de dados em repouso e a criptografia do canal de rede protegem ameaças distintas e podem ser necessárias simultaneamente.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.34 — FCC/segredo em aplicação}
+A aplicação armazena segredo de API no repositório e o segredo é usado também por produção. Mesmo após remover o arquivo do branch atual, a ação prioritária é:
+\begin{enumerate}[label=\Alph*)]
+\item manter a chave e reescrever o histórico somente;
+\item rotacionar/revogar o segredo e migrar para mecanismo apropriado de gestão;
+\item alterar o nome da variável;
+\item aumentar o timeout;
+\item apenas tornar o repositório privado.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.35 — FGV/BIA}
+Um processo crítico gera impacto financeiro baixo nas primeiras duas horas, mas após oito horas paralisa serviço essencial ao cidadão. A BIA deve:
+\begin{enumerate}[label=\Alph*)]
+\item considerar apenas impacto financeiro imediato;
+\item considerar evolução do impacto ao longo do tempo e dependências do processo;
+\item ignorar serviços públicos sem receita;
+\item usar somente RPO;
+\item ser substituída por pentest.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.36 — Cebraspe/Certo ou Errado}
+RTO e RPO tratam dimensões distintas: tempo para restaurar serviço e perda temporal tolerável de dados, respectivamente.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.37 — FCC/ransomware}
+Após ransomware, a equipe deseja restaurar imediatamente os servidores sem investigar vetor de entrada ou credenciais comprometidas. O principal risco é:
+\begin{enumerate}[label=\Alph*)]
+\item recuperação lenta;
+\item reinfecção/recorrência ao restaurar ambiente sem remover a causa e conter o atacante;
+\item perda de RAID;
+\item excesso de logs;
+\item aumento de confidencialidade.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.38 — Cebraspe/Certo ou Errado}
+Pagamento de resgate não garante recuperação dos dados nem elimina risco de publicação de informações previamente exfiltradas.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.39 — FGV/honeypot}
+Um honeypot de alta interação possui saída irrestrita para Internet e rede interna. A principal deficiência é:
+\begin{enumerate}[label=\Alph*)]
+\item o honeypot não pode ser monitorado;
+\item o ativo comprometido pode ser usado como pivô; egress e isolamento devem ser controlados;
+\item honeypots nunca devem usar rede;
+\item a solução é eliminar logging;
+\item o honeypot deve usar conta Domain Admin.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 13.40 — Cebraspe/Certo ou Errado}
+Uma política de senha que exige trocas muito frequentes pode induzir padrões previsíveis; a eficácia deve ser analisada junto com MFA, detecção de comprometimento e risco, e não apenas pela periodicidade.
+\end{questao}
+
+\subsection*{N4 — Auditoria / avançado}
+
+\begin{questao}{\nivel{N4} 13.41 — Cebraspe/caso integrado}
+Administradores podem alterar dados de negócio e apagar seus próprios logs. Julgue o item:
+
+Ainda que todas as ações exijam autenticação, permanece fragilidade relevante de segregação de funções e integridade da trilha de auditoria.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.42 — FGV/ransomware}
+Um órgão possui backup diário, mas todas as cópias ficam online no mesmo domínio e não há restore test há dois anos. O achado mais adequado é:
+\begin{enumerate}[label=\Alph*)]
+\item ``há backup, logo o risco é baixo'';
+\item ``a estratégia não demonstra resiliência a comprometimento do domínio nem recuperabilidade; faltam segregação/imutabilidade e testes'';
+\item ``o problema é somente frequência'';
+\item ``RAID resolve a deficiência'';
+\item ``basta aumentar a retenção''.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.43 — FCC/Zero Trust}
+Uma organização considera qualquer dispositivo conectado à LAN corporativa como confiável e concede acesso amplo após autenticação inicial. A abordagem mais coerente com Zero Trust é:
+\begin{enumerate}[label=\Alph*)]
+\item manter confiança por localização;
+\item verificar identidade, contexto e postura continuamente, com privilégio mínimo e segmentação;
+\item remover MFA;
+\item conceder administrador para reduzir falhas;
+\item usar apenas firewall perimetral.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.44 — Cebraspe/Certo ou Errado}
+Uma VPN criptografada entre filiais pode proteger confidencialidade do tráfego e, ao mesmo tempo, transportar malware legitimamente enviado por uma estação comprometida.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.45 — FGV/risco}
+A matriz de risco classifica ransomware como ``baixo impacto'' porque considera apenas custo de reposição de hardware. A falha metodológica é:
+\begin{enumerate}[label=\Alph*)]
+\item ignorar efeitos de indisponibilidade, dados, sanções, missão e reputação;
+\item usar impacto em vez de probabilidade;
+\item considerar hardware;
+\item não usar hash;
+\item ausência de DNSSEC.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.46 — Cebraspe/Certo ou Errado}
+Um certificado de conformidade deve ser avaliado em conjunto com seu escopo, período e controles efetivamente operados; sua existência isolada não substitui procedimentos de auditoria.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.47 — FCC/forense}
+Durante incidente, logs são exportados para arquivo e o hash é calculado. Depois, descobre-se que o servidor de origem permitia ao administrador alterar logs antes da exportação. O hash prova:
+\begin{enumerate}[label=\Alph*)]
+\item que os logs originais eram verdadeiros;
+\item apenas que o arquivo exportado não mudou após o hash, não que o conteúdo anterior era íntegro;
+\item autoria dos eventos;
+\item ausência de comprometimento;
+\item confidencialidade dos logs.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.48 — FGV/resposta a incidentes}
+Após suspeita de exfiltração, a equipe apaga imediatamente os discos comprometidos para ``limpar o ambiente''. O principal problema é:
+\begin{enumerate}[label=\Alph*)]
+\item limpeza rápida sempre melhora investigação;
+\item destruição de evidência antes de compreender escopo, vetor e cadeia de ataque;
+\item excesso de retenção;
+\item falta de RAID;
+\item impossibilidade de usar TLS.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.49 — Cebraspe/Certo ou Errado}
+Em continuidade, restaurar arquivos com sucesso não é suficiente para demonstrar recuperação do serviço se banco, integrações, identidades e procedimentos de retorno ao tráfego não forem testados.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 13.50 — FGV/matriz de achado}
+Em revisão de IAM, 38 contas de ex-servidores permanecem ativas, 9 com privilégios elevados. Qual achado está mais bem formulado?
+\begin{enumerate}[label=\Alph*)]
+\item ``O Active Directory é inseguro'';
+\item ``O RH falhou, logo toda a TI é irregular'';
+\item ``A ausência de integração eficaz entre desligamento e revogação de acesso mantém contas sem necessidade e amplia risco de uso indevido; recomenda-se automatizar offboarding, recertificar acessos e tratar privilégios'';
+\item ``Basta trocar senhas'';
+\item ``Contas inativas não representam risco''.
+\end{enumerate}
+\end{questao}
