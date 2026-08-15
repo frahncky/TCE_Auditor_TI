@@ -2,14 +2,21 @@
 
 \section{Análise de dados no controle externo}
 
-Análise de dados permite selecionar objetos de fiscalização, detectar padrões atípicos, cruzar bases, medir resultados e priorizar risco. O auditor deve distinguir \termo{evidência analítica} de mera correlação: um alerta estatístico pode direcionar procedimento, mas nem sempre prova irregularidade sozinho.
+Análise de dados apoia seleção de objetos, detecção de padrões atípicos, cruzamento de bases, mensuração de resultados e priorização de risco. Para Auditor/TI, o ponto central é separar \textbf{sinal analítico} de \textbf{evidência conclusiva}: um modelo pode indicar onde investigar, mas correlação, score ou anomalia não provam irregularidade por si sós.
 
-\section{Bancos relacionais e modelo dimensional}
+\begin{teoria}[cadeia de validade analítica]
+Uma análise só é defensável quando existe uma cadeia coerente:
+\[
+\text{problema}\rightarrow\text{dados}\rightarrow\text{preparação}\rightarrow\text{modelo}\rightarrow\text{validação}\rightarrow\text{decisão}\rightarrow\text{monitoramento}.
+\]
+Uma falha em qualquer elo pode produzir resultado estatisticamente sofisticado e operacionalmente inválido.
+\end{teoria}
 
-Para análise, é essencial dominar \texttt{JOIN}, agregações, funções de janela, CTEs, filtros, tratamento de \texttt{NULL} e granularidade. Em modelos dimensionais, fatos registram eventos/medidas e dimensões fornecem contexto.
+\section{SQL e granularidade analítica}
+
+Dominar SQL para prova não é apenas memorizar comandos. O candidato deve compreender cardinalidade de JOIN, agregações, funções de janela, CTEs, \texttt{NULL}, filtros e granularidade.
 
 \begin{exemplo}[função de janela]
-A consulta abaixo ranqueia despesas dentro de cada órgão sem colapsar as linhas:
 \begin{lstlisting}[language=SQL]
 SELECT orgao, fornecedor, valor,
        DENSE_RANK() OVER (
@@ -18,12 +25,16 @@ SELECT orgao, fornecedor, valor,
        ) AS posicao
 FROM despesa;
 \end{lstlisting}
-\texttt{GROUP BY} agregaria registros; função de janela calcula resultado sobre conjunto relacionado preservando cada linha.
+A função de janela calcula ranking dentro de cada órgão sem colapsar as linhas. Um \texttt{GROUP BY} alteraria a granularidade.
 \end{exemplo}
 
-\section{Processo CRISP-DM}
+\begin{atencao}[JOIN e dupla contagem]
+Se contrato é 1:N com pagamento, juntar as duas tabelas e somar uma medida armazenada na granularidade de contrato pode multiplicar valores. Antes de qualquer agregação, pergunte: \emph{uma linha representa o quê em cada fonte?}
+\end{atencao}
 
-CRISP-DM organiza projeto de mineração em seis fases com retornos iterativos:
+\section{CRISP-DM}
+
+CRISP-DM estrutura projeto analítico em entendimento do negócio, entendimento dos dados, preparação, modelagem, avaliação e implantação. As fases não são uma cascata rígida.
 
 \begin{center}
 \begin{tikzpicture}[node distance=6mm and 8mm]
@@ -39,45 +50,47 @@ CRISP-DM organiza projeto de mineração em seis fases com retornos iterativos:
 \end{tikzpicture}
 \end{center}
 
-A fase de entendimento do negócio define objetivos, critérios de sucesso, restrições e tradução para problema analítico. Um modelo com ótimo AUC que não resolve a decisão de fiscalização é fracasso de projeto.
+O erro mais caro costuma ocorrer no início: otimizar uma métrica para um alvo que não corresponde à decisão de negócio. AUC alto não salva um problema mal definido.
 
-\section{Preparação de dados}
+\section{Preparação e qualidade dos dados}
 
-\subsection{Qualidade e limpeza}
+\subsection{Ausências, duplicidade e validade}
 
-Problemas comuns: ausências, duplicidade, tipos incorretos, valores impossíveis, inconsistência entre fontes, outliers, codificações distintas e vazamento de informação futura.
+Dados podem conter valores ausentes, tipos inconsistentes, duplicidades, erros de domínio, outliers, codificações diferentes e registros temporalmente incompatíveis. A escolha de imputação, remoção ou correção deve ser documentada e compatível com o mecanismo de ausência e o uso.
 
-Valores ausentes podem ser removidos, imputados ou modelados explicitamente. A escolha depende do mecanismo de ausência, impacto e objetivo. Imputar média indiscriminadamente reduz variância e pode introduzir viés.
+Imputar média indiscriminadamente pode reduzir variância e introduzir viés. Excluir outlier automaticamente pode remover justamente um evento relevante de auditoria.
 
-\subsection{Escalonamento e codificação}
+\subsection{Padronização e normalização}
 
-Padronização típica:
+Padronização:
 \[
 z=\frac{x-\mu}{\sigma}.
 \]
-Normalização min-max comum:
+
+Min-max:
 \[
 x'=\frac{x-x_{\min}}{x_{\max}-x_{\min}}.
 \]
-Modelos baseados em distância ou gradiente podem ser sensíveis à escala; árvores de decisão em geral não exigem escalonamento para realizar divisões.
 
-Variáveis categóricas podem usar one-hot encoding, ordinal encoding ou técnicas específicas. Não atribua números ordinais a categorias nominais se isso induzir relação inexistente.
+Algoritmos baseados em distância, como k-NN e k-means, são sensíveis à escala. Árvores de decisão, em geral, não dependem do escalonamento para definir suas divisões.
 
-\section{Divisão de dados e validação}
+\subsection{Variáveis categóricas}
 
-Conjunto de treino ajusta parâmetros; validação apoia escolhas/tuning; teste estima desempenho final em dados não usados na seleção. Em validação cruzada $k$-fold, os dados são divididos em $k$ partes e cada parte atua como validação uma vez.
+One-hot encoding é adequado a categorias nominais em muitos algoritmos. Atribuir MA=1, PI=2 e CE=3 pode criar ordem e distância artificiais. Encoding deve preservar a semântica necessária ao modelo.
+
+\section{Treino, validação e teste}
+
+Treino ajusta parâmetros; validação orienta seleção/tuning; teste estima desempenho final em dados não usados na escolha. Em $k$-fold cross-validation, cada partição atua como validação em uma rodada.
 
 \begin{atencao}[data leakage]
-Calcular normalização, imputação ou seleção de atributos usando todo o conjunto antes de separar teste vaza informação. Transformações aprendidas devem ser ajustadas no treino e aplicadas aos demais conjuntos.
+Pré-processamento aprendido com todo o dataset antes da divisão contamina o teste. Imputação, escalonamento, seleção de atributos e redução de dimensionalidade devem ser ajustados usando somente treino dentro do procedimento de validação.
 \end{atencao}
 
-Em dados temporais, divisão aleatória pode permitir ``ver o futuro''. Use separação temporal quando a ordem é parte do problema.
+\subsection{Validação temporal}
 
-\section{Classificação}
+Quando o sistema será usado no futuro, o teste deve simular esse cenário. Dados de 2019--2024 podem treinar; 2025 pode validar e 2026 testar, por exemplo. Embaralhar tudo pode introduzir padrões futuros no passado.
 
-Classificação prevê classes discretas, como ``alto risco'' ou ``baixo risco''. Algoritmos comuns: regressão logística, árvores, random forest, gradient boosting, SVM, k-NN e redes neurais.
-
-\subsection{Matriz de confusão}
+\section{Classificação e matriz de confusão}
 
 \begin{center}
 \begin{tabular}{c|cc}
@@ -92,79 +105,81 @@ Real negativo & FP & TN
 \text{Recall}=\frac{TP}{TP+FN}
 \]
 \[
-F_1=2\frac{\text{Precisão}\cdot\text{Recall}}{\text{Precisão}+\text{Recall}}
+F_1=2\frac{\text{Precisão}\cdot\text{Recall}}{\text{Precisão}+\text{Recall}}.
 \]
 
-Acurácia pode enganar em classe rara. Se apenas 1\% dos contratos tem fraude, prever ``não fraude'' sempre produz 99\% de acurácia e zero capacidade de detectar fraude.
+\subsection{Acurácia e desbalanceamento}
 
-\begin{exemplo}[priorização de fiscalização]
-Se uma equipe só consegue investigar 100 alertas, precisão alta entre os alertas pode ser importante para não desperdiçar capacidade. Se perder um caso grave é muito custoso, recall ganha peso. A métrica deve refletir decisão e custo de erro.
+Se 0,5\% dos contratos são positivos, prever sempre ``negativo'' produz 99,5\% de acurácia e zero utilidade para detectar a classe de interesse. A métrica deve refletir custo de erro e objetivo operacional.
+
+\begin{exemplo}[capacidade limitada]
+Se a unidade consegue investigar 100 alertas por semana, precisão elevada pode ser crítica. Se perder um evento grave é inaceitável, recall ganha peso. A decisão sobre threshold é também decisão de alocação de recursos.
 \end{exemplo}
 
-\section{Curvas ROC e PR}
+\section{ROC, Precision-Recall e calibração}
 
-ROC relaciona taxa de verdadeiros positivos e falsos positivos ao variar limiar. AUC resume capacidade de ordenação. Precision-Recall é especialmente informativa quando classe positiva é rara. AUC alto não garante calibração: probabilidade prevista pode estar sistematicamente errada mesmo com boa ordenação.
+ROC relaciona TPR e FPR ao variar threshold. AUC resume capacidade de ranking. Em classe rara, a curva Precision-Recall costuma ser mais informativa sobre a qualidade dos alertas positivos.
+
+Calibração é outra dimensão. Se previsões de 80\% ocorrem apenas 45\% das vezes, o modelo pode ordenar bem e estar mal calibrado.
 
 \section{Clustering}
 
-Clustering é não supervisionado: busca grupos sem rótulos prévios. K-means minimiza variância intra-cluster em torno de centroides e é sensível à escala, inicialização e outliers. DBSCAN identifica regiões densas e ruído, lidando com formas não esféricas, mas depende de parâmetros de densidade.
+K-means minimiza distâncias a centroides e tende a produzir clusters aproximadamente convexos; é sensível à escala, outliers e inicialização. DBSCAN usa densidade, marca ruído e consegue formas mais irregulares, mas depende de $\varepsilon$ e minPts.
 
-Silhouette compara coesão e separação; não substitui interpretação de negócio.
+Silhouette mede coesão e separação, mas um bom índice geométrico não garante significado de negócio.
 
 \section{Regras de associação}
 
-Para regra $A\Rightarrow B$:
+Para $A\Rightarrow B$:
 \[
-\operatorname{support}(A\Rightarrow B)=P(A\cap B)
+\operatorname{support}=P(A\cap B),
 \]
 \[
-\operatorname{confidence}(A\Rightarrow B)=P(B\mid A)
+\operatorname{confidence}=P(B\mid A),
 \]
 \[
 \operatorname{lift}=\frac{P(B\mid A)}{P(B)}.
 \]
-Lift $>1$ sugere associação positiva além da frequência-base de $B$, sem provar causalidade.
+
+Confidence alta pode ser enganosa quando $B$ já é muito frequente. Lift superior a 1 indica associação positiva relativa à base, não causalidade.
 
 \section{Detecção de anomalias}
 
-Anomalia é observação discrepante em relação a padrão. Pode ser global, contextual ou coletiva. Técnicas: z-score quando apropriado, IQR, Isolation Forest, Local Outlier Factor, autoencoders e regras de domínio.
+Anomalias podem ser globais, contextuais ou coletivas. Técnicas: z-score, IQR, Isolation Forest, Local Outlier Factor e autoencoders, além de regras de domínio.
 
-Um pagamento alto não é necessariamente irregular; pode corresponder a obra grande. Contexto, normalização por porte e explicações de negócio são essenciais.
+\begin{exemplo}[anomalia contextual]
+Pagamento de R\$ 30 milhões é extremo na população geral, mas pode ser normal em grandes obras. O modelo deve incorporar porte, categoria e contexto antes de produzir alerta.
+\end{exemplo}
 
-\section{Modelos preditivos}
+\section{Regressão e erro preditivo}
 
-Regressão prevê variável contínua ou modela relações. Erros comuns:
 \[
 MAE=\frac{1}{n}\sum|y_i-\hat y_i|,
 \qquad
 RMSE=\sqrt{\frac{1}{n}\sum(y_i-\hat y_i)^2}.
 \]
-RMSE penaliza mais fortemente erros grandes. $R^2$ mede proporção de variação explicada no contexto do modelo, mas valor alto não prova causalidade ou generalização.
 
-\section{Mineração de texto}
+RMSE penaliza mais os erros grandes. $R^2$ mede proporção de variação explicada em relação a uma referência, mas não prova causalidade, estabilidade ou boa generalização.
 
-Pipeline típico: coleta $\rightarrow$ limpeza/normalização $\rightarrow$ tokenização $\rightarrow$ representação $\rightarrow$ modelo $\rightarrow$ avaliação. Representações incluem bag-of-words, TF-IDF e embeddings.
+\section{Mineração de texto e embeddings}
 
-TF-IDF aumenta peso de termos frequentes em um documento e relativamente raros no corpus. Embeddings representam unidades em espaço vetorial capturando relações semânticas aprendidas.
+Pipeline clássico: limpeza $\rightarrow$ tokenização $\rightarrow$ representação $\rightarrow$ modelo $\rightarrow$ avaliação. TF-IDF pondera termos pelo uso no documento e raridade no corpus.
+
+Embeddings representam objetos em vetores densos. Similaridade do cosseno:
+\[
+\cos(\theta)=\frac{\mathbf{a}\cdot\mathbf{b}}{\|\mathbf{a}\|\|\mathbf{b}\|}.
+\]
+Proximidade vetorial é evidência de similaridade segundo o modelo, não identidade jurídica ou factual.
 
 \section{Visualização e análise exploratória}
 
-Visualização deve responder pergunta, não decorar relatório. Use:
-\begin{itemize}
-\item barras para comparar categorias;
-\item linhas para séries temporais;
-\item histogramas/densidades para distribuição;
-\item boxplots para dispersão e outliers;
-\item dispersão para relação entre variáveis;
-\item mapas quando geografia é relevante.
-\end{itemize}
+A visualização deve responder uma pergunta. Barras comparam categorias; linhas mostram evolução temporal; histogramas mostram distribuição; boxplots resumem dispersão/outliers; scatter plots mostram relações.
 
-Eixos truncados, escalas inadequadas, excesso de categorias e uso de área/volume podem induzir interpretação errada.
+Eixos truncados, áreas/volumes e cores excessivas podem induzir percepção enganosa. Em auditoria, a figura é parte da evidência comunicada e precisa preservar proporcionalidade.
 
 \section{Python, R, SAS e planilhas}
 
-\subsection{Python}
-Ecossistema: pandas para manipulação tabular, NumPy para arrays/cálculo, scikit-learn para ML clássico, matplotlib para visualização. Em prova, entenda operações, não apenas sintaxe.
+Python: pandas, NumPy, scikit-learn e matplotlib. R: ambiente estatístico e ecossistemas como tidyverse. SAS: plataforma analítica com DATA step e procedures. Planilhas continuam úteis em análises pequenas, mas processos recorrentes com fórmulas ocultas, cópias por e-mail e edições manuais apresentam alto risco de versão e reprodutibilidade.
 
 \begin{lstlisting}[language=Python]
 import pandas as pd
@@ -175,84 +190,47 @@ resumo = (df.groupby("orgao", as_index=False)
                  contratos=("id", "nunique")))
 \end{lstlisting}
 
-\subsection{R}
-R é linguagem/ambiente estatístico. Data frames, vetores, funções, pacotes e fórmulas são centrais. Ecossistemas como tidyverse facilitam transformação/visualização; base R continua relevante.
+Após qualquer agregação, a granularidade muda. Um merge posterior deve respeitar a nova chave.
 
-\subsection{SAS}
-SAS é plataforma estatística/analítica com DATA step, procedures e ecossistema próprio. A banca pode cobrar conceitos de manipulação e análise mais do que detalhes de licença/produto.
+\section{Governança do modelo analítico}
 
-\subsection{Planilhas}
-Planilhas são úteis para análise pequena e auditável, mas apresentam risco de fórmulas ocultas, versões divergentes, referência quebrada e edição manual. Para procedimentos recorrentes e grandes bases, código versionado aumenta reprodutibilidade.
+Um modelo usado em controle externo deve registrar:
+\begin{itemize}
+\item problema e alvo;
+\item período e origem dos dados;
+\item código e ambiente;
+\item features e disponibilidade temporal;
+\item versão do modelo;
+\item métricas e grupos avaliados;
+\item threshold e justificativa;
+\item responsáveis pela validação;
+\item monitoramento de drift;
+\item supervisão humana e decisão final.
+\end{itemize}
 
-\section{Mapa mental}
+Threshold é parte da política de decisão. Alterá-lo sem registro muda o comportamento do sistema mesmo com pesos do modelo inalterados.
 
-\mapamental{Análise de dados}{
- child {node[concept]{CRISP-DM} child {node[concept]{negócio/dados}} child {node[concept]{avaliação}}}
- child {node[concept]{Preparação} child {node[concept]{limpeza}} child {node[concept]{leakage}}}
- child {node[concept]{Supervisionado} child {node[concept]{classificação}} child {node[concept]{regressão}}}
- child {node[concept]{Não supervisionado} child {node[concept]{clustering}} child {node[concept]{anomalias}}}
- child {node[concept]{Métricas} child {node[concept]{precision/recall}} child {node[concept]{MAE/RMSE}}}
- child {node[concept]{Ferramentas} child {node[concept]{SQL/Python/R}} child {node[concept]{SAS/planilhas}}}
-}
+\section{Mapa mental funcional}
 
-\section{Questões por nível}
+\mapafuncional{Análise de Dados}
+{Resultado analítico só é confiável se o desenho de validação reproduzir a decisão real}
+{Negócio $\rightarrow$ dados $\rightarrow$ preparação $\rightarrow$ treino/validação/teste $\rightarrow$ métrica $\rightarrow$ threshold $\rightarrow$ uso $\rightarrow$ monitoramento.\\SQL e granularidade sustentam a base; estatística/ML transformam sinais em ranking ou previsão.}
+{Classe rara: não confie em acurácia.\\Tempo importa: treine no passado e teste no futuro.\\Se há limite de investigação, ajuste threshold à capacidade.\\Se o JOIN muda o total, revise granularidade antes do modelo.}
+{AUC alta $\neq$ calibração.\\Correlação $\neq$ causalidade.\\Outlier $\neq$ erro/fraude.\\Explicação local $\neq$ validação global.\\Pré-processar antes da divisão = leakage.}
+{Qual é a unidade de análise?\\A feature existia no momento da decisão?\\Qual erro custa mais?\\O teste imita produção?\\O threshold está versionado?\\Consigo reproduzir dataset e modelo?}
 
-\begin{questao}{\nivel{N1} 17.1}
-Em classificação binária, recall da classe positiva é:
-\begin{enumerate}[label=\Alph*)]
-\item $TP/(TP+FP)$.
-\item $TP/(TP+FN)$.
-\item $TN/(TN+FP)$.
-\item $(TP+TN)/n$ exclusivamente.
-\item $FP/(FP+TN)$.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{17.1}
-\textbf{Gabarito: B.} Recall mede a parcela dos positivos reais detectados. A é precisão; C é especificidade; D é acurácia; E é taxa de falso positivo.
-\end{solucao}
+\begin{resumo}
+\textbf{Regra de prova:} não escolha métrica por hábito. Escolha a métrica, o threshold e o desenho de validação a partir do custo dos erros e do momento real da decisão.
+\end{resumo}
 
-\begin{questao}{\nivel{N2} 17.2}
-Em conjunto com 0,5\% de casos positivos, um classificador sempre prevê negativo e alcança 99,5\% de acurácia. A interpretação correta é:
-\begin{enumerate}[label=\Alph*)]
-\item o modelo é necessariamente excelente.
-\item acurácia isolada é inadequada; o modelo possui recall zero para a classe de interesse.
-\item o modelo tem precisão 100\% para positivos.
-\item não existe desbalanceamento.
-\item AUC obrigatoriamente é 1.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{17.2}
-\textbf{Gabarito: B.} O modelo ignora a classe rara. A/C/D/E não decorrem do cenário e demonstram por que métricas devem refletir objetivo.
-\end{solucao}
+\input{questoes/17_analise_dados}
 
-\begin{questao}{\nivel{N3} 17.3}
-Uma equipe padronizou todas as variáveis usando média e desvio-padrão calculados antes de separar treino e teste. Qual problema ocorreu?
-\begin{enumerate}[label=\Alph*)]
-\item underflow numérico obrigatório.
-\item data leakage, pois informação do teste influenciou transformação aprendida.
-\item normalização relacional.
-\item deadlock.
-\item apenas overfitting por árvore.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{17.3}
-\textbf{Gabarito: B.} Estatísticas de pré-processamento devem ser aprendidas no treino. A/C/D são conceitos alheios; E restringe incorretamente o fenômeno.
-\end{solucao}
-
-\begin{questao}{\nivel{N4} 17.4}
-Modelo de risco de licitações tem AUC 0,93, mas foi avaliado com divisão aleatória de registros de 2018--2025 e usa atributo calculado após encerramento do contrato. Será usado para selecionar licitações ainda em andamento. Qual é o risco principal?
-\begin{enumerate}[label=\Alph*)]
-\item apenas baixa resolução gráfica.
-\item vazamento temporal/uso de informação indisponível no momento da decisão, produzindo avaliação otimista e inviável em produção.
-\item excesso de normalização de banco.
-\item uso de classificação em vez de clustering é sempre incorreto.
-\item AUC acima de 0,9 elimina necessidade de validação.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{17.4}
-\textbf{Gabarito: B.} A variável contém informação futura e a separação aleatória pode misturar períodos. O teste deve reproduzir o cenário de uso. A/C/D/E não atacam a validade temporal.
-\end{solucao}
-
+\section{Treino discursivo}
 \begin{discursiva}[modelo de risco]
 Uma unidade pretende usar modelo para ranquear contratos a fiscalizar. Em até 30 linhas, descreva desenho de validação que reduza leakage e viés, métricas adequadas quando casos relevantes são raros e como o auditor deve tratar explicabilidade e supervisão humana.
 \end{discursiva}
+\begin{discursiva}[reprodutibilidade]
+Um painel oficial foi atualizado e passou a apresentar 12\% mais alertas, mas não há registro da versão do modelo, threshold, dataset ou código. Em até 30 linhas, estruture os riscos, procedimentos de auditoria e controles de governança analítica.
+\end{discursiva}
+
+\input{solucoes/17_analise_dados}
