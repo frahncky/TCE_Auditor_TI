@@ -1,236 +1,920 @@
 \chapter{Análise de Dados}
 
-\section{Análise de dados no controle externo}
+\section{Fundamentos de análise de dados}
 
-Análise de dados apoia seleção de objetos, detecção de padrões atípicos, cruzamento de bases, mensuração de resultados e priorização de risco. Para Auditor/TI, o ponto central é separar \textbf{sinal analítico} de \textbf{evidência conclusiva}: um modelo pode indicar onde investigar, mas correlação, score ou anomalia não provam irregularidade por si sós.
+Análise de Dados transforma observações em informação para descrever fenômenos, testar hipóteses, estimar relações, detectar padrões e apoiar decisões.
 
-\begin{teoria}[cadeia de validade analítica]
-Uma análise só é defensável quando existe uma cadeia coerente:
+Uma análise pode ser:
+\begin{itemize}
+\item \textbf{descritiva}: o que ocorreu?;
+\item \textbf{diagnóstica}: quais fatores estão associados ao ocorrido?;
+\item \textbf{preditiva}: o que tende a ocorrer?;
+\item \textbf{prescritiva}: qual ação otimiza determinado objetivo sob restrições?
+\end{itemize}
+
+Predição e causalidade são objetivos diferentes. Um modelo pode prever muito bem sem identificar a causa do fenômeno.
+
+\section{População, amostra e unidade de análise}
+
+\termo{População} é conjunto de interesse. \termo{Amostra} é subconjunto observado. \termo{Unidade de análise} é entidade sobre a qual cada observação se refere.
+
+Antes de calcular qualquer estatística, é necessário responder: \emph{uma linha representa o quê?}
+
+Em base de pagamentos, uma linha pode ser pagamento; em base de contratos, uma linha pode ser contrato. Juntar as duas sem respeitar granularidade pode duplicar valores.
+
+\section{Tipos de variáveis}
+
+\subsection{Qualitativas}
+
+Nominais representam categorias sem ordem intrínseca, como órgão. Ordinais possuem ordem, como classificação baixo/médio/alto.
+
+\subsection{Quantitativas}
+
+Discretas assumem valores contáveis, como número de processos. Contínuas podem assumir valores em intervalo, como tempo de atendimento.
+
+A escala da variável determina estatísticas e gráficos adequados.
+
+\section{Medidas de tendência central}
+
+\subsection{Média}
+
+Para $n$ observações:
 \[
-\text{problema}\rightarrow\text{dados}\rightarrow\text{preparação}\rightarrow\text{modelo}\rightarrow\text{validação}\rightarrow\text{decisão}\rightarrow\text{monitoramento}.
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i.
 \]
-Uma falha em qualquer elo pode produzir resultado estatisticamente sofisticado e operacionalmente inválido.
-\end{teoria}
 
-\section{SQL e granularidade analítica}
+A média utiliza todos os valores e é sensível a extremos.
 
-Dominar SQL para prova não é apenas memorizar comandos. O candidato deve compreender cardinalidade de JOIN, agregações, funções de janela, CTEs, \texttt{NULL}, filtros e granularidade.
+\subsection{Mediana}
 
-\begin{exemplo}[função de janela]
-\begin{lstlisting}[language=SQL]
-SELECT orgao, fornecedor, valor,
-       DENSE_RANK() OVER (
-         PARTITION BY orgao
-         ORDER BY valor DESC
-       ) AS posicao
-FROM despesa;
-\end{lstlisting}
-A função de janela calcula ranking dentro de cada órgão sem colapsar as linhas. Um \texttt{GROUP BY} alteraria a granularidade.
+É o valor central após ordenar dados. Para quantidade par, utiliza-se a média dos dois valores centrais segundo definição usual.
+
+É robusta a outliers.
+
+\subsection{Moda}
+
+É o valor mais frequente. Pode existir mais de uma moda ou nenhuma única moda.
+
+\begin{exemplo}[média e mediana]
+Tempos em dias: $2,3,3,4,28$.
+
+Média:
+\[
+\frac{2+3+3+4+28}{5}=8.
+\]
+Mediana = 3.
+
+O valor 28 desloca fortemente a média. Para descrever o tempo ``típico'', a mediana pode ser mais representativa, sem eliminar a importância do caso extremo.
 \end{exemplo}
 
-\begin{atencao}[JOIN e dupla contagem]
-Se contrato é 1:N com pagamento, juntar as duas tabelas e somar uma medida armazenada na granularidade de contrato pode multiplicar valores. Antes de qualquer agregação, pergunte: \emph{uma linha representa o quê em cada fonte?}
-\end{atencao}
+\section{Quartis, percentis e boxplot}
 
-\section{CRISP-DM}
+Percentil $p$ divide distribuição de modo que aproximadamente $p\%$ das observações estejam abaixo ou iguais ao valor, conforme método de interpolação adotado.
 
-CRISP-DM estrutura projeto analítico em entendimento do negócio, entendimento dos dados, preparação, modelagem, avaliação e implantação. As fases não são uma cascata rígida.
+Quartis:
+\begin{itemize}
+\item $Q_1$: 25º percentil;
+\item $Q_2$: mediana;
+\item $Q_3$: 75º percentil.
+\end{itemize}
 
-\begin{center}
-\begin{tikzpicture}[node distance=6mm and 8mm]
-\tikzset{c/.style={draw=azulPetroleo,fill=azulClaro,rounded corners,minimum width=3cm,minimum height=.85cm,align=center}}
-\node[c] (b) {Entendimento\\do negócio};
-\node[c,right=of b] (d) {Entendimento\\dos dados};
-\node[c,right=of d] (p) {Preparação\\dos dados};
-\node[c,below=of p] (m) {Modelagem};
-\node[c,left=of m] (e) {Avaliação};
-\node[c,left=of e] (dep) {Implantação};
-\draw[-Latex,thick] (b)--(d)--(p)--(m)--(e)--(dep);
-\draw[-Latex,thick,dashed] (dep) |- (b);
-\end{tikzpicture}
-\end{center}
+Intervalo interquartil:
+\[
+IQR=Q_3-Q_1.
+\]
 
-O erro mais caro costuma ocorrer no início: otimizar uma métrica para um alvo que não corresponde à decisão de negócio. AUC alto não salva um problema mal definido.
+Regra comum de boxplot marca como potenciais outliers valores abaixo de
+\[
+Q_1-1{,}5IQR
+\]
+ou acima de
+\[
+Q_3+1{,}5IQR.
+\]
 
-\section{Preparação e qualidade dos dados}
+Isso é heurística, não prova de erro ou fraude.
 
-\subsection{Ausências, duplicidade e validade}
+\section{Dispersão}
 
-Dados podem conter valores ausentes, tipos inconsistentes, duplicidades, erros de domínio, outliers, codificações diferentes e registros temporalmente incompatíveis. A escolha de imputação, remoção ou correção deve ser documentada e compatível com o mecanismo de ausência e o uso.
+\subsection{Amplitude}
 
-Imputar média indiscriminadamente pode reduzir variância e introduzir viés. Excluir outlier automaticamente pode remover justamente um evento relevante de auditoria.
+\[
+R=x_{max}-x_{min}.
+\]
+É simples e extremamente sensível a extremos.
 
-\subsection{Padronização e normalização}
+\subsection{Variância}
 
-Padronização:
+Variância populacional:
+\[
+\sigma^2=\frac{1}{N}\sum_{i=1}^{N}(x_i-\mu)^2.
+\]
+
+Variância amostral:
+\[
+s^2=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2.
+\]
+
+O denominador $n-1$ corrige viés da estimativa da variância populacional sob condições usuais.
+
+\subsection{Desvio padrão}
+
+\[
+s=\sqrt{s^2}.
+\]
+Possui a mesma unidade dos dados.
+
+\subsection{Coeficiente de variação}
+
+\[
+CV=\frac{s}{\bar{x}}\times100\%.
+\]
+Permite comparar dispersão relativa entre conjuntos com escalas semelhantes e médias positivas adequadas. Quando média é próxima de zero, CV pode ser instável ou sem sentido.
+
+\section{Padronização}
+
+Z-score:
 \[
 z=\frac{x-\mu}{\sigma}.
 \]
 
-Min-max:
+Valor $z=2$ indica observação dois desvios-padrão acima da média.
+
+Padronização não transforma qualquer distribuição em normal; apenas centraliza e escala.
+
+\section{Probabilidade}
+
+Para eventos $A$ e $B$:
 \[
-x'=\frac{x-x_{\min}}{x_{\max}-x_{\min}}.
+P(A^c)=1-P(A).
 \]
 
-Algoritmos baseados em distância, como k-NN e k-means, são sensíveis à escala. Árvores de decisão, em geral, não dependem do escalonamento para definir suas divisões.
+Regra da união:
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+\]
 
-\subsection{Variáveis categóricas}
+Se eventos são mutuamente exclusivos, $P(A\cap B)=0$.
 
-One-hot encoding é adequado a categorias nominais em muitos algoritmos. Atribuir MA=1, PI=2 e CE=3 pode criar ordem e distância artificiais. Encoding deve preservar a semântica necessária ao modelo.
+\section{Probabilidade condicional}
 
-\section{Treino, validação e teste}
+\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)},\quad P(B)>0.
+\]
 
-Treino ajusta parâmetros; validação orienta seleção/tuning; teste estima desempenho final em dados não usados na escolha. Em $k$-fold cross-validation, cada partição atua como validação em uma rodada.
+A probabilidade de A dado B pode diferir muito da probabilidade marginal de A.
 
-\begin{atencao}[data leakage]
-Pré-processamento aprendido com todo o dataset antes da divisão contamina o teste. Imputação, escalonamento, seleção de atributos e redução de dimensionalidade devem ser ajustados usando somente treino dentro do procedimento de validação.
+\subsection{Independência}
+
+A e B são independentes se:
+\[
+P(A\cap B)=P(A)P(B).
+\]
+Equivalentemente, quando probabilidades são positivas:
+\[
+P(A\mid B)=P(A).
+\]
+
+Mutuamente exclusivo não significa independente. Se dois eventos não podem ocorrer juntos e ambos têm probabilidade positiva, saber que um ocorreu elimina o outro, logo há dependência.
+
+\section{Teorema de Bayes}
+
+\[
+P(A\mid B)=\frac{P(B\mid A)P(A)}{P(B)}.
+\]
+
+\begin{exemplo}[base rate]
+Uma irregularidade ocorre em 1\% dos contratos. Um teste tem sensibilidade 90\% e taxa de falso positivo 5\%.
+
+Em 10.000 contratos:
+\begin{itemize}
+\item 100 irregulares $\Rightarrow$ 90 positivos verdadeiros;
+\item 9.900 regulares $\Rightarrow$ 495 falsos positivos.
+\end{itemize}
+
+Entre 585 alertas, apenas 90 são positivos reais:
+\[
+PPV=\frac{90}{585}\approx15{,}4\%.
+\]
+Alta sensibilidade não implica que a maioria dos alertas seja verdadeira quando a prevalência é baixa.
+\end{exemplo}
+
+\section{Variáveis aleatórias e valor esperado}
+
+Uma variável aleatória associa resultados a números.
+
+Valor esperado discreto:
+\[
+E[X]=\sum_x xP(X=x).
+\]
+
+Variância:
+\[
+Var(X)=E[(X-E[X])^2]=E[X^2]-E[X]^2.
+\]
+
+\section{Distribuição Bernoulli}
+
+Modela um ensaio com dois resultados, sucesso com probabilidade $p$ e fracasso com $1-p$.
+
+\[
+E[X]=p,\qquad Var(X)=p(1-p).
+\]
+
+\section{Distribuição binomial}
+
+Se $X$ conta sucessos em $n$ ensaios Bernoulli independentes com mesma probabilidade $p$:
+\[
+P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}.
+\]
+
+\[
+E[X]=np,\qquad Var(X)=np(1-p).
+\]
+
+\begin{exemplo}
+Se cada requisição falha independentemente com $p=0{,}02$, em 10 requisições a probabilidade de exatamente uma falha é:
+\[
+\binom{10}{1}(0{,}02)(0{,}98)^9\approx0{,}1667.
+\]
+\end{exemplo}
+
+\section{Distribuição de Poisson}
+
+Modela contagem de eventos em intervalo sob hipóteses específicas, com taxa média $\lambda$:
+\[
+P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}.
+\]
+
+\[
+E[X]=Var(X)=\lambda.
+\]
+
+É útil como modelo inicial para chegadas, falhas ou eventos raros, mas dados reais podem apresentar sobredispersão e dependência.
+
+\section{Distribuição normal}
+
+A normal é simétrica e determinada por média $\mu$ e desvio padrão $\sigma$.
+
+A padronização converte:
+\[
+Z=\frac{X-\mu}{\sigma}.
+\]
+
+A regra aproximada 68--95--99,7 indica proporção em 1, 2 e 3 desvios-padrão para distribuição normal.
+
+Não se deve aplicar z-score como detector universal de outlier quando distribuição é fortemente assimétrica.
+
+\section{Amostragem}
+
+\subsection{Aleatória simples}
+
+Cada unidade possui probabilidade conhecida e apropriada de seleção, sob desenho simples.
+
+\subsection{Estratificada}
+
+População é dividida em estratos e amostras são selecionadas em cada grupo. Pode aumentar precisão e garantir representação de subgrupos.
+
+\subsection{Por conglomerados}
+
+Selecionam-se grupos naturais e observam-se unidades dentro deles. É operacionalmente eficiente, mas correlação intragrupo pode aumentar variância.
+
+\subsection{Sistemática}
+
+Seleciona-se ponto inicial e elementos em intervalos regulares. Periodicidade na lista pode introduzir viés.
+
+\section{Viés de seleção}
+
+Amostra grande não corrige desenho enviesado.
+
+Exemplo: analisar apenas contratos já auditados para estimar taxa de irregularidade de todos os contratos pode superestimar prevalência se auditorias foram direcionadas aos casos suspeitos.
+
+\section{Teorema Central do Limite}
+
+Sob condições adequadas, distribuição da média amostral aproxima-se de normal conforme tamanho da amostra cresce, independentemente da distribuição original.
+
+Erro padrão da média:
+\[
+SE(\bar X)=\frac{\sigma}{\sqrt{n}}
+\]
+ou estimado por $s/\sqrt{n}$.
+
+Dobrar amostra não reduz erro padrão pela metade. Para reduzir SE pela metade, é necessário aproximadamente quadruplicar $n$.
+
+\section{Intervalo de confiança}
+
+Com variância conhecida ou aproximação normal apropriada:
+\[
+\bar{x}\pm z_{\alpha/2}\frac{\sigma}{\sqrt{n}}.
+\]
+
+Para 95\%, $z\approx1{,}96$.
+
+\begin{atencao}
+Depois que um intervalo frequentista específico foi calculado, não é correto dizer que há 95\% de probabilidade de o parâmetro fixo estar naquele intervalo. O procedimento, repetido muitas vezes, cobre o parâmetro em aproximadamente 95\% das amostras sob as hipóteses.
 \end{atencao}
 
-\subsection{Validação temporal}
+\section{Teste de hipóteses}
 
-Quando o sistema será usado no futuro, o teste deve simular esse cenário. Dados de 2019--2024 podem treinar; 2025 pode validar e 2026 testar, por exemplo. Embaralhar tudo pode introduzir padrões futuros no passado.
+Define-se hipótese nula $H_0$ e alternativa $H_1$.
 
-\section{Classificação e matriz de confusão}
+\subsection{Erro Tipo I}
+
+Rejeitar $H_0$ quando é verdadeira. Probabilidade controlada pelo nível de significância $\alpha$.
+
+\subsection{Erro Tipo II}
+
+Não rejeitar $H_0$ quando alternativa relevante é verdadeira. Probabilidade $\beta$.
+
+Poder:
+\[
+1-\beta.
+\]
+
+Aumentar amostra tende a aumentar poder para detectar determinado efeito.
+
+\section{p-valor}
+
+p-valor é probabilidade, assumindo $H_0$ e o modelo, de obter estatística tão extrema ou mais extrema que a observada.
+
+Não é:
+\begin{itemize}
+\item probabilidade de $H_0$ ser verdadeira;
+\item tamanho do efeito;
+\item probabilidade de resultado ter ocorrido por acaso em sentido genérico.
+\end{itemize}
+
+p pequeno pode acompanhar efeito irrelevante em amostra gigantesca. Significância prática precisa ser avaliada separadamente.
+
+\section{Correlação}
+
+Coeficiente de Pearson mede associação linear:
+\[
+r=\frac{Cov(X,Y)}{s_Xs_Y}.
+\]
+
+$r$ varia entre -1 e 1.
+
+Correlação zero não implica independência: relação pode ser não linear.
+
+\subsection{Spearman}
+
+Spearman calcula correlação sobre ranks e captura associação monotônica, sendo menos sensível a outliers e escala linear.
+
+\section{Correlação não implica causalidade}
+
+Uma associação pode surgir por:
+\begin{itemize}
+\item causalidade X $\rightarrow$ Y;
+\item causalidade Y $\rightarrow$ X;
+\item variável de confusão Z;
+\item seleção;
+\item coincidência;
+\item viés de medição.
+\end{itemize}
+
+Exemplo: órgãos maiores podem ter mais contratos e mais incidentes. Correlação entre número de contratos e incidentes não prova que contratos causam incidentes; tamanho do órgão pode explicar ambos.
+
+\section{Regressão linear simples}
+
+Modelo:
+\[
+Y=\beta_0+\beta_1X+\varepsilon.
+\]
+
+OLS escolhe coeficientes que minimizam soma dos quadrados dos resíduos:
+\[
+\sum_i(y_i-\hat{y}_i)^2.
+\]
+
+$\beta_1$ representa mudança média esperada em Y associada a uma unidade de X, sob o modelo. Em regressão observacional, isso não deve ser interpretado automaticamente como efeito causal.
+
+\section{Regressão múltipla}
+
+\[
+Y=\beta_0+\beta_1X_1+\cdots+\beta_pX_p+\varepsilon.
+\]
+
+Cada coeficiente representa associação de sua variável mantendo as demais constantes no modelo.
+
+\subsection{Multicolinearidade}
+
+Preditores fortemente correlacionados aumentam incerteza dos coeficientes e dificultam interpretação. VIF é diagnóstico comum.
+
+\section{Hipóteses da regressão}
+
+Para inferência OLS clássica, são importantes linearidade adequada, independência/estrutura de erros, homocedasticidade e condições sobre distribuição para certos testes.
+
+Violação não torna automaticamente previsão impossível, mas afeta interpretação e inferência.
+
+\section{R² e R² ajustado}
+
+\[
+R^2=1-\frac{SS_{res}}{SS_{tot}}.
+\]
+
+R² mede proporção de variação explicada em relação à média dentro da amostra/modelo. Pode aumentar ao adicionar variáveis, mesmo irrelevantes.
+
+R² ajustado penaliza quantidade de preditores.
+
+R² alto não prova causalidade nem bom desempenho fora da amostra.
+
+\section{Regressão logística}
+
+Para classificação binária:
+\[
+P(Y=1\mid X)=\sigma(z)=\frac{1}{1+e^{-z}},
+\]
+com
+\[
+z=\beta_0+\beta_1X_1+\cdots+\beta_pX_p.
+\]
+
+Log-odds são lineares:
+\[
+\log\frac{p}{1-p}=\beta_0+\beta_1X_1+\cdots.
+\]
+
+$e^{\beta_j}$ é razão de odds associada a incremento unitário, mantendo outros preditores constantes.
+
+\section{Matriz de confusão}
 
 \begin{center}
 \begin{tabular}{c|cc}
- & Prev. positivo & Prev. negativo\\\hline
+ & Predito positivo & Predito negativo\\\hline
 Real positivo & TP & FN\\
 Real negativo & FP & TN
 \end{tabular}
 \end{center}
 
+Métricas:
 \[
-\text{Precisão}=\frac{TP}{TP+FP},\qquad
-\text{Recall}=\frac{TP}{TP+FN}
+Accuracy=\frac{TP+TN}{TP+TN+FP+FN},
 \]
 \[
-F_1=2\frac{\text{Precisão}\cdot\text{Recall}}{\text{Precisão}+\text{Recall}}.
+Precision=\frac{TP}{TP+FP},
+\]
+\[
+Recall=\frac{TP}{TP+FN},
+\]
+\[
+Specificity=\frac{TN}{TN+FP}.
 \]
 
-\subsection{Acurácia e desbalanceamento}
+\section{F1-score}
 
-Se 0,5\% dos contratos são positivos, prever sempre ``negativo'' produz 99,5\% de acurácia e zero utilidade para detectar a classe de interesse. A métrica deve refletir custo de erro e objetivo operacional.
+\[
+F_1=2\frac{Precision\cdot Recall}{Precision+Recall}.
+\]
 
-\begin{exemplo}[capacidade limitada]
-Se a unidade consegue investigar 100 alertas por semana, precisão elevada pode ser crítica. Se perder um evento grave é inaceitável, recall ganha peso. A decisão sobre threshold é também decisão de alocação de recursos.
+É média harmônica e penaliza forte desequilíbrio entre precisão e recall.
+
+Não considera TN diretamente, portanto não é métrica universal.
+
+\section{Classes desbalanceadas}
+
+Se apenas 1\% dos casos é positivo, classificador que prevê sempre negativo tem 99\% de acurácia e recall zero.
+
+Métricas devem refletir objetivo e custos.
+
+\begin{exemplo}[capacidade operacional]
+Existem 10.000 contratos e unidade só pode investigar 100 por mês. Um modelo com recall alto, mas que gera 4.000 alertas, pode ser inviável. Métricas como precision@100 ou recall dentro do top-k podem estar mais alinhadas à decisão.
 \end{exemplo}
 
-\section{ROC, Precision-Recall e calibração}
+\section{Threshold}
 
-ROC relaciona TPR e FPR ao variar threshold. AUC resume capacidade de ranking. Em classe rara, a curva Precision-Recall costuma ser mais informativa sobre a qualidade dos alertas positivos.
+Modelos probabilísticos produzem score; threshold converte score em decisão.
 
-Calibração é outra dimensão. Se previsões de 80\% ocorrem apenas 45\% das vezes, o modelo pode ordenar bem e estar mal calibrado.
+Reduzir threshold aumenta, em geral, recall e também falsos positivos. Ele não é propriedade fixa do modelo e deve ser governado segundo custo dos erros.
 
-\section{Clustering}
+\section{ROC e AUC}
 
-K-means minimiza distâncias a centroides e tende a produzir clusters aproximadamente convexos; é sensível à escala, outliers e inicialização. DBSCAN usa densidade, marca ruído e consegue formas mais irregulares, mas depende de $\varepsilon$ e minPts.
+ROC relaciona True Positive Rate a False Positive Rate ao variar threshold.
 
-Silhouette mede coesão e separação, mas um bom índice geométrico não garante significado de negócio.
+AUC pode ser interpretada como probabilidade de um positivo aleatório receber score maior que um negativo aleatório, sob condições usuais e ausência de empates tratados.
 
-\section{Regras de associação}
+AUC mede ranking, não calibração.
 
-Para $A\Rightarrow B$:
+\section{Precision-Recall Curve}
+
+Em classes raras, PR curve destaca relação entre precisão e recall dos positivos e pode ser mais informativa que ROC.
+
+Baseline de precisão depende da prevalência.
+
+\section{Calibração}
+
+Modelo calibrado com score 0,8 deve observar aproximadamente 80\% de positivos entre casos semelhantes com score próximo a 0,8.
+
+Brier score:
 \[
-\operatorname{support}=P(A\cap B),
-\]
-\[
-\operatorname{confidence}=P(B\mid A),
-\]
-\[
-\operatorname{lift}=\frac{P(B\mid A)}{P(B)}.
+\frac{1}{n}\sum_i(p_i-y_i)^2.
 \]
 
-Confidence alta pode ser enganosa quando $B$ já é muito frequente. Lift superior a 1 indica associação positiva relativa à base, não causalidade.
+Modelo pode ter AUC alta e calibração ruim.
+
+\section{Validação de modelos}
+
+\subsection{Treino, validação e teste}
+
+Treino estima parâmetros. Validação seleciona hiperparâmetros/modelos. Teste é usado uma vez para estimativa final imparcial.
+
+Reutilizar teste repetidamente para tomar decisões transforma-o em validação e cria overfitting ao teste.
+
+\subsection{k-fold cross-validation}
+
+Dados são divididos em $k$ folds. Em cada rodada, $k-1$ treinam e um valida. Métrica final é agregada.
+
+Stratified k-fold preserva proporção de classes aproximadamente em cada fold.
+
+\section{Data leakage}
+
+Leakage ocorre quando informação não disponível no momento real da decisão entra no treino ou pré-processamento.
+
+Exemplos:
+\begin{itemize}
+\item usar status final do processo para prever risco no início;
+\item calcular média de imputação com todo dataset antes de separar teste;
+\item selecionar features usando rótulos do teste;
+\item misturar registros do mesmo fornecedor em treino/teste quando identificadores quase revelam alvo.
+\end{itemize}
+
+\section{Validação temporal}
+
+Quando modelo prevê futuro, divisão temporal é frequentemente mais realista:
+\[
+\text{treino passado}\rightarrow\text{validação posterior}\rightarrow\text{teste mais recente}.
+\]
+
+Random split pode vazar padrões futuros ou entidades repetidas.
+
+\section{Dados ausentes}
+
+Mecanismos conceituais:
+\begin{itemize}
+\item MCAR: ausência independente de dados observados/não observados;
+\item MAR: ausência explicável por dados observados;
+\item MNAR: ausência depende do próprio valor ausente ou variável não observada.
+\end{itemize}
+
+Imputar média reduz variância e ignora incerteza. Estratégia deve refletir mecanismo e objetivo.
+
+\section{Outliers}
+
+Outlier pode ser:
+\begin{itemize}
+\item erro de digitação;
+\item evento legítimo raro;
+\item mudança de regime;
+\item fraude;
+\item unidade diferente;
+\item problema de integração.
+\end{itemize}
+
+Excluir automaticamente pode remover justamente o caso de interesse.
+
+\section{Normalização e padronização}
+
+Min-max:
+\[
+x'=\frac{x-x_{min}}{x_{max}-x_{min}}.
+\]
+
+StandardScaler usa média e desvio padrão.
+
+Algoritmos baseados em distância e gradiente podem ser sensíveis à escala. Árvores de decisão, em geral, são invariantes a transformações monotônicas dos atributos usados para split.
+
+\section{Codificação de categóricas}
+
+One-hot evita impor ordem artificial em categoria nominal.
+
+Ordinal encoding é adequado quando ordem possui significado.
+
+Target encoding pode capturar informação útil, mas deve ser calculado dentro de folds de treino para evitar leakage.
+
+\section{Árvores de decisão}
+
+Árvore divide espaço por regras recursivas.
+
+Critérios comuns de classificação incluem Gini e entropia.
+
+Entropia binária:
+\[
+H=-p\log_2p-(1-p)\log_2(1-p).
+\]
+
+Árvore profunda pode overfitar. Controles incluem profundidade, número mínimo de amostras e pruning.
+
+\section{Random Forest}
+
+Combina muitas árvores treinadas em amostras bootstrap e subconjuntos aleatórios de features.
+
+A redução de correlação entre árvores diminui variância do ensemble.
+
+Random forest tende a ser robusta e pouco sensível à escala, mas modelos grandes perdem interpretabilidade direta.
+
+\section{Gradient Boosting}
+
+Boosting adiciona modelos sequencialmente para corrigir erros/resíduos anteriores.
+
+XGBoost, LightGBM e variantes são implementações populares.
+
+Hiperparâmetros como learning rate, número de árvores, profundidade e regularização controlam trade-off viés-variância.
+
+\section{k-NN}
+
+Classifica usando vizinhos mais próximos segundo distância.
+
+É sensível à escala e ao valor de $k$.
+
+$k$ pequeno pode overfitar; $k$ grande suaviza fronteiras e pode underfitar.
+
+Em alta dimensionalidade, distâncias tendem a perder poder discriminativo — curse of dimensionality.
+
+\section{Support Vector Machines}
+
+SVM busca hiperplano de margem máxima. Kernel permite fronteiras não lineares por produtos internos em espaço transformado.
+
+Parâmetro $C$ controla penalização de erros versus margem. Kernel RBF utiliza $\gamma$ associado ao alcance de influência dos pontos.
+
+Escala das features é importante.
+
+\section{Clustering k-means}
+
+K-means minimiza soma das distâncias quadráticas aos centroides:
+\[
+\sum_{j=1}^k\sum_{x_i\in C_j}\|x_i-\mu_j\|^2.
+\]
+
+É sensível a:
+\begin{itemize}
+\item escala;
+\item outliers;
+\item inicialização;
+\item escolha de $k$;
+\item clusters não esféricos.
+\end{itemize}
+
+K-means++ melhora inicialização.
+
+\section{DBSCAN}
+
+DBSCAN define regiões densas por $\varepsilon$ e minPts. Pode encontrar formatos irregulares e marcar ruído.
+
+Dificuldades surgem quando clusters têm densidades muito diferentes.
+
+\section{Silhouette}
+
+Para ponto $i$:
+\[
+s(i)=\frac{b(i)-a(i)}{\max(a(i),b(i))},
+\]
+onde $a(i)$ mede coesão no cluster e $b(i)$ distância ao cluster vizinho mais próximo.
+
+Valores próximos de 1 indicam boa separação geométrica; isso não prova relevância de negócio.
+
+\section{PCA}
+
+Principal Component Analysis cria combinações lineares ortogonais que maximizam variância explicada.
+
+É técnica não supervisionada e sensível à escala.
+
+Componentes podem reduzir dimensionalidade, mas tornam interpretação dos atributos menos direta.
+
+PCA não seleciona simplesmente ``as features mais importantes''; cria novas variáveis.
 
 \section{Detecção de anomalias}
 
-Anomalias podem ser globais, contextuais ou coletivas. Técnicas: z-score, IQR, Isolation Forest, Local Outlier Factor e autoencoders, além de regras de domínio.
+\subsection{Z-score}
 
-\begin{exemplo}[anomalia contextual]
-Pagamento de R\$ 30 milhões é extremo na população geral, mas pode ser normal em grandes obras. O modelo deve incorporar porte, categoria e contexto antes de produzir alerta.
-\end{exemplo}
+Útil quando distribuição/escala justificam. Limiar como $|z|>3$ é heurístico.
 
-\section{Regressão e erro preditivo}
+\subsection{IQR}
 
+Robusto para distribuições assimétricas em comparação com média/desvio em certos contextos.
+
+\subsection{Isolation Forest}
+
+Anomalias tendem a ser isoladas por menos divisões aleatórias.
+
+\subsection{Local Outlier Factor}
+
+Compara densidade local de ponto com vizinhos, detectando anomalias contextuais em regiões de densidade diferente.
+
+\section{Regras de associação}
+
+Para regra $A\Rightarrow B$:
 \[
-MAE=\frac{1}{n}\sum|y_i-\hat y_i|,
-\qquad
-RMSE=\sqrt{\frac{1}{n}\sum(y_i-\hat y_i)^2}.
+support=P(A\cap B),
+\]
+\[
+confidence=P(B\mid A),
+\]
+\[
+lift=\frac{P(B\mid A)}{P(B)}.
 \]
 
-RMSE penaliza mais os erros grandes. $R^2$ mede proporção de variação explicada em relação a uma referência, mas não prova causalidade, estabilidade ou boa generalização.
+Lift $>1$ indica associação positiva relativa à prevalência de B, não causalidade.
 
-\section{Mineração de texto e embeddings}
+\section{Séries temporais}
 
-Pipeline clássico: limpeza $\rightarrow$ tokenização $\rightarrow$ representação $\rightarrow$ modelo $\rightarrow$ avaliação. TF-IDF pondera termos pelo uso no documento e raridade no corpus.
+Série pode conter:
+\begin{itemize}
+\item tendência;
+\item sazonalidade;
+\item ciclos;
+\item ruído;
+\item mudanças estruturais.
+\end{itemize}
 
-Embeddings representam objetos em vetores densos. Similaridade do cosseno:
+\subsection{Média móvel}
+
+Suaviza flutuações:
 \[
-\cos(\theta)=\frac{\mathbf{a}\cdot\mathbf{b}}{\|\mathbf{a}\|\|\mathbf{b}\|}.
+MA_t=\frac{1}{k}\sum_{i=0}^{k-1}x_{t-i}.
 \]
-Proximidade vetorial é evidência de similaridade segundo o modelo, não identidade jurídica ou factual.
 
-\section{Visualização e análise exploratória}
+\subsection{Autocorrelação}
 
-A visualização deve responder uma pergunta. Barras comparam categorias; linhas mostram evolução temporal; histogramas mostram distribuição; boxplots resumem dispersão/outliers; scatter plots mostram relações.
+Observações próximas no tempo podem ser dependentes. Isso viola independência assumida por métodos que tratam registros como iid.
 
-Eixos truncados, áreas/volumes e cores excessivas podem induzir percepção enganosa. Em auditoria, a figura é parte da evidência comunicada e precisa preservar proporcionalidade.
+Forecast deve usar validação temporal/rolling origin.
 
-\section{Python, R, SAS e planilhas}
+\section{Visualização de dados}
 
-Python: pandas, NumPy, scikit-learn e matplotlib. R: ambiente estatístico e ecossistemas como tidyverse. SAS: plataforma analítica com DATA step e procedures. Planilhas continuam úteis em análises pequenas, mas processos recorrentes com fórmulas ocultas, cópias por e-mail e edições manuais apresentam alto risco de versão e reprodutibilidade.
+\subsection{Barras}
+
+Comparação de categorias. Eixo deve, em geral, iniciar em zero para comprimento de barras preservar proporção, salvo justificativa explícita.
+
+\subsection{Linhas}
+
+Evolução temporal e tendência.
+
+\subsection{Histograma}
+
+Distribuição de variável contínua. Forma depende da escolha de bins.
+
+\subsection{Boxplot}
+
+Resume mediana, quartis e potenciais outliers.
+
+\subsection{Scatter plot}
+
+Mostra associação entre duas variáveis, clusters e heterocedasticidade.
+
+\section{Gráficos enganosos}
+
+Riscos:
+\begin{itemize}
+\item eixo truncado;
+\item áreas 2D para valores 1D;
+\item escala log sem indicação;
+\item categorias ordenadas arbitrariamente;
+\item cores que sugerem intensidade sem legenda;
+\item dupla escala Y que cria correlação visual;
+\item esconder denominador.
+\end{itemize}
+
+\section{SQL em análise}
+
+SQL deve preservar granularidade.
+
+\subsection{Window functions}
+
+\begin{lstlisting}[language=SQL]
+SELECT orgao,
+       contrato_id,
+       valor,
+       SUM(valor) OVER (PARTITION BY orgao) AS total_orgao,
+       DENSE_RANK() OVER (
+          PARTITION BY orgao
+          ORDER BY valor DESC
+       ) AS posicao
+FROM contrato;
+\end{lstlisting}
+
+Window function mantém linhas; \texttt{GROUP BY} as colapsa.
+
+\subsection{JOIN e dupla contagem}
+
+Contrato 1:N Pagamento e 1:N Fiscal. Juntar as duas tabelas diretamente cria produto entre filhos.
+
+A solução é pré-agregar cada relação na granularidade de contrato ou modelar corretamente a medida.
+
+\section{Python e pandas}
 
 \begin{lstlisting}[language=Python]
 import pandas as pd
 
 df = pd.read_csv("contratos.csv")
-resumo = (df.groupby("orgao", as_index=False)
-            .agg(valor_total=("valor", "sum"),
-                 contratos=("id", "nunique")))
+
+resumo = (
+    df.groupby("orgao", as_index=False)
+      .agg(valor_total=("valor", "sum"),
+           mediana=("valor", "median"),
+           contratos=("contrato_id", "nunique"))
+)
 \end{lstlisting}
 
-Após qualquer agregação, a granularidade muda. Um merge posterior deve respeitar a nova chave.
+Após groupby, granularidade é órgão. Juntar novamente a uma tabela por contrato replicará métricas de órgão; isso pode ser correto para feature contextual, mas não para somar novamente o total.
 
-\section{Governança do modelo analítico}
+\section{Reprodutibilidade}
 
-Um modelo usado em controle externo deve registrar:
+Análise reproduzível registra:
 \begin{itemize}
-\item problema e alvo;
-\item período e origem dos dados;
-\item código e ambiente;
-\item features e disponibilidade temporal;
+\item origem dos dados;
+\item data de extração;
+\item query;
+\item código;
+\item dependências/ambiente;
+\item parâmetros;
+\item semente aleatória quando relevante;
 \item versão do modelo;
-\item métricas e grupos avaliados;
-\item threshold e justificativa;
-\item responsáveis pela validação;
-\item monitoramento de drift;
-\item supervisão humana e decisão final.
+\item métricas e gráficos gerados.
 \end{itemize}
 
-Threshold é parte da política de decisão. Alterá-lo sem registro muda o comportamento do sistema mesmo com pesos do modelo inalterados.
+Notebook editado manualmente sem versão e base sobrescrita dificultam auditoria.
 
-\section{Mapa mental funcional}
+\section{CRISP-DM}
+
+Fases:
+\begin{enumerate}
+\item entendimento do negócio;
+\item entendimento dos dados;
+\item preparação;
+\item modelagem;
+\item avaliação;
+\item implantação.
+\end{enumerate}
+
+É iterativo. A avaliação pode revelar que definição do alvo está errada e exigir retorno ao entendimento do negócio.
+
+\section{Data analytics em auditoria}
+
+Análises úteis:
+\begin{itemize}
+\item duplicidade de pagamentos;
+\item fracionamento temporal de despesas;
+\item concentração de fornecedores;
+\item conflitos cadastrais;
+\item outliers de preço;
+\item pagamentos em dias/horários atípicos;
+\item redes de relacionamentos;
+\item sequências numéricas anormais;
+\item cruzamento com sanções e impedimentos.
+\end{itemize}
+
+Resultado analítico é indício que orienta procedimentos adicionais.
+
+\section{Lei de Benford}
+
+Para certos conjuntos de números naturalmente distribuídos em várias ordens de magnitude, primeiro dígito $d$ pode seguir aproximadamente:
+\[
+P(d)=\log_{10}\left(1+\frac{1}{d}\right),\quad d=1,\ldots,9.
+\]
+
+Dígito 1 aparece cerca de 30,1\%; 9 cerca de 4,6\%.
+
+Benford não é apropriada para:
+\begin{itemize}
+\item números atribuídos, como CPF e protocolos;
+\item valores com limites estreitos;
+\item preços tabelados;
+\item amostras pequenas;
+\item dados construídos por regras fixas.
+\end{itemize}
+
+Desvio de Benford não prova fraude; é técnica de screening.
+
+\section{Análise de redes}
+
+Grafos representam entidades como nós e relações como arestas.
+
+Métricas:
+\begin{itemize}
+\item grau: número de conexões;
+\item betweenness: frequência em caminhos mínimos;
+\item componentes conectados;
+\item comunidades;
+\item centralidade.
+\end{itemize}
+
+Em fraude, uma empresa com grau alto pode ser fornecedora legítima de grande porte. Contexto e evidência adicional são necessários.
+
+\section{Privacidade e minimização na análise}
+
+Nem toda feature disponível deve ser utilizada. Dados pessoais precisam de finalidade e base jurídica, além de controles de acesso e minimização.
+
+A remoção de atributo sensível não elimina proxies. CEP, escola, renda e padrão de consumo podem reconstruir características protegidas.
+
+\section{Síntese conceitual}
 
 \mapafuncional{Análise de Dados}
-{Resultado analítico só é confiável se o desenho de validação reproduzir a decisão real}
-{Negócio $\rightarrow$ dados $\rightarrow$ preparação $\rightarrow$ treino/validação/teste $\rightarrow$ métrica $\rightarrow$ threshold $\rightarrow$ uso $\rightarrow$ monitoramento.\\SQL e granularidade sustentam a base; estatística/ML transformam sinais em ranking ou previsão.}
-{Classe rara: não confie em acurácia.\\Tempo importa: treine no passado e teste no futuro.\\Se há limite de investigação, ajuste threshold à capacidade.\\Se o JOIN muda o total, revise granularidade antes do modelo.}
-{AUC alta $\neq$ calibração.\\Correlação $\neq$ causalidade.\\Outlier $\neq$ erro/fraude.\\Explicação local $\neq$ validação global.\\Pré-processar antes da divisão = leakage.}
-{Qual é a unidade de análise?\\A feature existia no momento da decisão?\\Qual erro custa mais?\\O teste imita produção?\\O threshold está versionado?\\Consigo reproduzir dataset e modelo?}
+{Análise válida = amostra adequada + estatística correta + validação realista + interpretação proporcional à evidência}
+{Descrição $\rightarrow$ média, mediana, dispersão e gráficos.\\Inferência $\rightarrow$ amostragem, IC e testes.\\Relações $\rightarrow$ correlação e regressão.\\Predição $\rightarrow$ métricas, threshold e validação.\\Exploração $\rightarrow$ clustering, anomalias, regras e séries.\\Auditoria $\rightarrow$ SQL, Benford, redes e reprodutibilidade.}
+{Classe rara: accuracy engana.\\p-valor não mede probabilidade de H0.\\AUC mede ranking, não calibração.\\Teste deve imitar produção.\\Outlier é sinal, não conclusão.\\Correlação não identifica direção causal.}
+{Amostra grande $\neq$ amostra não enviesada.\\Significância estatística $\neq$ relevância prática.\\R² alto $\neq$ causalidade.\\Benford $\neq$ detector de fraude universal.\\Random split $\neq$ validação adequada para qualquer problema temporal.}
+{Qual é a unidade de análise?\\A amostra representa a população?\\Qual o custo de FP e FN?\\A feature existia no momento da decisão?\\O gráfico preserva escala?\\A análise é reproduzível?}
 
 \begin{resumo}
-\textbf{Regra de prova:} não escolha métrica por hábito. Escolha a métrica, o threshold e o desenho de validação a partir do custo dos erros e do momento real da decisão.
+Análise de Dados exige separar descrição, inferência, predição e causalidade. A dificuldade de prova aparece quando uma métrica correta é usada para responder pergunta errada: média em distribuição assimétrica, acurácia em classe rara, p-valor como tamanho de efeito, AUC como calibração ou correlação como causalidade.
 \end{resumo}
-
-\input{questoes/17_analise_dados}
-
-\section{Treino discursivo}
-\begin{discursiva}[modelo de risco]
-Uma unidade pretende usar modelo para ranquear contratos a fiscalizar. Em até 30 linhas, descreva desenho de validação que reduza leakage e viés, métricas adequadas quando casos relevantes são raros e como o auditor deve tratar explicabilidade e supervisão humana.
-\end{discursiva}
-\begin{discursiva}[reprodutibilidade]
-Um painel oficial foi atualizado e passou a apresentar 12\% mais alertas, mas não há registro da versão do modelo, threshold, dataset ou código. Em até 30 linhas, estruture os riscos, procedimentos de auditoria e controles de governança analítica.
-\end{discursiva}
-
-\input{solucoes/17_analise_dados}
