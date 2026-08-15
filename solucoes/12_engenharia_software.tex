@@ -1,0 +1,52 @@
+\section{Gabarito e resoluções comentadas — Engenharia de Software}
+
+\begin{solucao}{12.01}\textbf{Gabarito: A.} Incrementalidade significa acrescentar funcionalidades em parcelas sucessivas. Não exige entrega única, ausência de revisão ou eliminação de testes.\end{solucao}
+\begin{solucao}{12.02}\textbf{Gabarito: A.} Requisito funcional descreve o que o sistema faz. Tempo de resposta é típico requisito não funcional; tecnologia, orçamento e equipe são restrições/decisões de outra natureza.\end{solucao}
+\begin{solucao}{12.03}\textbf{Gabarito: A.} Sprint Backlog reúne itens selecionados e plano de execução. Product Goal é objetivo de longo prazo do produto; Increment é resultado utilizável. Definition of Ready não é elemento obrigatório do Scrum Guide.\end{solucao}
+\begin{solucao}{12.04}\textbf{Gabarito: A.} TDD segue red-green-refactor: teste falha, implementação mínima faz passar e código é refatorado mantendo testes verdes.\end{solucao}
+\begin{solucao}{12.05}\textbf{Gabarito: A.} Teste unitário verifica unidade pequena com isolamento adequado e feedback rápido. Não substitui integração, sistema ou aceitação.\end{solucao}
+\begin{solucao}{12.06}\textbf{Gabarito: A.} Análise estática examina código/artefatos sem execução. As demais alternativas descrevem testes dinâmicos ou situações irrelevantes.\end{solucao}
+\begin{solucao}{12.07}\textbf{Gabarito: A.} CI reduz grandes lotes de integração ao combinar commits frequentes com build e testes automatizados. Não exige containers nem elimina versionamento.\end{solucao}
+\begin{solucao}{12.08}\textbf{Gabarito: A.} Pod é a unidade básica de execução no Kubernetes. Namespace organiza escopo; Ingress trata entrada; ClusterRole define autorização.\end{solucao}
+\begin{solucao}{12.09}\textbf{Gabarito: A.} Métricas, logs e traces formam os sinais clássicos de observabilidade. As demais combinações pertencem a hardware, rede ou Git.\end{solucao}
+\begin{solucao}{12.10}\textbf{Gabarito: A.} MVP busca validar hipótese com a menor solução viável, sem abrir mão de requisitos essenciais. Não é sinônimo de produto inseguro ou protótipo descartável.\end{solucao}
+\begin{solucao}{12.11}\textbf{Gabarito: A.} Critérios de aceitação tornam a história testável e reduzem ambiguidade. IP, RAID e dados de pessoal não completam a semântica do requisito.\end{solucao}
+\begin{solucao}{12.12}\textbf{Gabarito: A.} O requisito estabelece atributo de desempenho com limiar mensurável, logo é não funcional e testável.\end{solucao}
+\begin{solucao}{12.13}\textbf{Gabarito: A.} A Daily serve aos Developers para inspecionar progresso ao Sprint Goal e adaptar o plano. Não é prestação de contas ao Scrum Master nem substitui Review.\end{solucao}
+\begin{solucao}{12.14}\textbf{Gabarito: A.} Limitar WIP reduz trabalho aberto, evidencia gargalos e melhora previsibilidade do fluxo. Multitarefa excessiva tende a aumentar lead time.\end{solucao}
+\begin{solucao}{12.15}\textbf{Gabarito: A.} BDD articula comportamento observável em linguagem comum, frequentemente Given/When/Then. Não substitui todos os demais testes.\end{solucao}
+\begin{solucao}{12.16}\textbf{Gabarito: A.} ATDD antecipa critérios/testes de aceitação e favorece colaboração entre negócio, desenvolvimento e testes.\end{solucao}
+\begin{solucao}{12.17}\textbf{Gabarito: A.} Cobertura mostra o que foi executado, não se os cenários são bons, os asserts fortes ou os requisitos completos. 100\% de linhas não prova correção.\end{solucao}
+\begin{solucao}{12.18}\textbf{Gabarito: A.} Integração verifica colaboração entre componentes e interfaces. Teste unitário trata unidades menores; aceitação e usabilidade possuem objetivos diferentes.\end{solucao}
+\begin{solucao}{12.19}\textbf{Gabarito: A.} Classes de equivalência e valores-limite derivam casos de entradas/saídas sem depender da estrutura interna. Cobertura é caixa-branca.\end{solucao}
+\begin{solucao}{12.20}\textbf{Gabarito: A.} Cobertura de decisão mede estrutura interna e é técnica caixa-branca. NPS e satisfação são métricas de experiência.\end{solucao}
+\begin{solucao}{12.21}\textbf{Gabarito: A.} Continuous delivery mantém software implantável, mas produção pode exigir aprovação. Continuous deployment vai além e automatiza promoção conforme política.\end{solucao}
+\begin{solucao}{12.22}\textbf{Gabarito: A.} Imagem é artefato em camadas usado para instanciar containers. Container é o processo/instância em execução.\end{solucao}
+\begin{solucao}{12.23}\textbf{Gabarito: A.} Service fornece identidade/endereço estável e encaminha a Pods selecionados. Não compila código nem é banco ou cofre de segredos.\end{solucao}
+\begin{solucao}{12.24}\textbf{Gabarito: A.} Readiness indica capacidade de receber tráfego. Liveness trata saúde para reinício; startup pode proteger inicialização lenta.\end{solucao}
+\begin{solucao}{12.25}\textbf{Gabarito: A.} SLI é indicador medido; SLO é objetivo; SLA é compromisso formal conforme relação entre partes. Não são sinônimos.\end{solucao}
+\begin{solucao}{12.26}\textbf{Gabarito: A.} Protótipo valida entendimento e interação, mas não comprova desempenho, segurança, arquitetura ou operabilidade da implementação final.\end{solucao}
+\begin{solucao}{12.27}\textbf{Gabarito: A.} Se tudo é prioridade máxima, nada está realmente priorizado. A consequência é dispersão e aumento de WIP, não geração automática de valor.\end{solucao}
+\begin{solucao}{12.28}\textbf{Gabarito: A.} Pela Lei de Little, $L=\lambda W$. Com throughput estável, maior WIP implica maior tempo médio no sistema.\end{solucao}
+\begin{solucao}{12.29}\textbf{Gabarito: A.} Testes E2E lentos e flaky reduzem confiança. Mais testes rápidos em camadas inferiores e E2E enxutos/estáveis melhoram feedback.\end{solucao}
+\begin{solucao}{12.30}\textbf{Gabarito: A.} Complexidade ciclomática cresce com caminhos de controle e sinaliza maior esforço potencial de compreensão/teste. Não garante defeito nem qualidade.\end{solucao}
+\begin{solucao}{12.31}\textbf{Gabarito: A.} Quality gate existe para impedir promoção de condição não aceita. Exceção deve ser formal e baseada em risco, não simplesmente ignorada.\end{solucao}
+\begin{solucao}{12.32}\textbf{Gabarito: A.} Dependência flutuante produz builds não determinísticos. Pinning, lockfiles, repositórios controlados e artefatos imutáveis melhoram reprodutibilidade.\end{solucao}
+\begin{solucao}{12.33}\textbf{Gabarito: A.} Uma credencial exposta deve ser considerada comprometida: rotacionar/revogar é prioridade, depois remover do histórico quando aplicável e migrar para cofre. .gitignore não apaga histórico.\end{solucao}
+\begin{solucao}{12.34}\textbf{Gabarito: A.} Tag mutável dificulta saber qual digest chegou a produção. Usar digest/tag imutável melhora rollback e rastreabilidade.\end{solucao}
+\begin{solucao}{12.35}\textbf{Gabarito: A.} Liveness acoplada a dependência externa pode reiniciar instâncias saudáveis durante falha externa, criando cascading failure. Readiness é geralmente mais adequada para indisponibilidade temporária de dependência.\end{solucao}
+\begin{solucao}{12.36}\textbf{Gabarito: A.} Autoscaling e failover exigem estado compartilhado/replicado ou modelo stateless. Fixar um Pod elimina elasticidade e não resolve disponibilidade.\end{solucao}
+\begin{solucao}{12.37}\textbf{Gabarito: A.} Trace/correlation ID conecta logs e spans de uma mesma requisição entre serviços, essencial para diagnóstico distribuído.\end{solucao}
+\begin{solucao}{12.38}\textbf{Gabarito: A.} P99 de 8 s mostra que parcela relevante da cauda sofre latência severa. Média de 100 ms mascara esse comportamento.\end{solucao}
+\begin{solucao}{12.39}\textbf{Gabarito: A.} Canary limita blast radius e permite comparar sinais antes da expansão. Não elimina necessidade de testes ou rollback.\end{solucao}
+\begin{solucao}{12.40}\textbf{Gabarito: A.} Feature flag desacopla implantação de exposição e pode apoiar testes, rollout e rollback lógico. Ainda exige limpeza e governança para evitar dívida.\end{solucao}
+\begin{solucao}{12.41}\textbf{Gabarito: A.} O cenário reúne segredo exposto, ausência de segregação e trilha manipulável. A resposta deve atacar IAM, secret management, aprovação e integridade dos logs.\end{solucao}
+\begin{solucao}{12.42}\textbf{Gabarito: A.} Linhas de código são proxy ruim de valor e podem incentivar complexidade desnecessária. Métricas devem equilibrar entrega, qualidade, fluxo e resultado.\end{solucao}
+\begin{solucao}{12.43}\textbf{Gabarito: A.} Cobertura é um indicador entre vários. O auditor deve examinar eficácia dos testes, requisitos críticos, defeitos e evidências de execução. Exigir 100\% não resolve qualidade.\end{solucao}
+\begin{solucao}{12.44}\textbf{Gabarito: A.} Sem rastreabilidade, torna-se difícil provar autorização, implementação, teste e conteúdo da release, fragilizando gestão de mudança e auditoria.\end{solucao}
+\begin{solucao}{12.45}\textbf{Gabarito: A.} Workload privilegiado/hostPath aumenta possibilidade de acessar recursos do host e ampliar comprometimento. Containers não possuem isolamento equivalente a VM por definição.\end{solucao}
+\begin{solucao}{12.46}\textbf{Gabarito: A.} Recompilar por ambiente quebra a garantia de que produção usa exatamente o artefato testado. Build once, promote same artifact melhora integridade e rastreabilidade.\end{solucao}
+\begin{solucao}{12.47}\textbf{Gabarito: A.} Timestamps inconsistentes prejudicam ordem causal, correlação e cadeia de evidência. Sincronização de tempo é controle básico de observabilidade e segurança.\end{solucao}
+\begin{solucao}{12.48}\textbf{Gabarito: A.} Error budget transforma SLO em mecanismo operacional: consumo rápido sinaliza necessidade de reduzir mudanças e investir em confiabilidade, mesmo antes de estourar a média mensal.\end{solucao}
+\begin{solucao}{12.49}\textbf{Gabarito: A.} DevOps não é uma ferramenta. Envolve cultura, fluxo, automação, feedback, compartilhamento de responsabilidade e observabilidade.\end{solucao}
+\begin{solucao}{12.50}\textbf{Gabarito: A.} MVP reduz escopo de valor, não requisitos legais/essenciais. Segurança e privacidade devem ser proporcionais ao risco desde o início.\end{solucao}
