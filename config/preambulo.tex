@@ -81,13 +81,7 @@
 \newtcolorbox{discursiva}[1][]{colback=white,colframe=azulPetroleo,title={Treino discursivo\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
 \newtcolorbox{questao}[1][]{colback=white,colframe=azulMedio,title={Questão #1},fonttitle=\bfseries}
 \newtcolorbox{solucao}[1][]{colback=cinzaClaro,colframe=verdeAcerto,title={Resolução #1},fonttitle=\bfseries}
-\newtcolorbox{mapabox}[1][]{
-  colback=white,
-  colframe=azulPetroleo,
-  title={Mapa mental funcional\ifx\relax#1\relax\else: #1\fi},
-  fonttitle=\bfseries,
-  breakable
-}
+\newtcolorbox{mapabox}[1][]{colback=white,colframe=azulPetroleo,title={Mapa mental funcional\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries,breakable}
 
 \newcommand{\nivel}[1]{\textcolor{ambar}{\textbf{[#1]}}}
 \newcommand{\termo}[1]{\textbf{\color{azulPetroleo}#1}}
@@ -106,13 +100,18 @@
   columns=fullflexible
 }
 
-% Mantido apenas para mapas simples legados. Novos capítulos devem preferir \mapafuncional.
+% Compatibilidade com mapas já escritos. O diagrama passa a ser acompanhado
+% de uma rotina explícita de revisão ativa; novos capítulos devem usar \mapafuncional.
 \newcommand{\mapamental}[2]{%
+\begin{mapabox}[#1]
 \begin{center}
 \begin{tikzpicture}[mindmap,concept color=azulPetroleo,text=white,level 1 concept/.append style={sibling angle=60,font=\small},every node/.style={align=center}]
   \node[concept] {#1} #2;
 \end{tikzpicture}
-\end{center}}
+\end{center}
+\textbf{Como revisar este mapa:} percorra cada ramo partindo do conceito central e explique, sem consultar o texto, (i) a definição, (ii) a relação com os ramos vizinhos e (iii) uma situação em que a banca poderia trocar os conceitos. Em seguida, transforme cada ligação em uma pergunta ``por quê?'' ou ``quando?''. Se não conseguir explicar uma seta ou contraste, retorne à teoria antes de resolver as questões.
+\end{mapabox}
+}
 
 % Mapa funcional: estrutura + relações de prova + pegadinhas + checklist.
 % #1 título; #2 núcleo; #3 estrutura/hierarquia; #4 decisões/relações; #5 pegadinhas; #6 checklist.
