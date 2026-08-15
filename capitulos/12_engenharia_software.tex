@@ -1,0 +1,199 @@
+\chapter{Engenharia de Software}
+
+\section{Produto, processo e qualidade}
+
+Engenharia de software organiza práticas para especificar, construir, testar, entregar, operar e evoluir sistemas com qualidade previsível. Em prova, não reduza a disciplina a ``programar''. Requisitos, arquitetura, testes, configuração, entrega, operação, observabilidade e feedback fazem parte do ciclo de vida.
+
+\begin{teoria}[iterativo e incremental]
+\termo{Iterativo} significa revisitar e refinar a solução em ciclos. \termo{Incremental} significa entregar parcelas funcionais crescentes do produto. Um processo pode ser ambos: a cada iteração, aprende-se e melhora-se o produto, entregando um novo incremento potencialmente utilizável.
+\end{teoria}
+
+\section{Requisitos e experiência do usuário}
+
+Requisitos funcionais descrevem comportamentos/serviços; não funcionais expressam atributos e restrições como desempenho, segurança, disponibilidade, acessibilidade e auditabilidade. Regras de negócio restringem como a organização opera.
+
+Elicitação pode envolver entrevistas, workshops, observação, análise documental, protótipos e pesquisa com usuários. O gerenciamento de requisitos inclui priorização, rastreabilidade, versionamento, tratamento de mudança e validação.
+
+\begin{exemplo}[história e critério de aceitação]
+\textbf{História:} ``Como auditor, quero filtrar contratos por órgão e risco para priorizar fiscalização.''
+
+\textbf{Critério de aceitação:} Dado que existam contratos classificados, quando o auditor selecionar órgão e faixa de risco, então o sistema deve listar apenas registros que satisfaçam ambos os filtros e informar a quantidade total.
+\end{exemplo}
+
+Critérios de aceitação devem ser verificáveis. Prototipação reduz incerteza de entendimento, mas um protótipo não é automaticamente arquitetura final nem requisito completo.
+
+\section{Projeto centrado no usuário e storytelling}
+
+Projeto centrado no usuário considera contexto real, necessidades, limitações e ciclos de avaliação. Storytelling ajuda a comunicar jornada, problema e valor do produto, mas não substitui especificação testável quando ela é necessária.
+
+\section{MVP}
+
+Minimum Viable Product é a menor versão que permite testar hipótese relevante de valor/aprendizado com usuários reais. ``Mínimo'' não significa produto sem qualidade essencial, inseguro ou juridicamente inadequado. Em governo, requisitos de segurança, acessibilidade, proteção de dados e conformidade podem ser não negociáveis já no MVP.
+
+\section{Scrum}
+
+Scrum organiza trabalho adaptativo em ciclos. Papéis/accountabilities fundamentais: Product Owner, Scrum Master e Developers, formando o Scrum Team. Eventos incluem Sprint, Sprint Planning, Daily Scrum, Sprint Review e Sprint Retrospective. Artefatos: Product Backlog, Sprint Backlog e Increment; associados a compromissos como Product Goal, Sprint Goal e Definition of Done.
+
+\begin{cebraspe}
+A Daily Scrum não é reunião de prestação de contas ao Scrum Master. Seu objetivo é inspecionar progresso em direção ao Sprint Goal e adaptar o Sprint Backlog. O Product Owner maximiza valor e gerencia efetivamente o Product Backlog; não é mero ``escrivão de requisitos''.
+\end{cebraspe}
+
+\section{Kanban}
+
+Kanban visualiza fluxo, limita trabalho em progresso (WIP), gerencia fluxo e favorece melhoria contínua. Métricas úteis incluem lead time, cycle time, throughput e WIP. Pela Lei de Little, em sistema estável, uma relação aproximada é:
+\[
+L=\lambda W
+\]
+onde $L$ é quantidade média no sistema, $\lambda$ taxa média de chegada/saída e $W$ tempo médio no sistema.
+
+\section{TDD, BDD e ATDD}
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Prática & Foco \\
+\midrule
+TDD & ciclo teste que falha $\rightarrow$ código mínimo $\rightarrow$ refatoração; orienta design e verificação automatizada. \\
+BDD & comportamento observável e linguagem compartilhada entre negócio e tecnologia; cenários frequentemente em Given/When/Then. \\
+ATDD & critérios/testes de aceitação definidos antes da implementação, colaborativamente. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Nenhuma dessas práticas elimina outros testes. TDD não prova ausência de defeitos; BDD não é sinônimo de ferramenta específica.
+
+\section{Testes de software}
+
+\subsection{Níveis e objetivos}
+
+\begin{itemize}
+\item \textbf{Unitário}: unidade isolada, rápido e localizado.
+\item \textbf{Integração}: interfaces e colaboração entre componentes.
+\item \textbf{Funcional/sistema}: comportamento do sistema frente aos requisitos.
+\item \textbf{Aceitação}: validação do produto em relação a necessidades/critérios.
+\item \textbf{Desempenho}: latência, throughput, recursos e comportamento sob carga.
+\item \textbf{Carga}: comportamento em carga esperada/variada.
+\item \textbf{Vulnerabilidade/segurança}: busca fragilidades e falhas de controles.
+\end{itemize}
+
+Pirâmide de testes é heurística: muitos testes rápidos de baixo nível, menos testes caros ponta a ponta. Contexto pode justificar outras distribuições.
+
+\subsection{Caixa-preta e caixa-branca}
+
+Caixa-preta deriva casos de comportamento especificado: classes de equivalência, valores-limite, tabelas de decisão, transição de estados. Caixa-branca usa estrutura interna: cobertura de instruções, decisões, condições e caminhos.
+
+\begin{atencao}
+Cobertura de código mede execução de estruturas, não correção semântica. 100\% de linhas executadas não garante bons asserts, ausência de defeitos ou cobertura de requisitos.
+\end{atencao}
+
+\section{Análise estática e SonarQube}
+
+Análise estática inspeciona código/artefatos sem executar o programa. Pode identificar vulnerabilidades, bugs prováveis, duplicação, complexidade e problemas de manutenibilidade. SonarQube agrega regras e métricas e pode atuar em quality gates de CI. Resultado de ferramenta deve ser interpretado; falso positivo e falso negativo existem.
+
+\section{Métricas}
+
+Métricas podem cobrir produto, processo e operação: complexidade ciclomática, cobertura, densidade de defeitos, lead time de mudança, frequência de implantação, MTTR e taxa de falha de mudanças. Métrica isolada pode gerar comportamento disfuncional quando vira meta sem contexto.
+
+\section{DevOps e CI/CD}
+
+Integração contínua incentiva commits frequentes, build automatizado e testes. Entrega contínua mantém software em estado implantável; implantação contínua automatiza promoção para produção quando critérios são atendidos. Pipeline típico:
+
+\begin{center}
+\begin{tikzpicture}[node distance=5mm]
+\tikzset{s/.style={draw=azulPetroleo,fill=azulClaro,rounded corners,minimum width=2cm,minimum height=.75cm}}
+\node[s] (c) {Commit}; \node[s,right=of c] (b) {Build}; \node[s,right=of b] (t) {Testes};
+\node[s,right=of t] (sec) {Segurança}; \node[s,right=of sec] (p) {Pacote};
+\node[s,below=of p] (d) {Deploy}; \node[s,left=of d] (m) {Monitorar};
+\draw[-Latex,thick] (c)--(b)--(t)--(sec)--(p)--(d)--(m);
+\end{tikzpicture}
+\end{center}
+
+Segregação de funções, aprovação, trilha de auditoria, assinatura de artefatos e gestão de segredos podem ser controles essenciais em pipelines governamentais.
+
+\section{Docker e Kubernetes}
+
+Imagem é artefato imutável em camadas; contêiner é instância em execução. Dockerfile descreve construção. Volume mantém dados fora da camada efêmera do contêiner.
+
+No Kubernetes, \termo{Pod} é unidade básica de execução; \termo{Deployment} gerencia réplicas e atualizações de aplicações stateless; \termo{Service} oferece acesso estável; \termo{ConfigMap} guarda configuração não secreta; \termo{Secret} guarda dados sensíveis, embora proteção efetiva dependa de criptografia, RBAC e controles do cluster; \termo{Ingress/Gateway} expõe tráfego conforme arquitetura.
+
+\begin{cebraspe}
+Kubernetes não é mecanismo de backup, não torna aplicação automaticamente stateless e não corrige código não resiliente. Readiness probe responde se instância pode receber tráfego; liveness ajuda a detectar necessidade de reinício; startup probe pode proteger aplicações de inicialização lenta.
+\end{cebraspe}
+
+\section{Observabilidade}
+
+Monitoramento acompanha estados conhecidos; observabilidade procura permitir inferir estado interno a partir de sinais. Três sinais clássicos: métricas, logs e traces. Correlação por identificadores facilita seguir requisição entre microsserviços. SLI mede característica; SLO define alvo; SLA é acordo com consequência/compromisso formal.
+
+\section{Mapa mental}
+
+\mapamental{Engenharia de software}{
+ child {node[concept]{Requisitos} child {node[concept]{histórias}} child {node[concept]{aceitação}}}
+ child {node[concept]{Ágil} child {node[concept]{Scrum}} child {node[concept]{Kanban}}}
+ child {node[concept]{Qualidade} child {node[concept]{TDD/BDD}} child {node[concept]{testes}}}
+ child {node[concept]{CI/CD} child {node[concept]{pipeline}} child {node[concept]{Sonar}}}
+ child {node[concept]{Containers} child {node[concept]{Docker}} child {node[concept]{K8s}}}
+ child {node[concept]{Operação} child {node[concept]{observabilidade}}}
+}
+
+\section{Questões por nível}
+
+\begin{questao}{\nivel{N1} 12.1}
+Qual alternativa descreve corretamente um processo incremental?
+\begin{enumerate}[label=\Alph*)]
+\item Todo o sistema é especificado e entregue apenas ao final.
+\item O produto cresce por parcelas funcionais sucessivas.
+\item O código nunca é revisitado.
+\item Cada ciclo obrigatoriamente elimina requisitos anteriores.
+\item Incremento é sinônimo de protótipo descartável.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{12.1}
+\textbf{Gabarito: B.} Incrementalidade adiciona capacidade em parcelas. A descreve abordagem de grande entrega única; C contradiz evolução; D é falsa; E confunde incremento potencialmente útil com protótipo descartável.
+\end{solucao}
+
+\begin{questao}{\nivel{N2} 12.2}
+Uma equipe possui 100\% de cobertura de linhas, mas defeitos de regra de negócio continuam chegando à produção. A conclusão correta é:
+\begin{enumerate}[label=\Alph*)]
+\item cobertura de linhas prova ausência de defeitos, logo os relatos são inválidos.
+\item cobertura mede execução, não qualidade dos asserts nem suficiência dos cenários.
+\item a solução é remover testes unitários.
+\item SonarQube substitui testes funcionais.
+\item apenas testes de carga detectam regras de negócio incorretas.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{12.2}
+\textbf{Gabarito: B.} Cobertura é indicador estrutural. A é absolutista; C elimina feedback útil; D confunde análise estática com validação dinâmica; E restringe indevidamente finalidade de teste de carga.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} 12.3}
+Em Kubernetes, uma aplicação está viva, porém temporariamente incapaz de atender porque ainda carrega cache obrigatório. O mecanismo mais apropriado para evitar encaminhamento de tráfego durante esse período é:
+\begin{enumerate}[label=\Alph*)]
+\item readiness probe.
+\item apenas liveness probe que sempre falha.
+\item apagar o Deployment.
+\item aumentar cobertura unitária.
+\item usar RAID 5.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{12.3}
+\textbf{Gabarito: A.} Readiness informa se o Pod está apto a receber tráfego. Liveness responde à saúde para reinício e não deve ser usada para derrubar processo saudável por indisponibilidade transitória de atendimento. C é desproporcional; D e E não tratam roteamento no cluster.
+\end{solucao}
+
+\begin{questao}{\nivel{N4} 12.4}
+Auditoria identifica pipeline com deploy automático em produção, credencial administrativa fixa no repositório, ausência de revisão para mudança crítica e logs apagáveis pelo mesmo usuário que executa deploy. Qual combinação representa prioridade de controle mais adequada?
+\begin{enumerate}[label=\Alph*)]
+\item manter credencial no repositório, mas aumentar tamanho da senha.
+\item retirar segredos do código, usar gestão de identidade/segredos, aplicar segregação/aprovação baseada em risco e proteger trilha de auditoria contra alteração indevida.
+\item substituir Git por FTP.
+\item remover automação e realizar todas as implantações manualmente.
+\item apenas aumentar cobertura de testes.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{12.4}
+\textbf{Gabarito: B.} O caso envolve segredo exposto, privilégio, segregação e integridade de evidência. A continua expondo segredo; C piora rastreabilidade; D troca risco de automação por erro manual sem atacar governança; E é necessário para qualidade, mas insuficiente para segurança e accountability.
+\end{solucao}
+
+\begin{discursiva}[CI/CD e controle]
+Descreva, em até 30 linhas, controles mínimos que um Auditor/TI esperaria em pipeline CI/CD de sistema que processa dados pessoais e atos de fiscalização, contemplando código-fonte, testes, segredos, artefatos, aprovação, implantação e logs.
+\end{discursiva}
