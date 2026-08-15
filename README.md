@@ -15,7 +15,7 @@ Apostila de preparação para o **Concurso Público do Tribunal de Contas do Est
 
 Edital consultado: https://www.cebraspe.org.br/concursos/tce_ma_26
 
-> **Corte de atualização do conteúdo:** 14/08/2026. O edital admite jurisprudência dos tribunais superiores publicada até 30 dias antes da prova. Por isso, a pasta `atualizacoes/` deve ser revisada até 30/10/2026 e novamente na semana da prova.
+> **Corte de atualização do conteúdo: 15/08/2026.** O material foi estruturado para receber atualizações até a prova de **29/11/2026**. Como o edital admite jurisprudência dos tribunais superiores publicada até 30 dias antes da prova, a pasta `atualizacoes/` deve concentrar revisões de jurisprudência, alterações legislativas, atos do TCE-MA, retificações/comunicados do concurso e mudanças relevantes em normas/standards de TI. Há uma revisão crítica prevista para o marco de **30/10/2026** e outra imediatamente antes da prova.
 
 ## Estrutura da apostila
 
@@ -27,6 +27,7 @@ TCE_Auditor_TI/
 ├── capitulos/
 ├── questoes/
 ├── solucoes/
+├── simulados/
 ├── atualizacoes/
 └── .github/workflows/build-pdf.yml
 ```
@@ -167,12 +168,21 @@ Cada capítulo deve combinar:
 - Inteligência Artificial.
 - Auditoria do Setor Público.
 
+## Treino de prova
+
+- capítulo específico para **peça técnica de até 60 linhas** e **questões discursivas de até 30 linhas**, com espelhos de correção;
+- simulado integral com **100 questões**, sendo 40 de conhecimentos gerais e 60 específicas;
+- gabarito do simulado somente após todas as questões;
+- cálculo de desempenho ponderado conforme os pesos do edital.
+
 ## Compilação
 
 ```bash
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
+O workflow `Build PDF` compila o projeto no GitHub Actions e publica `main.pdf` como artefato `TCE-MA-Auditor-TI-2026`.
+
 ## Referências normativas prioritárias
 
-A apostila trabalha com síntese e aplicação. Para revisão final, conferir fontes oficiais, especialmente Constituição Federal e Estadual, Lei nº 14.133/2021, LAI, LGPD, Lei nº 8.429/1992, Lei Orgânica e Regimento do TCE-MA, INs do TCE-MA, IN SGD/ME nº 94/2022, IN SEGES/ME nº 65/2021, COBIT 2019, ISO/IEC 38500, ITIL 4, ISO 31000, COSO, PMBOK 8ª edição, BPMN, ISO/IEC 27001/27002/27005, ISO 22301, NIST, DAMA-DMBOK, ISSAI e NBASP.
+A apostila trabalha com síntese e aplicação. Para revisão final, conferir fontes oficiais, especialmente Constituição Federal e Estadual, Lei nº 14.133/2021, LAI, LGPD, Lei nº 8.429/1992, Lei Orgânica e Regimento do TCE-MA, INs do TCE-MA, IN SGD/ME nº 94/2022, IN SEGES/ME nº 65/2021, COBIT 2019, ISO/IEC 38500, ITIL 4, ISO 31000, COSO, PMBOK, BPMN, ISO/IEC 27001/27002/27005, ISO 22301, NIST, DAMA-DMBOK, ISSAI e NBASP.
