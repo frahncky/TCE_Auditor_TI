@@ -1,190 +1,222 @@
 \chapter{Segurança da Informação}
 
-\section{Princípios e modelo de proteção}
+\section{Segurança como gestão de risco}
 
-\begin{teoria}[propriedades de segurança]
+Segurança não é um produto, mas um sistema de decisões sobre ativos, ameaças, vulnerabilidades, impacto, controles e risco residual. Para Auditor/TI, a pergunta não é apenas ``existe firewall?''; é ``qual risco o controle deveria reduzir, como está configurado, quem o administra, que evidência demonstra funcionamento e o que ocorre quando falha?''.
+
+\begin{teoria}[propriedades fundamentais]
 \begin{itemize}
-\item \textbf{Confidencialidade}: informação acessível somente a entidades autorizadas.
-\item \textbf{Integridade}: proteção contra alteração ou destruição não autorizada e preservação de exatidão/completude.
+\item \textbf{Confidencialidade}: acesso/divulgação apenas a entidades autorizadas.
+\item \textbf{Integridade}: proteção de exatidão e completude contra alteração/destruição indevida.
 \item \textbf{Disponibilidade}: acesso e uso quando necessário.
 \item \textbf{Autenticidade}: confiança na identidade/origem.
-\item \textbf{Responsabilização (accountability)}: capacidade de associar ações a entidades e manter evidência.
-\item \textbf{Não repúdio}: mecanismos que dificultam negar autoria/participação em uma transação, dentro do modelo jurídico e criptográfico aplicável.
+\item \textbf{Accountability}: capacidade de atribuir ações e preservar evidência.
+\item \textbf{Não repúdio}: mecanismos que sustentam impossibilidade prática/jurídica de negar determinada ação, conforme contexto.
 \end{itemize}
 \end{teoria}
 
-Segurança eficaz trabalha em \termo{defesa em profundidade}: controles preventivos, detectivos, corretivos e compensatórios em pessoas, processos e tecnologia. Nenhum controle isolado deve ser tratado como garantia absoluta.
+As propriedades podem entrar em tensão. Criptografia forte sem gestão de chaves pode prejudicar disponibilidade; logging detalhado pode ampliar exposição de dados pessoais; disponibilidade extrema pode aumentar custo. Segurança é otimização orientada por risco.
 
-\section{Política e gestão de segurança}
+\section{Política, normas, procedimentos e governança}
 
-Política define direção e princípios. Normas/padrões tornam requisitos mais específicos; procedimentos detalham execução; guias orientam boas práticas. Em governança, documentos precisam de dono, escopo, aprovação, comunicação, revisão e mecanismos de conformidade.
+Política define direção e princípios de alto nível. Normas/padrões detalham requisitos obrigatórios. Procedimentos descrevem execução. Guias recomendam práticas. Para serem controles, esses documentos precisam de owner, escopo, aprovação, comunicação, revisão e mecanismo de conformidade.
 
-Privilégio mínimo concede apenas acessos necessários; need-to-know limita acesso conforme necessidade; segregação de funções reduz possibilidade de uma pessoa iniciar, aprovar e ocultar operação crítica.
+\subsection{Defesa em profundidade}
+
+Defesa em profundidade combina camadas para evitar que uma única falha comprometa o objetivo. Um sistema crítico pode ter MFA, segmentação, EDR, hardening, logging, backup imutável e revisão de privilégios. As camadas não devem depender da mesma causa comum.
+
+\section{Identidade, autenticação e autorização}
+
+\subsection{Fatores}
+
+Conhecimento: senha/PIN. Posse: token, smartcard, dispositivo. Inerência: biometria. MFA combina categorias distintas. Duas senhas são duas credenciais do mesmo fator.
+
+\subsection{Autenticação versus autorização}
+
+Autenticação responde ``quem é?''. Autorização responde ``o que pode fazer?''. Uma identidade autenticada pode continuar indevidamente superprivilegiada.
+
+\subsection{RBAC, ABAC e privilégio mínimo}
+
+RBAC associa permissões a papéis. ABAC avalia atributos de usuário, recurso, ação e contexto. Privilégio mínimo reduz permissões e duração. Just-in-time e privileged access management reduzem exposição de privilégios permanentes.
+
+\subsection{Contas administrativas}
+
+Administradores devem usar contas nominativas e separadas das contas comuns quando risco justificar. Conta compartilhada enfraquece accountability. Logs devem ser enviados a repositório em que o próprio administrador monitorado não possa apagá-los sem trilha.
 
 \section{Segurança física e lógica}
 
-Controles físicos: perímetro, vigilância, controle de entrada, ambiente, energia, incêndio e descarte seguro. Controles lógicos: autenticação, autorização, criptografia, hardening, firewall, EDR, logging, patching e segmentação. Um data center pode ser logicamente seguro e fisicamente vulnerável — e vice-versa.
+Segurança física protege instalações, energia, climatização, mídia e acesso. Controles: zonas, crachá, biometria, vigilância, sensores, UPS/gerador, combate a incêndio e descarte seguro.
 
-\section{Autenticação e autorização}
+Segurança lógica: IAM, firewall, EDR, hardening, patching, criptografia, segmentação, monitoramento e backup. Uma organização pode ter excelente firewall e falhar por acesso físico não controlado ao console ou mídia.
 
-Fatores clássicos: algo que o usuário sabe, possui ou é. MFA exige fatores de categorias distintas; duas senhas não formam autenticação multifator. Tokens podem ser físicos ou lógicos. Biométricos têm taxas de falso aceite e falsa rejeição e não são ``segredos'' facilmente substituíveis.
-
-Autenticação responde \emph{quem é?}; autorização, \emph{o que pode fazer?}. Modelos incluem RBAC (papéis), ABAC (atributos/políticas) e DAC/MAC em outros contextos.
-
-\section{Malware e golpes}
+\section{Malwares}
 
 \begin{table}[ht]
 \centering
 \small
 \begin{tabularx}{\textwidth}{l X}
 \toprule
-Ameaça & Característica \\
+Tipo & Característica \\
 \midrule
-Vírus & anexa-se/associa-se a conteúdo hospedeiro e depende de execução para propagação. \\
-Worm & propaga-se autonomamente, tipicamente explorando rede/vulnerabilidades. \\
-Trojan & aparenta função legítima enquanto executa ação maliciosa; não implica autorreplicação. \\
-Rootkit & busca ocultar presença e manter acesso privilegiado. \\
-Spyware & coleta informações sem consentimento adequado. \\
-Adware & exibe publicidade e pode incorporar rastreamento indesejado. \\
-Backdoor & caminho oculto/alternativo de acesso, legítimo ou malicioso conforme contexto. \\
-Bot/botnet & host controlado remotamente; conjunto coordenado forma botnet. \\
-Ransomware & bloqueia/cripta dados ou extorque por ameaça de vazamento; variantes modernas combinam exfiltração e indisponibilidade. \\
+Vírus & associa-se a hospedeiro e se replica mediante execução. \\
+Worm & propaga-se autonomamente, frequentemente pela rede. \\
+Trojan & disfarça-se como software legítimo; não implica autorreplicação. \\
+Rootkit & oculta presença e mantém acesso privilegiado. \\
+Spyware & coleta dados indevidamente. \\
+Adware & exibe anúncios/rastreia; pode ser indesejado ou malicioso. \\
+Backdoor & caminho oculto/alternativo de acesso. \\
+Keylogger & captura teclas/entrada. \\
+Bot/botnet & host controlado remotamente; botnet coordena múltiplos hosts. \\
+Ransomware & cifra/bloqueia e/ou exfiltra dados para extorsão. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Phishing usa engenharia social para induzir vítima; spear phishing é direcionado. Pharming redireciona tráfego para destino fraudulento por manipulação de resolução/roteamento/configuração. Hoax é boato fraudulento. Advance fee fraud promete benefício futuro em troca de pagamento antecipado.
+\section{Engenharia social e golpes}
 
-\section{Ataques em rede e aplicação}
+Phishing usa mensagem fraudulenta para induzir ação. Spear phishing é direcionado. Pharming redireciona vítima por manipulação de resolução/configuração. Advance fee fraud promete benefício mediante pagamento antecipado. Hoax é boato enganoso.
 
-\subsection{Reconhecimento e interceptação}
-Scan identifica hosts, portas e serviços. Sniffing captura tráfego. Spoofing falsifica identidade/origem em algum nível, como IP, e-mail ou ARP. Brute force tenta credenciais/chaves por repetição; credential stuffing reutiliza pares vazados.
+Ataques modernos combinam canais: e-mail, SMS, voz, mensageria e QR code. Treinamento isolado não basta; filtros, autenticação resistente a phishing, proteção de domínio e confirmação fora de banda reduzem risco.
 
-\subsection{DoS e DDoS}
-Negação de serviço esgota recurso ou explora falha para indisponibilizar serviço. DDoS distribui origem por múltiplos agentes. Mitigação pode envolver rate limiting, filtragem, CDN/anti-DDoS, capacidade, anycast, proteção na operadora e desenho resiliente.
+\section{Ataques em rede e aplicações}
 
-\subsection{SQL injection e buffer overflow}
-SQL injection ocorre quando entrada não confiável altera estrutura semântica de consulta. Controles centrais: consultas parametrizadas/prepared statements, validação, privilégio mínimo e tratamento seguro de erros. Buffer overflow ocorre quando escrita excede região prevista, podendo corromper memória e controle de fluxo; mitigadores incluem linguagens seguras, bounds checking, ASLR, DEP/NX e stack canaries.
+\subsection{Reconhecimento}
 
-\section{DMZ, firewall, IDS, IPS e proxy}
+Scan identifica hosts/portas/serviços. Reconhecimento pode ser passivo ou ativo. Detecção depende de volume e padrão: scanners lentos/distribuídos podem escapar de thresholds simples.
 
-DMZ isola serviços expostos da rede interna. Firewall aplica política de filtragem; stateful firewall acompanha estado de conexões. WAF inspeciona tráfego de aplicação web. IDS detecta e alerta; IPS atua inline e pode bloquear. Proxy intermedeia conexões; reverse proxy fica diante de servidores e pode terminar TLS, balancear e aplicar políticas.
+\subsection{Spoofing e sniffing}
+
+Spoofing falsifica identidade/origem em algum protocolo: e-mail, IP, ARP. ARP poisoning pode viabilizar man-in-the-middle em LAN. Sniffing captura tráfego; criptografia fim a fim reduz exposição do conteúdo, mas metadados podem permanecer visíveis.
+
+\subsection{Força bruta, spraying e stuffing}
+
+Brute force tenta muitas combinações. Password spraying tenta poucas senhas comuns contra muitas contas. Credential stuffing usa credenciais vazadas. Controles: MFA, rate limiting, detecção comportamental, senhas únicas e proteção de identidade.
+
+\subsection{DoS/DDoS}
+
+DoS busca indisponibilidade por exaustão ou exploração. DDoS distribui agentes. Ataques podem ser volumétricos, de protocolo ou aplicação. Mitigação envolve capacidade, CDN/anycast, scrubbing, rate limiting, filtros e desenho resiliente.
+
+\subsection{SQL injection}
+
+Entrada não confiável altera estrutura da consulta. Prepared statements são controle primário. Validação e privilégio mínimo reduzem superfície/impacto. WAF é compensatório e pode ser contornado; não substitui correção.
+
+\subsection{Buffer overflow}
+
+Escrita fora de limite pode corromper memória e controle de fluxo. Linguagens memory-safe, checagem de limites, ASLR, DEP/NX, stack canaries e CFI reduzem exploração. Mitigadores não tornam código vulnerável aceitável.
+
+\section{Ransomware}
+
+Ransomware moderno combina acesso inicial, movimento lateral, escalada, desativação de controles, exfiltração e criptografia. Estratégia de defesa precisa cobrir todo o kill chain.
+
+\subsection{Controles preventivos}
+
+MFA resistente a phishing, patching, EDR, restrição de macros/scripts, segmentação, privilégio mínimo, PAM e bloqueio de credenciais administrativas em estações comuns.
+
+\subsection{Controles de recuperação}
+
+Backup imutável/offline, credenciais separadas do domínio principal, retenção, cópias fora do ambiente e testes de restauração. Backup montado permanentemente sob mesma conta é alvo adicional.
+
+\subsection{Resposta}
+
+Conter sem destruir evidência; isolar hosts/segmentos; revogar credenciais; preservar logs/imagens; identificar escopo; recuperar de fonte limpa; notificar partes conforme obrigações. Pagamento de resgate não garante recuperação nem elimina vazamento.
+
+\section{DMZ, firewall, IDS, IPS, proxy e análise de tráfego}
+
+DMZ separa serviços expostos. Firewalls stateful acompanham conexões; NGFW pode inspecionar aplicação. WAF protege camada web. IDS detecta; IPS bloqueia inline. Proxy forward representa clientes; reverse proxy representa servidores.
+
+Análise de tráfego observa fluxo, volume, protocolo, sessão e conteúdo quando disponível. NetFlow/IPFIX fornece metadados; packet capture oferece detalhe maior com custo e questões de privacidade.
 
 \begin{cebraspe}
-IDS não é sinônimo de IPS. Firewall não detecta toda ameaça. WAF não substitui correção de vulnerabilidade. DMZ não é ``rede sem proteção'', mas uma zona com controles e exposição deliberadamente limitada.
+DMZ não é zona sem proteção; é zona de exposição controlada. IDS não é IPS. NAT não é firewall por definição. VPN não garante integridade do endpoint. WAF não corrige código vulnerável.
 \end{cebraspe}
 
 \section{VPN}
 
-VPN cria canal lógico protegido sobre rede não confiável. Pode ser site-to-site ou acesso remoto. IPsec atua em camada de rede, com AH/ESP conforme arquitetura; TLS sustenta várias VPNs de aplicação/transporte. VPN não garante que endpoint esteja íntegro: dispositivo comprometido pode entrar no túnel legitimamente.
+VPN cria túnel lógico seguro sobre rede subjacente. Pode ser site-to-site ou remote access. IPsec protege camada de rede; TLS sustenta diversas VPNs de aplicação. Split tunneling reduz tráfego corporativo, mas pode criar caminho entre Internet e rede interna dependendo do endpoint/política.
+
+Zero Trust questiona confiança implícita por localização: identidade, dispositivo, contexto e recurso devem ser avaliados continuamente.
 
 \section{Criptografia}
 
-\subsection{Simétrica e assimétrica}
-Criptografia simétrica usa segredo compartilhado e é eficiente para grandes volumes. Assimétrica usa par de chaves e permite casos como troca de chaves e assinaturas. Em sistemas reais, arquiteturas híbridas usam assimétrica para autenticação/acordo e simétrica para dados.
+\subsection{Simétrica}
 
-AES é cifra simétrica moderna. RSA e criptografia de curvas elípticas são assimétricas. Hash criptográfico produz resumo de tamanho fixo e deve resistir, conforme propriedade, a preimagem, segunda preimagem e colisão. Hash não é criptografia reversível.
+AES é cifra simétrica moderna. Modos de operação determinam como blocos são usados; modos autenticados como GCM fornecem confidencialidade e integridade/autenticidade de mensagem. Reutilizar nonce de forma incorreta pode quebrar segurança em determinados modos.
+
+\subsection{Assimétrica}
+
+RSA e curvas elípticas usam par público/privado. A chave privada deve ser protegida. Criptografia assimétrica é mais custosa e geralmente usada para autenticação, assinatura ou acordo de chaves; dados em volume usam chave simétrica de sessão.
+
+\subsection{Hash e MAC}
+
+Hash produz digest. HMAC combina hash com segredo para autenticidade/integridade entre partes que compartilham chave. Passwords devem usar funções de derivação lentas/memory-hard apropriadas e salt, não hash rápido simples.
 
 \subsection{Assinatura digital}
-Em modelo simplificado, o signatário calcula hash e gera assinatura com operação vinculada à sua chave privada; verificação usa a chave pública. Assinatura busca autenticidade, integridade e não repúdio técnico/jurídico conforme infraestrutura. \textbf{Não fornece confidencialidade por si.}
 
-\section{PKI e certificados}
+O signatário produz assinatura sobre representação do conteúdo com sua chave privada; verificação usa chave pública. Assinatura não fornece confidencialidade automaticamente.
 
-PKI associa identidades a chaves públicas por certificados. Autoridade Certificadora emite/assina certificados; Autoridade de Registro valida identidades conforme política. Cadeia de confiança liga certificado final a âncora confiável. Revogação pode ser consultada por CRL/OCSP conforme ecossistema.
+\section{PKI e certificação digital}
+
+Certificado liga identidade a chave pública. CA emite/assina; RA pode validar identidade. Cadeia termina em trust anchor. Certificados têm validade e podem ser revogados. CRL e OCSP tratam status de revogação conforme ecossistema.
+
+Gestão de certificados é operação crítica: inventário, renovação, proteção de chave privada, algoritmo adequado e revogação. Expiração é causa frequente de indisponibilidade.
 
 \section{Honeypots e honeynets}
 
-Honeypot é recurso deliberadamente atrativo/monitorado para detectar, estudar ou desviar atividade maliciosa. Honeynet é rede de honeypots/ambiente de engodo. Exigem isolamento e monitoramento: um honeypot comprometido não pode virar plataforma de ataque a terceiros.
+Honeypots oferecem serviço deliberadamente monitorado para detectar/estudar atividade. Low-interaction simula componentes; high-interaction oferece ambiente mais realista e arriscado. Honeynet agrupa sistemas de engodo. Egress deve ser restringido para evitar uso como pivô.
 
 \section{Gestão de riscos}
 
-Risco relaciona ativos/objetivos, ameaças, vulnerabilidades, probabilidade e impacto. Tratamentos típicos: evitar, mitigar/modificar, transferir/compartilhar ou aceitar. Risco inerente é o risco antes de controles; residual permanece após controles.
+Risco pode ser modelado como combinação de probabilidade e impacto, mas avaliações qualitativas também são válidas. Componentes: ativo/objetivo, ameaça, vulnerabilidade, controles, probabilidade, impacto e incerteza.
 
-\begin{exemplo}[quantificação simplificada]
-Se um incidente tem perda esperada de R\$ 500 mil por ocorrência e frequência média estimada de 0,2/ano, a perda anual esperada simplificada é $500000\times0{,}2=R\$100000$. Esse cálculo apoia decisão, mas não captura caudas, incerteza e efeitos não financeiros.
+\subsection{Inerente e residual}
+
+Inerente é antes de controles. Residual permanece depois. Tratamentos: evitar, mitigar, transferir/compartilhar ou aceitar. Aceitação exige autoridade e aderência a apetite/tolerância, não simples omissão.
+
+\begin{exemplo}[ALE simplificada]
+Se SLE = R\$ 500 mil e frequência anual estimada = 0,2, ALE = R\$ 100 mil. O número é ferramenta de decisão, não verdade exata; impactos jurídicos e reputacionais podem não caber na fórmula.
 \end{exemplo}
 
 \section{ISO/IEC 27001, 27002 e 27005}
 
-ISO/IEC 27001 estabelece requisitos para sistema de gestão de segurança da informação (SGSI). ISO/IEC 27002 fornece orientações de controles. ISO/IEC 27005 trata gestão de riscos de segurança da informação. A prova pode exigir a diferença entre \textbf{requisito de sistema de gestão}, \textbf{catálogo/orientação de controles} e \textbf{processo de risco}.
+ISO/IEC 27001 estabelece requisitos de um SGSI: contexto, liderança, planejamento, suporte, operação, avaliação de desempenho e melhoria, com controles referenciados no Anexo A. ISO/IEC 27002 orienta implementação/considerações de controles. ISO/IEC 27005 orienta gestão de riscos de segurança.
 
-\section{Continuidade de negócio}
+Certificação sempre tem \textbf{escopo}. Um provedor certificado não transfere automaticamente certificação ao cliente nem comprova configuração segura do workload.
 
-Análise de impacto no negócio (BIA) identifica processos críticos, dependências e impactos ao longo do tempo. RTO é tempo-alvo para restabelecimento; RPO é ponto no tempo até o qual dados devem ser recuperados, equivalendo à perda temporal tolerável. MTPD/MAO refere-se ao período máximo tolerável de interrupção conforme terminologia adotada.
+\section{Continuidade de negócios}
 
-Planos precisam ser testados. Backup sem restauração testada é evidência insuficiente de recuperabilidade.
+BIA identifica processos, dependências, impactos e tempos críticos. RTO = tempo-alvo de recuperação; RPO = perda temporal tolerável. Estratégia de continuidade define pessoas, locais, tecnologia, fornecedores e dados necessários para cumprir objetivos.
 
-O edital cita ISO/IEC 15999 e também, em governança, ISO 22301. Como 15999 é referência histórica de continuidade, estude a evolução conceitual e priorize os princípios de SG de continuidade: política, BIA, estratégia, planos, exercícios, avaliação e melhoria.
+Planos precisam de exercícios: tabletop, testes técnicos, failover parcial ou completo conforme risco. Teste deve registrar resultado, tempo, falhas e ação corretiva.
+
+O edital cita ISO/IEC 15999, referência histórica de continuidade, e também ISO 22301 em governança. Estude o núcleo: política, BIA, análise de risco, estratégia, planos, exercícios, avaliação e melhoria.
+
+\section{Evidência digital e cadeia de custódia}
+
+Hash calculado na coleta pode demonstrar que a cópia não mudou, mas não prova que a fonte original era autêntntica. Cadeia de custódia documenta quem coletou, quando, onde, como, armazenamento e transferências. Logs precisam de integridade, retenção, sincronização temporal e acesso controlado.
 
 \section{Mapa mental}
 
 \mapamental{Segurança}{
  child {node[concept]{Princípios} child {node[concept]{CIA}} child {node[concept]{accountability}}}
- child {node[concept]{IAM} child {node[concept]{MFA}} child {node[concept]{RBAC}}}
- child {node[concept]{Ameaças} child {node[concept]{malware}} child {node[concept]{phishing}}}
- child {node[concept]{Rede} child {node[concept]{DMZ}} child {node[concept]{IDS/IPS}}}
- child {node[concept]{Cripto} child {node[concept]{AES/RSA}} child {node[concept]{PKI}}}
- child {node[concept]{Gestão} child {node[concept]{27001}} child {node[concept]{risco/BCP}}}
+ child {node[concept]{IAM} child {node[concept]{MFA/RBAC}} child {node[concept]{PAM}}}
+ child {node[concept]{Ameaças} child {node[concept]{malware/phishing}} child {node[concept]{DoS/injection}}}
+ child {node[concept]{Rede} child {node[concept]{DMZ/firewall}} child {node[concept]{IDS/IPS/VPN}}}
+ child {node[concept]{Cripto} child {node[concept]{AES/RSA/hash}} child {node[concept]{PKI}}}
+ child {node[concept]{Gestão} child {node[concept]{27001/27005}} child {node[concept]{risco/BCP}}}
 }
 
-\section{Questões por nível}
+\begin{resumo}
+\textbf{Fixação:} autenticação não é autorização; duas senhas não são MFA; IDS detecta e IPS previne inline; assinatura não cifra por si; certificado do provedor não certifica o cliente; RAID não substitui backup; hash preserva integridade desde a coleta, não veracidade da origem. O auditor deve ligar ameaça, controle, evidência e risco residual.
+\end{resumo}
 
-\begin{questao}{\nivel{N1} 13.1}
-Qual controle tem como função primária detectar tráfego suspeito e gerar alerta, sem necessariamente estar em posição de bloqueio inline?
-\begin{enumerate}[label=\Alph*)]
-\item IDS
-\item IPS obrigatoriamente bloqueante
-\item RAID
-\item NAT
-\item PKI
-\end{enumerate}
-\end{questao}
-\begin{solucao}{13.1}
-\textbf{Gabarito: A.} IDS é tipicamente detectivo. IPS opera inline para prevenir/bloquear conforme política. RAID é armazenamento; NAT traduz endereços; PKI gerencia confiança/chaves/certificados.
-\end{solucao}
+\input{questoes/13_seguranca_informacao}
 
-\begin{questao}{\nivel{N2} 13.2}
-Um usuário autentica-se com senha e PIN enviados pelo mesmo aplicativo. Isso é, por definição, MFA?
-\begin{enumerate}[label=\Alph*)]
-\item Sim, pois há duas sequências secretas.
-\item Sim, desde que cada uma tenha oito caracteres.
-\item Não necessariamente; senha e PIN pertencem ao mesmo fator de conhecimento.
-\item Não, porque MFA só admite biometria e certificado.
-\item Sim, se o canal usar TLS.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{13.2}
-\textbf{Gabarito: C.} MFA combina fatores de categorias diferentes. A/B confundem número de credenciais com fatores; D restringe indevidamente; E protege canal, mas não transforma dois conhecimentos em fatores distintos.
-\end{solucao}
-
-\begin{questao}{\nivel{N3} 13.3}
-Qual propriedade uma assinatura digital oferece diretamente, mas não a criptografia simétrica de dados por si só?
-\begin{enumerate}[label=\Alph*)]
-\item Confidencialidade obrigatória.
-\item Prova vinculada à chave privada do signatário, apoiando autenticidade e integridade.
-\item Compressão sem perdas.
-\item Disponibilidade do serviço.
-\item Anonimização de dados pessoais.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{13.3}
-\textbf{Gabarito: B.} Assinatura vincula assinatura à chave privada e permite verificação com chave pública. Ela não cifra necessariamente o conteúdo (A); C, D e E são propriedades distintas.
-\end{solucao}
-
-\begin{questao}{\nivel{N4} 13.4}
-Auditoria encontra administradores capazes de alterar registros de negócio e apagar os próprios logs de administração. Qual é o principal problema de controle?
-\begin{enumerate}[label=\Alph*)]
-\item ausência de RAID 6.
-\item quebra de segregação e fragilidade de accountability/integridade da trilha de auditoria.
-\item uso de criptografia assimétrica.
-\item excesso de disponibilidade.
-\item inexistência de NAT.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{13.4}
-\textbf{Gabarito: B.} Quem realiza ação crítica não deve poder destruir evidência sem controle independente. A/C/E são tecnologias não relacionadas ao problema central; D é sem sentido no cenário.
-\end{solucao}
-
+\section{Treino discursivo}
 \begin{discursiva}[ransomware]
 Um órgão sofreu ransomware com exfiltração, criptografia de servidores e comprometimento de credenciais administrativas. Backups online estavam acessíveis pelo mesmo domínio. Em até 30 linhas, apresente falhas prováveis, medidas imediatas de resposta e controles estruturais para reduzir recorrência e impacto.
 \end{discursiva}
+\begin{discursiva}[IAM e evidência]
+Em auditoria, 12 administradores usam duas contas compartilhadas e podem excluir logs do SIEM. Em até 30 linhas, estruture um achado com critério, condição, riscos, evidências adicionais e recomendações de IAM/PAM e proteção de logs.
+\end{discursiva}
+
+\input{solucoes/13_seguranca_informacao}
