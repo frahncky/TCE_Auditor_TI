@@ -1,218 +1,470 @@
 \chapter{Raciocínio Lógico}
 
-\section{Estratégia de resolução}
+\section{Fundamentos da lógica proposicional}
 
-Raciocínio lógico exige transformar linguagem natural em estrutura formal. O erro mais comum é calcular antes de modelar.
+A lógica proposicional estuda afirmações às quais se pode atribuir um valor lógico. O ponto de partida é a \termo{proposição}: uma sentença declarativa que pode ser classificada como verdadeira ou falsa. Não é necessário saber, de imediato, qual dos dois valores ela possui; basta que faça sentido atribuir-lhe um deles.
 
-\begin{teoria}[roteiro]
-\begin{enumerate}
-\item identifique as variáveis/proposições;
-\item traduza conectivos e quantificadores;
-\item determine exatamente o que é pedido;
-\item escolha método: equivalência, tabela-verdade, álgebra, conjuntos ou equação;
-\item faça teste de plausibilidade do resultado.
-\end{enumerate}
+Assim, ``O TCE é órgão de controle externo'' é uma proposição. Já ``Feche a porta'', ``Qual é o resultado?'' e ``$x+2=7$'' não são proposições completas: a primeira é uma ordem, a segunda é uma pergunta e a terceira depende do valor da variável $x$.
+
+\begin{teoria}[proposição e sentença aberta]
+Uma \textbf{sentença aberta} contém variável livre e somente se torna proposição depois que a variável é determinada ou quantificada. Por exemplo,
+\[
+P(x): x>10
+\]
+não possui valor lógico enquanto $x$ estiver livre. Já ``para todo $x\in\mathbb{R}$, se $x>10$, então $x>5$'' é uma proposição quantificada.
 \end{teoria}
-
-\section{Proposições}
-
-Proposição é sentença declarativa à qual se pode atribuir valor lógico verdadeiro ou falso. Perguntas, ordens e sentenças abertas com variável livre não são proposições completas.
 
 \subsection{Proposições simples e compostas}
 
-Simples não contêm conectivos lógicos principais. Compostas combinam proposições por negação, conjunção, disjunção, condicional e bicondicional.
+Uma proposição é \termo{simples} quando não possui outra proposição como componente lógico. É \termo{composta} quando resulta da combinação de proposições simples por conectivos.
 
-\section{Conectivos}
+Considere:
+\begin{itemize}
+\item $p$: ``o relatório foi aprovado'';
+\item $q$: ``o processo foi arquivado''.
+\end{itemize}
+
+A expressão ``o relatório foi aprovado e o processo foi arquivado'' corresponde a $p\land q$ e é uma proposição composta.
+
+\section{Conectivos lógicos e tabelas-verdade}
+
+Os conectivos fundamentais determinam o valor lógico da proposição composta a partir dos valores de suas partes.
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{c c c}
+\small
+\begin{tabularx}{\textwidth}{l c X}
 \toprule
-Forma & Símbolo & Verdadeira quando \\
+Operação & Símbolo & Regra de verdade \\
 \midrule
-não $p$ & $\neg p$ & $p$ é falsa \\
-$p$ e $q$ & $p\land q$ & ambas verdadeiras \\
-$p$ ou $q$ & $p\lor q$ & ao menos uma verdadeira \\
-se $p$, então $q$ & $p\to q$ & falsa apenas em $V\to F$ \\
-$p$ se e somente se $q$ & $p\leftrightarrow q$ & mesmos valores \\
+Negação & $\neg p$ & inverte o valor lógico de $p$. \\
+Conjunção & $p\land q$ & verdadeira somente quando $p$ e $q$ são verdadeiras. \\
+Disjunção inclusiva & $p\lor q$ & falsa somente quando $p$ e $q$ são falsas. \\
+Disjunção exclusiva & $p\oplus q$ & verdadeira quando exatamente uma das proposições é verdadeira. \\
+Condicional & $p\to q$ & falsa somente quando $p$ é verdadeira e $q$ é falsa. \\
+Bicondicional & $p\leftrightarrow q$ & verdadeira quando $p$ e $q$ possuem o mesmo valor lógico. \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
-A disjunção lógica padrão é inclusiva, salvo indicação em contrário.
+\subsection{Tabela-verdade completa}
 
-\section{Condicional}
+\begin{center}
+\begin{tabular}{cc|ccccc}
+\toprule
+$p$ & $q$ & $p\land q$ & $p\lor q$ & $p\oplus q$ & $p\to q$ & $p\leftrightarrow q$ \\
+\midrule
+V & V & V & V & F & V & V \\
+V & F & F & V & V & F & F \\
+F & V & F & V & V & V & F \\
+F & F & F & F & F & V & V \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-$p\to q$ pode ser lida como ``$p$ é condição suficiente para $q$'' e ``$q$ é condição necessária para $p$''.
+A disjunção representada por $\lor$ é, em regra, \textbf{inclusiva}: admite que as duas proposições sejam verdadeiras simultaneamente. Expressões como ``ou...ou'', quando o contexto exigir exclusividade, podem ser modeladas por $\oplus$.
 
-\begin{atencao}
-A recíproca $q\to p$ não é equivalente à condicional. A contrapositiva $\neg q\to\neg p$ é equivalente.
+\begin{exemplo}[disjunção inclusiva e exclusiva]
+``O servidor possui graduação em Direito ou Administração'' pode ser verdadeira se ele possuir as duas graduações: leitura inclusiva.
+
+``Ou o equipamento está ligado à rede A ou está ligado à rede B, mas não às duas'' explicita exclusividade: exatamente uma condição deve ocorrer.
+\end{exemplo}
+
+\subsection{Número de linhas da tabela-verdade}
+
+Se uma proposição composta contém $n$ proposições simples logicamente independentes, a tabela-verdade possui
+\[
+2^n
+\]
+linhas. Com três proposições simples, são $2^3=8$ combinações; com cinco, $2^5=32$.
+
+\subsection{Precedência dos conectivos}
+
+Quando não há parênteses suficientes para eliminar ambiguidades, usa-se uma precedência convencional. Uma ordem didática comum é:
+\[
+\neg \quad > \quad \land \quad > \quad \lor \quad > \quad \to \quad > \quad \leftrightarrow.
+\]
+
+Parênteses sempre prevalecem. Em prova, a leitura correta da estrutura é mais importante que memorizar uma convenção isoladamente.
+
+\section{A condicional em profundidade}
+
+A proposição $p\to q$ é chamada condicional. $p$ é o \termo{antecedente} e $q$ é o \termo{consequente}. Ela somente é falsa quando o antecedente ocorre e o consequente não ocorre.
+
+\subsection{Condição suficiente e condição necessária}
+
+Em
+\[
+p\to q,
+\]
+$p$ é condição \textbf{suficiente} para $q$, enquanto $q$ é condição \textbf{necessária} para $p$.
+
+Considere:
+
+\begin{quote}
+Se um processo foi julgado definitivamente, então existe decisão final registrada.
+\end{quote}
+
+``Ser julgado definitivamente'' é suficiente para concluir que existe decisão final registrada. A existência de decisão final é necessária para que a primeira condição seja verdadeira.
+
+\begin{atencao}[somente se]
+A expressão ``$p$ somente se $q$'' significa $p\to q$. Portanto, em ``o acesso é liberado somente se houver autenticação'', autenticação é condição necessária para liberação.
 \end{atencao}
+
+\subsection{Recíproca, inversa e contrapositiva}
+
+A partir de $p\to q$:
+\begin{itemize}
+\item \textbf{recíproca}: $q\to p$;
+\item \textbf{inversa}: $\neg p\to\neg q$;
+\item \textbf{contrapositiva}: $\neg q\to\neg p$.
+\end{itemize}
+
+A proposição original é logicamente equivalente à contrapositiva:
+\[
+p\to q\equiv\neg q\to\neg p.
+\]
+A recíproca e a inversa são equivalentes entre si, mas não, em geral, à proposição original.
+
+\begin{exemplo}[contrapositiva]
+Se todo backup válido possui cópia íntegra, então, ao constatar que uma cópia não é íntegra, pode-se concluir pela contrapositiva que ela não constitui backup válido segundo a premissa adotada.
+
+Não se pode concluir, porém, que toda cópia íntegra seja necessariamente um backup válido. Isso seria afirmar a recíproca.
+\end{exemplo}
 
 \section{Equivalências lógicas}
 
-\subsection{Condicional}
-\[
-p\to q\equiv \neg p\lor q.
-\]
+Duas proposições são logicamente equivalentes quando possuem o mesmo valor lógico em todas as valorações possíveis. As equivalências permitem simplificar expressões e resolver questões sem construir tabelas completas.
 
-\subsection{Negação da condicional}
-\[
-\neg(p\to q)\equiv p\land\neg q.
-\]
+\subsection{Equivalências fundamentais}
+
+\begin{align*}
+p\to q &\equiv \neg p\lor q,\\
+\neg(p\to q) &\equiv p\land\neg q,\\
+p\leftrightarrow q &\equiv (p\to q)\land(q\to p),\\
+p\leftrightarrow q &\equiv (p\land q)\lor(\neg p\land\neg q).
+\end{align*}
 
 \subsection{Leis de De Morgan}
+
+\begin{align*}
+\neg(p\land q) &\equiv \neg p\lor\neg q,\\
+\neg(p\lor q) &\equiv \neg p\land\neg q.
+\end{align*}
+
+A negação ``entra'' na expressão trocando conjunção por disjunção, ou disjunção por conjunção, e negando cada componente.
+
+\begin{exemplo}[negação correta]
+A negação de ``o sistema está disponível e o banco está íntegro'' é:
+
+``o sistema não está disponível \textbf{ou} o banco não está íntegro''.
+
+Não é necessário que as duas condições falhem simultaneamente.
+\end{exemplo}
+
+\subsection{Outras leis úteis}
+
+\begin{align*}
+\neg\neg p &\equiv p,\\
+p\land p &\equiv p,\\
+p\lor p &\equiv p,\\
+p\land q &\equiv q\land p,\\
+p\lor q &\equiv q\lor p,\\
+p\land(q\lor r)&\equiv(p\land q)\lor(p\land r),\\
+p\lor(q\land r)&\equiv(p\lor q)\land(p\lor r).
+\end{align*}
+
+Também são importantes as leis de absorção:
 \[
-\neg(p\land q)\equiv \neg p\lor\neg q,
-\]
-\[
-\neg(p\lor q)\equiv \neg p\land\neg q.
+p\lor(p\land q)\equiv p,
+\qquad
+p\land(p\lor q)\equiv p.
 \]
 
-\subsection{Bicondicional}
-\[
-p\leftrightarrow q\equiv(p\to q)\land(q\to p).
-\]
+\section{Negação de estruturas frequentes}
+
+A negação deve atuar sobre o \textbf{escopo completo} da afirmação.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+Proposição & Negação \\
+\midrule
+$p\land q$ & $\neg p\lor\neg q$ \\
+$p\lor q$ & $\neg p\land\neg q$ \\
+$p\to q$ & $p\land\neg q$ \\
+$p\leftrightarrow q$ & $(p\land\neg q)\lor(\neg p\land q)$ \\
+Todo A é B & Existe pelo menos um A que não é B \\
+Nenhum A é B & Existe pelo menos um A que é B \\
+Algum A é B & Nenhum A é B \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{cebraspe}
+``Nem todos os contratos foram auditados'' equivale a ``pelo menos um contrato não foi auditado''. Não equivale a ``nenhum contrato foi auditado''.
+\end{cebraspe}
 
 \section{Tautologia, contradição e contingência}
 
-Tautologia é sempre verdadeira; contradição, sempre falsa; contingência assume ambos os valores conforme a valoração.
+Uma \termo{tautologia} é verdadeira em todas as valorações. Uma \termo{contradição} é falsa em todas. Uma \termo{contingência} é verdadeira em algumas e falsa em outras.
 
-Exemplos:
+Exemplos clássicos:
 \[
-p\lor\neg p \quad \text{tautologia},
+p\lor\neg p \quad \text{é tautologia},
 \]
 \[
-p\land\neg p \quad \text{contradição}.
+p\land\neg p \quad \text{é contradição}.
 \]
 
-\section{Argumentos e validade}
-
-Um argumento é válido quando não existe situação em que todas as premissas sejam verdadeiras e a conclusão falsa.
-
-\subsection{Modus ponens}
+A expressão
 \[
-p\to q,\ p\ \therefore q.
+(p\to q)\leftrightarrow(\neg q\to\neg p)
 \]
+é uma tautologia porque expressa a equivalência entre a condicional e sua contrapositiva.
 
-\subsection{Modus tollens}
+\subsection{Técnica da busca de contraexemplo}
+
+Para provar que uma expressão \textbf{não} é tautologia, basta encontrar uma valoração em que ela seja falsa. Para testar um argumento, basta procurar uma situação em que todas as premissas sejam verdadeiras e a conclusão falsa.
+
+Essa técnica é especialmente eficiente em itens Certo/Errado: um único contraexemplo destrói uma afirmação universal.
+
+\section{Argumentação lógica e validade}
+
+Um argumento possui premissas e conclusão. Ele é \termo{válido} quando é impossível que todas as premissas sejam verdadeiras e a conclusão seja falsa simultaneamente.
+
+Validade é propriedade da \textbf{forma lógica}; não significa que as premissas sejam factualmente verdadeiras.
+
+\subsection{Regras clássicas de inferência}
+
+\paragraph{Modus ponens}
 \[
-p\to q,\ \neg q\ \therefore \neg p.
+p\to q,\quad p \quad\therefore\quad q.
 \]
 
-Afirmar o consequente e negar o antecedente são falácias formais.
-
-\section{Quantificadores}
-
-\subsection{Universal e existencial}
-
-``Todo A é B'' pode ser representado por $\forall x(A(x)\to B(x))$.
-
-``Algum A é B'' corresponde a $\exists x(A(x)\land B(x))$.
-
-\subsection{Negação}
-
+\paragraph{Modus tollens}
 \[
-\neg\forall x\,P(x)\equiv\exists x\,\neg P(x),
+p\to q,\quad \neg q \quad\therefore\quad \neg p.
 \]
+
+\paragraph{Silogismo hipotético}
 \[
-\neg\exists x\,P(x)\equiv\forall x\,\neg P(x).
+p\to q,\quad q\to r \quad\therefore\quad p\to r.
 \]
 
-Logo, negar ``todos foram aprovados'' é ``pelo menos um não foi aprovado'', e não ``nenhum foi aprovado''.
+\paragraph{Silogismo disjuntivo}
+\[
+p\lor q,\quad \neg p \quad\therefore\quad q.
+\]
 
-\section{Diagramas lógicos}
+\subsection{Falácias formais recorrentes}
 
-Relações categóricas podem ser representadas por conjuntos:
+\textbf{Afirmação do consequente}:
+\[
+p\to q,\quad q \quad\therefore\quad p.
+\]
+É inválida.
+
+\textbf{Negação do antecedente}:
+\[
+p\to q,\quad \neg p \quad\therefore\quad \neg q.
+\]
+Também é inválida.
+
+\begin{exemplo}[validade e verdade]
+Premissas: ``Se todo auditor é médico, então Ana é médica'' e ``todo auditor é médico''. Mesmo que a premissa geral seja falsa no mundo real, pode-se estudar a validade formal do argumento independentemente de sua verdade factual.
+\end{exemplo}
+
+\section{Quantificadores e lógica de predicados}
+
+A lógica de predicados permite formalizar afirmações sobre elementos de um universo.
+
+\subsection{Quantificador universal}
+
+``Todo A é B'' pode ser escrito como
+\[
+\forall x\,(A(x)\to B(x)).
+\]
+Observe o uso da condicional: para cada elemento, se ele pertence a A, então pertence a B.
+
+\subsection{Quantificador existencial}
+
+``Algum A é B'' corresponde a
+\[
+\exists x\,(A(x)\land B(x)).
+\]
+É necessário que exista pelo menos um elemento que satisfaça as duas propriedades.
+
+\subsection{Negação de quantificadores}
+
+\begin{align*}
+\neg\forall x\,P(x)&\equiv\exists x\,\neg P(x),\\
+\neg\exists x\,P(x)&\equiv\forall x\,\neg P(x).
+\end{align*}
+
+Em linguagem natural:
 \begin{itemize}
-\item todo A é B: $A\subseteq B$;
-\item nenhum A é B: $A\cap B=\varnothing$;
-\item algum A é B: $A\cap B\neq\varnothing$.
+\item negar ``todos possuem a característica'' produz ``pelo menos um não possui'';
+\item negar ``existe alguém com a característica'' produz ``ninguém possui a característica''.
 \end{itemize}
 
-Diagramas ajudam a verificar se uma conclusão é necessária ou apenas possível.
+\section{Diagramas lógicos e relações entre conjuntos}
 
-\section{Conjuntos}
+Proposições categóricas podem ser visualizadas por conjuntos.
 
-\subsection{Operações}
+\begin{itemize}
+\item Todo A é B: $A\subseteq B$.
+\item Nenhum A é B: $A\cap B=\varnothing$.
+\item Algum A é B: $A\cap B\neq\varnothing$.
+\item Algum A não é B: $A-B\neq\varnothing$.
+\end{itemize}
 
-União $A\cup B$, interseção $A\cap B$, diferença $A-B$, complemento $A^c$.
+\begin{exemplo}[conclusão necessária]
+Premissas:
+\begin{enumerate}
+\item todo auditor de TI é servidor;
+\item nenhum terceirizado é servidor.
+\end{enumerate}
+
+Como o conjunto dos auditores de TI está contido no conjunto dos servidores e o conjunto dos terceirizados é disjunto do conjunto dos servidores, conclui-se necessariamente que nenhum auditor de TI é terceirizado, dentro desse universo hipotético.
+\end{exemplo}
+
+Cuidado com existência. De ``todo A é B'' não se conclui, por si só, que exista algum A. A inclusão pode ser verdadeira mesmo se $A$ for vazio.
+
+\section{Teoria dos conjuntos}
+
+Um conjunto é uma coleção de elementos. As operações básicas são união, interseção, diferença e complemento.
+
+\begin{align*}
+A\cup B &= \{x: x\in A \text{ ou } x\in B\},\\
+A\cap B &= \{x: x\in A \text{ e } x\in B\},\\
+A-B &= \{x: x\in A \text{ e } x\notin B\}.
+\end{align*}
+
+\subsection{Princípio da inclusão-exclusão}
 
 Para dois conjuntos finitos:
 \[
 |A\cup B|=|A|+|B|-|A\cap B|.
 \]
 
-Para três conjuntos:
+Para três:
 \[
 |A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|.
 \]
 
-\section{Porcentagem}
-
-Aumento de $r\%$ multiplica por $1+r$ (com $r$ decimal); redução multiplica por $1-r$.
-
-Aumentos sucessivos não se somam diretamente:
+\begin{exemplo}[dupla contagem]
+Em um grupo de 120 servidores, 70 utilizam o sistema A, 55 utilizam o sistema B e 25 utilizam ambos. Logo,
 \[
-100\times1,10\times1,20=132,
+|A\cup B|=70+55-25=100.
 \]
-logo 10\% e 20\% sucessivos produzem 32\%, não 30\%.
+Portanto, 20 servidores não utilizam nenhum dos dois sistemas.
+\end{exemplo}
 
-\section{Razão e proporção}
+\section{Razão, proporção e grandezas proporcionais}
 
-Razão compara grandezas. Proporção é igualdade entre razões:
+A razão entre $a$ e $b$, com $b\neq0$, é $a/b$. Uma proporção é uma igualdade entre razões:
 \[
-\frac{a}{b}=\frac{c}{d}\Rightarrow ad=bc.
+\frac{a}{b}=\frac{c}{d}\quad\Longrightarrow\quad ad=bc.
 \]
 
-Grandezas diretamente proporcionais mantêm razão; inversamente proporcionais mantêm produto.
+Duas grandezas são \textbf{diretamente proporcionais} quando multiplicar uma por um fator multiplica a outra pelo mesmo fator. São \textbf{inversamente proporcionais} quando o produto permanece constante.
 
-\section{Regra de três}
-
-Antes da conta, identifique se a relação é direta ou inversa. Mais trabalhadores podem reduzir tempo para mesma tarefa, se produtividade individual for constante: relação inversa.
-
-\section{Equações de primeiro grau}
-
-Forma geral:
+\begin{exemplo}[proporção inversa]
+Se 6 servidores realizam uma tarefa em 10 dias, mantendo produtividade constante, o total de trabalho é proporcional a $6\times10=60$ servidor-dias. Com 12 servidores, o tempo teórico será
 \[
-ax+b=c,\quad a\neq0.
+60/12=5\text{ dias}.
+\]
+\end{exemplo}
+
+\section{Porcentagem e variações sucessivas}
+
+Uma variação percentual deve ser tratada por fator multiplicativo. Aumento de $r\%$ corresponde a multiplicar por
+\[
+1+\frac{r}{100},
+\]
+e redução por
+\[
+1-\frac{r}{100}.
 \]
 
-Problemas textuais devem ser traduzidos para equação. O resultado deve ser validado no contexto — número de pessoas não pode ser negativo ou fracionário quando a situação exige inteiro.
+\subsection{Variações sucessivas}
 
-\section{Sistemas simples}
+Percentuais sucessivos incidem sobre bases diferentes e, por isso, não devem ser somados mecanicamente.
 
-Quando há duas incógnitas e duas relações independentes:
+\begin{exemplo}[aumento e redução]
+Um valor de 100 aumenta 20\%:
+\[
+100\times1{,}20=120.
+\]
+Depois sofre redução de 20\%:
+\[
+120\times0{,}80=96.
+\]
+O resultado é 4\% menor que o valor inicial. Aumento de 20\% seguido de redução de 20\% não se anula.
+\end{exemplo}
+
+\subsection{Variação relativa}
+
+Se uma grandeza passa de $V_0$ para $V_1$, a variação percentual é
+\[
+\frac{V_1-V_0}{V_0}\times100\%.
+\]
+O denominador é o valor de referência. Trocar a base altera o percentual.
+
+\section{Equações e sistemas lineares}
+
+Problemas verbais devem ser convertidos em relações algébricas.
+
+Uma equação de primeiro grau pode ser escrita como
+\[
+ax+b=c,\qquad a\neq0.
+\]
+
+\begin{exemplo}[modelagem]
+Um setor possui 32 servidores entre analistas e técnicos. Há 8 analistas a mais que técnicos. Se $a$ é o número de analistas e $t$ o de técnicos:
 \[
 \begin{cases}
-x+y=20\\
-2x+3y=50
+a+t=32,\\
+a=t+8.
 \end{cases}
 \]
-Substituição ou eliminação resolve o sistema.
+Substituindo:
+\[
+(t+8)+t=32\Rightarrow2t=24\Rightarrow t=12,
+\]
+e, portanto, $a=20$.
+\end{exemplo}
 
-\section{Sequências e padrões simples}
+O resultado matemático precisa ser compatível com o contexto. Quantidades de pessoas, processos ou equipamentos geralmente exigem valores inteiros não negativos.
 
-Embora não esteja destacado como tópico autônomo, problemas lógicos podem envolver padrões numéricos derivados de relações do enunciado. Não assuma progressão sem evidência; procure a regra mais simples compatível com todos os termos.
+\section{Sequências e reconhecimento de padrões}
 
-\section{Mapa mental funcional}
+Em sequências, não basta encontrar uma regra que funcione para dois ou três termos; a regra precisa ser compatível com todo o conjunto apresentado. Progressões aritméticas possuem diferença constante; progressões geométricas possuem razão constante. Outros padrões podem alternar operações, combinar subsequências ou depender da posição.
+
+\begin{exemplo}[progressão aritmética]
+Na sequência $5,9,13,17,\ldots$, a diferença é 4. O termo geral é
+\[
+a_n=5+(n-1)4=4n+1.
+\]
+Logo, $a_{20}=81$.
+\end{exemplo}
+
+\begin{cebraspe}[como a banca torna a questão difícil]
+Em nível mais alto, a dificuldade não está em calcular uma tabela-verdade elementar, mas em identificar corretamente o escopo da negação, a direção de uma condição necessária, a validade de uma inferência ou a base percentual. Uma única palavra — ``somente'', ``todos'', ``algum'', ``necessário'', ``suficiente'' — pode alterar completamente a estrutura lógica.
+\end{cebraspe}
+
+\section{Síntese conceitual}
 
 \mapafuncional{Raciocínio Lógico}
-{Resolver = traduzir linguagem para estrutura formal antes de calcular}
-{Lógica: proposição $\rightarrow$ conectivo $\rightarrow$ equivalência $\rightarrow$ argumento.\\Quantificadores: todo/algum $\rightarrow$ negação.\\Conjuntos: união/interseção/complemento.\\Álgebra: porcentagem $\rightarrow$ razão/proporção $\rightarrow$ equação.}
-{Condicional falsa somente em $V\to F$.\\Negação de $p\to q$ = $p\land\neg q$.\\Negar ``todos'' = ``algum não''.\\Aumentos sucessivos multiplicam fatores.\\Proporção inversa: produto constante.}
-{Recíproca $\neq$ contrapositiva.\\Ou lógico geralmente inclusivo.\\Nem todos $\neq$ nenhum.\\+10\% e -10\% $\neq$ zero líquido.\\Regra de três sem identificar direção gera erro.}
-{Qual é a proposição?\\Qual o conectivo principal?\\É necessária ou apenas possível a conclusão?\\Há dupla contagem em conjuntos?\\A relação é direta ou inversa?\\O resultado faz sentido no contexto?}
+{Linguagem natural $\rightarrow$ formalização $\rightarrow$ relações lógicas $\rightarrow$ conclusão válida}
+{Proposições $\rightarrow$ conectivos $\rightarrow$ tabelas e equivalências.\\Argumentos $\rightarrow$ premissas $\rightarrow$ regras de inferência.\\Quantificadores $\rightarrow$ conjuntos e diagramas.\\Problemas quantitativos $\rightarrow$ razão, porcentagem, equações e sequências.}
+{Condicional: antecedente suficiente, consequente necessário.\\Negação: preserve o escopo e aplique De Morgan.\\Validade: procure premissas verdadeiras com conclusão falsa.\\Conjuntos: elimine dupla contagem.\\Percentuais: use fatores multiplicativos.}
+{Recíproca $\neq$ contrapositiva.\\Ou inclusivo $\neq$ ou exclusivo.\\Nem todos $\neq$ nenhum.\\Validade $\neq$ verdade factual.\\+20\% e -20\% $\neq$ zero.}
+{Qual é o conectivo principal?\\Há quantificador?\\Qual é o escopo da negação?\\A conclusão é necessária ou apenas possível?\\Existe dupla contagem?\\Qual é a base do percentual?}
 
 \begin{resumo}
-\textbf{Método de prova:} traduza primeiro. Se a questão diz ``se'', ``todo'', ``algum'', ``somente se'', ``ao menos'' ou ``no máximo'', transforme a expressão em relação lógica antes de raciocinar em linguagem natural.
+O conteúdo de Raciocínio Lógico deve ser dominado em dois níveis: \textbf{formal}, pela manipulação de símbolos, tabelas e equivalências; e \textbf{semântico}, pela tradução precisa de expressões como ``somente se'', ``todo'', ``algum'', ``necessário'' e ``suficiente''. A maior parte das questões seletivas combina esses dois níveis.
 \end{resumo}
-
-\input{questoes/03_raciocinio_logico}
-
-\section{Treino discursivo}
-\begin{discursiva}[formalização]
-Explique a diferença entre condição necessária e suficiente e demonstre, com um exemplo de auditoria, por que a contrapositiva de uma implicação é equivalente à proposição original, enquanto a recíproca não é.
-\end{discursiva}
-
-\input{solucoes/03_raciocinio_logico}
