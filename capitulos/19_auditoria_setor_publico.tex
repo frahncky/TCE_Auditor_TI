@@ -1,0 +1,275 @@
+\chapter{Auditoria do Setor Público}
+
+\section{Finalidade e elementos}
+
+A auditoria do setor público aumenta confiança, transparência e accountability ao obter e avaliar evidência sobre matéria pública com base em critérios. A ISSAI/NBASP 100 fornece os princípios fundamentais aplicáveis às auditorias do setor público.
+
+\begin{teoria}[elementos da auditoria]
+A estrutura fundamental contém:
+\begin{itemize}
+\item \textbf{três partes}: auditor, parte responsável e usuários previstos;
+\item \textbf{objeto}: o que será auditado;
+\item \textbf{critérios}: referências usadas para avaliar o objeto;
+\item \textbf{informação do objeto}, quando aplicável;
+\item \textbf{trabalho de certificação ou de relatório direto};
+\item \textbf{confiança/asseguração} resultante de evidência suficiente e apropriada.
+\end{itemize}
+\end{teoria}
+
+Em \termo{certificação}, a parte responsável mede/avalia o objeto contra critérios e apresenta informação que o auditor verifica. Em \termo{relatório direto}, o auditor mede/avalia diretamente o objeto contra critérios.
+
+\section{Auditoria interna e externa}
+
+Auditoria interna integra estrutura organizacional e fornece avaliação/consultoria independente dentro da organização, conforme modelo adotado. Auditoria externa do setor público é exercida por entidade de controle com independência institucional conforme mandato. Ambas precisam de objetividade, competência e qualidade, mas possuem posição, destinatários e autoridade diferentes.
+
+\section{Tipos de auditoria}
+
+\subsection{Auditoria financeira — ISSAI/NBASP 200}
+
+Busca determinar se informação financeira é apresentada de acordo com estrutura de relatório financeiro e critérios aplicáveis, fornecendo asseguração conforme trabalho. Materialidade possui dimensão quantitativa e qualitativa.
+
+\subsection{Auditoria operacional — ISSAI/NBASP 300}
+
+Examina economicidade, eficiência e efetividade e se há espaço para melhoria.
+
+\begin{itemize}
+\item \textbf{Economicidade}: minimizar custo de recursos mantendo qualidade adequada.
+\item \textbf{Eficiência}: relação entre recursos empregados e produtos/serviços entregues.
+\item \textbf{Efetividade}: alcance de objetivos e efeitos pretendidos.
+\end{itemize}
+
+\begin{exemplo}[3 Es]
+Comprar servidores pelo menor preço pode parecer econômico, mas não será econômico se qualidade inadequada elevar indisponibilidade. Um data center que entrega mais transações com mesmos recursos aumenta eficiência. Um programa digital só é efetivo se produzir o resultado público esperado, não apenas se entregar o sistema.
+\end{exemplo}
+
+\subsection{Auditoria de conformidade — ISSAI/NBASP 400}
+
+Avalia se atividades, transações e informações obedecem às autoridades que regem a entidade: leis, regulamentos, contratos, políticas e outros critérios apropriados. Conformidade pode incluir regularidade e, conforme contexto, aspectos de propriedade/probidade.
+
+\section{Instrumentos de fiscalização}
+
+O edital menciona auditoria, levantamento, monitoramento, acompanhamento e inspeção. A nomenclatura operacional deve ser estudada também na legislação/regimento do TCE-MA, mas conceitualmente:
+
+\begin{itemize}
+\item \textbf{levantamento}: conhecer organização, política, sistema ou objeto, identificar riscos e questões para trabalhos futuros;
+\item \textbf{auditoria}: avaliação sistemática com objetivos, critérios, procedimentos, evidências e conclusões;
+\item \textbf{inspeção}: suprir lacunas, verificar fatos específicos ou esclarecer ponto determinado;
+\item \textbf{acompanhamento}: fiscalização concomitante/continuada de atos, programas ou gestão;
+\item \textbf{monitoramento}: verificar implementação e efeitos de deliberações/recomendações.
+\end{itemize}
+
+\section{Princípios gerais da auditoria}
+
+A ISSAI 100 enfatiza ética e independência, julgamento e ceticismo profissionais, controle de qualidade, competência da equipe, risco, materialidade, documentação e comunicação.
+
+\subsection{Ceticismo profissional}
+
+Ceticismo é postura questionadora e avaliação crítica de evidência. Não significa presumir fraude nem desconfiar sem base. O auditor considera possibilidade de erro, viés, evidência contraditória e limitações da fonte.
+
+\subsection{Julgamento profissional}
+
+Aplicação de formação, experiência e padrões para decidir sobre materialidade, risco, extensão de testes, suficiência de evidência e conclusão. Julgamento deve ser fundamentado e documentado; não é licença para decisão arbitrária.
+
+\section{Planejamento}
+
+\subsection{Conhecimento do objeto}
+
+Antes de definir testes, compreenda objetivos, processos, sistemas, normas, stakeholders, recursos, controles e ambiente. Em TI, mapeie arquitetura, dados, identidades, fornecedores, integrações, logs e dependências.
+
+\subsection{Objetivo, escopo e questões}
+
+Objetivo indica o que a auditoria pretende concluir. Escopo delimita unidades, sistemas, períodos e processos. Questões de auditoria desdobram o objetivo em perguntas respondíveis por evidência.
+
+Uma questão ruim — ``A segurança é boa?'' — deve virar questões específicas como ``os acessos privilegiados são concedidos, revisados e revogados conforme critérios definidos?''.
+
+\subsection{Critérios}
+
+Critério é padrão de comparação. Pode vir de lei, norma, contrato, política, benchmark tecnicamente aceitável ou requisito de desempenho, desde que seja relevante, compreensível e aplicável. O critério deve estar definido antes de julgar condição sempre que possível.
+
+\section{Risco e materialidade}
+
+Risco de auditoria é possibilidade de conclusão inadequada. Em modelo clássico:
+\[
+RA = RI\times RC\times RD,
+\]
+onde $RI$ = risco inerente, $RC$ = risco de controle e $RD$ = risco de detecção. É modelo conceitual: valores não precisam ser probabilidades precisas para ajudar o planejamento.
+
+Materialidade é relevância da questão para usuários/decisão. Uma falha de baixo valor financeiro pode ser material qualitativamente por envolver fraude, dados pessoais, alta administração ou serviço essencial.
+
+\section{Matriz de planejamento}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{X X X X}
+\toprule
+Questão & Critério & Informação/evidência & Procedimento \\
+\midrule
+Acesso privilegiado é revisado? & política/IAM/norma & lista de contas, logs, tickets & comparar contas com autorizações e testar amostra de revisões. \\
+SLA é cumprido? & contrato/TR & monitoramento, chamados, cálculo & recalcular indicador e confrontar pagamento. \\
+Backup atende RPO? & BCP/contrato & jobs, logs, restore tests & inspecionar frequência e executar/revisar teste de restauração. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A matriz cria rastreabilidade entre pergunta, critério, evidência e procedimento.
+
+\section{Amostragem}
+
+Amostragem permite inferir/testar sem examinar toda a população. Pode ser estatística (seleção probabilística e avaliação quantitativa do risco amostral) ou não estatística/julgamental. Em ambos os casos, população, unidade, objetivo e método devem ser claros.
+
+Risco de amostragem é a possibilidade de conclusão baseada na amostra diferir da que seria obtida examinando toda a população. Tamanho depende de tolerância, expectativa de desvio, confiança e variabilidade, não apenas do tamanho bruto da população.
+
+\section{Execução e procedimentos}
+
+Procedimentos clássicos:
+\begin{itemize}
+\item inspeção de documentos/registros/ativos;
+\item observação;
+\item indagação/entrevista;
+\item confirmação externa;
+\item recálculo;
+\item reexecução;
+\item procedimentos analíticos;
+\item análise automatizada de dados.
+\end{itemize}
+
+Indagação isolada geralmente é evidência fraca para afirmação crítica. Combine fontes e métodos para corroborar.
+
+\section{Testes de controles e substantivos}
+
+Teste de controle avalia desenho e/ou operação efetiva do controle. Teste substantivo busca detectar distorção/irregularidade diretamente em transações, saldos ou dados. Em auditoria de TI, revisar política de backup verifica desenho; selecionar dias e confirmar jobs + restauração verifica operação; conferir dados recuperados testa efeito.
+
+\section{Evidência de auditoria}
+
+Evidência deve ser \termo{suficiente} em quantidade e \termo{apropriada} em qualidade (relevância e confiabilidade). Confiabilidade aumenta, em geral, quando fonte é independente, controle é forte e evidência é obtida diretamente pelo auditor; mas contexto sempre importa.
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Evidência & Fragilidade possível \\
+\midrule
+Screenshot & pode não demonstrar período, completude ou integridade. \\
+Planilha manual & fórmula/entrada manipulável; exigir fonte e reconciliação. \\
+Log & pode ser apagável/alterável por quem é auditado. \\
+Relatório de ferramenta & configuração e escopo precisam ser validados. \\
+Entrevista & memória e interesse podem introduzir viés; corroborar. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Papéis de trabalho}
+
+Devem permitir que auditor experiente, sem contato prévio, compreenda objetivo, procedimento, evidência, resultado, responsável, data e conclusão. Preserve cadeia de custódia quando evidência digital for sensível. Hash pode demonstrar integridade de cópia, mas não prova que a fonte original era verdadeira.
+
+\section{Achados}
+
+Estrutura didática clássica:
+\begin{itemize}
+\item \textbf{critério}: o que deveria ser;
+\item \textbf{condição}: o que foi encontrado;
+\item \textbf{causa}: por que ocorreu;
+\item \textbf{efeito/risco}: consequência real ou potencial;
+\item \textbf{evidência}: sustentação factual;
+\item \textbf{recomendação/proposta}: ação sobre causa ou risco.
+\end{itemize}
+
+\begin{exemplo}[achado de TI]
+\textbf{Critério:} contas privilegiadas devem ser nominativas e revisadas trimestralmente.\\
+\textbf{Condição:} 7 de 18 contas administrativas são compartilhadas e não há revisão há 14 meses.\\
+\textbf{Causa provável:} processo de IAM não possui proprietário nem campanha de recertificação.\\
+\textbf{Efeito:} ações não atribuíveis e permanência de acesso indevido.\\
+\textbf{Recomendação:} eliminar contas compartilhadas quando tecnicamente possível, implantar cofre/identidade privilegiada e revisão periódica registrada.
+\end{exemplo}
+
+\section{Matriz de achados}
+
+Organiza questão, critério, condição, evidências, causas, efeitos, responsáveis e propostas. Evita relatório composto por opiniões desconectadas dos testes e facilita revisão de qualidade.
+
+\section{Comunicação e relatório}
+
+Relatório deve ser claro, objetivo, completo, convincente, construtivo e tempestivo conforme natureza do trabalho. Achado deve separar fato de inferência. Contraditório deve ser analisado, não apenas anexado; evidência nova pode alterar conclusão.
+
+Recomendação de qualidade trata causa, define resultado esperado e preserva espaço legítimo de gestão quando há alternativas. Recomendações excessivamente prescritivas podem transferir responsabilidade gerencial ao auditor.
+
+\section{Monitoramento}
+
+Monitoramento verifica se deliberações foram implementadas e se produziram efeito. ``Providência iniciada'' não equivale a risco mitigado. Evidência deve demonstrar implementação e, quando relevante, efetividade.
+
+\section{Auditoria de TI integrada às normas}
+
+Um Auditor/TI pode realizar trabalho de conformidade sobre segurança, operacional sobre eficiência de serviços digitais, financeiro quando controles de sistemas afetam demonstrações, ou trabalho combinado. O GUID 5101 da INTOSAI trata auditoria de segurança da informação em alinhamento à ISSAI 100 e aos princípios de conformidade.
+
+\section{Mapa mental}
+
+\mapamental{Auditoria pública}{
+ child {node[concept]{Tipos} child {node[concept]{financeira}} child {node[concept]{operacional/conformidade}}}
+ child {node[concept]{Planejamento} child {node[concept]{risco}} child {node[concept]{materialidade}}}
+ child {node[concept]{Execução} child {node[concept]{procedimentos}} child {node[concept]{amostragem}}}
+ child {node[concept]{Evidência} child {node[concept]{suficiente}} child {node[concept]{apropriada}}}
+ child {node[concept]{Achado} child {node[concept]{critério/condição}} child {node[concept]{causa/efeito}}}
+ child {node[concept]{Resultado} child {node[concept]{relatório}} child {node[concept]{monitoramento}}}
+}
+
+\section{Questões por nível}
+
+\begin{questao}{\nivel{N1} 19.1}
+Na auditoria operacional, eficiência diz respeito principalmente:
+\begin{enumerate}[label=\Alph*)]
+\item à conformidade estrita com toda norma.
+\item à relação entre recursos utilizados e produtos/serviços entregues.
+\item apenas ao menor preço de aquisição.
+\item à opinião sobre demonstrações financeiras exclusivamente.
+\item à ausência absoluta de risco.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{19.1}
+\textbf{Gabarito: B.} Eficiência relaciona inputs e outputs. A é foco de conformidade; C aproxima economicidade de modo simplista; D é financeira; E é impossível e não define eficiência.
+\end{solucao}
+
+\begin{questao}{\nivel{N2} 19.2}
+O auditor pergunta ao gestor se backups são testados. O gestor responde ``sim, mensalmente''. Para sustentar conclusão sobre eficácia do controle, o procedimento mais adequado é:
+\begin{enumerate}[label=\Alph*)]
+\item aceitar a declaração como evidência suficiente.
+\item corroborar com registros dos testes, resultados, amostra de restaurações e evidências independentes adequadas.
+\item eliminar documentação.
+\item usar somente opinião de fornecedor.
+\item concluir que o controle falhou porque houve entrevista.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{19.2}
+\textbf{Gabarito: B.} Indagação ajuda entendimento, mas controle crítico exige corroboração. A/D são fracas; C viola documentação; E conclui sem evidência.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} 19.3}
+Um sistema custou apenas R\$ 20 mil, mas armazena denúncias sigilosas e apresenta falha que permite acesso público. O auditor decide tratá-lo como material. A decisão é defensável porque:
+\begin{enumerate}[label=\Alph*)]
+\item materialidade é sempre igual ao valor do ativo.
+\item materialidade também possui aspectos qualitativos, como sigilo, direitos e impacto institucional.
+\item sistemas baratos não podem ser auditados.
+\item somente risco financeiro importa.
+\item materialidade elimina necessidade de critério.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{19.3}
+\textbf{Gabarito: B.} Materialidade não é exclusivamente monetária. A/C/D são falsas; E confunde relevância com padrão de avaliação.
+\end{solucao}
+
+\begin{questao}{\nivel{N4} 19.4}
+Achado afirma ``a empresa presta serviço ruim''. O papel de trabalho contém apenas três reclamações de usuários, sem critério contratual, universo, SLA ou análise de chamados. Qual é a principal deficiência?
+\begin{enumerate}[label=\Alph*)]
+\item excesso de evidência.
+\item conclusão ampla sem critério e sem evidência suficiente/apropriada para sustentar a generalização.
+\item ausência de criptografia assimétrica.
+\item necessidade de trocar auditoria por levantamento obrigatoriamente.
+\item existência de usuários insatisfeitos invalida qualquer contrato.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{19.4}
+\textbf{Gabarito: B.} A conclusão deve se ligar a critério, população/procedimento e evidência compatível. A é oposta; C/D/E não resolvem a falha metodológica.
+\end{solucao}
+
+\begin{discursiva}[matriz de achados]
+Em auditoria de segurança, 42 contas de ex-servidores permanecem ativas por até 11 meses após desligamento. Elabore, em até 30 linhas, um achado estruturado com critério, condição, causas a investigar, riscos/efeitos, evidências adicionais e proposta de encaminhamento.
+\end{discursiva}
