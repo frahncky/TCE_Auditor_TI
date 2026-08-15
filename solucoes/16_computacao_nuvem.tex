@@ -1,0 +1,55 @@
+\section{Gabarito e resoluções comentadas — Computação em Nuvem}
+
+\begin{solucao}{16.01}\textbf{CERTO.} SaaS desloca grande parte da pilha ao provedor, mas o cliente mantém responsabilidades sobre identidade, dados e uso seguro.\end{solucao}
+\begin{solucao}{16.02}\textbf{ERRADO.} Escalabilidade é capacidade de crescer; elasticidade é ajuste dinâmico à demanda. Ambas podem ocorrer horizontal ou verticalmente.\end{solucao}
+\begin{solucao}{16.03}\textbf{CERTO.} Serverless abstrai a administração direta do servidor, não elimina servidores físicos.\end{solucao}
+\begin{solucao}{16.04}\textbf{ERRADO.} Link dedicado e criptografia são propriedades distintas. O desenho pode exigir TLS/VPN mesmo fora da Internet pública.\end{solucao}
+\begin{solucao}{16.05}\textbf{CERTO.} Escopo e statefulness variam por plataforma; detalhes específicos precisam ser conhecidos quando a questão citar produto.\end{solucao}
+\begin{solucao}{16.06}\textbf{CERTO.} IaC automatiza o estado desejado; erro validado de forma fraca pode ser aplicado em escala.\end{solucao}
+\begin{solucao}{16.07}\textbf{ERRADO.} Dependências comuns podem derrubar vários provedores ao mesmo tempo do ponto de vista da organização.\end{solucao}
+\begin{solucao}{16.08}\textbf{CERTO.} Durabilidade trata preservação dos dados; disponibilidade trata acesso ao serviço.\end{solucao}
+\begin{solucao}{16.09}\textbf{ERRADO.} FinOps otimiza valor, equilibrando custo, desempenho e risco.\end{solucao}
+\begin{solucao}{16.10}\textbf{CERTO.} A LGPD disciplina transferências; não estabelece localização nacional obrigatória para todo dado pessoal.\end{solucao}
+
+\begin{solucao}{16.11}\textbf{B.} DBaaS/PaaS gerencia a plataforma de banco; cliente conserva dados, schema e acessos.\end{solucao}
+\begin{solucao}{16.12}\textbf{B.} Há escala horizontal e ajuste dinâmico à demanda, portanto elasticidade.\end{solucao}
+\begin{solucao}{16.13}\textbf{CERTO.} Métrica de autoscaling deve refletir gargalo real; CPU pode não representar backlog ou banco.\end{solucao}
+\begin{solucao}{16.14}\textbf{B.} Serverless é natural para cargas orientadas a evento e ociosidade alta; não garante custo zero nem elimina cold start.\end{solucao}
+\begin{solucao}{16.15}\textbf{CERTO.} Inicialização de runtime e dependências pode aumentar latência na primeira execução.\end{solucao}
+\begin{solucao}{16.16}\textbf{A.} NAT permite saída iniciada da rede privada sem exposição direta de entrada.\end{solucao}
+\begin{solucao}{16.17}\textbf{B.} Identidade de workload e credenciais temporárias reduzem segredo estático; least privilege reduz blast radius.\end{solucao}
+\begin{solucao}{16.18}\textbf{CERTO.} MFA protege autenticação, mas autorização excessiva continua sendo risco.\end{solucao}
+\begin{solucao}{16.19}\textbf{A.} Envelope encryption usa data key para conteúdo e KEK/chave mestra para proteger a data key.\end{solucao}
+\begin{solucao}{16.20}\textbf{C.} $40\times0,8\times24\times30=23.040$.\end{solucao}
+\begin{solucao}{16.21}\textbf{CERTO.} Alerta não é controle preventivo por definição; quotas/policies podem bloquear.\end{solucao}
+\begin{solucao}{16.22}\textbf{A.} Object storage é adequado a data lakes, logs e objetos acessados por API.\end{solucao}
+\begin{solucao}{16.23}\textbf{A.} Rehost move com poucas alterações.\end{solucao}
+\begin{solucao}{16.24}\textbf{CERTO.} Lift-and-shift acelera mudança de local, mas não moderniza automaticamente.\end{solucao}
+\begin{solucao}{16.25}\textbf{A.} Trace/correlation ID permite seguir a requisição entre serviços.\end{solucao}
+
+\begin{solucao}{16.26}\textbf{C.} I e II corretas; III é falsa porque dependências comuns podem persistir.\end{solucao}
+\begin{solucao}{16.27}\textbf{CERTO.} Resiliência regional custa complexidade de dados, operação e governança.\end{solucao}
+\begin{solucao}{16.28}\textbf{B.} Privacidade do transporte precisa ser avaliada independentemente do caminho físico.\end{solucao}
+\begin{solucao}{16.29}\textbf{A.} Zero Trust rejeita confiança implícita por localização.\end{solucao}
+\begin{solucao}{16.30}\textbf{CERTO.} Automação sem controles pode tornar misconfiguration mais eficiente.\end{solucao}
+\begin{solucao}{16.31}\textbf{A.} Alteração manual cria drift em relação ao IaC/state.\end{solucao}
+\begin{solucao}{16.32}\textbf{A.} Camadas antigas continuam no histórico da imagem.\end{solucao}
+\begin{solucao}{16.33}\textbf{CERTO.} O modelo de responsabilidade compartilhada mantém controles no cliente.\end{solucao}
+\begin{solucao}{16.34}\textbf{B.} Economia que rompe RTO destrói valor; FinOps não é corte cego.\end{solucao}
+\begin{solucao}{16.35}\textbf{A.} Sem catálogo, owner e retenção, o lake perde governança e pode acumular custo e exposição.\end{solucao}
+\begin{solucao}{16.36}\textbf{CERTO.} Context window é característica de modelo, não controle jurídico ou de proteção de dados.\end{solucao}
+\begin{solucao}{16.37}\textbf{A.} Antes de rehost, deve-se avaliar se substituir ou aposentar gera mais valor.\end{solucao}
+\begin{solucao}{16.38}\textbf{A.} O IdP é causa comum e derruba o acesso aos dois ambientes.\end{solucao}
+\begin{solucao}{16.39}\textbf{CERTO.} Tag sem enforcement vira metadado incompleto.\end{solucao}
+\begin{solucao}{16.40}\textbf{A.} Falta de tempo/correlação prejudica investigação distribuída.\end{solucao}
+
+\begin{solucao}{16.41}\textbf{CERTO.} Trocar provedor não corrige identidade, chaves, tagging ou governança deficientes.\end{solucao}
+\begin{solucao}{16.42}\textbf{B.} O maior risco é ficar sem saída e sem controle do ciclo de dados.\end{solucao}
+\begin{solucao}{16.43}\textbf{B.} Ownership, schedules e retenção atacam as causas do desperdício.\end{solucao}
+\begin{solucao}{16.44}\textbf{CERTO.} Resiliência técnica pode compartilhar causa administrativa ou de identidade.\end{solucao}
+\begin{solucao}{16.45}\textbf{B.} Certificação não substitui análise de transferência, jurisdição e contrato.\end{solucao}
+\begin{solucao}{16.46}\textbf{CERTO.} Relatório do provedor é evidência relevante, não cobertura automática do cliente.\end{solucao}
+\begin{solucao}{16.47}\textbf{A.} Credencial administrativa, ausência de revisão e state desprotegido ampliam risco de alteração em escala.\end{solucao}
+\begin{solucao}{16.48}\textbf{B.} Mesmo com replicação, exclusão da conta pode afetar produção e backups; segregação administrativa é essencial.\end{solucao}
+\begin{solucao}{16.49}\textbf{CERTO.} Elasticidade sem limites pode escalar gasto junto com recurso.\end{solucao}
+\begin{solucao}{16.50}\textbf{B.} O achado correto trata baseline, exposição, criptografia e ownership, não culpa o tipo de storage.\end{solucao}
