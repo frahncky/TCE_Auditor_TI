@@ -1,0 +1,52 @@
+\section{Gabarito e resoluções comentadas — Segurança da Informação}
+
+\begin{solucao}{13.01}\textbf{Gabarito: A.} Confidencialidade restringe acesso/divulgação a entidades autorizadas. Integridade trata alteração e disponibilidade trata acesso no tempo necessário.\end{solucao}
+\begin{solucao}{13.02}\textbf{Gabarito: A.} Integridade protege exatidão e completude contra alteração/destruição não autorizada. Tempo de resposta e redundância são temas de desempenho/disponibilidade.\end{solucao}
+\begin{solucao}{13.03}\textbf{Gabarito: A.} Senha é fator de conhecimento e token físico é posse. Senha+PIN ou duas senhas permanecem na mesma categoria e não constituem MFA por si.\end{solucao}
+\begin{solucao}{13.04}\textbf{Gabarito: A.} Worm propaga-se autonomamente. Trojan depende de disfarce/execução e não implica autorreplicação; hoax é boato.\end{solucao}
+\begin{solucao}{13.05}\textbf{Gabarito: A.} Phishing manipula a vítima para obter credenciais, dinheiro ou execução de ação. Não é técnica de storage, criptografia ou roteamento.\end{solucao}
+\begin{solucao}{13.06}\textbf{Gabarito: A.} IDS é primordialmente detectivo. IPS opera inline e pode bloquear; os demais itens não são funções de IDS.\end{solucao}
+\begin{solucao}{13.07}\textbf{Gabarito: A.} Cifra simétrica usa chave secreta compartilhada. Par público/privado caracteriza assimétrica.\end{solucao}
+\begin{solucao}{13.08}\textbf{Gabarito: A.} Hash gera digest de tamanho definido e deve ser unidirecional/resistente a ataques conforme propriedade. Não é cifra reversível nem assinatura por si só.\end{solucao}
+\begin{solucao}{13.09}\textbf{Gabarito: A.} PKI administra certificados, autoridades e cadeia de confiança que liga identidade a chave pública.\end{solucao}
+\begin{solucao}{13.10}\textbf{Gabarito: A.} RPO mede perda temporal tolerável de dados. RTO é tempo de recuperação.\end{solucao}
+\begin{solucao}{13.11}\textbf{Gabarito: A.} Senha e PIN são ambos conhecimento. TLS protege o canal, mas não muda a categoria do fator.\end{solucao}
+\begin{solucao}{13.12}\textbf{Gabarito: A.} RBAC organiza permissões em papéis e atribui usuários aos papéis. Os demais atributos não definem o modelo.\end{solucao}
+\begin{solucao}{13.13}\textbf{Gabarito: A.} Privilégio mínimo concede só o necessário e reduz blast radius. Administrador generalizado e contas compartilhadas fazem o oposto.\end{solucao}
+\begin{solucao}{13.14}\textbf{Gabarito: A.} Credential stuffing testa credenciais vazadas/reutilizadas em outros serviços. Não exige exploração de memória.\end{solucao}
+\begin{solucao}{13.15}\textbf{Gabarito: A.} Prepared statements separam estrutura SQL de dados e são defesa central; privilégio mínimo limita impacto. Concatenar entrada aumenta risco.\end{solucao}
+\begin{solucao}{13.16}\textbf{Gabarito: A.} DMZ cria zona de exposição controlada separada da rede interna. Não elimina firewall nem autenticação.\end{solucao}
+\begin{solucao}{13.17}\textbf{Gabarito: A.} IPS atua em linha e pode bloquear. IDS normalmente observa/alerta; SIEM correlaciona eventos.\end{solucao}
+\begin{solucao}{13.18}\textbf{Gabarito: A.} VPN protege comunicação, mas endpoint comprometido continua comprometido. Ela não garante disponibilidade física nem backup.\end{solucao}
+\begin{solucao}{13.19}\textbf{Gabarito: A.} Assinatura vincula conteúdo e chave do signatário para autenticidade/integridade. Confidencialidade requer cifragem separada.\end{solucao}
+\begin{solucao}{13.20}\textbf{Gabarito: A.} AES é cifra simétrica de bloco.\end{solucao}
+\begin{solucao}{13.21}\textbf{Gabarito: A.} RSA é algoritmo assimétrico usado em operações de criptografia/assinatura conforme esquema.\end{solucao}
+\begin{solucao}{13.22}\textbf{Gabarito: A.} CRL lista certificados revogados; OCSP permite consulta de status.\end{solucao}
+\begin{solucao}{13.23}\textbf{Gabarito: A.} Honeypot deve ser instrumentado e isolado para evitar pivot. Não substitui controles de prevenção.\end{solucao}
+\begin{solucao}{13.24}\textbf{Gabarito: A.} Residual é o risco restante após controles. Inerente é antes dos controles.\end{solucao}
+\begin{solucao}{13.25}\textbf{Gabarito: A.} BIA identifica impacto, criticidade, dependências e tolerância ao tempo de interrupção. Ela informa estratégia de continuidade, mas não é o plano em si.\end{solucao}
+\begin{solucao}{13.26}\textbf{Gabarito: A.} Conta compartilhada impede associar ação a pessoa específica e fragiliza responsabilização.\end{solucao}
+\begin{solucao}{13.27}\textbf{Gabarito: A.} ARP poisoning associa IP legítimo a MAC do atacante e pode viabilizar man-in-the-middle.\end{solucao}
+\begin{solucao}{13.28}\textbf{Gabarito: A.} Defacement é alteração não autorizada do conteúdo/aparência de site.\end{solucao}
+\begin{solucao}{13.29}\textbf{Gabarito: A.} ASLR, DEP/NX, canários e checagem de limites reduzem exploração de corrupção de memória. Executar privilegiado e remover validação pioram risco.\end{solucao}
+\begin{solucao}{13.30}\textbf{Gabarito: A.} WAF pode bloquear padrões, mas a vulnerabilidade permanece no código e pode ser contornada. Correção de causa continua necessária.\end{solucao}
+\begin{solucao}{13.31}\textbf{Gabarito: A.} Certificados têm validade e ciclo de renovação/revogação. Falha operacional nesse ciclo pode indisponibilizar serviço.\end{solucao}
+\begin{solucao}{13.32}\textbf{Gabarito: A.} Cifrar disco protege mídia perdida/roubada, mas se atacante obtém sistema e chave em uso, pode ler dados. Key management e IAM são indispensáveis.\end{solucao}
+\begin{solucao}{13.33}\textbf{Gabarito: A.} Alteração do arquivo muda o hash e a assinatura deixa de validar para aquele conteúdo. Hash não é reversível nem fornece confidencialidade.\end{solucao}
+\begin{solucao}{13.34}\textbf{Gabarito: A.} Backup online sob mesmo domínio de credenciais compartilha o comprometimento. Imutabilidade/offline e segregação reduzem esse risco.\end{solucao}
+\begin{solucao}{13.35}\textbf{Gabarito: A.} Um teste real de 6 h demonstra incapacidade atual de cumprir RTO de 1 h, salvo mudança de estratégia/capacidade.\end{solucao}
+\begin{solucao}{13.36}\textbf{Gabarito: A.} Aceitar é decisão consciente e autorizada sobre risco residual dentro de critérios. Ignorar sem análise não é tratamento formal.\end{solucao}
+\begin{solucao}{13.37}\textbf{Gabarito: A.} ISO/IEC 27001 contém requisitos certificáveis do SGSI; 27002 orienta controles.\end{solucao}
+\begin{solucao}{13.38}\textbf{Gabarito: A.} ISO/IEC 27005 orienta gestão de riscos de segurança da informação.\end{solucao}
+\begin{solucao}{13.39}\textbf{Gabarito: A.} Sem tempo sincronizado, eventos de múltiplas fontes não podem ser ordenados confiavelmente, prejudicando detecção e investigação.\end{solucao}
+\begin{solucao}{13.40}\textbf{Gabarito: A.} Rotação excessiva e arbitrária pode induzir padrões previsíveis. Política moderna combina senha forte, MFA, detecção de comprometimento e risco.\end{solucao}
+\begin{solucao}{13.41}\textbf{Gabarito: A.} Quem altera dados não deve conseguir apagar evidência sem controle independente. Segregação e armazenamento protegido sustentam accountability.\end{solucao}
+\begin{solucao}{13.42}\textbf{Gabarito: A.} Backup resiliente a ransomware requer diversidade de domínio, imutabilidade/offline, credenciais separadas e teste de restauração. Espaço ou RAID não resolvem comprometimento lógico.\end{solucao}
+\begin{solucao}{13.43}\textbf{Gabarito: A.} MFA fatigue explora aprovação repetida. Number matching, métodos resistentes a phishing, rate limiting e alerta reduzem sucesso.\end{solucao}
+\begin{solucao}{13.44}\textbf{Gabarito: A.} VPN autentica e protege canal, mas um endpoint infectado pode usar acesso legítimo. Segmentação, posture check e least privilege limitam movimento lateral.\end{solucao}
+\begin{solucao}{13.45}\textbf{Gabarito: A.} Certificação possui escopo. Controles do provedor não cobrem automaticamente configuração, dados, IAM e processos do cliente.\end{solucao}
+\begin{solucao}{13.46}\textbf{Gabarito: A.} Impacto deve refletir missão, indisponibilidade, dados, jurídico e reputação, não apenas reposição de hardware.\end{solucao}
+\begin{solucao}{13.47}\textbf{Gabarito: A.} Recuperar arquivos não demonstra recuperação do serviço. É preciso validar dependências, banco, aplicações e tempo total.\end{solucao}
+\begin{solucao}{13.48}\textbf{Gabarito: A.} Password spraying tenta poucas senhas comuns contra muitas contas e pode ser distribuído para escapar de limites simples.\end{solucao}
+\begin{solucao}{13.49}\textbf{Gabarito: A.} Honeypot comprometido precisa de forte egress control e segmentação; do contrário, o atacante pode usá-lo como pivô.\end{solucao}
+\begin{solucao}{13.50}\textbf{Gabarito: A.} Hash preservado prova integridade da cópia desde a coleta, mas não autenticidade da origem nem ausência de malware.\end{solucao}
