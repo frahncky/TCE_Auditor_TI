@@ -1,0 +1,193 @@
+\chapter{Engenharia de Dados}
+
+\section{Dado, informação, conhecimento e inteligência}
+
+\begin{teoria}
+\termo{Dado} é uma representação bruta de fato ou evento. \termo{Informação} surge quando dados são contextualizados e adquirem significado. \termo{Conhecimento} combina informação, experiência e regras para orientar compreensão ou ação. Em contextos de controle, \termo{inteligência} é o uso organizado desse conhecimento para apoiar decisão, priorização e detecção de risco.
+\end{teoria}
+
+Dados podem ser estruturados, semiestruturados ou não estruturados. Bancos relacionais trabalham naturalmente com estruturas tabulares e esquema definido; documentos JSON são exemplo comum de estrutura semiestruturada; textos livres, imagens e áudio são exemplos não estruturados.
+
+\section{Ciclo de engenharia de dados}
+
+\begin{center}
+\begin{tikzpicture}[node distance=7mm and 7mm]
+\tikzset{p/.style={draw=azulPetroleo,rounded corners,fill=azulClaro,minimum width=2.3cm,minimum height=.9cm,align=center}}
+\node[p] (c) {Coleta};
+\node[p,right=of c] (i) {Ingestão};
+\node[p,right=of i] (a) {Armazenamento};
+\node[p,right=of a] (t) {Transformação};
+\node[p,below=of t] (s) {Servir/consumir};
+\node[p,left=of s] (g) {Governança};
+\node[p,left=of g] (m) {Monitoramento};
+\draw[-Latex,thick] (c)--(i)--(a)--(t)--(s)--(g)--(m);
+\draw[-Latex,thick,dashed] (m) |- (c);
+\end{tikzpicture}
+\end{center}
+
+Qualidade deve ser tratada ao longo de todo o fluxo: completude, validade, unicidade, consistência, atualidade e acurácia são dimensões comuns. Linhagem de dados registra origem, transformações e destinos, essencial em auditoria e reprodutibilidade.
+
+\section{Modelagem conceitual, lógica e física}
+
+O modelo conceitual representa entidades, relacionamentos e regras do negócio sem se comprometer com SGBD. O lógico traduz essas estruturas para um paradigma, como o relacional. O físico define tipos concretos, índices, particionamento, armazenamento e demais decisões de implementação.
+
+\subsection{Chaves e integridade}
+
+Chave primária identifica unicamente uma tupla. Chave estrangeira referencia chave candidata/primária de outra relação e apoia integridade referencial. Restrições \texttt{NOT NULL}, \texttt{UNIQUE}, \texttt{CHECK} e regras de domínio protegem consistência.
+
+\section{Normalização}
+
+Normalização reduz redundância e anomalias de inserção, atualização e exclusão.
+
+\begin{table}[ht]
+\centering
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Forma & Ideia central \\
+\midrule
+1FN & valores atômicos no contexto do modelo relacional e ausência de grupos repetitivos. \\
+2FN & 1FN + nenhum atributo não-chave depende apenas de parte de uma chave candidata composta. \\
+3FN & 2FN + eliminação de dependências transitivas inadequadas de atributos não-chave em relação à chave. \\
+BCNF & para toda dependência funcional não trivial $X\to Y$, $X$ deve ser superchave. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Desnormalização pode ser deliberada para desempenho analítico, mas aumenta custo de consistência. A banca pode explorar o erro de tratar normalização como objetivo absoluto.
+
+\begin{exemplo}[dependência parcial]
+Considere \texttt{Matricula(AlunoID, DisciplinaID, NomeAluno, Nota)} com chave composta $(AlunoID,DisciplinaID)$. Se \texttt{NomeAluno} depende apenas de \texttt{AlunoID}, há dependência parcial e violação de 2FN.
+\end{exemplo}
+
+\section{SQL: DDL, DML e consultas}
+
+DDL define estruturas: \texttt{CREATE}, \texttt{ALTER}, \texttt{DROP}. DML manipula dados: \texttt{INSERT}, \texttt{UPDATE}, \texttt{DELETE}; \texttt{SELECT} é frequentemente tratado separadamente como DQL em classificações didáticas, embora taxonomias variem.
+
+\begin{lstlisting}[language=SQL]
+SELECT u.orgao_id,
+       COUNT(*) AS achados,
+       SUM(a.valor_estimado) AS valor
+FROM unidade u
+JOIN achado a ON a.unidade_id = u.id
+WHERE a.status = 'ABERTO'
+GROUP BY u.orgao_id
+HAVING SUM(a.valor_estimado) > 1000000;
+\end{lstlisting}
+
+\begin{cebraspe}
+\texttt{WHERE} filtra linhas antes da agregação; \texttt{HAVING} filtra grupos após o \texttt{GROUP BY}. Um \texttt{LEFT JOIN} preserva as linhas do lado esquerdo mesmo sem correspondência, preenchendo colunas do lado direito com \texttt{NULL}.
+\end{cebraspe}
+
+\section{Transações e propriedades ACID}
+
+\begin{itemize}
+\item \textbf{Atomicidade}: transação é aplicada por inteiro ou desfeita.
+\item \textbf{Consistência}: regras e invariantes válidos são preservados por transações corretas.
+\item \textbf{Isolamento}: concorrência deve produzir comportamento compatível com o nível de isolamento adotado.
+\item \textbf{Durabilidade}: após confirmação, efeitos sobrevivem a falhas previstas no modelo.
+\end{itemize}
+
+Fenômenos de concorrência incluem leitura suja, leitura não repetível e fantasma. MVCC mantém versões para reduzir contenção e sustentar isolamento em diversos SGBDs.
+
+\section{Índices e desempenho}
+
+Índices aceleram certas leituras ao custo de espaço e manutenção em escrita. Um índice B-tree é útil para igualdade e intervalos em colunas com ordenação; índices hash favorecem igualdade em implementações que os suportam. Cardinalidade, seletividade, distribuição e ordem das colunas importam. O otimizador avalia planos de execução com estatísticas.
+
+\begin{atencao}
+Mais índices não significam banco mais rápido. Índices redundantes degradam \texttt{INSERT/UPDATE/DELETE}, ocupam memória/armazenamento e exigem manutenção.
+\end{atencao}
+
+\section{Modelagem dimensional}
+
+Modelos dimensionais são orientados a análise. A \termo{tabela fato} registra medidas e chaves para dimensões; \termo{dimensões} descrevem contexto como tempo, órgão, programa, fornecedor. Esquema estrela mantém dimensões mais desnormalizadas; floco de neve normaliza partes das dimensões.
+
+Granularidade define o que uma linha da fato representa e deve ser estabelecida antes de selecionar medidas. Medidas podem ser aditivas, semi-aditivas ou não aditivas.
+
+\section{Big data e NoSQL}
+
+NoSQL não significa ausência de consulta estruturada nem rejeição a consistência. A categoria inclui bancos chave-valor, documentos, colunas largas e grafos. A escolha depende do padrão de acesso, volume, velocidade, variedade, disponibilidade, consistência e modelo de dados.
+
+Em sistemas distribuídos, replicação e particionamento aumentam escala e disponibilidade, mas criam problemas de consenso, latência e consistência. O teorema CAP afirma que, na presença de partição de rede, um sistema distribuído não pode garantir simultaneamente consistência forte e disponibilidade para todas as requisições.
+
+\section{ETL, ELT e ingestão}
+
+Em ETL, dados são extraídos, transformados e depois carregados no destino. Em ELT, dados brutos são carregados antes e transformados no ambiente de destino. ELT é comum em plataformas analíticas escaláveis, mas não é intrinsecamente melhor.
+
+Ingestão pode ocorrer em lote ou fluxo. Sistemas de streaming lidam com eventos contínuos, ordenação, reprocessamento, semântica de entrega e janelas temporais. Idempotência é valiosa para permitir reexecução sem duplicar efeitos indevidos.
+
+\section{Administração e políticas de armazenamento}
+
+Administração inclui capacidade, backup, recuperação, segurança, usuários, privilégios, replicação, atualização, monitoramento e tuning. Separe funções administrativas de funções de negócio para reduzir risco de abuso. Logs de auditoria devem ser protegidos contra alteração pelo próprio usuário monitorado.
+
+\section{Mapa mental}
+
+\mapamental{Engenharia de dados}{
+ child {node[concept]{Modelagem} child {node[concept]{conceitual}} child {node[concept]{lógica/física}}}
+ child {node[concept]{Relacional} child {node[concept]{normalização}} child {node[concept]{SQL}}}
+ child {node[concept]{Analytics} child {node[concept]{dimensional}} child {node[concept]{fato/dimensão}}}
+ child {node[concept]{Escala} child {node[concept]{NoSQL}} child {node[concept]{big data}}}
+ child {node[concept]{Pipelines} child {node[concept]{ETL/ELT}} child {node[concept]{batch/stream}}}
+ child {node[concept]{Operação} child {node[concept]{índices}} child {node[concept]{backup}}}
+}
+
+\section{Questões por nível}
+
+\begin{questao}{\nivel{N1} 11.1}
+Em um esquema estrela, a tabela que normalmente concentra medidas quantitativas e chaves para dimensões é denominada:
+\begin{enumerate}[label=\Alph*)]
+\item catálogo.
+\item fato.
+\item índice.
+\item domínio.
+\item catálogo de metadados.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{11.1}
+\textbf{Gabarito: B.} Tabela fato representa eventos/medidas na granularidade definida. As demais alternativas representam estruturas diferentes e não exercem esse papel dimensional.
+\end{solucao}
+
+\begin{questao}{\nivel{N2} 11.2}
+Uma relação possui chave composta $(A,B)$ e atributo $C$ que depende apenas de $A$. Mantidas as demais condições, isso caracteriza problema que a normalização para qual forma busca eliminar diretamente?
+\begin{enumerate}[label=\Alph*)]
+\item 1FN
+\item 2FN
+\item 3FN exclusivamente por dependência transitiva
+\item BCNF apenas quando $B$ é multivalorado
+\item 4FN por dependência de junção
+\end{enumerate}
+\end{questao}
+\begin{solucao}{11.2}
+\textbf{Gabarito: B.} Dependência de atributo não-chave em parte de chave composta é dependência parcial, alvo da 2FN. 1FN trata atomicidade/grupos repetitivos; 3FN trata dependências transitivas inadequadas; 4FN e formas superiores lidam com outras classes de dependência.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} 11.3}
+Uma consulta precisa retornar todos os órgãos, inclusive aqueles sem achados associados, exibindo zero quando não houver ocorrência. Qual construção preserva naturalmente os órgãos sem correspondência?
+\begin{enumerate}[label=\Alph*)]
+\item \texttt{INNER JOIN} de órgão para achado.
+\item \texttt{CROSS JOIN} com filtro em \texttt{WHERE}.
+\item \texttt{LEFT JOIN} partindo da tabela de órgãos, com agregação adequada.
+\item \texttt{DELETE JOIN}.
+\item \texttt{HAVING} sem agregação.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{11.3}
+\textbf{Gabarito: C.} \texttt{LEFT JOIN} preserva cada linha da relação esquerda. \texttt{INNER JOIN} removeria órgãos sem achados; \texttt{CROSS JOIN} produz produto cartesiano; D não é operação padrão de consulta; E não cria correspondências inexistentes.
+\end{solucao}
+
+\begin{questao}{\nivel{N4} 11.4}
+Em um pipeline de fiscalização, eventos podem ser reenviados após falhas. O consumidor grava cada pagamento recebido em tabela de risco. Duplicatas estão inflando valores. Qual desenho é mais apropriado?
+\begin{enumerate}[label=\Alph*)]
+\item eliminar qualquer retry para impedir duplicatas.
+\item tornar o processamento idempotente, usando identificador estável do evento e controle de duplicidade/transação.
+\item trocar banco relacional por qualquer NoSQL.
+\item aumentar o número de partições sem alterar lógica.
+\item remover chaves únicas para acelerar ingestão.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{11.4}
+\textbf{Gabarito: B.} Reenvio é esperado em sistemas distribuídos; idempotência permite processar a mesma mensagem mais de uma vez sem duplicar o efeito lógico. A reduz resiliência; C e D não resolvem semântica de processamento; E piora controle de integridade.
+\end{solucao}
+
+\begin{discursiva}[engenharia de dados]
+O TCE pretende integrar dados de licitações municipais provenientes de APIs, arquivos CSV e bases relacionais, com atualização diária e trilha de auditoria. Em até 30 linhas, proponha uma arquitetura lógica de ingestão, qualidade, armazenamento e disponibilização, destacando controles de linhagem, idempotência e acesso.
+\end{discursiva}
