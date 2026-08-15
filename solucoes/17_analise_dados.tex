@@ -1,0 +1,55 @@
+\section{Gabarito e resoluções comentadas — Análise de Dados}
+
+\begin{solucao}{17.01}\textbf{CERTO.} Em uma base com 0,5\% de positivos, prever sempre a classe majoritária gera 99,5\% de acurácia e recall zero para positivos. A pegadinha é usar métrica incompatível com o objetivo.\end{solucao}
+\begin{solucao}{17.02}\textbf{CERTO.} Precisão é $TP/(TP+FP)$; recall é $TP/(TP+FN)$. A primeira mede a qualidade dos alertas positivos; a segunda, a cobertura dos positivos reais.\end{solucao}
+\begin{solucao}{17.03}\textbf{ERRADO.} AUC-ROC mede capacidade de ordenação/discriminação ao variar thresholds. Calibração pergunta se probabilidades previstas correspondem a frequências observadas.\end{solucao}
+\begin{solucao}{17.04}\textbf{CERTO.} Em dados temporais, embaralhar passado e futuro pode permitir que padrões futuros influenciem o treino e produzam uma estimativa irrealista de desempenho.\end{solucao}
+\begin{solucao}{17.05}\textbf{CERTO.} Parâmetros de pré-processamento — média, desvio, imputação, seleção de features — devem ser aprendidos no treino e apenas aplicados aos demais conjuntos.\end{solucao}
+\begin{solucao}{17.06}\textbf{CERTO.} K-means minimiza distâncias a centroides; escala e inicialização influenciam diretamente o resultado.\end{solucao}
+\begin{solucao}{17.07}\textbf{CERTO.} Lift compara $P(B\mid A)$ com $P(B)$. Valor superior a 1 indica associação positiva, não causalidade.\end{solucao}
+\begin{solucao}{17.08}\textbf{ERRADO.} Outlier pode ser erro, evento raro legítimo ou justamente o objeto de interesse da auditoria. A decisão exige contexto e análise da origem.\end{solucao}
+\begin{solucao}{17.09}\textbf{CERTO.} O quadrado dos resíduos faz erros grandes contribuírem de forma desproporcional ao RMSE.\end{solucao}
+\begin{solucao}{17.10}\textbf{ERRADO.} Correlação pode decorrer de causalidade inversa, variável omitida, seleção, coincidência ou estrutura temporal. Não basta para inferir causa.\end{solucao}
+
+\begin{solucao}{17.11}\textbf{C.} Recall $=80/(80+20)=0,80=80\%$. Os falsos positivos não entram no denominador do recall.\end{solucao}
+\begin{solucao}{17.12}\textbf{A.} Se há capacidade limitada para investigar alertas, precisão alta reduz desperdício de vagas com falsos positivos. Ainda assim, recall não deve ser ignorado na decisão global.\end{solucao}
+\begin{solucao}{17.13}\textbf{CERTO.} Quando falso negativo tem alto custo, é comum priorizar recall, desde que a organização suporte o volume de falsos positivos decorrente do threshold escolhido.\end{solucao}
+\begin{solucao}{17.14}\textbf{C.} $F_1=2(0,75)(0,60)/(0,75+0,60)=0,90/1,35\approx0,667$.\end{solucao}
+\begin{solucao}{17.15}\textbf{B.} Estatísticas do teste influenciaram o pré-processamento aprendido, contaminando a avaliação.\end{solucao}
+\begin{solucao}{17.16}\textbf{CERTO.} Árvores fazem divisões por limiar e não dependem de distância euclidiana; k-NN e k-means são sensíveis à escala.\end{solucao}
+\begin{solucao}{17.17}\textbf{A.} Codificar categoria nominal com números pode criar relação ordinal e distância inexistentes. One-hot ou representações apropriadas evitam essa semântica falsa, conforme algoritmo.\end{solucao}
+\begin{solucao}{17.18}\textbf{A.} Métrica alta em alvo errado não gera valor. O erro está na tradução do problema de negócio para problema analítico.\end{solucao}
+\begin{solucao}{17.19}\textbf{CERTO.} CRISP-DM é iterativo; descobertas em avaliação/modelagem podem exigir voltar a entendimento ou preparação.\end{solucao}
+\begin{solucao}{17.20}\textbf{B.} Reduzir threshold classifica mais casos como positivos, elevando em geral tanto TPR quanto FPR.\end{solucao}
+\begin{solucao}{17.21}\textbf{B.} Em classe rara, precision-recall evidencia a relação entre cobertura dos positivos e pureza dos alertas, sem ser dominada pela grande quantidade de negativos verdadeiros.\end{solucao}
+\begin{solucao}{17.22}\textbf{CERTO.} DBSCAN trabalha com densidade, pode marcar ruído e encontrar formas irregulares, mas depende de $\varepsilon$, minPts e escala.\end{solucao}
+\begin{solucao}{17.23}\textbf{D.} Lift $=0,50/0,20=2,5$.\end{solucao}
+\begin{solucao}{17.24}\textbf{A.} RMSE muito superior ao MAE é sinal de que alguns resíduos grandes pesam fortemente.\end{solucao}
+\begin{solucao}{17.25}\textbf{CERTO.} TF-IDF pondera frequência local pelo inverso da frequência documental, reduzindo peso de termos comuns no corpus.\end{solucao}
+
+\begin{solucao}{17.26}\textbf{C.} I e II corretas. III é falsa: Precision-Recall costuma ser especialmente útil quando a classe positiva é rara.\end{solucao}
+\begin{solucao}{17.27}\textbf{CERTO.} Um modelo pode ordenar corretamente e atribuir probabilidades ruins. Calibração é dimensão diferente de discriminação.\end{solucao}
+\begin{solucao}{17.28}\textbf{B.} A feature só existe após encerramento, portanto contém informação futura indisponível no momento real da decisão.\end{solucao}
+\begin{solucao}{17.29}\textbf{B.} A validação deve imitar o uso em produção: passado treina, futuro valida/testa.\end{solucao}
+\begin{solucao}{17.30}\textbf{CERTO.} Se só casos historicamente selecionados recebem rótulos, o dataset incorpora o viés do processo de seleção anterior.\end{solucao}
+\begin{solucao}{17.31}\textbf{A.} A variável em milhões domina a distância se nenhuma padronização/normalização apropriada for aplicada.\end{solucao}
+\begin{solucao}{17.32}\textbf{A.} Anomalia pode depender do contexto. Um valor alto globalmente pode ser normal dentro de uma categoria de grande porte.\end{solucao}
+\begin{solucao}{17.33}\textbf{CERTO.} Confidence alta pode apenas refletir consequente muito comum. Lift compara a regra com a frequência-base.\end{solucao}
+\begin{solucao}{17.34}\textbf{A.} Truncar eixo em barras amplia visualmente diferenças pequenas e pode induzir interpretação exagerada.\end{solucao}
+\begin{solucao}{17.35}\textbf{A.} Funções de janela permitem ranking dentro de partições mantendo cada linha, ao contrário de agregação tradicional com GROUP BY.\end{solucao}
+\begin{solucao}{17.36}\textbf{CERTO.} A função de janela calcula sobre um conjunto relacionado sem colapsar a granularidade original.\end{solucao}
+\begin{solucao}{17.37}\textbf{A.} Após agregação, a granularidade muda; merge sem compreender chaves/cardinalidade pode multiplicar ou perder registros.\end{solucao}
+\begin{solucao}{17.38}\textbf{A.} Processo manual e versões divergentes fragilizam reprodutibilidade, revisão e trilha. Ferramenta não é o problema; governança do processo é.\end{solucao}
+\begin{solucao}{17.39}\textbf{CERTO.} Proximidade semântica vetorial é medida aprendida, não prova identidade, equivalência jurídica ou causalidade.\end{solucao}
+\begin{solucao}{17.40}\textbf{A.} O valor do detector depende do custo dos erros, threshold e capacidade de investigação. Trinta achados relevantes podem ser valiosos ou insuficientes conforme o objetivo.\end{solucao}
+
+\begin{solucao}{17.41}\textbf{ERRADO.} O AUC foi obtido em avaliação contaminada por desenho temporal e features futuras. A métrica não demonstra validade pré-contratual.\end{solucao}
+\begin{solucao}{17.42}\textbf{B.} Antes de alterar dados, o auditor deve reconstruir a transformação: granularidade, chaves, cardinalidade, filtros e totais intermediários.\end{solucao}
+\begin{solucao}{17.43}\textbf{A.} Os rótulos refletem o que foi historicamente escolhido para auditoria, criando risco de replicar áreas de atenção e invisibilizar áreas nunca inspecionadas.\end{solucao}
+\begin{solucao}{17.44}\textbf{CERTO.} Validade operacional inclui subgrupos, drift, disponibilidade de features, governança e impacto humano, não só AUC ou F1 global.\end{solucao}
+\begin{solucao}{17.45}\textbf{B.} Reprodutibilidade exige código, parâmetros, referência dos dados e ambiente versionados. PDF final não permite refazer a análise.\end{solucao}
+\begin{solucao}{17.46}\textbf{CERTO.} Um ranking tecnicamente igual pode se tornar operacionalmente pior se a capacidade humana cai e o mesmo threshold produz volume impossível de revisar.\end{solucao}
+\begin{solucao}{17.47}\textbf{A.} Se 80\% previsto corresponde a 45\% observado, a probabilidade está mal calibrada, embora a ordenação possa continuar boa.\end{solucao}
+\begin{solucao}{17.48}\textbf{A.} Threshold faz parte da política de decisão. Alterá-lo sem registro quebra comparabilidade, accountability e reprodutibilidade.\end{solucao}
+\begin{solucao}{17.49}\textbf{CERTO.} Uma explicação local não valida o dataset, a estabilidade, a performance global nem outros grupos.\end{solucao}
+\begin{solucao}{17.50}\textbf{B.} O achado adequado trata governança do modelo — versão, dados, threshold, validação e responsáveis — e não condena ML como tecnologia.\end{solucao}
