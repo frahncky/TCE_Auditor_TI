@@ -1,200 +1,307 @@
 \chapter{Competências Digitais e Informática Aplicada ao Setor Público}
 
-\section{Competência digital como capacidade de agir}
+\section{Cultura digital, competência digital e cidadania}
 
-O edital combina tecnologia, comportamento e cidadania digital. Não basta saber que uma ferramenta existe: é preciso selecionar canais, avaliar confiabilidade, proteger informação, colaborar e compreender os limites jurídicos do uso de dados e Internet.
+Cultura digital é o conjunto de práticas, valores, linguagens e formas de interação que surgem da presença de tecnologias digitais na vida social, profissional e institucional. Competência digital é mais específica: corresponde à capacidade de utilizar tecnologias de forma crítica, segura, ética e eficiente para localizar informação, comunicar, produzir conteúdo, resolver problemas e exercer direitos.
 
-\begin{teoria}[modelo de decisão digital]
-Antes de qualquer ação digital, responda:
+No setor público, competência digital não se limita ao domínio operacional de programas. Ela envolve compreender como dados, sistemas, redes e plataformas modificam processos administrativos, prestação de serviços, transparência, participação social e proteção de direitos.
+
+\begin{teoria}[quatro dimensões da competência digital]
+Uma forma útil de organizar o tema é separar quatro dimensões:
 \begin{enumerate}
-\item qual é o objetivo da comunicação ou tarefa?;
-\item qual informação será tratada e qual seu grau de sensibilidade?;
-\item quem precisa acessar e por quanto tempo?;
-\item qual ferramenta/canal é proporcional ao risco?;
-\item qual evidência ficará registrada?;
-\item há obrigação de transparência, privacidade ou proteção especial?
+\item \textbf{informacional}: localizar, avaliar, organizar e interpretar informação;
+\item \textbf{tecnológica}: operar ferramentas, redes, aplicações e dispositivos;
+\item \textbf{comunicacional}: produzir e compartilhar conteúdo adequadamente;
+\item \textbf{ética e jurídica}: respeitar privacidade, segurança, direitos autorais, transparência e responsabilidades.
 \end{enumerate}
 \end{teoria}
 
-\section{Ambiente digital no setor público}
+A Política Nacional de Educação Digital, instituída pela Lei nº 14.533/2023, estrutura-se em eixos como inclusão digital, educação digital escolar, capacitação e especialização digital e pesquisa e desenvolvimento em TIC. A lei também relaciona educação digital a letramento digital, lógica, algoritmos, programação, ética, letramento midiático e cidadania digital.
 
-O trabalho público digital envolve comunicação, processos eletrônicos, dados, colaboração remota, serviços ao cidadão e publicação de informação. A escolha tecnológica deve respeitar impessoalidade, segurança, acessibilidade, transparência, proteção de dados e continuidade.
+\section{Pensamento computacional}
 
-\section{Etiqueta digital e comunicação profissional}
+Pensamento computacional é uma forma de estruturar problemas para que possam ser compreendidos e resolvidos de maneira sistemática, com ou sem uso direto de computador.
 
-Comunicação digital profissional exige clareza, objetividade, contexto e proporcionalidade do canal.
-
-\subsection{E-mail}
-
-Boas práticas:
+Quatro ideias aparecem com frequência:
 \begin{itemize}
-\item assunto informativo;
-\item destinatários estritamente necessários;
-\item uso consciente de \texttt{Cc} e \texttt{Cco};
-\item anexos identificados e versionados;
-\item evitar dados sensíveis em canal inadequado;
-\item confirmar pedidos de alto impacto por canal independente quando houver risco de fraude.
+\item \termo{decomposição}: dividir problema complexo em partes menores;
+\item \termo{reconhecimento de padrões}: identificar regularidades entre casos;
+\item \termo{abstração}: selecionar características relevantes e ignorar detalhes irrelevantes;
+\item \termo{algoritmo}: definir sequência finita e não ambígua de passos para atingir um objetivo.
 \end{itemize}
 
-\subsection{Chats e reuniões}
+\begin{exemplo}[processo administrativo]
+Para automatizar a triagem de processos, pode-se decompor o fluxo em recebimento, validação documental, classificação, encaminhamento e registro. Em seguida, identificam-se regras repetitivas, abstraem-se campos essenciais e descreve-se um algoritmo para decidir o próximo estado de cada processo.
+\end{exemplo}
 
-Mensagens instantâneas são úteis para coordenação rápida, mas decisões formais podem exigir registro em sistema institucional. Em videoconferências, controle de convidados, gravação, compartilhamento de tela e exposição do ambiente são riscos operacionais.
+Pensamento computacional não equivale a programação. Programar é uma possível implementação de uma solução; o raciocínio algorítmico pode ser aplicado antes da escolha da linguagem ou mesmo em processos executados manualmente.
 
-\section{Ferramentas de colaboração e produtividade}
+\section{Informação, dado e conhecimento}
 
-Editores colaborativos, planilhas, armazenamento em nuvem, calendários e plataformas de reunião permitem trabalho simultâneo. O candidato deve conhecer:
+\termo{Dado} é uma representação elementar de fato, evento ou atributo. \termo{Informação} resulta da organização e interpretação de dados em contexto. \termo{Conhecimento} envolve compreensão que permite explicar, decidir ou agir.
+
+Uma lista de valores de despesas é dado. O total por unidade e por mês já constitui informação. A identificação de um padrão anômalo e sua interpretação à luz do processo de contratação aproxima-se de conhecimento.
+
+Essa distinção é importante porque sistemas podem armazenar grandes volumes de dados sem produzir informação de qualidade. Qualidade depende de atributos como exatidão, completude, consistência, atualidade, unicidade e adequação ao uso.
+
+\section{Internet, Web e endereçamento}
+
+Internet é a infraestrutura global baseada em interconexão de redes e protocolos da família TCP/IP. Web é um serviço executado sobre essa infraestrutura, normalmente utilizando HTTP ou HTTPS.
+
+\subsection{Estrutura de uma URL}
+
+Considere:
+\begin{center}
+\texttt{https://portal.exemplo.gov.br/processos?id=42\#historico}
+\end{center}
+
+Podemos separar:
 \begin{itemize}
-\item permissões de leitura, comentário e edição;
-\item compartilhamento por link versus usuários específicos;
-\item histórico de versões;
-\item conflitos e coautoria;
-\item sincronização entre dispositivos;
-\item risco de compartilhamento público acidental.
+\item \texttt{https}: esquema/protocolo;
+\item \texttt{portal.exemplo.gov.br}: host;
+\item \texttt{/processos}: caminho;
+\item \texttt{id=42}: parâmetro de consulta;
+\item \texttt{historico}: fragmento.
 \end{itemize}
+
+O DNS traduz nomes de domínio em informações de endereçamento. O navegador não ``procura a página no DNS''; ele utiliza o DNS para resolver o nome do host e depois estabelece comunicação com o serviço correspondente.
+
+\subsection{HTTP e HTTPS}
+
+HTTP é protocolo de aplicação usado para transferência de recursos na Web. HTTPS corresponde a HTTP protegido por TLS. O TLS fornece propriedades como confidencialidade e integridade do canal e autenticação do servidor por certificados, conforme a configuração.
 
 \begin{atencao}
-``Está na nuvem'' não significa ``está público'' nem ``está seguro''. A segurança depende de identidade, permissão, configuração, dispositivo e política de compartilhamento.
+HTTPS não garante que o conteúdo do site seja verdadeiro, que a organização seja confiável ou que o usuário não esteja diante de uma página maliciosa. Ele protege a comunicação com o servidor identificado pelo certificado; não valida a intenção do conteúdo.
 \end{atencao}
 
-\section{Busca e avaliação de informação}
+\section{Navegadores, cache, cookies e armazenamento local}
 
-Motores de busca indexam e ranqueiam conteúdo. O resultado mais alto não é necessariamente a fonte mais confiável.
+Navegadores interpretam HTML, CSS e JavaScript, gerenciam sessões, certificados, cache, cookies, extensões e armazenamento local.
 
-\subsection{Avaliação da fonte}
+\termo{Cache} mantém cópias de recursos para reduzir tráfego e tempo de carregamento. \termo{Cookie} é pequeno dado associado a um domínio e enviado conforme regras da aplicação; pode manter sessão, preferências ou identificadores. \termo{Local storage} permite persistir dados no navegador sem o mesmo mecanismo de envio automático dos cookies.
 
-Pergunte:
-\begin{itemize}
-\item quem publicou?;
-\item é fonte primária/oficial?;
-\item qual a data?;
-\item existe conflito de interesse?;
-\item o conteúdo cita evidências verificáveis?;
-\item outras fontes independentes confirmam a informação?
-\end{itemize}
+Cookies não são, por definição, vírus. Contudo, identificadores podem ser usados para rastreamento e perfilamento. O impacto depende do conteúdo, finalidade e contexto de uso.
 
-Em tema jurídico, fonte oficial do ato normativo é preferível a blog. Em notícia, compare publicação, data do fato e fontes citadas.
+O modo privado ou anônimo reduz a persistência local de histórico, cookies e outros dados ao encerrar a sessão, mas não torna a conexão anônima perante provedor, rede institucional, servidor acessado ou mecanismos externos de correlação.
+
+\section{Motores de busca e recuperação de informação}
+
+Motores de busca realizam rastreamento, indexação e ranqueamento. O resultado exibido primeiro não é necessariamente a fonte mais correta; é o resultado que o mecanismo considerou mais relevante segundo seus critérios.
 
 \subsection{Operadores de busca}
 
-Aspas restringem expressão exata; \texttt{site:} restringe domínio; sinal de menos pode excluir termo; filtros por data/arquivo refinam resultados. Operadores variam entre mecanismos, mas o princípio é reduzir ruído.
+Operadores úteis incluem:
+\begin{itemize}
+\item aspas para expressão exata: \texttt{"tribunal de contas"};
+\item \texttt{site:dominio} para restringir domínio;
+\item \texttt{filetype:pdf} para buscar determinado formato, quando suportado;
+\item sinal de menos para excluir termo em mecanismos que adotem essa sintaxe.
+\end{itemize}
 
-\section{Navegação web}
+\subsection{Fonte primária e fonte secundária}
 
-URL inclui esquema, host, caminho, parâmetros e fragmentos. HTTPS protege o canal por TLS, mas não prova que o conteúdo do site seja legítimo ou verdadeiro.
+Fonte primária apresenta o documento, dado ou ato em sua origem: texto legal oficial, acórdão, base estatística, edital, relatório institucional. Fonte secundária interpreta a fonte primária: notícia, comentário, resumo ou artigo.
 
-Cookies podem manter sessão e preferências; armazenamento local pode persistir dados no navegador. Extensões possuem permissões e podem ampliar risco de coleta ou alteração de páginas.
+Em temas normativos, o uso de fonte primária reduz o risco de estudar dispositivo revogado ou interpretação desatualizada.
 
-\section{Privacidade e rastreamento}
+\section{Letramento midiático e desinformação}
 
-Navegação pode gerar logs, cookies, identificadores, histórico e metadados. Modo anônimo/privado reduz persistência local, mas não torna o usuário invisível ao provedor, site, rede corporativa ou outros intermediários.
+Letramento midiático é a capacidade de acessar, compreender, avaliar e produzir mensagens em diferentes meios. Em ambiente digital, isso exige distinguir evidência, opinião, publicidade, sátira, conteúdo manipulado e informação fora de contexto.
 
-\section{Aplicativos móveis e permissões}
+A desinformação pode explorar:
+\begin{itemize}
+\item título que não corresponde ao conteúdo;
+\item imagem verdadeira associada a evento diferente;
+\item dado correto apresentado sem denominador ou contexto;
+\item gráfico com eixo truncado;
+\item falsa autoridade;
+\item conteúdo sintético ou editado;
+\item rede coordenada de repetição para criar aparência de consenso.
+\end{itemize}
 
-Aplicativos podem solicitar câmera, microfone, localização, contatos, armazenamento e notificações. Princípio de mínimo privilégio também se aplica ao dispositivo pessoal: conceda apenas o necessário à finalidade.
+\begin{exemplo}[gráfico enganoso]
+Se uma taxa sobe de 50 para 52, um gráfico cujo eixo vertical comece em 49 pode representar visualmente um salto enorme. O dado não foi alterado, mas a escala pode induzir interpretação desproporcional. Letramento digital inclui examinar origem, unidade, denominador, período e escala.
+\end{exemplo}
 
-Fontes oficiais de instalação reduzem risco, mas não eliminam a necessidade de avaliar desenvolvedor, permissões, atualizações e reputação.
+\section{Correio eletrônico}
 
-\section{Comunicação em tempo real e multimídia}
+E-mail combina agentes de usuário, servidores e protocolos. SMTP é associado ao envio e transferência de mensagens entre servidores. IMAP permite acesso mantendo mensagens organizadas no servidor. POP3, em configuração clássica, é orientado ao download das mensagens, embora clientes possam manter cópias no servidor.
 
-Streaming transmite mídia progressivamente; download tradicional obtém arquivo para uso local. Latência, jitter, largura de banda e compressão influenciam videoconferência. Microfone aberto e compartilhamento de tela podem expor informação indevida.
+Os campos mais comuns são:
+\begin{itemize}
+\item \textbf{Para}: destinatários principais;
+\item \textbf{Cc}: cópia visível;
+\item \textbf{Cco}: cópia cujo destinatário não é revelado aos demais recipientes na mensagem entregue;
+\item \textbf{Assunto}: metadado descritivo;
+\item \textbf{Anexo}: arquivo associado à mensagem.
+\end{itemize}
 
-\section{Princípios de segurança no uso cotidiano}
+Cabeçalhos de e-mail podem conter registros técnicos de encaminhamento. O nome exibido do remetente não prova sua identidade; por isso, golpes exploram domínio semelhante, spoofing e contas comprometidas.
 
-\subsection{Senhas e MFA}
+\section{Ferramentas de colaboração e computação em nuvem}
 
-Senhas devem ser únicas e resistentes. Gerenciadores de senhas reduzem reutilização. MFA combina fatores distintos e reduz impacto de senha comprometida.
+Editores colaborativos, armazenamento em nuvem, calendários, chats e plataformas de reunião permitem coautoria e sincronização entre dispositivos.
 
-\subsection{Phishing}
+\subsection{Permissões}
 
-Indicadores comuns: urgência artificial, domínio semelhante, pedido incomum, link encurtado, anexo inesperado e solicitação de credenciais. A aparência visual de uma página não prova legitimidade.
+Três níveis aparecem com frequência:
+\begin{itemize}
+\item leitura;
+\item comentário;
+\item edição.
+\end{itemize}
 
-\subsection{Atualizações}
+Compartilhar ``com qualquer pessoa que possua o link'' é conceitualmente diferente de compartilhar com identidades previamente definidas. O primeiro modelo torna o segredo do link parte relevante do controle de acesso; o segundo depende de autenticação da identidade autorizada.
 
-Sistemas e apps desatualizados acumulam vulnerabilidades. Atualização deve ser controlada e, no setor público, compatível com gestão de mudança e continuidade.
+\subsection{Versionamento e sincronização}
 
-\section{LGPD aplicada ao ambiente digital}
+Histórico de versões registra estados anteriores do arquivo e pode permitir restauração. Sincronização mantém cópias coerentes entre dispositivo e serviço remoto, mas não é sinônimo de backup. Uma exclusão ou criptografia maliciosa pode ser sincronizada para outros dispositivos.
 
-A Lei nº 13.709/2018 disciplina tratamento de dados pessoais por pessoas naturais ou jurídicas, públicas ou privadas, nas hipóteses de seu âmbito de aplicação.
+\begin{atencao}[sincronização não é backup]
+Backup pressupõe capacidade de recuperação a partir de cópia preservada. Serviço de sincronização pode ajudar, especialmente quando possui versionamento, mas sua finalidade principal é manter estados sincronizados, não necessariamente garantir retenção independente contra perda ou ataque.
+\end{atencao}
 
-\subsection{Dado pessoal e dado sensível}
+\section{Backup e recuperação}
 
-Dado pessoal relaciona-se a pessoa natural identificada ou identificável. Dados sensíveis incluem categorias que recebem proteção reforçada, como origem racial/étnica, convicção religiosa, opinião política, saúde, vida sexual, dado genético ou biométrico vinculado a pessoa.
+Backup é cópia destinada à recuperação após exclusão, corrupção, falha, desastre ou incidente de segurança.
+
+\subsection{Tipos de backup}
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+Tipo & O que copia & Recuperação \\
+\midrule
+Completo & todo o conjunto selecionado & simples, mas com maior volume de cópia. \\
+Incremental & alterações desde o último backup de qualquer tipo & exige cadeia de incrementais após o último completo. \\
+Diferencial & alterações desde o último completo & exige o completo e o diferencial mais recente. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Uma prática conhecida como regra 3-2-1 recomenda múltiplas cópias em meios distintos, com pelo menos uma em localização ou domínio de falha separado. Mais importante que memorizar a regra é compreender o princípio: reduzir a chance de um mesmo incidente destruir dados de produção e todas as cópias.
+
+Backup sem teste de restauração produz evidência fraca de recuperabilidade.
+
+\section{Malware e ameaças digitais}
+
+\termo{Malware} é categoria geral de software malicioso.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Tipo & Característica principal \\
+\midrule
+Vírus & associa-se a arquivo ou objeto hospedeiro e executa código malicioso quando ativado. \\
+Worm & propaga-se automaticamente entre sistemas explorando rede ou vulnerabilidades. \\
+Trojan & apresenta-se como software legítimo ou desejável para induzir execução. \\
+Ransomware & bloqueia ou cifra recursos para extorsão, frequentemente combinado com exfiltração. \\
+Spyware & coleta informações de forma indevida. \\
+Rootkit & busca ocultar presença ou manter acesso privilegiado. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Phishing, spear phishing e pharming}
+
+Phishing utiliza engenharia social para induzir a vítima a revelar segredo, executar arquivo ou acessar página maliciosa. Spear phishing é direcionado a vítima ou organização específica. Pharming busca redirecionar o usuário a destino fraudulento, por exemplo mediante manipulação de resolução de nomes ou ambiente local.
+
+Antivírus, firewall e anti-spyware são controles distintos. Nenhum fornece proteção absoluta; segurança depende de camadas complementares como atualização, autenticação forte, filtragem, backup, segmentação e conscientização.
+
+\section{Autenticação e fatores}
+
+Autenticação verifica identidade. Os fatores clássicos incluem:
+\begin{itemize}
+\item algo que o usuário \textbf{sabe}: senha/PIN;
+\item algo que o usuário \textbf{possui}: token, dispositivo ou chave;
+\item algo que o usuário \textbf{é}: característica biométrica.
+\end{itemize}
+
+MFA exige fatores de categorias distintas. Duas senhas não constituem autenticação multifator, pois ambas pertencem à categoria ``algo que sabe''.
+
+\section{LGPD: fundamentos e conceitos}
+
+A Lei nº 13.709/2018 regula o tratamento de dados pessoais, inclusive em meios digitais, por agentes públicos e privados nas hipóteses de seu âmbito de aplicação. Seu objetivo inclui proteger liberdade, privacidade e livre desenvolvimento da personalidade.
+
+\subsection{Dado pessoal, dado sensível e anonimização}
+
+\termo{Dado pessoal} é informação relacionada a pessoa natural identificada ou identificável. \termo{Dado pessoal sensível} recebe proteção especial e inclui categorias como origem racial ou étnica, convicção religiosa, opinião política, saúde, vida sexual e dados genéticos ou biométricos vinculados a pessoa natural.
+
+Dado anonimizado é aquele que não permite identificar o titular considerando meios técnicos razoáveis e disponíveis, nos termos da lei. Pseudonimização reduz associação direta, mas não equivale necessariamente a anonimização irreversível.
+
+\subsection{Tratamento}
+
+Tratamento é conceito amplo: inclui coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, arquivamento, armazenamento, eliminação e outras operações previstas legalmente.
 
 \subsection{Princípios}
 
-Finalidade, adequação, necessidade, livre acesso, qualidade, transparência, segurança, prevenção, não discriminação e responsabilização/prestação de contas orientam o tratamento.
+A LGPD estabelece princípios como finalidade, adequação, necessidade, livre acesso, qualidade, transparência, segurança, prevenção, não discriminação e responsabilização/prestação de contas.
+
+\begin{exemplo}[necessidade]
+Se um formulário de inscrição precisa apenas confirmar que o candidato é maior de idade, coletar cópia integral de documento com informações não necessárias pode violar o princípio da necessidade, dependendo do contexto e da base jurídica aplicável.
+\end{exemplo}
 
 \subsection{Bases legais}
 
-Consentimento é apenas uma das bases. No setor público, tratamento frequentemente decorre de obrigação legal, execução de políticas públicas, exercício regular de direitos ou outras hipóteses previstas. A banca pode explorar o erro de tratar consentimento como requisito universal.
+Consentimento é uma das bases legais, não a única. A lei prevê outras hipóteses, como cumprimento de obrigação legal ou regulatória, execução de políticas públicas, exercício regular de direitos, proteção da vida, tutela da saúde, legítimo interesse nas condições legais e proteção do crédito, além de bases específicas para dados sensíveis.
 
-\subsection{Agentes de tratamento}
+No poder público, o tratamento deve ser examinado à luz da competência e finalidade pública, das regras específicas da LGPD e da legislação que fundamenta a atividade.
 
-Controlador decide sobre o tratamento; operador trata em nome do controlador. Encarregado atua como canal e desempenha atribuições definidas pela legislação/regulação. Papéis dependem da atividade real, não apenas do nome contratual.
+\subsection{Controlador, operador e encarregado}
 
-\section{LAI e transparência digital}
+\termo{Controlador} toma as decisões referentes ao tratamento. \termo{Operador} realiza tratamento em nome do controlador. \termo{Encarregado} desempenha as funções previstas na legislação e regulação, servindo, entre outras atribuições, como canal de comunicação.
 
-A Lei nº 12.527/2011 regula acesso à informação pública. Transparência ativa ocorre por divulgação independentemente de pedido; transparência passiva responde a solicitações.
+A qualificação depende da atuação concreta. Um contrato chamar determinada empresa de ``operadora'' não encerra a análise se, na prática, ela decidir autonomamente finalidades e meios relevantes do tratamento.
 
-LAI e LGPD não são antagônicas. A Administração deve compatibilizar acesso com proteção de informações pessoais, sigilos legais e classificação aplicável.
+\section{LAI e transparência}
 
-\begin{cebraspe}
-``A informação está em poder do Estado, logo deve ser publicada integralmente'' é conclusão errada. O regime de acesso exige verificar natureza da informação e restrições legítimas.
-\end{cebraspe}
+A Lei nº 12.527/2011 regulamenta o direito de acesso à informação pública. Transparência \termo{ativa} é a divulgação de informação independentemente de solicitação. Transparência \termo{passiva} ocorre quando a Administração responde a pedido de acesso.
 
-\section{ECA no ambiente digital}
-
-O Estatuto da Criança e do Adolescente estabelece proteção integral e prioridade a direitos de crianças e adolescentes. No ambiente digital, isso impacta tratamento de dados, exposição de imagem, conteúdo, segurança e deveres de proteção.
-
-Em questões, evite simplificações: proteção digital não se resume à privacidade; envolve dignidade, integridade, desenvolvimento e prevenção de violações.
+A publicidade é regra, mas não é absoluta. Há informações classificadas, sigilos legalmente protegidos e dados pessoais sujeitos a regime próprio. A aplicação conjunta de LAI e LGPD exige distinguir informação sobre a atuação estatal de dados pessoais cuja exposição não seja necessária ou proporcional.
 
 \section{Marco Civil da Internet}
 
-A Lei nº 12.965/2014 estabelece princípios, garantias, direitos e deveres para uso da Internet no Brasil. Temas centrais:
+A Lei nº 12.965/2014 estabelece princípios, garantias, direitos e deveres para o uso da Internet no Brasil.
+
+Entre os temas centrais estão liberdade de expressão, privacidade, proteção de dados, neutralidade de rede, registros e responsabilidade dos agentes segundo o regime legal.
+
+\subsection{Neutralidade de rede}
+
+Neutralidade não significa que todos os pacotes terão exatamente a mesma latência. O princípio trata do tratamento isonômico do tráfego nos termos da lei e da regulamentação, admitindo hipóteses legalmente justificadas de discriminação ou degradação.
+
+\section{Interoperabilidade no setor público}
+
+Interoperabilidade é a capacidade de sistemas, organizações ou componentes trocarem informação e utilizarem adequadamente o que foi trocado.
+
+É útil separar dimensões:
 \begin{itemize}
-\item liberdade de expressão;
-\item proteção da privacidade e dados pessoais;
-\item neutralidade de rede;
-\item registros de conexão e acesso a aplicações;
-\item responsabilidade de agentes conforme regime legal;
-\item direitos dos usuários.
+\item \textbf{técnica}: protocolos, formatos, APIs e conectividade;
+\item \textbf{semântica}: significado compartilhado dos dados;
+\item \textbf{organizacional}: processos, responsabilidades e acordos entre instituições;
+\item \textbf{jurídica}: autorização e limites para compartilhamento e uso.
 \end{itemize}
 
-\subsection{Neutralidade}
+Dois sistemas podem estar tecnicamente conectados e, ainda assim, não serem semanticamente interoperáveis se o campo ``situação'' possuir códigos e significados incompatíveis.
 
-O tratamento do tráfego deve observar isonomia nos termos legais, com exceções regulamentadas. Neutralidade não significa que todo pacote terá latência idêntica ou que gestão técnica da rede seja proibida.
+\section{Processo eletrônico e SEI}
 
-\section{Cidadania e comportamento digital responsável}
+Processo eletrônico substitui ou complementa fluxos baseados em papel por documentos, assinaturas, tramitação, metadados e registros digitais. Seus benefícios incluem rastreabilidade, busca, acesso simultâneo e redução de movimentação física, mas dependem de governança documental, controle de acesso e preservação.
 
-Competência digital inclui:
-\begin{itemize}
-\item verificar antes de compartilhar;
-\item respeitar direitos autorais e licenças;
-\item não expor dados de terceiros sem necessidade;
-\item manter comunicação respeitosa;
-\item reconhecer golpes e manipulação;
-\item separar opinião pessoal de comunicação institucional;
-\item preservar registros oficiais em sistemas adequados.
-\end{itemize}
+O Sistema Eletrônico de Informações (SEI) é amplamente utilizado na Administração Pública para criação e tramitação de processos e documentos eletrônicos. Conceitualmente, o candidato deve compreender unidades, usuários, níveis de acesso, assinatura, tramitação, blocos e histórico de movimentação, sem confundir ferramenta com o regime jurídico do processo administrativo.
 
-\section{Mapa mental funcional}
+\section{Síntese conceitual}
 
 \mapafuncional{Competências Digitais}
-{Ação digital responsável = objetivo + ferramenta adequada + segurança + legalidade + registro}
-{Comunicação: e-mail/chat/reunião.\\Informação: busca $\rightarrow$ avaliação da fonte $\rightarrow$ uso.\\Tecnologia: navegador $\rightarrow$ apps $\rightarrow$ nuvem $\rightarrow$ permissões.\\Direitos: LGPD + LAI + ECA + Marco Civil.}
-{Dado pessoal: pergunte finalidade, base e necessidade.\\Informação pública: avalie transparência e restrições.\\Link/mensagem urgente: valide origem fora do canal.\\Compartilhamento: prefira usuário específico e mínimo privilégio.}
-{HTTPS $\neq$ site confiável.\\Modo anônimo $\neq$ anonimato na rede.\\Consentimento $\neq$ única base LGPD.\\Nuvem $\neq$ público.\\LAI $\neq$ publicação irrestrita.}
-{Quem precisa acessar?\\A fonte é oficial/primária?\\A permissão é necessária?\\Há dado pessoal/sensível?\\A ação fica registrada?\\O canal é adequado ao risco?}
+{Competência digital = compreender informação + operar tecnologia + comunicar + agir com segurança e responsabilidade}
+{Cultura digital $\rightarrow$ letramento e pensamento computacional.\\Internet/Web $\rightarrow$ busca, navegador, e-mail e colaboração.\\Segurança $\rightarrow$ autenticação, malware e backup.\\Direitos digitais $\rightarrow$ LGPD, LAI, Marco Civil e PNED.\\Setor público $\rightarrow$ interoperabilidade e processo eletrônico.}
+{HTTPS protege canal, não a veracidade do site.\\Sincronização mantém estado; backup preserva capacidade de recuperação.\\MFA exige fatores distintos.\\LGPD: identifique dado, finalidade, base, agente e direito do titular.\\Interoperabilidade exige mais que conectividade.}
+{Modo anônimo $\neq$ anonimato.\\Nuvem $\neq$ informação pública.\\Consentimento $\neq$ base universal.\\Cookie $\neq$ malware.\\Fonte mais ranqueada $\neq$ fonte mais confiável.}
+{Qual é a fonte primária?\\Que dado está sendo tratado?\\Qual é a finalidade?\\Que identidade pode acessar?\\Há cópia recuperável?\\O sistema troca apenas bytes ou também significado?}
 
 \begin{resumo}
-\textbf{Regra de prova:} desconfie de alternativas absolutas — ``sempre público'', ``consentimento obrigatório'', ``HTTPS garante legitimidade'', ``modo anônimo torna invisível''. A cobrança mistura conceito tecnológico com contexto jurídico.
+Este capítulo deve ser estudado como integração entre informática básica, segurança, cidadania digital e regime jurídico do uso de informação. A cobrança mais seletiva costuma apresentar uma situação concreta e exigir que o candidato diferencie conceitos próximos: Internet e Web, sincronização e backup, autenticação e autorização, dado pessoal e dado anonimizado, transparência e exposição indevida.
 \end{resumo}
-
-\input{questoes/02_competencias_digitais}
-
-\section{Treino discursivo}
-\begin{discursiva}[uso responsável de ferramentas digitais]
-Um setor compartilha planilha com dados pessoais por link público para facilitar trabalho remoto. Em até 30 linhas, identifique riscos técnicos e jurídicos e proponha um fluxo de colaboração compatível com mínimo privilégio, LGPD e rastreabilidade.
-\end{discursiva}
-
-\input{solucoes/02_competencias_digitais}
