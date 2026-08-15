@@ -1,8 +1,12 @@
 \chapter{Computação em Nuvem}
 
-\section{Características essenciais}
+\section{Nuvem como modelo operacional}
 
-Computação em nuvem entrega recursos computacionais sob demanda, com automação, compartilhamento de recursos, elasticidade e medição de uso. Em auditoria, a mudança principal é de \emph{localização de servidor} para \emph{modelo operacional}: infraestrutura torna-se programável, escalável e consumida como serviço, mas riscos e responsabilidades permanecem distribuídos entre cliente e provedor.
+Computação em nuvem não é apenas ``servidor fora do prédio''. O modelo combina autosserviço, pooling de recursos, acesso em rede, elasticidade e medição de uso. Para Auditor/TI, a mudança central é que infraestrutura se torna programável e consumida como serviço, enquanto responsabilidade fica distribuída entre cliente e provedor.
+
+\begin{teoria}[responsabilidade compartilhada]
+A pergunta de auditoria não é ``quem é o provedor?'', mas ``quem controla cada camada?''. Quanto mais gerenciado o serviço, mais responsabilidades de infraestrutura migram ao provedor; identidade, dados, configuração, finalidade do tratamento e uso seguro continuam, em grande parte, no cliente.
+\end{teoria}
 
 \section{Modelos de serviço}
 
@@ -11,111 +15,122 @@ Computação em nuvem entrega recursos computacionais sob demanda, com automaç�
 \small
 \begin{tabularx}{\textwidth}{l X X}
 \toprule
-Modelo & Provedor gerencia mais diretamente & Cliente mantém maior responsabilidade \\
+Modelo & Provedor gerencia & Cliente gerencia \\
 \midrule
-IaaS & hardware, datacenter, camada de virtualização & SO convidado, aplicações, dados, identidades e configuração. \\
-PaaS & infraestrutura e plataforma/runtime gerenciado & aplicação, dados, identidade e parâmetros da plataforma. \\
-SaaS & aplicação completa e infraestrutura subjacente & usuários, dados, configuração funcional e uso seguro. \\
+IaaS & datacenter, hardware, virtualização & SO convidado, middleware, aplicação, dados, IAM/configuração. \\
+PaaS & infraestrutura e plataforma/runtime & aplicação, dados, identidades e parâmetros do serviço. \\
+SaaS & aplicação e pilha subjacente & usuários, dados, configuração funcional e governança do uso. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-O modelo de responsabilidade compartilhada varia por serviço. Migrar para SaaS não transfere automaticamente responsabilidade por classificação de dados, concessão de acessos, retenção ou conformidade.
+O limite varia por produto. Banco gerenciado, Kubernetes gerenciado e funções serverless possuem divisões diferentes de responsabilidade.
 
 \section{Modelos de implantação}
 
-Nuvem pública utiliza infraestrutura de provedor disponível a múltiplos clientes com isolamento lógico; privada é dedicada a uma organização; híbrida integra ambientes privados/on-premises e nuvem pública. Multicloud usa serviços de mais de um provedor. \termo{Nuvem soberana} acrescenta requisitos de jurisdição, controle operacional, residência de dados e autonomia conforme contexto regulatório.
+Nuvem pública compartilha infraestrutura com isolamento lógico; privada é dedicada a uma organização; híbrida integra on-premises/privada e pública; multicloud usa múltiplos provedores. Soberania acrescenta requisitos de jurisdição, residência, controle operacional e capacidade de atender obrigações legais.
 
-\section{Elasticidade, escalabilidade e disponibilidade}
+Multicloud não elimina causas comuns. Dois provedores podem depender do mesmo IdP, DNS, pipeline, telecom ou equipe de operação.
 
-\termo{Escalabilidade} é capacidade de suportar crescimento por mais recursos; \termo{elasticidade} ajusta recursos dinamicamente à demanda. Escala vertical aumenta capacidade de uma instância; horizontal adiciona instâncias.
+\section{Escalabilidade, elasticidade e disponibilidade}
 
-Alta disponibilidade reduz indisponibilidade por redundância e failover. Distribuição entre zonas de disponibilidade reduz falha de datacenter; múltiplas regiões podem reduzir risco regional, mas aumentam complexidade, latência, custo, consistência e soberania de dados.
+Escala vertical aumenta capacidade de uma instância. Escala horizontal adiciona instâncias. Elasticidade ajusta capacidade dinamicamente à demanda.
+
+Alta disponibilidade exige analisar domínios de falha. Distribuir instâncias em zonas diferentes reduz falha de datacenter; múltiplas regiões podem reduzir falha regional, mas aumentam custo, latência, replicação e complexidade de dados.
+
+\begin{cebraspe}
+``Duas regiões'' não é sinônimo de ``sem SPOF''. Conta raiz, IdP, DNS, pipeline ou banco global podem permanecer causas comuns.
+\end{cebraspe}
 
 \section{SOA, microsserviços e eventos}
 
-SOA organiza capacidades como serviços com contratos bem definidos. Microsserviços enfatizam serviços menores, autonomia de implantação e alinhamento a capacidades de negócio. Não existe tamanho universal. Uma arquitetura distribuída adiciona problemas de comunicação, falha parcial, consistência, observabilidade e transações.
+SOA organiza capacidades como serviços; microsserviços enfatizam autonomia de implantação, escopo menor e alinhamento a capacidades de negócio. A distribuição adiciona falha parcial, latência, observabilidade e consistência.
 
-Arquiteturas orientadas a eventos desacoplam produtores e consumidores. Filas favorecem processamento assíncrono; tópicos/pub-sub distribuem eventos a consumidores. Idempotência, ordenação, retries e \emph{dead-letter queues} são mecanismos recorrentes.
+Arquiteturas orientadas a eventos desacoplam produtores e consumidores. Filas e tópicos introduzem decisões sobre ordering, retry, idempotência, dead-letter queue e semântica de entrega.
 
 \section{Serverless}
 
-Serverless não significa inexistência de servidores; significa que o cliente não administra diretamente a infraestrutura subjacente na unidade de execução. Funções sob demanda são adequadas a cargas orientadas a eventos e variáveis. Limitações podem incluir tempo de execução, cold start, observabilidade, estado efêmero e dependência de serviços proprietários.
-
-\section{Contêineres e orquestração}
-
-Contêineres são comuns em serviços gerenciados Kubernetes ou plataformas próprias de containers. Em nuvem, a responsabilidade deve ser separada entre controle do cluster, nós, imagens, workloads, segredos, RBAC, rede e políticas. Serviço gerenciado não elimina vulnerabilidades em imagens ou permissões excessivas.
+Serverless abstrai servidores para o consumidor. Funções são adequadas a cargas event-driven e variáveis, mas podem sofrer cold start, limites de execução, estado efêmero e lock-in de serviços. O custo por execução pode ser excelente para carga esparsa e ruim para workload contínuo dependendo do perfil.
 
 \section{Rede em nuvem}
 
-\subsection{VPC/VNet, sub-redes e roteamento}
+\subsection{VPC/VNet e sub-redes}
 
-Provedores oferecem rede virtual logicamente isolada. Sub-redes dividem endereçamento e domínio de políticas. Tabelas de rotas direcionam tráfego. Gateways conectam Internet, redes privadas ou outros domínios. NAT permite saída de instâncias privadas sem torná-las diretamente alcançáveis da Internet, conforme desenho.
+Redes virtuais isolam endereçamento e políticas. Sub-redes públicas/privadas são decisões de roteamento e exposição, não atributos mágicos do nome. Tabelas de rotas, gateways, endpoints privados e NAT controlam caminhos.
 
-\subsection{Security groups e controles de rede}
+\subsection{Controles de tráfego}
 
-Security groups/firewall de instância aplicam regras de tráfego conforme plataforma. Listas de controle de rede podem atuar em nível de sub-rede. A banca pode cobrar diferenças de escopo e statefulness; estude o conceito e confirme detalhes específicos do provedor quando a questão citar um produto.
+Security groups, firewalls e ACLs podem atuar em níveis distintos. A prova pode cobrar stateful/stateless e escopo; quando houver nome de produto, detalhes do provedor importam.
 
 \subsection{Conectividade híbrida}
 
-VPN site-to-site cria túnel criptografado sobre a Internet. Conexões dedicadas, como AWS Direct Connect e Azure ExpressRoute, oferecem caminho privado/dedicado ao provedor, mas criptografia fim a fim não deve ser presumida apenas por existir circuito dedicado. Arquiteturas podem combinar circuito e VPN.
+VPN site-to-site protege tráfego sobre a Internet. Circuitos dedicados reduzem dependência da Internet pública, mas não devem ser presumidos como criptografia fim a fim. É possível combinar circuito dedicado e VPN/TLS.
 
-\section{IAM, RBAC e MFA}
+\section{Identidade e acesso}
 
 Identidade é perímetro central em nuvem. Práticas:
 \begin{itemize}
-\item evitar contas raiz/owner no cotidiano;
-\item usar identidades federadas e temporárias;
-\item privilégio mínimo;
-\item MFA para ações sensíveis;
-\item segregação entre ambientes;
-\item revisão periódica de permissões;
-\item contas de serviço/workload identities em vez de chaves estáticas.
+\item federação em vez de usuários locais permanentes;
+\item MFA para privilégios;
+\item roles e credenciais temporárias;
+\item workload identity em vez de chaves estáticas;
+\item revisão de permissões;
+\item segregação de ambientes e contas/projetos;
+\item break-glass protegido e monitorado.
 \end{itemize}
 
-RBAC vincula permissões a papéis. ABAC/políticas condicionais podem incorporar atributos como projeto, tag, horário, rede e contexto.
+RBAC organiza permissões por papel; ABAC adiciona contexto/atributos. Privilégio mínimo continua necessário mesmo com MFA.
 
-\section{KMS, TLS e segredos}
+\section{KMS, criptografia e segredos}
 
-TLS protege dados em trânsito. KMS gerencia ciclo de vida de chaves criptográficas e integração com serviços. \emph{Envelope encryption} cifra dados com chave de dados e protege essa chave com chave-mestra/KEK. Segredos devem ficar em cofre/serviço apropriado, com rotação e auditoria, não em repositório de código ou imagem.
+TLS protege trânsito; criptografia de storage protege repouso; KMS gerencia chaves e políticas. Envelope encryption usa data key para o conteúdo e chave mestra/KEK para proteger a data key.
+
+Segredos não devem ser persistidos em código ou imagem. Cofres, rotação e identidade de workload reduzem exposição.
 
 \section{Zero Trust}
 
-Zero Trust abandona confiança implícita baseada apenas em localização de rede. Princípios: verificar explicitamente, usar privilégio mínimo e presumir comprometimento. Implementação envolve identidade forte, postura de dispositivo, segmentação, políticas contextuais, telemetria e verificação contínua.
+Zero Trust orienta verificar explicitamente, usar privilégio mínimo e presumir comprometimento. A localização na rede não concede confiança automática. Identidade, postura, contexto e recurso devem compor a decisão de acesso.
 
-\section{IaC e pipelines}
+\section{IaC e automação}
 
-Infrastructure as Code representa infraestrutura em arquivos versionáveis e automatizáveis. Terraform é ferramenta declarativa amplamente usada. Pipelines com Jenkins ou GitHub Actions podem validar sintaxe, política, segurança, plano e aplicar mudanças mediante controles.
+Infrastructure as Code descreve infraestrutura de forma versionável e reprodutível. Terraform e equivalentes permitem plano e aplicação controlados.
 
-\begin{cebraspe}
-IaC aumenta reprodutibilidade, mas um erro versionado pode ser propagado em escala. O controle deve incluir revisão, estado protegido, segregação, validação, detecção de drift e trilha de auditoria.
-\end{cebraspe}
+Controles importantes:
+\begin{itemize}
+\item revisão de código e proteção de branch;
+\item policy-as-code;
+\item state protegido e com acesso restrito;
+\item separação entre plan e apply;
+\item credenciais temporárias;
+\item detecção de drift;
+\item trilha de execução.
+\end{itemize}
+
+IaC sem governança pode transformar erro manual localizado em erro automatizado de grande escala.
 
 \section{Observabilidade}
 
-Serviços como Amazon CloudWatch, Azure Monitor e Google Cloud Monitoring coletam/integram sinais para métricas, logs e alertas conforme ecossistema. Em arquitetura distribuída, centralização de logs, sincronização temporal, trace distribuído e correlação são fundamentais para investigar incidente.
+Métricas, logs e traces precisam ser centralizados e correlacionáveis. Sincronização de tempo e correlation IDs são essenciais em ambientes distribuídos. Serviços nativos de cada provedor ajudam, mas não eliminam necessidade de retenção, acesso e correlação entre contas/regiões.
 
-\section{Custos, governança e FinOps}
+\section{FinOps e economia da nuvem}
 
-Nuvem transforma parte do custo em consumo variável. Sem governança, elasticidade também escala desperdício.
-
+FinOps maximiza valor do gasto em tecnologia, não apenas redução de custo. Práticas:
 \begin{itemize}
-\item \textbf{Tags/labels}: alocam custos e responsabilidade.
-\item \textbf{Budgets/alerts}: sinalizam desvios, sem necessariamente impedir gasto.
-\item \textbf{Quotas/limits}: reduzem crescimento acidental e risco operacional.
-\item \textbf{Rightsizing}: ajusta capacidade ao uso.
-\item \textbf{Compromissos/reservas}: trocam flexibilidade por desconto em cargas previsíveis.
-\item \textbf{Desligamento}: elimina recursos ociosos, inclusive ambientes não produtivos.
+\item tagging/labels e ownership;
+\item budgets/alerts;
+\item quotas e limits;
+\item rightsizing;
+\item desligamento de ociosos;
+\item compromissos/reservas para cargas previsíveis;
+\item unit economics e showback/chargeback.
 \end{itemize}
 
-FinOps promove responsabilidade compartilhada entre engenharia, finanças e negócio para maximizar valor do gasto em tecnologia. Não é apenas ``cortar custo'': otimização deve considerar desempenho, resiliência e objetivos.
-
-\begin{exemplo}[custo de recurso ocioso]
-Se 40 VMs de laboratório custam R\$0,80/h e ficam ligadas 24x7, o custo de 30 dias é
+\begin{exemplo}[ociosidade]
+Quarenta VMs a R\$0,80/h, ligadas 24x7 por 30 dias, custam:
 \[
-40\times0{,}80\times24\times30=R\$23.040.
+40\times0,80\times24\times30=R\$23.040.
 \]
-Se o uso real exige apenas 10 h por dia útil em 22 dias, automação de desligamento pode reduzir fortemente o custo, descontadas limitações e outros componentes da fatura.
+Otimização deve preservar requisitos de serviço; desligar redundância e violar RTO não é economia real.
 \end{exemplo}
 
 \section{Armazenamento}
@@ -124,106 +139,54 @@ Se o uso real exige apenas 10 h por dia útil em 22 dias, automação de desliga
 \centering
 \begin{tabularx}{\textwidth}{l X X}
 \toprule
-Tipo & Interface & Uso típico \\
+Tipo & Interface & Uso \\
 \midrule
-Objeto & API/HTTP, namespace de objetos & data lake, backup, mídia, logs, conteúdo. \\
-Bloco & volume anexado ao host & sistemas de arquivos e bancos com I/O de bloco. \\
-Arquivo & compartilhamento hierárquico & aplicações legadas e colaboração por protocolos de arquivo. \\
+Objeto & API/HTTP & data lake, backup, mídia, logs. \\
+Bloco & volume anexado & banco e filesystem de host. \\
+Arquivo & namespace compartilhado & aplicações legadas e colaboração. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Durabilidade, disponibilidade, classes de armazenamento, replicação, versionamento, retenção e ciclo de vida são propriedades diferentes. ``Onze noves de durabilidade'', quando oferecidos por produto, não equivalem a onze noves de disponibilidade.
+Durabilidade, disponibilidade, retenção, versionamento e imutabilidade são propriedades diferentes.
 
 \section{Data lakes, Big Data e IA}
 
-Data lake armazena grandes volumes de dados em formato bruto/curado com governança e catálogos. Sem metadados, qualidade, segurança e ownership, pode virar \emph{data swamp}. Serviços de Big Data e IA gerenciados reduzem administração, mas criam decisões de localização, custo, dependência e proteção de modelos/dados.
+Data lake armazena dados brutos e curados com catálogo e governança. Sem owner, classificação, metadados e qualidade, vira data swamp. Serviços gerenciados de Big Data/IA reduzem administração, mas criam decisões de custo, residência, dados de treino e dependência do provedor.
 
-\section{Migração para a nuvem}
+\section{Migração}
 
-Estratégias clássicas incluem rehost, replatform, refactor/rearchitect, repurchase, retain e retire, com taxonomias variantes. O erro comum é migrar tudo por rehost sem avaliar valor de modernização ou eliminar sistemas inúteis.
+Estratégias clássicas: rehost, replatform, refactor/rearchitect, repurchase, retain e retire. A avaliação deve preceder a migração: nem todo sistema merece ser movido.
 
-Ferramentas de avaliação e migração citadas no edital incluem AWS Migration Hub, Azure Migrate e Google Cloud Migration Center. O objetivo é inventariar, avaliar dependências/custos, planejar ondas e acompanhar migração; a ferramenta não substitui estratégia e validação.
+Ferramentas de avaliação ajudam a inventariar dependências, dimensionar e planejar ondas, mas não substituem estratégia, teste e plano de rollback.
 
-\section{Multicloud, híbrida e soberania}
+\section{Soberania, multicloud e conformidade}
 
-Multicloud pode reduzir concentração e atender requisitos específicos, mas aumenta competências, IAM, rede, observabilidade e governança. Evite o mito de que ``rodar em três nuvens'' automaticamente aumenta disponibilidade: falhas de identidade, DNS, pipeline ou arquitetura podem continuar comuns a todas.
+Soberania envolve mais que local físico: jurisdição, acesso, operação, chaves e controle administrativo. A LGPD não impõe residência nacional genérica, mas transferências internacionais devem atender requisitos legais.
 
-Soberania de dados envolve jurisdição, residência, controle de acesso, operação e capacidade de atender ordens legais. LGPD não exige genericamente que todo dado pessoal permaneça no Brasil; transferência internacional deve seguir hipóteses e mecanismos legais aplicáveis.
+Certificações do provedor são evidência relevante dentro de escopo. O cliente continua responsável por configurações, IAM, dados e controles não cobertos pelo provedor.
 
-\section{Segurança e conformidade}
+\section{Mapa mental funcional}
 
-ISO/IEC 27001, NIST SP 800-53 e LGPD aparecem no edital como referências. Certificação do provedor não certifica automaticamente a configuração do cliente. Evidências de auditoria podem incluir relatórios independentes, configuração efetiva, logs, contratos, matriz de responsabilidade, testes de restauração e revisão de acessos.
+\mapafuncional{Computação em Nuvem}
+{Nuvem = responsabilidade compartilhada + infraestrutura programável + consumo medido}
+{Serviço: IaaS $\rightarrow$ PaaS $\rightarrow$ SaaS muda a fronteira de responsabilidade.\\Arquitetura: região $\rightarrow$ zona $\rightarrow$ rede $\rightarrow$ workload $\rightarrow$ dados.\\Operação: IaC $\rightarrow$ CI/CD $\rightarrow$ observabilidade $\rightarrow$ FinOps.}
+{Se a falha atravessa regiões, procure causa comum: IdP/DNS/conta.\\Se custo cresce, procure recursos sem owner, escala e retenção.\\Se há link dedicado, ainda pergunte pela criptografia.\\Se há certificação, pergunte pelo escopo e pelos controles do cliente.}
+{SaaS $\neq$ terceirização total do risco.\\Multicloud $\neq$ HA automática.\\Dedicated link $\neq$ criptografia.\\Durabilidade $\neq$ disponibilidade.\\FinOps $\neq$ cortar custo a qualquer preço.}
+{Quem gerencia cada camada?\\Qual o domínio de falha?\\Como o IAM é federado?\\Há chaves estáticas?\\O IaC representa o ambiente real?\\Quem paga cada recurso?\\Como sair do provedor?}
 
-\section{Mapa mental}
+\begin{resumo}
+\textbf{Regra de prova:} sempre separe responsabilidade do provedor da responsabilidade do cliente e procure dependências comuns escondidas atrás de uma arquitetura aparentemente redundante.
+\end{resumo}
 
-\mapamental{Nuvem}{
- child {node[concept]{Serviços} child {node[concept]{IaaS/PaaS/SaaS}} child {node[concept]{serverless}}}
- child {node[concept]{Rede} child {node[concept]{VPC/VNet}} child {node[concept]{VPN/dedicada}}}
- child {node[concept]{Segurança} child {node[concept]{IAM/MFA}} child {node[concept]{KMS/Zero Trust}}}
- child {node[concept]{Operação} child {node[concept]{IaC/CI-CD}} child {node[concept]{observabilidade}}}
- child {node[concept]{Economia} child {node[concept]{FinOps}} child {node[concept]{tags/quotas}}}
- child {node[concept]{Estratégia} child {node[concept]{migração}} child {node[concept]{multicloud/soberania}}}
-}
+\input{questoes/16_computacao_nuvem}
 
-\section{Questões por nível}
-
-\begin{questao}{\nivel{N1} 16.1}
-No modelo SaaS, qual responsabilidade permanece tipicamente com o cliente?
-\begin{enumerate}[label=\Alph*)]
-\item trocar discos físicos do datacenter.
-\item administrar o hipervisor do provedor.
-\item governar usuários, dados e configurações permitidas da aplicação.
-\item construir a rede elétrica da região.
-\item aplicar firmware nos servidores do provedor.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{16.1}
-\textbf{Gabarito: C.} No SaaS, o provedor gerencia grande parte da pilha, mas o cliente continua responsável pelo uso, identidades, dados e configurações sob seu controle. As demais opções pertencem ao provedor.
-\end{solucao}
-
-\begin{questao}{\nivel{N2} 16.2}
-Uma API recebe picos imprevisíveis e processa tarefas independentes disparadas por evento, com baixa duração. Qual característica torna serverless uma alternativa natural?
-\begin{enumerate}[label=\Alph*)]
-\item necessidade de administrar manualmente cada servidor.
-\item escala orientada à demanda e execução por eventos sem gestão direta de servidor pelo cliente.
-\item garantia de custo zero.
-\item estado local permanente obrigatório.
-\item ausência de limites de execução.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{16.2}
-\textbf{Gabarito: B.} Serverless combina abstração da infraestrutura e escalonamento/execução orientados a eventos. Não garante custo zero (C), estado local durável (D) ou ausência de limites (E).
-\end{solucao}
-
-\begin{questao}{\nivel{N3} 16.3}
-Uma organização usa conexão dedicada do datacenter para a nuvem e conclui que não precisa mais criptografar dados em trânsito porque ``o link não passa pela Internet''. A avaliação correta é:
-\begin{enumerate}[label=\Alph*)]
-\item correta em qualquer provedor.
-\item incorreta: conectividade dedicada reduz dependência da Internet, mas confidencialidade criptográfica deve ser avaliada separadamente e TLS/VPN ainda podem ser necessários.
-\item correta se usar IPv6.
-\item incorreta apenas para dados públicos.
-\item correta quando há autoscaling.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{16.3}
-\textbf{Gabarito: B.} Caminho dedicado e criptografia são propriedades distintas. C/D/E não têm relação lógica com a proteção do canal.
-\end{solucao}
-
-\begin{questao}{\nivel{N4} 16.4}
-Auditoria de conta cloud encontra 2.000 permissões concedidas diretamente a usuários, chaves de acesso sem rotação, ausência de tags de custo e recursos criados fora de IaC. Qual recomendação é mais completa?
-\begin{enumerate}[label=\Alph*)]
-\item aumentar apenas o orçamento mensal.
-\item adotar federação e papéis de privilégio mínimo, reduzir chaves estáticas, padronizar tagging, implementar IaC com revisão e detectar drift/configurações fora do padrão.
-\item mover tudo para outra nuvem sem corrigir governança.
-\item liberar permissão de administrador a todos para simplificar suporte.
-\item desligar logs para reduzir custo.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{16.4}
-\textbf{Gabarito: B.} A alternativa trata IAM, credenciais, FinOps, configuração e controle de mudanças. A não corrige causa; C transporta o problema; D amplia risco; E elimina evidência.
-\end{solucao}
-
+\section{Treino discursivo}
 \begin{discursiva}[migração e auditoria]
-Um órgão pretende migrar sistema de fiscalização para nuvem pública. O sistema contém dados pessoais, exige RTO de 1 hora e possui integrações com rede interna. Em até 30 linhas, descreva controles e decisões que devem ser verificados desde avaliação/migração até operação, contemplando arquitetura, identidade, rede, dados, continuidade, custos e saída do provedor.
+Um órgão pretende migrar sistema de fiscalização para nuvem pública. O sistema contém dados pessoais, exige RTO de 1 hora e possui integrações com rede interna. Em até 30 linhas, descreva controles e decisões a verificar desde avaliação/migração até operação, contemplando arquitetura, identidade, rede, dados, continuidade, custos e saída do provedor.
 \end{discursiva}
+\begin{discursiva}[FinOps e governança]
+Uma auditoria identifica crescimento de 45\% da fatura cloud em seis meses, com recursos sem owner, snapshots sem retenção e ambientes de teste ligados continuamente. Em até 30 linhas, estruture o achado e proponha controles de FinOps sem comprometer disponibilidade.
+\end{discursiva}
+
+\input{solucoes/16_computacao_nuvem}
