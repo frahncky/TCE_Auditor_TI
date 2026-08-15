@@ -24,9 +24,10 @@ Apostila exclusivamente de questões:
 - questões classificadas visualmente de ★ a ★★★★;
 - questões em perfil Cebraspe e principais bancas;
 - nos itens de julgamento, o enunciado é seguido apenas por `(  ) certo` e `(  ) errado`;
+- cada nível apresenta primeiro suas questões e, imediatamente depois, as respectivas resoluções comentadas;
+- não há bloco separado de gabarito;
 - peças técnicas e questões discursivas;
-- simulado completo;
-- gabaritos e resoluções após os respectivos blocos de questões.
+- simulado completo.
 
 ## Estrutura
 
@@ -50,4 +51,4 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error main_teoria.tex
 latexmk -pdf -interaction=nonstopmode -halt-on-error main_questoes.tex
 ```
 
-O GitHub Actions gera os dois PDFs no artefato `TCE-MA-Auditor-TI-2026`.
+O GitHub Actions compila e publica os volumes de teoria e de questões em artefatos independentes.
