@@ -1,0 +1,107 @@
+% Configuração visual — TCE-MA Auditor TI 2026
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{a4paper,top=2.2cm,bottom=2.2cm,left=2.1cm,right=2.1cm,headheight=15pt}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,fit,mindmap,trees,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Paleta da casa
+\definecolor{azulPetroleo}{HTML}{0B3C5D}
+\definecolor{azulMedio}{HTML}{156082}
+\definecolor{azulClaro}{HTML}{E8F3F8}
+\definecolor{ambar}{HTML}{D99A2B}
+\definecolor{ambarClaro}{HTML}{FFF4D6}
+\definecolor{cinzaTexto}{HTML}{28323C}
+\definecolor{cinzaClaro}{HTML}{F4F6F8}
+\definecolor{verdeAcerto}{HTML}{247A52}
+\definecolor{vermelhoErro}{HTML}{A13D3D}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=azulPetroleo,
+  urlcolor=azulMedio,
+  citecolor=azulPetroleo,
+  pdftitle={TCE-MA 2026 — Auditor de Controle Externo — Tecnologia da Informação},
+  pdfauthor={Material de estudo},
+  pdfsubject={Concurso TCE-MA 2026 — Auditor/TI}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.2em,topsep=0.3em}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=0.25em,topsep=0.3em}
+
+\titleformat{\chapter}[display]
+  {\bfseries\color{azulPetroleo}}
+  {\filleft\Large\chaptername\ \thechapter}
+  {0.4em}
+  {\titlerule[1.2pt]\vspace{0.5em}\Huge}
+\titleformat{\section}{\Large\bfseries\color{azulPetroleo}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{azulMedio}}{\thesubsection}{0.6em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{azulPetroleo}TCE-MA 2026 — Auditor/TI}
+\fancyhead[R]{\small\color{azulPetroleo}\leftmark}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\tcbset{
+  enhanced,
+  breakable,
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,
+  before skip=7pt,after skip=7pt
+}
+
+\newtcolorbox{teoria}[1][]{colback=azulClaro,colframe=azulPetroleo,title={Teoria essencial\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
+\newtcolorbox{exemplo}[1][]{colback=cinzaClaro,colframe=azulMedio,title={Exemplo\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
+\newtcolorbox{cebraspe}[1][]{colback=ambarClaro,colframe=ambar,title={Cebraspe pode cobrar assim\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
+\newtcolorbox{atencao}[1][]{colback=white,colframe=vermelhoErro,title={Atenção\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
+\newtcolorbox{resumo}[1][]{colback=white,colframe=verdeAcerto,title={Revisão rápida\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
+\newtcolorbox{discursiva}[1][]{colback=white,colframe=azulPetroleo,title={Treino discursivo\ifx\relax#1\relax\else: #1\fi},fonttitle=\bfseries}
+\newtcolorbox{questao}[1][]{colback=white,colframe=azulMedio,title={Questão #1},fonttitle=\bfseries}
+\newtcolorbox{solucao}[1][]{colback=cinzaClaro,colframe=verdeAcerto,title={Resolução #1},fonttitle=\bfseries}
+
+\newcommand{\nivel}[1]{\textcolor{ambar}{\textbf{[#1]}}}
+\newcommand{\termo}[1]{\textbf{\color{azulPetroleo}#1}}
+\newcommand{\certo}{\textcolor{verdeAcerto}{\textbf{CORRETA}}}
+\newcommand{\errado}{\textcolor{vermelhoErro}{\textbf{INCORRETA}}}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{azulMedio},
+  backgroundcolor=\color{cinzaClaro},
+  keywordstyle=\bfseries\color{azulPetroleo},
+  commentstyle=\itshape,
+  showstringspaces=false,
+  columns=fullflexible
+}
+
+\newcommand{\mapamental}[2]{%
+\begin{center}
+\begin{tikzpicture}[mindmap,concept color=azulPetroleo,text=white,level 1 concept/.append style={sibling angle=60,font=\small},every node/.style={align=center}]
+  \node[concept] {#1} #2;
+\end{tikzpicture}
+\end{center}}
