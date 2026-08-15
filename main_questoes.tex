@@ -70,9 +70,10 @@
   \TCEDefineNivel{#1}%
   \RenewDocumentCommand{\section}{s o m}{}%
   \RenewDocumentCommand{\subsection}{s o m}{}%
-  \RenewEnviron{questao}[1]{%
-    \TCEQuestaoDoNivelTF{##1}{\TCERenderQuestao{##1}{\BODY}}{}%
-  }%
+  % Captura explicitamente o argumento do título e todo o corpo da questão.
+  \RenewDocumentEnvironment{questao}{m +b}{%
+    \TCEQuestaoDoNivelTF{##1}{\TCERenderQuestao{##1}{##2}}{}%
+  }{}%
   \input{#2}%
   \endgroup
 }
@@ -82,9 +83,10 @@
   \TCEDefineNivel{#1}%
   \RenewDocumentCommand{\section}{s o m}{}%
   \RenewDocumentCommand{\subsection}{s o m}{}%
-  \RenewEnviron{solucao}[1]{%
-    \TCESolucaoDoNivelTF{##1}{\TCERenderSolucao{##1}{\BODY}}{}%
-  }%
+  % Mesmo mecanismo para manter apenas as resoluções pertencentes ao nível atual.
+  \RenewDocumentEnvironment{solucao}{m +b}{%
+    \TCESolucaoDoNivelTF{##1}{\TCERenderSolucao{##1}{##2}}{}%
+  }{}%
   \input{#2}%
   \endgroup
 }
