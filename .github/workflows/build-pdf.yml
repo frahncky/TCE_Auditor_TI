@@ -1,4 +1,4 @@
-name: Build PDF
+name: Build PDFs
 
 on:
   push:
@@ -22,12 +22,16 @@ jobs:
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex
+          root_file: |
+            main_teoria.tex
+            main_questoes.tex
           latexmk_use_xelatex: false
           args: -pdf -interaction=nonstopmode -halt-on-error
 
-      - name: Upload apostila
+      - name: Upload apostilas
         uses: actions/upload-artifact@v4
         with:
           name: TCE-MA-Auditor-TI-2026
-          path: main.pdf
+          path: |
+            main_teoria.pdf
+            main_questoes.pdf
