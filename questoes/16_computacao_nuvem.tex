@@ -1,0 +1,401 @@
+\section{Banco de questões — Computação em Nuvem}
+
+\subsection*{N1 — Fundamento competitivo}
+
+\begin{questao}{\nivel{N1} 16.01 — Cebraspe/Certo ou Errado}
+Em SaaS, o provedor gerencia a aplicação e a infraestrutura subjacente, mas o cliente continua responsável, entre outros pontos, por usuários, dados e configurações sob seu controle.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.02 — Cebraspe/Certo ou Errado}
+Elasticidade e escalabilidade são sinônimos perfeitos: ambas significam apenas aumentar verticalmente a capacidade de uma única máquina.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.03 — Cebraspe/Certo ou Errado}
+Serverless não significa ausência de servidores físicos; significa abstração da administração direta da infraestrutura subjacente pelo consumidor do serviço.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.04 — Cebraspe/Certo ou Errado}
+Uma conexão dedicada entre datacenter e nuvem elimina, por definição, a necessidade de criptografia de dados em trânsito.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.05 — Cebraspe/Certo ou Errado}
+Security groups e listas de controle de rede podem operar em escopos diferentes, de modo que detalhes de statefulness e avaliação de regras dependem do provedor e do serviço específico.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.06 — Cebraspe/Certo ou Errado}
+A adoção de IaC melhora reprodutibilidade e rastreabilidade, mas pode propagar em escala uma configuração incorreta se revisão e validação forem fracas.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.07 — Cebraspe/Certo ou Errado}
+Multicloud implica, automaticamente, maior disponibilidade, independentemente de dependências comuns de identidade, DNS, rede ou pipeline.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.08 — Cebraspe/Certo ou Errado}
+Durabilidade de objetos e disponibilidade do serviço de armazenamento são propriedades distintas.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.09 — Cebraspe/Certo ou Errado}
+FinOps busca apenas reduzir gastos de nuvem ao menor valor possível, ainda que isso prejudique desempenho e resiliência.
+\end{questao}
+
+\begin{questao}{\nivel{N1} 16.10 — Cebraspe/Certo ou Errado}
+A LGPD não exige, de forma genérica, que todo dado pessoal permaneça fisicamente no Brasil; transferências internacionais dependem das hipóteses e mecanismos jurídicos aplicáveis.
+\end{questao}
+
+\subsection*{N2 — Aplicação}
+
+\begin{questao}{\nivel{N2} 16.11 — FGV/modelo de serviço}
+Uma equipe utiliza banco de dados gerenciado no qual o provedor administra sistema operacional, patching e mecanismo do banco, enquanto a equipe gerencia schemas, usuários e dados. O serviço é mais próximo de:
+\begin{enumerate}[label=\Alph*)]
+\item IaaS puro;
+\item PaaS/DBaaS;
+\item SaaS de usuário final;
+\item colocation;
+\item bare metal não gerenciado.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.12 — FCC/escalabilidade}
+Uma aplicação dobra o número de instâncias atrás de balanceador durante picos e reduz após a demanda. O comportamento caracteriza principalmente:
+\begin{enumerate}[label=\Alph*)]
+\item escalabilidade vertical apenas;
+\item elasticidade com escala horizontal;
+\item alta durabilidade;
+\item backup incremental;
+\item consistência forte.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.13 — Cebraspe/Certo ou Errado}
+Autoscaling baseado apenas em CPU pode ser inadequado para aplicação cujo gargalo real seja fila de mensagens ou latência de banco.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.14 — FGV/serverless}
+Uma função é disparada por eventos esporádicos, executa por segundos e permanece ociosa na maior parte do dia. A principal vantagem de serverless nesse cenário é:
+\begin{enumerate}[label=\Alph*)]
+\item eliminar qualquer custo;
+\item alinhar execução/escala ao evento sem administrar servidores diretamente;
+\item garantir estado local permanente;
+\item remover limites de execução;
+\item eliminar cold start.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.15 — Cebraspe/Certo ou Errado}
+Cold start pode afetar latência de funções serverless, especialmente em cargas esparsas ou runtimes pesados.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.16 — FCC/rede}
+Uma instância em subnet privada precisa acessar repositórios na Internet para atualização, mas não deve receber conexões iniciadas da Internet. Um componente comum para esse desenho é:
+\begin{enumerate}[label=\Alph*)]
+\item NAT gateway/serviço equivalente para saída;
+\item load balancer público obrigatório;
+\item DNS autoritativo;
+\item object storage;
+\item WAF apenas.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.17 — FGV/IAM}
+Uma conta de serviço possui chave estática válida por dois anos e permissão administrativa em toda a assinatura. A melhoria prioritária é:
+\begin{enumerate}[label=\Alph*)]
+\item manter a chave e ocultá-la em variável local;
+\item usar identidade de workload/credencial temporária e restringir permissões;
+\item aumentar a validade da chave;
+\item compartilhar a chave entre aplicações;
+\item remover logs de acesso.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.18 — Cebraspe/Certo ou Errado}
+MFA em contas administrativas não substitui privilégio mínimo e revisão periódica de acessos.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.19 — FCC/KMS}
+Na envelope encryption, os dados são normalmente cifrados por:
+\begin{enumerate}[label=\Alph*)]
+\item chave de dados, que é protegida por chave mestra/KEK;
+\item certificado sem chave;
+\item hash irreversível;
+\item senha do usuário final;
+\item regra de firewall.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.20 — FGV/FinOps}
+Quarenta VMs de laboratório custam R\$ 0,80/h e permanecem ligadas 24x7 por 30 dias. O custo aproximado é:
+\begin{enumerate}[label=\Alph*)]
+\item R\$ 2.304;
+\item R\$ 9.600;
+\item R\$ 23.040;
+\item R\$ 57.600;
+\item R\$ 230.400.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.21 — Cebraspe/Certo ou Errado}
+Budgets e alertas podem informar desvios de custo sem necessariamente bloquear automaticamente o consumo que excedeu a meta.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.22 — FCC/storage}
+Para data lake de objetos grandes, logs e arquivos sem necessidade de montar sistema de arquivos tradicional, o tipo de storage mais natural é:
+\begin{enumerate}[label=\Alph*)]
+\item objeto;
+\item bloco exclusivamente;
+\item memória RAM;
+\item SAN Fibre Channel obrigatoriamente;
+\item cache local efêmero apenas.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.23 — FGV/migração}
+Mover uma aplicação para máquinas virtuais em nuvem com poucas mudanças arquiteturais corresponde, tipicamente, a:
+\begin{enumerate}[label=\Alph*)]
+\item rehost;
+\item refactor completo;
+\item retire;
+\item repurchase necessariamente;
+\item retain.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.24 — Cebraspe/Certo ou Errado}
+Rehost pode acelerar migração, mas não captura automaticamente benefícios de serviços nativos, elasticidade e modernização.
+\end{questao}
+
+\begin{questao}{\nivel{N2} 16.25 — FCC/observabilidade}
+Em microsserviços distribuídos entre nuvem e datacenter, o mecanismo mais útil para seguir uma mesma requisição de ponta a ponta é:
+\begin{enumerate}[label=\Alph*)]
+\item trace/correlation ID;
+\item apenas CPU média;
+\item DNS TTL;
+\item storage class;
+\item tag de custo.
+\end{enumerate}
+\end{questao}
+
+\subsection*{N3 — Integração de concurso}
+
+\begin{questao}{\nivel{N3} 16.26 — FGV/assertivas}
+Considere:
+
+I. Região e zona de disponibilidade representam níveis diferentes de domínio de falha em muitos provedores.
+
+II. Distribuir instâncias em zonas distintas pode reduzir risco de falha de datacenter.
+
+III. Distribuir em múltiplas regiões elimina automaticamente dependências comuns de identidade e DNS.
+
+Assinale a alternativa correta.
+\begin{enumerate}[label=\Alph*)]
+\item Apenas I.
+\item Apenas II.
+\item Apenas I e II.
+\item Apenas II e III.
+\item I, II e III.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.27 — Cebraspe/Certo ou Errado}
+Uma arquitetura multirregional pode aumentar resiliência e, simultaneamente, elevar complexidade de consistência, replicação, custo e soberania de dados.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.28 — FCC/conectividade híbrida}
+Uma organização usa circuito dedicado entre datacenter e nuvem, mas precisa proteger confidencialidade fim a fim. A conclusão correta é:
+\begin{enumerate}[label=\Alph*)]
+\item circuito dedicado torna criptografia desnecessária;
+\item conectividade dedicada e criptografia são propriedades distintas e podem ser combinadas;
+\item TLS não funciona em link privado;
+\item VPN só pode operar na Internet pública;
+\item Direct Connect/ExpressRoute implicam criptografia de aplicação por definição.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.29 — FGV/Zero Trust}
+Uma empresa permite acesso administrativo a qualquer host que esteja na subnet de gestão. O princípio mais diretamente violado é:
+\begin{enumerate}[label=\Alph*)]
+\item confiar explicitamente em identidade e contexto em vez de localização;
+\item escalabilidade horizontal;
+\item object storage;
+\item autoscaling;
+\item caching.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.30 — Cebraspe/Certo ou Errado}
+IaC versionada sem revisão de código, policy-as-code ou proteção de estado pode tornar erros de configuração mais rápidos e reproduzíveis, porém não necessariamente mais seguros.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.31 — FCC/Terraform}
+Uma equipe altera recursos manualmente no console após o deploy por Terraform. O risco relevante é:
+\begin{enumerate}[label=\Alph*)]
+\item configuration drift entre estado desejado e ambiente real;
+\item impossibilidade de usar APIs;
+\item perda automática de criptografia;
+\item aumento de durabilidade;
+\item ausência de logging.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.32 — FGV/segredos}
+Uma imagem de contêiner publicada em registry privado contém credencial de banco em uma camada antiga. Mesmo que a última camada apague o arquivo, o risco persiste porque:
+\begin{enumerate}[label=\Alph*)]
+\item camadas anteriores podem continuar armazenando o segredo;
+\item registry privado elimina histórico;
+\item Docker converte segredo em hash;
+\item imagens não podem ser inspecionadas;
+\item o problema existe apenas em registry público.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.33 — Cebraspe/Certo ou Errado}
+Certificação de segurança do provedor não transfere automaticamente ao cliente a conformidade de suas identidades, dados, aplicações e configurações.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.34 — FCC/custo}
+Uma equipe reduz custo desligando réplicas redundantes de banco durante a noite. O consumo cai, mas o RTO deixa de ser cumprido em falha noturna. A avaliação FinOps correta é:
+\begin{enumerate}[label=\Alph*)]
+\item a otimização foi bem-sucedida porque o custo caiu;
+\item FinOps deve otimizar valor, equilibrando custo, risco e requisitos de serviço;
+\item RTO não interfere em custo;
+\item deve-se remover o SLO;
+\item alta disponibilidade nunca deve ser considerada em FinOps.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.35 — FGV/data lake}
+Um data lake possui milhões de objetos, mas sem catálogo, owner, classificação ou regras de retenção. O maior risco é:
+\begin{enumerate}[label=\Alph*)]
+\item data swamp, acesso indevido e custos sem governança;
+\item excesso de normalização;
+\item baixa largura de banda apenas;
+\item ausência de RAID;
+\item impossibilidade de usar IA.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.36 — Cebraspe/Certo ou Errado}
+Aumentar a janela de contexto de um serviço de IA gerenciado não resolve, por si só, requisitos de classificação, residência e proteção dos dados enviados ao provedor.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.37 — FCC/migração}
+Uma aplicação legada possui baixa utilização, alto custo de licença e substituto SaaS funcionalmente equivalente. Antes de decidir por rehost, deve-se avaliar:
+\begin{enumerate}[label=\Alph*)]
+\item repurchase/substituição e até retire, conforme necessidade e TCO;
+\item apenas tamanho da VM;
+\item somente latência;
+\item obrigatoriamente containerização;
+\item somente escolha da região.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.38 — FGV/multicloud}
+Dois provedores são usados, mas ambos dependem do mesmo IdP corporativo. Uma falha do IdP impede acesso aos dois ambientes. O cenário demonstra:
+\begin{enumerate}[label=\Alph*)]
+\item causa comum não eliminada pelo multicloud;
+\item independência completa;
+\item erro de storage;
+\item problema exclusivo de billing;
+\item ausência de VPC.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.39 — Cebraspe/Certo ou Errado}
+Tags de custo são úteis para alocação e accountability, mas só geram valor se houver convenção, obrigatoriedade e tratamento de recursos sem identificação.
+\end{questao}
+
+\begin{questao}{\nivel{N3} 16.40 — FCC/observabilidade}
+Um serviço distribuído possui logs em cinco contas cloud diferentes, sem sincronização de tempo nem correlation ID. O maior problema operacional é:
+\begin{enumerate}[label=\Alph*)]
+\item dificuldade de reconstruir incidentes e seguir requisições;
+\item excesso de criptografia;
+\item impossibilidade de autoscaling;
+\item perda de durabilidade;
+\item aumento de SLA.
+\end{enumerate}
+\end{questao}
+
+\subsection*{N4 — Auditoria / avançado}
+
+\begin{questao}{\nivel{N4} 16.41 — Cebraspe/caso integrado}
+Uma conta cloud possui 2.000 permissões diretas a usuários, chaves estáticas sem rotação, ausência de tags e recursos criados fora de IaC. Julgue o item:
+
+A migração para outro provedor, sem corrigir IAM e governança, tende apenas a transportar os mesmos riscos para novo ambiente.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.42 — FGV/cloud audit}
+Um órgão usa SaaS crítico sem exportação testada, sem inventário de dados e sem cláusula clara de eliminação no término. O procedimento prioritário é:
+\begin{enumerate}[label=\Alph*)]
+\item aumentar a quantidade de usuários;
+\item testar portabilidade/saída, mapear dados e verificar retenção/eliminação contratual;
+\item revisar apenas o SLA de uptime;
+\item confiar na certificação do provedor;
+\item reduzir logs para economizar.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.43 — FCC/FinOps}
+A fatura anual mostra 14\% de recursos sem owner, 9\% de ambientes de teste ligados 24x7 e 6\% de snapshots sem retenção. A recomendação mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item aumentar o orçamento;
+\item estabelecer ownership/tagging, desligamento programado, retenção e monitoramento de custo;
+\item migrar automaticamente tudo para on-premises;
+\item eliminar snapshots;
+\item desativar alertas de billing.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.44 — Cebraspe/Certo ou Errado}
+Uma arquitetura pode ser altamente disponível dentro de uma região e ainda falhar completamente diante de comprometimento da conta raiz ou do provedor de identidade, se esses componentes forem causas comuns.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.45 — FGV/soberania}
+Um órgão transfere dados pessoais para região estrangeira porque ``o provedor é certificado''. A avaliação correta é:
+\begin{enumerate}[label=\Alph*)]
+\item certificação elimina qualquer análise jurídica;
+\item localização, transferência internacional, contrato, acesso e base jurídica precisam ser avaliados separadamente;
+\item dados cifrados nunca estão sujeitos à LGPD;
+\item soberania se resume ao país do datacenter;
+\item usar multicloud resolve automaticamente a transferência.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.46 — Cebraspe/Certo ou Errado}
+Um relatório SOC/ISO do provedor pode ser evidência relevante, mas o auditor ainda precisa avaliar controles sob responsabilidade do cliente no modelo compartilhado.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.47 — FCC/IaC}
+Um pipeline Terraform aplica mudanças automaticamente com credencial administrativa, sem revisão, sem plano salvo e sem proteção do state. O principal conjunto de riscos é:
+\begin{enumerate}[label=\Alph*)]
+\item alteração não autorizada, segredo excessivo e comprometimento do estado/configuração;
+\item apenas baixa disponibilidade de DNS;
+\item falta de storage;
+\item ausência de serverless;
+\item excesso de versionamento.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.48 — FGV/continuidade}
+Sistema em nuvem possui RTO de 1 h. O banco é replicado entre zonas, mas backups ficam apenas na mesma conta e a conta pode ser excluída pelo mesmo administrador que opera produção. O achado deve focar:
+\begin{enumerate}[label=\Alph*)]
+\item inexistência de replicação;
+\item risco de causa comum administrativa e necessidade de proteção/segregação de backups e contas;
+\item apenas performance;
+\item ausência de CDN;
+\item necessidade de multicloud obrigatória.
+\end{enumerate}
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.49 — Cebraspe/Certo ou Errado}
+A elasticidade pode aumentar desperdício se recursos crescerem automaticamente e não houver limites, desligamento, quotas ou governança de custo.
+\end{questao}
+
+\begin{questao}{\nivel{N4} 16.50 — FGV/matriz de achado}
+A auditoria encontra 300 buckets, 41 públicos, 27 sem criptografia configurada e 80 sem owner. Qual achado é mais bem formulado?
+\begin{enumerate}[label=\Alph*)]
+\item ``Object storage é inseguro'';
+\item ``A ausência de baseline, ownership e controle de configuração expõe dados e dificulta accountability; recomenda-se políticas preventivas, inventário, classificação, criptografia e revisão de exposição'';
+\item ``Todos os buckets devem ser apagados'';
+\item ``Basta mudar de provedor'';
+\item ``O problema é somente custo''.
+\end{enumerate}
+\end{questao}
