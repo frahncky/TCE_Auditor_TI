@@ -1,0 +1,89 @@
+\section{Peças técnicas — até 60 linhas}
+
+\begin{discursiva}[Peça 1 — Contrato SaaS e lock-in]
+Em auditoria de contrato de plataforma SaaS crítica, foram observados: ausência de cláusula de portabilidade; exportação disponível apenas em formato proprietário; contas privilegiadas compartilhadas entre técnicos da contratada; logs administrativos mantidos exclusivamente pelo fornecedor; indisponibilidade de 99,4\% em mês cujo SLA exige 99,9\%; e pagamentos efetuados com base em relatório produzido pela própria contratada, sem validação independente. Elabore peça técnica contendo: (a) principais achados e riscos; (b) evidências adicionais a obter; (c) relação entre medição e pagamento; e (d) recomendações prioritárias.
+\end{discursiva}
+
+\begin{resumo}[Espelho de correção]
+Lock-in e ausência de estratégia de saída; risco de confidencialidade e responsabilização pelo compartilhamento de contas; baixa confiabilidade de logs sob domínio exclusivo da contratada; descumprimento do SLA; fragilidade de evidência para liquidação/pagamento; contrato/TR/ETP, trilhas de acesso, logs independentes, cálculo do SLA, histórico de incidentes e pagamentos; portabilidade, formatos interoperáveis, plano de saída testado, PAM/identidades individuais, logs sob domínio do órgão, medição independente e glosa/ajuste conforme contrato.
+\end{resumo}
+
+\begin{teoria}[Resposta-modelo condensada]
+A situação revela deficiências de planejamento, segurança, fiscalização e mensuração contratual. A ausência de requisitos de portabilidade e o uso exclusivo de formato proprietário elevam o risco de dependência do fornecedor e dificultam transição ao término do ajuste. O compartilhamento de contas privilegiadas elimina responsabilização individual e amplia risco de uso indevido; adicionalmente, a guarda exclusiva dos logs pela contratada reduz independência e confiabilidade da evidência.
+
+A disponibilidade de 99,4\% deve ser confrontada com a fórmula, janela e exclusões definidas no SLA de 99,9\%. Se confirmado o descumprimento, a medição deve produzir os efeitos previstos no contrato, inclusive glosa ou sanção quando cabível. Pagamento sustentado apenas por relatório da parte interessada é controle frágil.
+
+Devem ser obtidos ETP, termo de referência, contrato e aditivos, metodologia de medição, logs brutos, registros do monitoramento do órgão, chamados e incidentes, trilhas de contas privilegiadas e memórias de cálculo dos pagamentos. Recomenda-se instituir estratégia de saída e teste periódico de exportação, formatos interoperáveis, contas privilegiadas nominativas e gerenciadas, centralização segura de logs sob domínio do órgão, monitoramento independente e vinculação objetiva do pagamento ao resultado efetivamente medido.
+\end{teoria}
+
+\begin{discursiva}[Peça 2 — Ransomware e continuidade]
+Um órgão foi atingido por ransomware. Os servidores estavam em RAID 6, havia snapshots diários no mesmo storage, o backup externo mais recente tinha 18 dias, contas administrativas não utilizavam MFA e os testes de restauração não eram realizados havia dois anos. A direção afirma que ``RAID e snapshots eram suficientes''. Produza peça técnica abordando causas de fragilidade, impacto sobre RPO/RTO, evidências a coletar e recomendações.
+\end{discursiva}
+
+\begin{resumo}[Espelho de correção]
+Distinguir disponibilidade de disco, snapshot e backup; domínio de falha comum e ransomware; backup de 18 dias implica perda potencial incompatível com RPO reduzido; ausência de teste torna RTO não demonstrado; evidências: política, inventário, logs, cópias, configuração, imutabilidade, restore, IAM e linha do tempo; recomendações: cópia offline/imutável, segmentação, MFA/PAM, EDR, testes, BIA, RPO/RTO formalizados e exercícios de recuperação.
+\end{resumo}
+
+\begin{discursiva}[Peça 3 — Engenharia de dados]
+O TCE recebe dados mensais de folha de pagamento dos jurisdicionados. A equipe descobre duplicidades, CPF inválido, valores retroativamente alterados sem versionamento e cargas que sobrescrevem o histórico. Não há catálogo de dados nem linhagem. Elabore peça técnica com riscos, controles, arquitetura de melhoria e procedimentos de auditoria.
+\end{discursiva}
+
+\begin{resumo}[Espelho de correção]
+Qualidade: validade, unicidade, completude, consistência e temporalidade; histórico: versionamento/SCD, dados imutáveis e CDC; governança: catálogo, owner/steward, linhagem e regras documentadas; auditoria: reconciliação origem-destino, hashes/contagens, amostras, reprocessamento controlado e logs de pipeline; riscos: decisão com base incorreta, fraude não detectada e perda de reprodutibilidade.
+\end{resumo}
+
+\begin{discursiva}[Peça 4 — IA generativa em processo administrativo]
+Um órgão utiliza solução de IA generativa com RAG para elaborar minutas de parecer. Documentos internos são indexados sem classificação; usuários podem enviar instruções livres; não há validação humana obrigatória; respostas e fontes não são registradas; e o fornecedor usa telemetria do serviço em ambiente externo. Analise riscos e proponha controles técnicos e de governança.
+\end{discursiva}
+
+\begin{resumo}[Espelho de correção]
+Riscos: vazamento, indexação indevida, prompt injection, recuperação não autorizada, alucinação, ausência de accountability e privacidade; controles: classificação e ACL no retrieval, isolamento, filtros, proteção contra prompt injection, registro de prompt/contexto/fontes/modelo/versão, human-in-the-loop, avaliação, DLP, regras contratuais, testes adversariais e monitoramento.
+\end{resumo}
+
+\begin{discursiva}[Peça 5 — Kubernetes e cadeia de software]
+Uma aplicação pública em Kubernetes utiliza imagens com tag \texttt{latest}, executa contêineres como root, possui secrets em variáveis de ambiente visíveis em manifests e pipeline CI com conta de serviço de privilégios administrativos no cluster. Não há SBOM nem assinatura de imagens. Redija peça técnica com achados, riscos, evidências e recomendações.
+\end{discursiva}
+
+\begin{resumo}[Espelho de correção]
+Imutabilidade por digest/tag controlada; least privilege e non-root; secret manager e criptografia; RBAC restrito; segregação CI/CD; assinatura e verificação de artefatos; SBOM e análise de vulnerabilidades; admission policies; logs/auditoria do cluster; evidências de registry, pipeline, RBAC, manifests e runtime.
+\end{resumo}
+
+\begin{discursiva}[Peça 6 — Contratação e sobrepreço]
+Pesquisa de preços para contratação de solução de TI utilizou três cotações de fornecedores, todas aproximadamente 45\% superiores a contratações públicas recentes de objeto comparável. As referências públicas foram descartadas sem justificativa e o quantitativo de licenças foi estimado pelo número total de servidores, embora apenas 38\% utilizem o sistema atual. Analise planejamento, preço, quantitativo e risco ao erário.
+\end{discursiva}
+
+\begin{resumo}[Espelho de correção]
+Analisar comparabilidade, independência e criticidade das fontes; três cotações não validam preço por si; verificar parâmetros públicos e metodologia; quantitativo deve ter memória de cálculo baseada em demanda; riscos: sobrepreço, superdimensionamento e ociosidade; evidências: ETP/TR, contratos similares, painéis de preços, inventário de usuários ativos e perfis de acesso.
+\end{resumo}
+
+\section{Questões discursivas — até 30 linhas}
+
+\begin{discursiva}[Q1 — Zero Trust]
+Explique por que Zero Trust não significa ``não confiar em ninguém'' de forma abstrata. Aborde identidade, contexto, privilégio mínimo, verificação contínua e segmentação, e indique três evidências que um auditor buscaria para avaliar sua implementação.
+\end{discursiva}
+\begin{resumo}[Espelho Q1]Decisão de acesso contextual; autenticação forte, dispositivo, risco, autorização granular, microsegmentação e reavaliação; evidências: políticas IAM/conditional access, MFA, logs de decisão, RBAC/PAM, segmentação e testes.\end{resumo}
+
+\begin{discursiva}[Q2 — CAP e consistência]
+Em sistema distribuído sujeito a partições de rede, explique o teorema CAP e por que a escolha arquitetural não pode ser resumida a ``banco NoSQL não tem consistência''. Dê exemplo de trade-off aplicável a sistema público.
+\end{discursiva}
+\begin{resumo}[Espelho Q2]Explicar C, A e P; durante partição há trade-off entre consistência e disponibilidade; modelos variam por operação/sistema; consistência eventual não significa ausência de consistência; exemplo: consulta informativa pode priorizar disponibilidade, enquanto operação financeira pode exigir consistência forte.\end{resumo}
+
+\begin{discursiva}[Q3 — RAG versus fine-tuning]
+Compare RAG e fine-tuning em uma solução de IA institucional, considerando atualização de conhecimento, governança da fonte, custo, rastreabilidade e risco de vazamento.
+\end{discursiva}
+\begin{resumo}[Espelho Q3]RAG injeta contexto recuperado e facilita atualização, citação e ACL; fine-tuning altera comportamento/padrões e não é mecanismo primário para base factual mutável; ambos exigem governança, versionamento e avaliação.\end{resumo}
+
+\begin{discursiva}[Q4 — RPO e RTO]
+Diferencie RPO e RTO e explique como evidências de backup e testes de restauração permitem verificar se metas declaradas de continuidade são realmente atingíveis.
+\end{discursiva}
+\begin{resumo}[Espelho Q4]RPO = perda temporal tolerável; RTO = tempo para restabelecimento; frequência/replicação sustentam RPO; testes de restauração, capacidade, dependências e runbooks sustentam RTO; política sem teste não demonstra atingimento.\end{resumo}
+
+\begin{discursiva}[Q5 — Evidência de auditoria]
+Diferencie suficiência e adequação da evidência de auditoria e explique por que grande quantidade de logs produzidos exclusivamente pela contratada pode continuar sendo evidência fraca.
+\end{discursiva}
+\begin{resumo}[Espelho Q5]Suficiência = quantidade; adequação = qualidade, relevância e confiabilidade. Volume não corrige baixa independência, possibilidade de alteração, incompletude ou ausência de cadeia de custódia; buscar fonte independente, integridade, timestamps, controles de acesso e reconciliação.\end{resumo}
+
+\begin{discursiva}[Q6 — LGPD e logs]
+Explique como princípios de necessidade, segurança e responsabilização devem orientar retenção de logs que contenham dados pessoais, sem eliminar requisitos de segurança, auditoria e investigação.
+\end{discursiva}
+\begin{resumo}[Espelho Q6]Definir finalidade e fundamento; coletar campos necessários; proteger acesso e integridade; estabelecer retenção justificada; pseudonimizar quando viável; registrar acessos e descarte; preservar logs necessários para obrigação legal, segurança e investigação conforme fundamento aplicável.\end{resumo}
