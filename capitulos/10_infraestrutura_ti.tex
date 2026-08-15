@@ -1,83 +1,213 @@
 \chapter{Infraestrutura de TI}
 
-\section{Redes e modelo TCP/IP}
+\section{Escopo do edital e visão de auditor}
 
-\begin{teoria}[camadas e encapsulamento]
-Uma rede entrega dados por meio de camadas com responsabilidades distintas. No modelo TCP/IP, costuma-se trabalhar com aplicação, transporte, internet e acesso à rede. Na prática de prova, associe \textbf{IP} a endereçamento e roteamento; \textbf{TCP/UDP} a transporte; \textbf{Ethernet/802.11} ao enlace/acesso; e protocolos como HTTP, DNS, SMTP e SSH à aplicação.
+O edital de Auditor/TI não cobra infraestrutura como uma coleção de produtos. O conteúdo percorre redes TCP/IP, gerenciamento, LAN/WAN, segurança de redes, criptografia, sistemas operacionais, diretórios, virtualização, servidores de aplicação, alta disponibilidade, data center, armazenamento, backup, contêineres e DevOps. A preparação deve conectar três planos: \textbf{funcionamento técnico}, \textbf{risco operacional} e \textbf{evidência de auditoria}.
 
-No encapsulamento, a unidade da aplicação é encapsulada em segmento/datagrama de transporte, pacote IP e quadro de enlace. Um roteador toma decisões principalmente com base no cabeçalho IP; um switch Ethernet tradicional usa endereços MAC para encaminhamento dentro do domínio de camada 2.
+\begin{teoria}[modelo mental]
+Para qualquer componente de infraestrutura, responda:
+\begin{enumerate}
+\item qual serviço ele presta e em que camada atua;
+\item de quais componentes depende;
+\item como falha e qual é seu domínio de falha;
+\item quais controles reduzem probabilidade ou impacto;
+\item quais métricas e logs demonstram que o controle opera;
+\item como recuperar o serviço e os dados após falha.
+\end{enumerate}
+Esse raciocínio transforma conhecimento de administração de sistemas em conhecimento de Auditor/TI.
 \end{teoria}
+
+\section{Redes de computadores e arquitetura TCP/IP}
+
+\subsection{Camadas, encapsulamento e unidades de dados}
+
+O modelo TCP/IP separa responsabilidades para permitir interoperabilidade. Uma aplicação produz dados; o transporte adiciona informação de multiplexação e, no caso do TCP, confiabilidade; a camada de Internet adiciona endereçamento e roteamento IP; a camada de acesso encapsula o pacote em quadro apropriado ao enlace.
 
 \begin{center}
 \begin{tikzpicture}[node distance=4mm]
-\tikzset{bl/.style={draw=azulPetroleo,rounded corners,minimum width=8cm,minimum height=.9cm,align=center}}
-\node[bl,fill=azulClaro] (a) {Aplicação: HTTP, DNS, SMTP, SSH, SNMP};
+\tikzset{bl/.style={draw=azulPetroleo,rounded corners,minimum width=9cm,minimum height=.9cm,align=center}}
+\node[bl,fill=azulClaro] (a) {Aplicação: HTTP(S), DNS, SMTP, SSH, SNMP, NTP};
 \node[bl,fill=white,below=of a] (t) {Transporte: TCP / UDP};
 \node[bl,fill=azulClaro,below=of t] (i) {Internet: IPv4 / IPv6 / ICMP};
 \node[bl,fill=white,below=of i] (e) {Acesso: Ethernet, 802.11, VLAN};
 \draw[-Latex,ambar,thick] (a.east) -- ++(1,0) |- (e.east) node[midway,right,align=left]{encapsulamento};
+\draw[-Latex,azulMedio,thick] (e.west) -- ++(-1,0) |- (a.west) node[midway,left,align=right]{desencapsulamento};
 \end{tikzpicture}
 \end{center}
 
-\subsection{IPv4, CIDR e sub-redes}
+Um switch de camada 2 aprende endereços MAC de origem e encaminha quadros segundo a tabela MAC. Um roteador decide o próximo salto a partir do endereço IP de destino e da tabela de rotas. Firewall pode operar em diferentes camadas e profundidades de inspeção. A banca frequentemente troca esses papéis.
 
-IPv4 possui 32 bits. A notação CIDR \texttt{/n} indica quantos bits pertencem ao prefixo. Em uma sub-rede IPv4 convencional, o total de endereços é $2^{32-n}$; usualmente rede e broadcast não são atribuídos a hosts, embora existam exceções específicas em enlaces ponto a ponto.
+\subsection{IPv4, CIDR e subnetting}
+
+IPv4 possui 32 bits. Em CIDR, \texttt{/n} indica o comprimento do prefixo. O número total de endereços de um bloco é:
+\[
+N=2^{32-n}.
+\]
+No uso tradicional de sub-redes, dois endereços são reservados para rede e broadcast, de modo que hosts utilizáveis são $N-2$, ressalvadas situações especiais como enlaces ponto a ponto.
 
 \begin{exemplo}[sub-rede /27]
-Para \texttt{192.0.2.64/27}, há $2^{5}=32$ endereços. O intervalo é 192.0.2.64--95; rede = .64, broadcast = .95 e hosts usuais = .65--.94, totalizando 30.
+Para \texttt{192.0.2.64/27}, há $2^{5}=32$ endereços. O incremento é 32: blocos .0, .32, .64, .96 etc. O bloco contém .64--.95; rede = .64; broadcast = .95; hosts usuais = .65--.94.
 \end{exemplo}
 
-\subsection{TCP e UDP}
+\subsubsection{Agregação e longest prefix match}
 
-TCP é orientado à conexão, fornece numeração de sequência, confirmação, retransmissão, controle de fluxo e controle de congestionamento. UDP é não orientado à conexão e não oferece, por si, confiabilidade ou ordenação. \textbf{UDP não significa necessariamente aplicação não confiável}: QUIC, por exemplo, usa UDP como substrato e implementa mecanismos próprios em camada superior.
+Roteadores preferem, entre rotas compatíveis, o prefixo mais específico. Assim, \texttt{10.0.1.0/24} prevalece sobre \texttt{10.0.0.0/8} para destino 10.0.1.20. CIDR permite sumarização de rotas quando blocos são contíguos e alinhados, reduzindo tabelas e propagação de rotas.
+
+\subsection{IPv6}
+
+IPv6 possui 128 bits e elimina broadcast tradicional, recorrendo a multicast e Neighbor Discovery. Endereços link-local são importantes para operações locais e autoconfiguração. A representação hexadecimal permite omitir zeros à esquerda e comprimir uma única sequência contínua de grupos zero com \texttt{::}. IPv6 não é simplesmente ``IPv4 com mais endereços'': muda mecanismos de descoberta, autoconfiguração e tratamento de fragmentação.
+
+\subsection{ARP, ICMP, DHCP e DNS}
+
+\termo{ARP} resolve IPv4 conhecido para endereço MAC no enlace local. Em IPv6, Neighbor Discovery desempenha funções correspondentes usando ICMPv6. \termo{ICMP} transporta mensagens de controle e diagnóstico; bloquear indiscriminadamente ICMP pode quebrar funcionalidades como Path MTU Discovery.
+
+\termo{DHCP} automatiza parâmetros de rede por concessões. Em IPv4, a sequência didática DORA — Discover, Offer, Request, Acknowledge — ajuda a entender o processo, mas é necessário conhecer também relay para atender clientes fora do domínio de broadcast do servidor.
+
+\termo{DNS} é uma base distribuída hierárquica. Resolvedores recursivos consultam servidores autoritativos e usam cache. Registros importantes: A, AAAA, CNAME, MX, NS, PTR e TXT. TTL controla tempo de cache, não segurança. DNSSEC adiciona validação criptográfica de autenticidade/integridade dos dados DNS, não confidencialidade das consultas.
+
+\section{TCP, UDP e comportamento de transporte}
+
+\subsection{TCP}
+
+TCP é orientado à conexão e fornece fluxo confiável de bytes. O three-way handshake sincroniza números iniciais de sequência. ACKs, temporizadores e retransmissões tratam perdas; números de sequência restauram ordem; janela do receptor implementa controle de fluxo; mecanismos de congestionamento ajustam envio segundo condições da rede.
+
+O throughput de conexão de longa distância não depende apenas de banda nominal. Produto largura de banda-atraso, RTT, perdas, tamanho de janela e congestionamento podem limitar desempenho. Em auditoria de desempenho, uma média de utilização de link baixa não prova ausência de gargalo em conexões sensíveis a RTT ou picos.
+
+\subsection{UDP}
+
+UDP é datagrama não orientado à conexão, sem confiabilidade, ordenação ou controle de congestionamento fornecidos pelo próprio protocolo. Isso reduz overhead e deixa à aplicação decisões de confiabilidade. DNS tradicional, voz/streaming em muitos cenários e QUIC utilizam UDP. QUIC demonstra por que ``UDP = aplicação não confiável'' é afirmação errada: a aplicação/protocolo superior pode adicionar mecanismos próprios.
 
 \begin{cebraspe}
-Evite decorar ``TCP é lento, UDP é rápido''. A diferença conceitual relevante é o conjunto de serviços oferecidos. Desempenho depende de RTT, perdas, janela, implementação, congestionamento, criptografia e protocolo de aplicação.
+Evite frases absolutas como ``TCP é lento'' e ``UDP é rápido''. A diferença estrutural está nos serviços oferecidos. O desempenho real depende de protocolo superior, implementação, perdas, RTT, criptografia, congestionamento e padrão de tráfego.
 \end{cebraspe}
 
-\section{Switching, VLAN e roteamento}
+\section{LAN, WAN, switching e routing}
 
-Switches aprendem endereços MAC observando o endereço de origem dos quadros. VLANs criam domínios lógicos de broadcast separados. O padrão 802.1Q insere identificação de VLAN em quadros transportados por enlaces trunk. Roteamento inter-VLAN exige funcionalidade de camada 3.
+\subsection{Ethernet, domínio de colisão e broadcast}
 
-\termo{STP/RSTP} reduz loops de camada 2; \termo{LACP} agrega enlaces; \termo{MPLS} encaminha com base em rótulos e é usado em redes de operadoras para engenharia de tráfego e VPNs.
+Em Ethernet comutada, cada porta opera como domínio de colisão separado em full duplex, enquanto o domínio de broadcast se estende pela VLAN. Switch aprende MAC pela origem; destino desconhecido é inundado no domínio apropriado. Loops físicos podem causar broadcast storm, duplicação de quadros e instabilidade de MAC.
+
+\subsection{STP/RSTP e agregação}
+
+STP constrói uma topologia lógica sem loop, elegendo root bridge e bloqueando caminhos redundantes. RSTP melhora convergência. LACP agrega enlaces físicos em um canal lógico, aumentando capacidade e redundância conforme algoritmo de distribuição; não implica que um único fluxo use automaticamente a soma integral de todos os links.
+
+\subsection{VLAN e 802.1Q}
+
+VLAN cria segmentação lógica de camada 2. Porta access pertence tipicamente a uma VLAN; trunk transporta múltiplas VLANs com tags 802.1Q. Comunicação entre VLANs exige roteamento. Para segurança, VLAN precisa ser acompanhada de políticas de camada 3/4; regra permissiva \texttt{any-any} entre VLANs anula grande parte do benefício de contenção.
+
+\subsection{Roteamento}
+
+Roteamento estático é simples e previsível, mas pouco adaptativo em topologias extensas. Protocolos dinâmicos trocam informação e calculam caminhos. O edital fala em noções de routing; portanto, compreenda diferença entre IGP e EGP, métricas, convergência, rota default e princípio de longest prefix match. OSPF é IGP de estado de enlace; BGP é protocolo interdomínio baseado em políticas e atributos, não simplesmente ``o protocolo de menor caminho''.
+
+\subsection{MPLS}
+
+MPLS insere rótulos para encaminhamento em redes de provedores, permitindo engenharia de tráfego e serviços como VPNs. Ele se posiciona conceitualmente entre mecanismos de enlace e rede. MPLS VPN não deve ser confundida automaticamente com VPN criptográfica: isolamento lógico no provedor não implica criptografia de conteúdo.
 
 \section{Redes sem fio e controle de acesso}
 
-O edital cita 802.11, 802.1X, EAP, WEP, WPA e WPA2. WEP é legado e inseguro. WPA/WPA2 melhoraram proteção; WPA2 está associado ao uso de AES/CCMP em configurações robustas. 802.1X é um mecanismo de controle de acesso à rede baseado em portas, normalmente envolvendo \emph{supplicant}, autenticador e servidor de autenticação (frequentemente RADIUS). EAP é uma estrutura para métodos de autenticação.
+802.11 define WLAN. O meio é compartilhado e sujeito a interferência, atenuação, roaming e contenção. Segurança evoluiu de WEP — quebrado e inadequado — para WPA/WPA2 e padrões posteriores. O edital nomeia WEP, WPA e WPA2, portanto domine a evolução e as fragilidades de WEP/TKIP frente a AES/CCMP.
 
-\section{Gerenciamento: SNMP, SMI e MIB}
+802.1X implementa controle de acesso baseado em porta. Há três papéis: \termo{supplicant} (cliente), \termo{authenticator} (switch/AP) e \termo{authentication server} (frequentemente RADIUS). EAP é uma estrutura que transporta métodos de autenticação; não é um único método específico.
 
-SNMP viabiliza consulta e alteração de objetos gerenciados e recebimento de notificações. A \termo{MIB} organiza objetos; a \termo{SMI} define regras de estrutura e identificação. SNMPv3 acrescenta recursos de autenticação e privacidade que não existiam adequadamente nas versões anteriores baseadas em comunidades.
+\section{Gerenciamento de redes: SMI, SNMP e MIB}
+
+Gerenciamento de redes envolve coleta de estado, configuração, falhas, desempenho, segurança e inventário. Em SNMP, um manager consulta agentes que expõem objetos organizados em MIB. A SMI define convenções de nomes, tipos e estrutura desses objetos.
+
+Operações clássicas incluem GET, GETNEXT/GETBULK, SET e notificações TRAP/INFORM. Polling frequente aumenta visibilidade, mas também carga; traps são assíncronos, porém podem ser perdidos conforme versão/transporte. SNMPv1/v2c dependem de community strings com proteção insuficiente; SNMPv3 pode fornecer autenticação e privacidade conforme configuração.
+
+\begin{exemplo}[auditoria de monitoramento]
+Não basta verificar que ``há Zabbix/PRTG/SNMP''. O auditor deve examinar cobertura: quais ativos estão monitorados, quais métricas, thresholds, retenção, sincronização de tempo, tratamento de alertas e evidência de resposta. Ferramenta instalada sem processo não constitui controle efetivo.
+\end{exemplo}
+
+\section{Segurança em redes}
+
+O edital repete parte de segurança de redes dentro de infraestrutura. Firewalls aplicam regras; IDS detecta; IPS pode bloquear inline; proxy intermedeia; NAT traduz endereços; VPN cria canal lógico protegido conforme tecnologia. Nenhum deles substitui os demais.
+
+Ataques cobrados: spoofing, flood, DoS/DDoS, phishing e malwares. Spoofing falsifica identidade/origem em determinado protocolo; flood esgota recursos por volume; DDoS distribui a origem. Segmentação, rate limiting, anti-DDoS, autenticação forte, filtragem e observabilidade são controles complementares.
+
+\section{Criptografia aplicada à infraestrutura}
+
+Criptografia simétrica usa segredo compartilhado e é eficiente para grandes volumes; assimétrica usa par de chaves e habilita autenticação, troca de chaves e assinatura. Sistemas reais combinam ambas. Hash criptográfico produz digest e não é cifra reversível.
+
+Assinatura digital vincula mensagem/chave privada para apoiar autenticidade e integridade; não cifra necessariamente o conteúdo. Certificação digital vincula identidade a chave pública por cadeia de confiança. TLS protege dados em trânsito e utiliza mecanismos híbridos; VPNs IPsec podem proteger tráfego em camada de rede.
 
 \section{Sistemas operacionais}
 
 \subsection{Processos, threads e escalonamento}
 
-Processo é uma instância de programa em execução com espaço de endereçamento e recursos. Threads compartilham recursos do processo e permitem concorrência interna. Estados típicos incluem pronto, executando e bloqueado. Troca de contexto tem custo; concorrência pode gerar condições de corrida, starvation e deadlock.
+Processo é uma instância de programa com contexto de execução, espaço de endereçamento e recursos. Threads de um mesmo processo compartilham memória e recursos, mas possuem pilha, registradores e contador de programa próprios. Concorrência cria necessidade de sincronização.
 
-As quatro condições clássicas necessárias para deadlock são: exclusão mútua, posse e espera, ausência de preempção e espera circular. Romper uma delas impede deadlock sob aquele modelo.
+Estados clássicos: novo, pronto, executando, bloqueado/esperando e terminado. O escalonador seleciona processos prontos. Algoritmos como FCFS, SJF/SRTF, Round Robin e prioridades apresentam trade-offs de tempo de resposta, throughput, justiça e starvation.
+
+\subsection{Condição de corrida, exclusão mútua e deadlock}
+
+Condição de corrida ocorre quando o resultado depende da ordem/interleaving de acessos concorrentes. Mutex, semáforos e monitores coordenam seções críticas. Deadlock exige, no modelo clássico, quatro condições simultâneas: exclusão mútua, posse e espera, ausência de preempção e espera circular. Prevenção rompe pelo menos uma; detecção permite ocorrer e identifica ciclos; avoidance depende de conhecimento de demandas e estado seguro.
 
 \subsection{Memória virtual}
 
-Paginação divide espaço virtual e físico em unidades fixas, páginas e quadros. TLB acelera tradução. Falta de página ocorre quando uma página necessária não está residente. \emph{Thrashing} aparece quando o sistema gasta parcela excessiva do tempo substituindo páginas por pressão de memória/localidade inadequada.
+Paginação divide memória virtual em páginas e física em frames. Tabela de páginas traduz endereços; TLB armazena traduções recentes. Page fault ocorre quando a página necessária não está residente e deve ser carregada. Algoritmos de substituição buscam explorar localidade; LRU é referência conceitual, embora implementações reais usem aproximações.
 
-\subsection{Windows Server e Linux}
+\termo{Thrashing} ocorre quando o working set excede memória disponível e o sistema passa grande parte do tempo em page faults. Adicionar CPU não resolve necessariamente; reduzir multiprogramação ou aumentar memória pode ser mais efetivo.
 
-Para prova, domine permissões, serviços, processos, logs, sistema de arquivos, autenticação, atualização, administração remota e automação. Em Linux, associe permissões tradicionais a usuário/grupo/outros, sem esquecer ACLs e capacidades. Em Windows, diferencie permissões NTFS, compartilhamento, políticas de grupo e integração com Active Directory.
+\subsection{Entrada/saída e sistemas de arquivos}
 
-\section{Diretórios: Active Directory e LDAP}
+I/O envolve drivers, interrupções, buffers, filas e DMA em várias arquiteturas. Cache e write-back melhoram desempenho, mas exigem políticas de persistência. Sistemas de arquivos organizam arquivos, diretórios, metadados e permissões; journaling melhora recuperação de metadados após falha, mas não substitui backup.
 
-LDAP é um protocolo de acesso a serviços de diretório; Active Directory é um serviço de diretório da Microsoft que usa, entre outros mecanismos, LDAP, Kerberos e DNS. Não trate LDAP e AD como sinônimos.
+\subsection{Linux}
 
-Objetos são organizados em estruturas hierárquicas. No AD, domínios, árvores e florestas estruturam o ambiente lógico. Políticas de Grupo (GPO) permitem centralizar configurações. Kerberos utiliza tickets e reduz exposição de credenciais em autenticações subsequentes.
+Domine usuários/grupos, permissões rwx, octal, umask, ACLs, sudo, processos, systemd, logs, pacotes, filesystem, rede e SSH. Permissões tradicionais são apenas uma camada: capacidades, SELinux/AppArmor e ACLs podem alterar o resultado efetivo. Em auditoria, \texttt{chmod 777} é indício de privilégio excessivo, não solução adequada de acesso.
 
-\section{Virtualização, alta disponibilidade e servidores de aplicação}
+\subsection{Windows Server}
 
-Hipervisores permitem múltiplas máquinas virtuais sobre recursos físicos. A virtualização facilita isolamento, consolidação, snapshots e mobilidade, mas não elimina dependências físicas nem substitui backup.
+Estude serviços, Event Viewer, NTFS, compartilhamentos, PowerShell, atualização, firewall, RDP, Active Directory, GPO e autenticação. Permissão efetiva pode resultar da combinação de ACL NTFS e permissão de compartilhamento; ao acessar pela rede, aplica-se a combinação mais restritiva entre as camadas pertinentes.
 
-Alta disponibilidade combina redundância, detecção de falhas e failover. \termo{Escalabilidade vertical} aumenta recursos de um nó; \termo{horizontal} adiciona nós. Balanceadores distribuem requisições. Replicação de estado pode ser necessária quando sessões não são externas ou stateless.
+\section{Active Directory, LDAP e interoperabilidade}
 
-\section{Armazenamento e data center}
+LDAP é protocolo de diretório; AD é serviço de diretório que integra LDAP, Kerberos, DNS e outros componentes. Domínios formam limites administrativos lógicos; árvores e florestas organizam namespaces e relações de confiança. O Global Catalog acelera consultas a objetos na floresta.
+
+Kerberos usa KDC, TGT e service tickets. Sincronização de relógio é relevante para reduzir replay. GPO centraliza configuração. Interoperabilidade pode envolver LDAP, Kerberos, SAML/OIDC em camadas superiores e sincronização/federação de identidades.
+
+\begin{cebraspe}
+LDAP não é ``o banco do Active Directory'' nem sinônimo de AD. Kerberos não é protocolo de diretório. DNS não é opcional em um domínio AD moderno: é infraestrutura crítica para localização de serviços.
+\end{cebraspe}
+
+\section{Virtualização e cloud computing}
+
+Hipervisor tipo 1 executa diretamente sobre hardware; tipo 2 sobre sistema hospedeiro, na classificação tradicional. Virtualização melhora consolidação e isolamento, mas amplia risco de concentração: falha de host, storage ou management plane pode afetar muitas VMs.
+
+Snapshots preservam estado em ponto no tempo e são úteis para rollback/backup auxiliar, mas longas cadeias degradam desempenho e snapshots no mesmo storage não são cópia independente. Live migration move workloads com interrupção mínima conforme plataforma, exigindo rede, storage ou mecanismos equivalentes adequados.
+
+Cloud computing adiciona elasticidade, autosserviço, pooling e medição de uso. O aprofundamento de IaaS/PaaS/SaaS e arquitetura cloud está no capítulo específico de nuvem.
+
+\section{Servidores de aplicação, HA e escalabilidade}
+
+\subsection{Topologia em camadas}
+
+Ambiente típico separa entrada/reverse proxy, camada de aplicação, serviços de estado/cache/mensageria e banco. Alta disponibilidade exige identificar dependências em cada camada. Dois servidores web atrás de balanceador não tornam o serviço altamente disponível se banco, DNS ou storage forem únicos.
+
+\subsection{Balanceamento}
+
+Balanceadores distribuem requisições por round-robin, least connections, hashing ou políticas. Health checks retiram instâncias inadequadas. Sticky sessions mantêm afinidade, mas podem criar desbalanceamento e complicar failover; externalizar estado costuma aumentar resiliência.
+
+\subsection{Failover e replicação}
+
+Failover transfere serviço para redundância. Replicação síncrona prioriza consistência com custo de latência/disponibilidade em falhas de comunicação; assíncrona reduz latência do primário, mas pode aumentar RPO. A escolha deve refletir requisitos de negócio.
+
+\subsection{Desempenho}
+
+Métricas importantes: latência média e percentis, throughput, erro, saturação, filas, CPU, memória, I/O e conexões. Percentil 95/99 revela cauda que a média esconde. Little, em sistema estável, relaciona itens médios no sistema, taxa e tempo: $L=\lambda W$.
+
+\section{Data center e ambientes de missão crítica}
+
+Data center é sistema de dependências: energia, climatização, incêndio, conectividade, segurança física, racks, cabeamento, compute, storage e gestão. Redundância deve ser analisada por \termo{domínio de falha}. Duas fontes ligadas ao mesmo UPS ou dois links passando pelo mesmo duto continuam compartilhando causa comum.
+
+Conceitos de topologia N, N+1, 2N e equivalentes expressam níveis de capacidade/redundância, mas a disponibilidade real depende de arquitetura, manutenção e operação. Gestão de mudança e inventário físico são controles tão importantes quanto equipamento redundante.
+
+\section{Armazenamento: discos, interfaces, RAID, NAS e SAN}
+
+\subsection{Disco e interface}
+
+HDD usa mídia magnética e partes mecânicas, favorecendo capacidade/custo; SSD usa flash, reduz latência e aumenta IOPS, mas possui características de desgaste e controladora. SATA, SAS e NVMe representam interfaces/protocolos com perfis distintos. IOPS, throughput e latência devem ser analisados conforme tamanho e padrão de I/O.
 
 \subsection{RAID}
 
@@ -86,96 +216,76 @@ Alta disponibilidade combina redundância, detecção de falhas e failover. \ter
 \small
 \begin{tabularx}{\textwidth}{l c c X}
 \toprule
-RAID & Mínimo & Tolerância típica & Ideia \\
+RAID & Mínimo & Tolerância típica & Característica \\
 \midrule
 0 & 2 & nenhuma & striping; desempenho/capacidade, sem redundância. \\
-1 & 2 & perda de um disco por espelho & espelhamento. \\
-5 & 3 & 1 disco & striping + paridade distribuída. \\
-6 & 4 & 2 discos & dupla paridade. \\
-10 & 4 & depende dos pares & espelhamento + striping. \\
+1 & 2 & um disco por espelho & espelhamento; leitura pode ganhar desempenho. \\
+5 & 3 & 1 disco & paridade distribuída; penalidade de escrita. \\
+6 & 4 & 2 discos & dupla paridade; maior proteção a falhas durante rebuild. \\
+10 & 4 & depende dos pares & espelhos com striping; bom I/O, custo de 50\% da capacidade bruta. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-RAID melhora disponibilidade/desempenho conforme o nível, mas \textbf{não é backup}: corrupção lógica, ransomware, erro humano e desastre podem afetar o conjunto inteiro.
+RAID reduz risco de falha de disco conforme nível, mas não cobre exclusão, corrupção lógica, ransomware, desastre, erro administrativo ou comprometimento de storage. Portanto, \textbf{RAID não é backup}.
 
-\subsection{NAS, SAN e backup}
+\subsection{NAS e SAN}
 
-NAS oferece acesso a arquivos pela rede; SAN expõe armazenamento em bloco. Backups devem considerar RPO (perda de dados tolerável) e RTO (tempo de recuperação tolerável). Estratégias 3-2-1 e cópias imutáveis/offline reduzem risco de ransomware. Deduplicação elimina blocos redundantes para economizar espaço.
+NAS oferece arquivo via SMB/NFS e apresenta namespace de arquivos ao cliente. SAN oferece bloco por tecnologias como Fibre Channel ou iSCSI e apresenta LUNs/volumes ao host. ``SAN é mais rápida'' não é regra universal: desempenho depende de mídia, protocolo, rede, controladora, cache, workload e desenho.
 
-\section{Contêineres e DevOps}
+\section{Backup, restauração e deduplicação}
 
-Contêineres compartilham o kernel do host e isolam processos por mecanismos do sistema operacional; VMs executam sistemas convidados completos sobre hipervisor. Imagens devem ser imutáveis e pequenas; segredos não devem ser embutidos na imagem. DevOps integra desenvolvimento e operação por automação, feedback rápido, observabilidade e responsabilidade compartilhada.
+\subsection{Full, incremental e diferencial}
+
+Backup full copia conjunto definido. Incremental copia alterações desde o último backup de qualquer tipo; restauração exige full + cadeia de incrementais. Diferencial copia alterações desde o último full; cresce ao longo do ciclo, mas restauração costuma exigir full + último diferencial.
+
+\subsection{RPO e RTO}
+
+\termo{RPO} é perda temporal tolerável de dados; \termo{RTO} é tempo-alvo de restabelecimento. Um RPO de 15 min é incompatível, sem mecanismos adicionais, com único ponto de recuperação diário. RTO depende de capacidade de reconstruir infraestrutura, recuperar dados, validar consistência e retornar tráfego.
+
+\subsection{3-2-1 e imutabilidade}
+
+A regra 3-2-1 é heurística: três cópias, em dois tipos de mídia/local, uma fora do ambiente principal. Estratégias modernas adicionam cópia offline/imutável e verificação. O ponto central é diversidade de domínio de falha e proteção contra credenciais comprometidas.
+
+\subsection{Teste de restauração}
+
+Job ``sucesso'' apenas prova que software terminou uma tarefa, não que dados são recuperáveis. Testes devem validar catálogo, cadeia, chaves de criptografia, consistência de aplicação e tempo real de recuperação. Para sistemas críticos, teste de DR deve incluir dependências e procedimentos de retorno.
+
+Deduplicação elimina blocos redundantes e reduz armazenamento/tráfego, mas cria dependência de metadados e não substitui múltiplas cópias independentes.
+
+\section{Contêinerização e DevOps}
+
+Contêineres usam namespaces/cgroups e outros mecanismos para isolamento e controle de recursos, compartilhando kernel do host. Imagem é artefato em camadas; contêiner é instância executável. Imagens devem ser versionadas, mínimas, escaneadas e produzidas por pipeline confiável.
+
+Riscos recorrentes: tag mutável \texttt{latest}, execução privilegiada, montagem do socket Docker, segredo em imagem, base desatualizada e registry sem controle. Cadeia de suprimentos exige origem, assinatura/proveniência, SBOM quando aplicável e promoção controlada.
+
+DevOps integra desenvolvimento e operação por automação, feedback e responsabilidade compartilhada. Para Auditor/TI, observe CI/CD, segregação, credenciais, trilha, rollback, testes, monitoramento e aprovação baseada em risco.
 
 \section{Mapa mental}
 
 \mapamental{Infraestrutura}{
- child { node[concept] {Redes} child {node[concept]{TCP/IP}} child {node[concept]{VLAN/roteamento}} }
- child { node[concept] {SO} child {node[concept]{processos}} child {node[concept]{memória}} }
- child { node[concept] {Identidade} child {node[concept]{AD/LDAP}} }
- child { node[concept] {Data center} child {node[concept]{RAID}} child {node[concept]{NAS/SAN}} }
- child { node[concept] {HA} child {node[concept]{failover}} child {node[concept]{balanceamento}} }
- child { node[concept] {Contêineres} child {node[concept]{DevOps}} }
+ child { node[concept] {Redes} child {node[concept]{TCP/IP}} child {node[concept]{VLAN/routing}} }
+ child { node[concept] {SO} child {node[concept]{processos}} child {node[concept]{memória/I-O}} }
+ child { node[concept] {Identidade} child {node[concept]{AD/LDAP}} child {node[concept]{Kerberos/GPO}} }
+ child { node[concept] {Missão crítica} child {node[concept]{HA}} child {node[concept]{data center}} }
+ child { node[concept] {Storage} child {node[concept]{RAID/NAS/SAN}} child {node[concept]{backup/RPO}} }
+ child { node[concept] {Plataforma} child {node[concept]{virtualização}} child {node[concept]{containers/DevOps}} }
 }
 
-\section{Questões por nível}
+\begin{resumo}
+\textbf{Fixação:} não confunda redundância com backup; VLAN com política de segurança; disponibilidade com durabilidade; LDAP com Active Directory; snapshot com cópia independente; média de desempenho com comportamento de cauda. Em auditoria, identifique sempre o domínio de falha, o RPO/RTO exigido e a evidência de que o controle funciona de fato.
+\end{resumo}
 
-\begin{questao}{\nivel{N1} 10.1}
-Em uma rede IPv4 \texttt{/26}, qual é o número total de endereços do bloco?
-\begin{enumerate}[label=\Alph*)]
-\item 16
-\item 32
-\item 62
-\item 64
-\item 128
-\end{enumerate}
-\end{questao}
-\begin{solucao}{10.1}
-\textbf{Gabarito: D.} Restam $32-26=6$ bits para endereços, logo $2^6=64$. A alternativa C (62) corresponde ao número tradicional de hosts utilizáveis após excluir rede e broadcast, não ao total do bloco. A e B correspondem a /28 e /27; E, a /25.
-\end{solucao}
+\input{questoes/10_infraestrutura_ti}
 
-\begin{questao}{\nivel{N2} 10.2}
-Uma organização deseja autenticação centralizada de usuários para acesso cabeado e Wi-Fi corporativo, com decisão de autorização antes da liberação da porta de rede. A arquitetura mais aderente é:
-\begin{enumerate}[label=\Alph*)]
-\item NAT com DNS autoritativo.
-\item 802.1X com EAP e servidor RADIUS.
-\item SNMPv2 com comunidade de escrita.
-\item MPLS com LDP.
-\item RAID 1 com LDAP.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{10.2}
-\textbf{Gabarito: B.} 802.1X controla acesso baseado em porta e usa EAP para transportar métodos de autenticação; RADIUS é comum no backend. NAT não autentica usuário; SNMP gerencia dispositivos; MPLS trata encaminhamento por rótulos; RAID é armazenamento e não substitui controle de acesso de rede.
-\end{solucao}
-
-\begin{questao}{\nivel{N3} 10.3}
-Após falha de um nó de aplicação, o balanceador direcionou tráfego para outro nó, porém usuários perderam sessões autenticadas. O sistema usa sessões mantidas apenas na memória local de cada instância. A medida arquitetural mais adequada para reduzir esse acoplamento é:
-\begin{enumerate}[label=\Alph*)]
-\item aumentar o TTL do DNS.
-\item substituir TCP por UDP.
-\item externalizar estado de sessão em serviço compartilhado/replicado ou adotar desenho stateless.
-\item usar RAID 0 nos servidores.
-\item desabilitar health checks do balanceador.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{10.3}
-\textbf{Gabarito: C.} O problema é estado preso ao nó. Externalização/replicação ou tokens stateless permitem failover transparente. TTL de DNS não resolve a sessão; UDP não corrige estado; RAID 0 não oferece redundância e atua em armazenamento; desabilitar health checks piora disponibilidade.
-\end{solucao}
-
-\begin{questao}{\nivel{N4} 10.4}
-Em auditoria de continuidade, a equipe identifica banco em RAID 6, snapshots diários no mesmo storage e ausência de cópia externa. A administração afirma que ``RAID e snapshot tornam backup desnecessário''. Qual conclusão é tecnicamente correta?
-\begin{enumerate}[label=\Alph*)]
-\item A afirmação é correta, pois RAID 6 tolera qualquer evento de perda de dados.
-\item A afirmação é correta se snapshots forem frequentes.
-\item A afirmação é incorreta: RAID trata falha de discos e snapshots no mesmo domínio de falha não substituem estratégia de backup independente.
-\item A afirmação só é incorreta se o banco usar transações ACID.
-\item A afirmação é irrelevante, pois RPO e RTO se aplicam apenas a redes.
-\end{enumerate}
-\end{questao}
-\begin{solucao}{10.4}
-\textbf{Gabarito: C.} RAID 6 mitiga falha simultânea limitada de discos, não corrupção lógica, comprometimento do storage, exclusão, ransomware ou desastre. Snapshot no mesmo domínio pode ser perdido junto. A está errada pelo absolutismo; B confunde frequência com independência; D não tem relação; E erra porque RPO/RTO são métricas de continuidade de serviços e dados.
-\end{solucao}
+\section{Treino discursivo}
 
 \begin{discursiva}[infraestrutura e evidência]
 Um órgão informa RTO de 2 horas e RPO de 15 minutos para sistema crítico, mas realiza backup completo apenas uma vez por dia e não testa restauração há 18 meses. Em até 30 linhas, identifique os principais riscos, evidências adicionais que o auditor deve obter e recomendações prioritárias.
 \end{discursiva}
+
+\begin{discursiva}[alta disponibilidade]
+Um ambiente possui quatro servidores de aplicação virtualizados em dois hosts, mas usa storage único e apenas um link de telecomunicações para o datacenter. Em até 30 linhas, avalie a alegação de alta disponibilidade, identifique pontos únicos de falha e proponha procedimentos de auditoria para validar o RTO declarado.
+\end{discursiva}
+
+\input{solucoes/10_infraestrutura_ti}
