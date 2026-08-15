@@ -1,24 +1,46 @@
 \chapter{Gestão e Governança de TI}
 
-\section{Governança versus gestão}
+\section{Governança e gestão: conceitos fundamentais}
 
-A distinção é central no edital. Governança assegura que necessidades dos stakeholders sejam avaliadas, prioridades e decisões sejam direcionadas, e resultados, valor, risco e conformidade sejam monitorados. Gestão planeja, constrói/adquire, executa e monitora atividades de acordo com a direção estabelecida.
+Governança e gestão são atividades complementares, mas não equivalentes. \termo{Governança} avalia necessidades e expectativas das partes interessadas, estabelece direção por prioridades e decisões e monitora desempenho, conformidade e criação de valor. \termo{Gestão} planeja, constrói ou adquire, executa e monitora atividades de acordo com a direção estabelecida.
 
-\begin{teoria}[pergunta de prova]
-Para classificar uma atividade, não olhe apenas o verbo. ``Monitorar disponibilidade de servidor'' é gestão/operação; ``monitorar se o portfólio de TI entrega benefícios e permanece dentro do apetite de risco'' é governança. O nível de decisão, o objeto monitorado e quem responde pelo resultado são determinantes.
-\end{teoria}
+Em termos simplificados:
+\[
+\text{Governança: avaliar}\rightarrow\text{direcionar}\rightarrow\text{monitorar}
+\]
+\[
+\text{Gestão: planejar}\rightarrow\text{construir/adquirir}\rightarrow\text{executar}\rightarrow\text{monitorar}
+\]
+
+A diferença está no nível de decisão e responsabilidade. Monitorar CPU de servidores é atividade de gestão operacional; monitorar se investimentos de TI entregam benefícios, permanecem dentro do apetite de risco e sustentam objetivos institucionais é governança.
+
+\section{Valor, benefícios, riscos e recursos}
+
+Governança de TI busca produzir valor para a organização. Valor não significa apenas redução de custo. Pode incluir melhoria de serviços públicos, confiabilidade, transparência, produtividade, experiência do cidadão, conformidade e capacidade institucional.
+
+A criação de valor exige equilíbrio entre:
+\begin{itemize}
+\item realização de benefícios;
+\item otimização de riscos;
+\item otimização de recursos.
+\end{itemize}
+
+Um projeto pode ser tecnicamente bem executado e ainda destruir valor se resolver problema irrelevante, gerar dependência excessiva de fornecedor ou impor custo operacional superior ao benefício.
 
 \section{COBIT 2019}
 
-COBIT 2019 é framework de governança e gestão da informação e tecnologia empresarial. Seu objetivo é apoiar criação de valor equilibrando benefícios, otimização de risco e otimização de recursos.
+COBIT 2019 é um framework da ISACA para governança e gestão da informação e tecnologia empresarial. Ele não é uma metodologia de implementação rígida nem uma coleção de controles que devem ser copiados integralmente.
+
+O framework trabalha com sistema de governança adaptado ao contexto da organização e com objetivos de governança e gestão.
 
 \subsection{Princípios do sistema de governança}
 
-O sistema deve gerar valor para stakeholders, ser holístico, dinâmico, distinguir governança de gestão, ser adaptado às necessidades da organização e cobrir a organização de ponta a ponta. Não é pacote de controles a ser implementado integralmente sem contexto.
+Os princípios enfatizam que o sistema deve gerar valor para stakeholders, utilizar abordagem holística, permanecer dinâmico diante de mudanças, distinguir governança de gestão, adaptar-se às necessidades da organização e abranger a organização de ponta a ponta.
 
-\subsection{Componentes}
+\subsection{Componentes do sistema de governança}
 
-\begin{itemize}
+COBIT 2019 utiliza sete tipos de componentes:
+\begin{enumerate}
 \item processos;
 \item estruturas organizacionais;
 \item princípios, políticas e procedimentos;
@@ -26,17 +48,20 @@ O sistema deve gerar valor para stakeholders, ser holístico, dinâmico, disting
 \item cultura, ética e comportamento;
 \item pessoas, habilidades e competências;
 \item serviços, infraestrutura e aplicações.
-\end{itemize}
+\end{enumerate}
 
-Uma falha de governança pode estar no componente errado: processo bem escrito sem competência, cultura ou autoridade adequada continua ineficaz.
+Um processo formalmente bem desenhado pode falhar se não houver pessoas competentes, autoridade adequada, informação confiável ou cultura compatível. O framework evita, portanto, reduzir governança a documentos.
 
-\subsection{Domínios}
+\section{Domínios do COBIT 2019}
+
+Os 40 objetivos de governança e gestão são agrupados em cinco domínios.
 
 \begin{table}[ht]
 \centering
+\small
 \begin{tabularx}{\textwidth}{l l X}
 \toprule
-Domínio & Natureza & Função \\
+Domínio & Natureza & Significado \\
 \midrule
 EDM & Governança & Evaluate, Direct and Monitor. \\
 APO & Gestão & Align, Plan and Organize. \\
@@ -47,178 +72,576 @@ MEA & Gestão & Monitor, Evaluate and Assess. \\
 \end{tabularx}
 \end{table}
 
-\subsection{Cascata de objetivos}
+Apenas EDM é domínio de governança. APO, BAI, DSS e MEA são domínios de gestão, ainda que MEA contenha a palavra \emph{Monitor}.
 
-Necessidades dos stakeholders são traduzidas em objetivos empresariais, objetivos de alinhamento e objetivos de governança/gestão. A cascata responde \emph{por que} determinado objetivo COBIT é prioritário naquele contexto.
+\subsection{EDM}
 
-\subsection{Fatores de desenho e tailoring}
+EDM trata de temas como framework de governança, benefícios, risco, recursos e engajamento de stakeholders.
 
-Estratégia empresarial, objetivos, perfil de risco, ameaças, papel da TI, sourcing, tamanho, modelo de implementação e adoção tecnológica influenciam sistema de governança. Copiar desenho de outra organização sem analisar fatores contraria o próprio framework.
+Exemplo: decidir o nível institucional de tolerância a indisponibilidade de serviços críticos é uma questão de direção/governança; definir alertas específicos do monitoramento é gestão.
 
-\subsection{Desempenho e capacidade}
+\subsection{APO}
 
-COBIT Performance Management permite avaliar capacidade dos processos em níveis de 0 a 5. Capacidade de processo não é sinônimo de maturidade geral da organização. Métricas devem verificar tanto execução quanto resultado.
+APO cobre estratégia, arquitetura, inovação, portfólio, orçamento, recursos humanos, relacionamentos, acordos de serviço, fornecedores, qualidade, risco e segurança.
+
+\subsection{BAI}
+
+BAI trata de programas, projetos, requisitos, identificação/construção de soluções, disponibilidade, mudança organizacional, mudanças de TI, conhecimento, ativos e configuração.
+
+\subsection{DSS}
+
+DSS cobre operação, solicitações e incidentes, problemas, continuidade, serviços de segurança e controles de processos de negócio.
+
+\subsection{MEA}
+
+MEA trata de monitoramento de desempenho e conformidade, sistema de controles internos e avaliações de requisitos externos.
+
+\section{Cascata de objetivos do COBIT}
+
+A goals cascade conecta necessidades de stakeholders a objetivos empresariais, objetivos de alinhamento e objetivos de governança/gestão.
+
+A lógica é:
+\[
+\text{necessidade do stakeholder}
+\rightarrow
+\text{objetivo empresarial}
+\rightarrow
+\text{objetivo de alinhamento}
+\rightarrow
+\text{objetivos COBIT}.
+\]
+
+\begin{exemplo}[cascata]
+Necessidade: reduzir interrupções em serviços públicos digitais.
+
+Objetivo empresarial: continuidade e disponibilidade dos serviços institucionais.
+
+Objetivo de alinhamento: serviços de TI entregues conforme requisitos de negócio.
+
+Objetivos COBIT relacionados podem envolver DSS04 (continuidade), APO12 (risco) e outros selecionados segundo o contexto.
+\end{exemplo}
+
+A cascata impede que a organização implemente controles sem justificativa de valor ou risco.
+
+\section{Fatores de desenho do COBIT}
+
+COBIT 2019 utiliza \termo{design factors} para adaptar o sistema de governança. Entre eles estão estratégia empresarial, objetivos, perfil de risco, problemas relacionados a I\&T, cenário de ameaças, requisitos de conformidade, papel da TI, modelo de sourcing, métodos de implementação, estratégia de adoção tecnológica e tamanho da organização.
+
+\begin{exemplo}[tailoring]
+Um tribunal com sistemas próprios críticos, dados sigilosos e forte regulação tende a priorizar objetivos e componentes diferentes de uma pequena organização que consome quase todo seu portfólio como SaaS padronizado.
+\end{exemplo}
+
+Tailoring não significa eliminar controles apenas por conveniência; significa ajustar foco e capacidade às necessidades e riscos.
+
+\section{COBIT Performance Management}
+
+COBIT utiliza níveis de capacidade para avaliar quão bem processos alcançam seus propósitos.
+
+Didaticamente, os níveis vão de 0 a 5, representando desde ausência de capacidade até desempenho otimizado e melhoria contínua.
+
+Capacidade de processo não é sinônimo de maturidade global da organização. Um processo pode estar em nível alto enquanto outro crítico permanece deficiente.
+
+\subsection{Indicadores de resultado e execução}
+
+Avaliar apenas existência de processo é insuficiente. Por exemplo, para gestão de incidentes:
+\begin{itemize}
+\item evidência de capacidade: processo definido, responsabilidades e ferramentas;
+\item evidência de resultado: incidentes registrados, priorizados, resolvidos dentro de metas e com redução de recorrência quando aplicável.
+\end{itemize}
 
 \section{ISO/IEC 38500}
 
-A ISO/IEC 38500 fornece princípios e modelo de boa governança de TI para o corpo dirigente. A lógica de \textbf{Evaluate--Direct--Monitor} alinha-se ao domínio EDM do COBIT. O foco está em responsabilidade do governing body, não em instruções operacionais de service desk.
+ISO/IEC 38500 orienta governança corporativa da tecnologia da informação pelo corpo dirigente. Seu modelo conceitual utiliza \termo{Evaluate--Direct--Monitor}.
 
-\section{ITIL 4}
-
-O edital menciona ITIL v4. O estudo deve concentrar o Service Value System, quatro dimensões, cadeia de valor e práticas.
-
-\subsection{Quatro dimensões}
-
+A norma trabalha com princípios relacionados a:
 \begin{itemize}
+\item responsabilidade;
+\item estratégia;
+\item aquisição;
+\item desempenho;
+\item conformidade;
+\item comportamento humano.
+\end{itemize}
+
+\subsection{Responsabilidade}
+
+Papéis precisam ser claros e compreendidos. Delegar execução não elimina responsabilidade de governança.
+
+\subsection{Estratégia}
+
+A estratégia de TI deve atender necessidades atuais e futuras da organização.
+
+\subsection{Aquisição}
+
+Investimentos devem ocorrer por razões válidas, com decisões equilibradas entre benefícios, oportunidades, custos e riscos, considerando ciclo de vida.
+
+\subsection{Desempenho}
+
+TI deve sustentar a organização com capacidade e qualidade adequadas.
+
+\subsection{Conformidade}
+
+Uso de TI deve respeitar legislação, normas, políticas e obrigações contratuais.
+
+\subsection{Comportamento humano}
+
+Decisões devem considerar necessidades e limitações das pessoas, incluindo mudança organizacional, competências, acessibilidade e efeitos sobre trabalho.
+
+\section{ITIL 4: gerenciamento de serviços}
+
+ITIL 4 trata gerenciamento de serviços orientado a valor. \termo{Serviço} é meio de possibilitar co-criação de valor facilitando resultados que clientes desejam alcançar, sem que precisem gerenciar diretamente determinados custos e riscos.
+
+\subsection{Utilidade e garantia}
+
+\termo{Utility} responde se o serviço é adequado à finalidade — \emph{fit for purpose}. \termo{Warranty} responde se é adequado ao uso — \emph{fit for use} — considerando disponibilidade, capacidade, continuidade e segurança.
+
+Um sistema pode oferecer funcionalidade correta (utilidade) e falhar como serviço por indisponibilidade frequente (garantia insuficiente).
+
+\section{Service Value System — SVS}
+
+O SVS integra componentes e atividades da organização para facilitar criação de valor.
+
+Seus elementos incluem:
+\begin{itemize}
+\item princípios orientadores;
+\item governança;
+\item service value chain;
+\item práticas;
+\item melhoria contínua.
+\end{itemize}
+
+Demanda e oportunidades entram no sistema e são transformadas em valor por fluxos de valor.
+
+\section{Quatro dimensões do ITIL 4}
+
+\begin{enumerate}
 \item organizações e pessoas;
 \item informação e tecnologia;
 \item parceiros e fornecedores;
 \item fluxos de valor e processos.
+\end{enumerate}
+
+O desenho de serviço deve considerar as quatro simultaneamente.
+
+\begin{exemplo}[otimização local]
+Automatizar atendimento sem treinar a equipe e sem alterar processo pode aumentar velocidade de uma etapa e manter gargalos posteriores. A dimensão de tecnologia foi otimizada isoladamente, mas o serviço como sistema não.
+\end{exemplo}
+
+\section{Princípios orientadores do ITIL 4}
+
+Os sete guiding principles são:
+\begin{itemize}
+\item foco em valor;
+\item começar de onde se está;
+\item progredir iterativamente com feedback;
+\item colaborar e promover visibilidade;
+\item pensar e trabalhar holisticamente;
+\item manter simples e prático;
+\item otimizar e automatizar.
 \end{itemize}
 
-Decisão de serviço que ignora uma dimensão tende a criar otimização local. Automatizar um processo ruim, por exemplo, acelera desperdício.
+Eles são recomendações universais e devem ser combinados, não etapas sequenciais.
 
-\subsection{Princípios orientadores}
+\section{Service Value Chain}
 
-Focus on value; Start where you are; Progress iteratively with feedback; Collaborate and promote visibility; Think and work holistically; Keep it simple and practical; Optimize and automate.
+A cadeia de valor possui seis atividades:
+\begin{itemize}
+\item Plan;
+\item Improve;
+\item Engage;
+\item Design \& Transition;
+\item Obtain/Build;
+\item Deliver \& Support.
+\end{itemize}
 
-\subsection{Service Value System}
+Um \termo{value stream} seleciona e combina atividades e práticas para produzir resultado específico. Não existe uma sequência única obrigatória para todo serviço.
 
-Integra princípios, governança, service value chain, práticas e melhoria contínua para transformar demanda/oportunidade em valor.
+\section{Práticas centrais do ITIL 4}
 
-\subsection{Service value chain}
+\subsection{Incident Management}
 
-Plan, Improve, Engage, Design \& Transition, Obtain/Build, Deliver \& Support. Um value stream combina essas atividades e práticas conforme o serviço.
+Objetivo é minimizar impacto negativo restaurando operação normal o mais rápido possível.
 
-\subsection{Incident, problem e request}
+Incidente é interrupção não planejada ou redução da qualidade de um serviço.
 
-Incident management restaura serviço. Problem management identifica/gerencia causas e known errors. Service request management trata solicitações predefinidas. Um incidente pode ser restaurado sem causa conhecida; isso não o transforma automaticamente em problema resolvido.
+\subsection{Problem Management}
 
-\subsection{Change enablement}
+Problema é causa, ou causa potencial, de um ou mais incidentes. Problem Management identifica causas, gerencia workarounds e known errors e reduz probabilidade/impacto de recorrência.
 
-Busca maximizar mudanças bem-sucedidas ao avaliar risco, autorizar e organizar mudanças. Modelos modernos evitam CAB universal para qualquer mudança; mudanças de baixo risco podem ter autorização prévia e automação.
+Restaurar serviço após incidente não significa que o problema-raiz foi removido.
 
-\section{Gestão de riscos: ISO 31000 e COSO}
+\begin{exemplo}[incidente versus problema]
+Incidente: portal indisponível porque banco atingiu limite de conexões.
 
-\subsection{ISO 31000}
+Restauração: reiniciar pool e ampliar limite emergencialmente.
 
-Princípios incluem integração, abordagem estruturada, customização, inclusividade, dinamismo, melhor informação disponível, fatores humanos/culturais e melhoria contínua.
+Problema: vazamento de conexões no código, ainda não corrigido. O incidente foi encerrado, mas o problema permanece.
+\end{exemplo}
 
-Processo: comunicação/consulta; escopo/contexto/critérios; identificação, análise e avaliação; tratamento; monitoramento/revisão; registro/reporte.
+\subsection{Service Request Management}
+
+Trata solicitações de serviço predefinidas e iniciadas por usuário, como acesso padrão ou instalação autorizada.
+
+\subsection{Change Enablement}
+
+Maximiza mudanças bem-sucedidas por avaliação de risco, autorização e planejamento adequado.
+
+Mudanças padrão podem ser pré-autorizadas quando repetíveis e de baixo risco. Mudanças normais recebem avaliação proporcional; emergência possui rito acelerado, mas não deve eliminar documentação e revisão posterior.
+
+\subsection{Service Level Management}
+
+Define metas baseadas em resultados e experiência do usuário, acompanha desempenho e promove melhoria.
+
+SLA é acordo formal; SLO é objetivo de nível de serviço; SLI é indicador medido.
+
+\subsection{Monitoring and Event Management}
+
+Observa serviços e componentes e registra mudanças de estado relevantes. Evento não é sinônimo de incidente: pode ser informativo, alerta ou exceção.
+
+\section{Configuration Management e CMDB}
+
+Service Configuration Management assegura disponibilidade de informação confiável sobre itens de configuração (CIs) e relacionamentos.
+
+CMDB armazena dados de configuração, mas uma base cheia de registros desatualizados não produz valor.
+
+\termo{Configuration Item} é componente que precisa ser gerenciado para entregar serviço. Nem todo ativo precisa ser CI em qualquer nível de detalhe.
+
+\section{Gestão de risco — ISO 31000}
+
+ISO 31000 trata risco como efeito da incerteza sobre objetivos.
+
+O processo inclui:
+\begin{itemize}
+\item comunicação e consulta;
+\item definição de escopo, contexto e critérios;
+\item identificação;
+\item análise;
+\item avaliação;
+\item tratamento;
+\item monitoramento e revisão;
+\item registro e reporte.
+\end{itemize}
 
 \subsection{Apetite, tolerância e limite}
 
-Apetite expressa risco que a organização está disposta a aceitar/buscar. Tolerâncias e limites operacionalizam esse apetite. Unidade de TI não deve definir isoladamente apetite institucional.
+\termo{Apetite} expressa quantidade e tipo de risco que organização está disposta a buscar ou reter em busca de objetivos.
 
-\subsection{COSO ERM}
+\termo{Tolerância} define variação aceitável ao redor de objetivos e apetite.
 
-Integra risco à estratégia e desempenho: governança/cultura, estratégia/definição de objetivos, desempenho, revisão, informação/comunicação/reporte. O ponto de prova é que risco não é atividade separada ao fim do planejamento; influencia escolha de objetivos e execução.
+Limites operacionais materializam esses conceitos em thresholds concretos.
 
-\section{PMBOK 8ª edição e gestão de projetos}
+\begin{exemplo}
+Apetite institucional pode estabelecer indisponibilidade mínima para serviços essenciais. Um SLO de 99,95\% e error budget correspondente transformam parte dessa direção em parâmetro operacional.
+\end{exemplo}
 
-O edital especifica a 8ª edição. O estudo deve evitar material preso à taxonomia da 6ª edição. A visão atual combina princípios, domínios de desempenho e processos/práticas adaptáveis, com foco explícito em valor e resultados.
+\section{COSO ERM}
 
-\subsection{Tailoring}
+COSO ERM integra risco à estratégia e ao desempenho. Seus componentes incluem governança e cultura, estratégia e definição de objetivos, desempenho, revisão e informação/comunicação/reporte.
 
-Projeto preditivo de infraestrutura e experimento de IA não devem receber o mesmo nível de formalidade. Tailoring considera tamanho, complexidade, criticidade, incerteza, regulamentação e ambiente.
+O ponto central é que risco não é etapa executada apenas após decisão. A avaliação de risco influencia escolha de estratégia e objetivos.
 
-\subsection{Sucesso de projeto}
+\section{Planejamento estratégico de TI}
 
-Prazo, custo e escopo continuam relevantes, mas sucesso também envolve benefício, valor, qualidade, satisfação, adoção e sustentabilidade operacional. Entregar sistema no prazo que ninguém usa não é sucesso completo.
+Planejamento conecta estratégia institucional a capacidades e investimentos de TI.
 
-\section{Scrum e Kanban na gestão}
+\subsection{PETI}
 
-Métodos ágeis não removem governança. Transparência de backlog, objetivos, DoD, métricas de fluxo e evidência automatizada podem aumentar accountability. O risco é confundir autonomia de equipe com ausência de decisão sobre investimento, arquitetura ou risco.
+O Plano Estratégico de TI, quando adotado, expressa objetivos e direcionadores de tecnologia alinhados à estratégia institucional.
 
-\section{Planejamento estratégico: PETI e PDTI}
+\subsection{PDTI}
 
-PETI traduz estratégia institucional em direcionadores e objetivos de TI. PDTI materializa necessidades, iniciativas, capacidades, recursos e contratações em horizonte de planejamento. Os nomes podem variar, mas a relação é estratégia $\rightarrow$ portfólio executável.
+PDTI detalha necessidades, iniciativas, recursos, capacidades e contratações em horizonte definido.
 
-Um plano deve responder: objetivo, indicador, meta, iniciativa, responsável, prazo, recurso, dependência e risco. Lista de compras não é PDTI robusto.
+Uma estrutura robusta relaciona:
+\[
+\text{objetivo institucional}
+\rightarrow
+\text{objetivo de TI}
+\rightarrow
+\text{iniciativa}
+\rightarrow
+\text{indicador/meta}
+\rightarrow
+\text{responsável}
+\rightarrow
+\text{recurso e risco}.
+\]
 
-\subsection{Portfólio}
+Uma lista de compras sem objetivo, benefício ou indicador não constitui planejamento estratégico completo.
 
-Portfólio seleciona iniciativas para maximizar valor sob restrições. Priorização pode considerar alinhamento, risco, benefício, obrigação legal, custo, capacidade e dependência. Somar scores sem discutir premissas cria falsa precisão.
+\section{Portfólio, programas e projetos}
 
-\section{Indicadores, KPIs e BSC}
+\termo{Portfólio} agrupa projetos, programas e outras iniciativas para atingir objetivos estratégicos. Os componentes não precisam ser interdependentes.
 
-\subsection{Desenho de indicadores}
+\termo{Programa} coordena projetos e atividades relacionados para obter benefícios que não seriam alcançados se geridos isoladamente.
 
-Um indicador deve ter nome, objetivo, fórmula, unidade, fonte, frequência, owner, meta/faixa, regra de exclusão e interpretação. Sem definição operacional, resultados podem ser manipulados.
+\termo{Projeto} é esforço temporário para criar produto, serviço ou resultado único.
 
-\subsection{Leading e lagging}
+\section{Priorização de portfólio}
 
-Lagging indicators medem resultados passados, como indisponibilidade ocorrida. Leading indicators tentam antecipar resultado, como percentual de patches críticos dentro do prazo. Um conjunto equilibrado combina ambos.
+Critérios possíveis:
+\begin{itemize}
+\item alinhamento estratégico;
+\item obrigação legal;
+\item benefício esperado;
+\item redução de risco;
+\item custo;
+\item urgência;
+\item capacidade interna;
+\item dependências;
+\item complexidade e incerteza.
+\end{itemize}
 
-\subsection{Goodhart e gaming}
+\subsection{Modelo de pontuação}
 
-Se ``tickets fechados'' vira meta única, pode gerar fechamento prematuro. Use métricas balanceadas: volume, reabertura, tempo, satisfação e impacto.
+Uma matriz pode calcular:
+\[
+Score=\sum_{i=1}^{n} w_i s_i,
+\]
+onde $w_i$ é peso e $s_i$ a nota do critério.
 
-\subsection{BSC}
+A precisão matemática não elimina subjetividade das notas e pesos. O modelo deve registrar premissas e análise de sensibilidade.
 
-Balanced Scorecard conecta objetivos em perspectivas e relações de causa/efeito. No setor público, missão/valor público frequentemente ocupa posição superior à perspectiva financeira. O importante é coerência estratégica, não copiar mapa empresarial privado.
+\section{PMBOK Guide — 8ª edição}
 
-\section{BPMN e melhoria de processos}
+A 8ª edição do PMBOK Guide, publicada pelo PMI em 2025, mantém abordagem baseada em princípios e domínios de desempenho e reincorpora orientação de processos de forma não prescritiva.
 
-\subsection{Elementos}
+\subsection{Seis princípios centrais}
 
-Eventos iniciam/afetam/encerram; atividades executam trabalho; gateways controlam divergência/convergência; sequence flow conecta dentro do pool; message flow conecta participantes; pools/lanes representam participantes/responsabilidades.
+A edição trabalha com seis princípios de gestão de projetos, organizados em torno de:
+\begin{itemize}
+\item visão holística;
+\item foco em valor;
+\item qualidade incorporada ao trabalho e aos resultados;
+\item liderança responsável;
+\item integração de sustentabilidade;
+\item equipes capacitadas e empoderadas.
+\end{itemize}
+
+Os princípios orientam julgamento; não são fases sequenciais.
+
+\section{Sete domínios de desempenho do PMBOK 8}
+
+Os domínios abrangem:
+\begin{enumerate}
+\item governança;
+\item escopo;
+\item cronograma;
+\item finanças;
+\item stakeholders;
+\item recursos;
+\item risco.
+\end{enumerate}
+
+A edição também amplia tratamento de temas contemporâneos como inteligência artificial, PMOs e procurement, preservando tailoring como elemento central.
+
+\section{Tailoring em projetos}
+
+Tailoring adapta abordagem ao contexto.
+
+Fatores:
+\begin{itemize}
+\item criticidade;
+\item complexidade;
+\item incerteza;
+\item regulamentação;
+\item tamanho da equipe;
+\item tecnologia;
+\item necessidade de documentação;
+\item ciclo de vida preditivo, adaptativo ou híbrido.
+\end{itemize}
+
+\begin{exemplo}[tailoring]
+Migração de data center com janela fixa, dependências físicas e forte necessidade de plano de rollback pode demandar planejamento preditivo detalhado. Um protótipo experimental de análise de dados pode usar ciclos curtos e hipóteses adaptativas. Ambos continuam necessitando governança de risco e valor.
+\end{exemplo}
+
+\section{Valor e benefícios em projetos}
+
+Entregar escopo no prazo e orçamento não garante sucesso institucional. O projeto pode produzir output sem produzir outcome.
+
+\termo{Output}: produto entregue.
+
+\termo{Outcome}: mudança produzida pelo uso do produto.
+
+\termo{Benefit}: ganho mensurável obtido a partir do outcome.
+
+Exemplo: implantar sistema é output; reduzir tempo de tramitação é outcome; liberar capacidade de trabalho e melhorar prazo de serviço é benefício.
+
+\section{Indicadores e KPIs}
+
+Um indicador deve possuir:
+\begin{itemize}
+\item definição;
+\item fórmula;
+\item unidade;
+\item fonte de dados;
+\item periodicidade;
+\item responsável;
+\item meta/faixa;
+\item regras de exclusão;
+\item interpretação.
+\end{itemize}
+
+\subsection{Leading e lagging indicators}
+
+\termo{Lagging} mede resultado já ocorrido: indisponibilidade mensal.
+
+\termo{Leading} antecipa condições: percentual de patches críticos vencidos pode sinalizar risco futuro.
+
+Um painel equilibrado combina medidas de causa e resultado.
+
+\section{Lei de Goodhart e gaming de métricas}
+
+Quando uma medida se torna alvo rígido, agentes podem otimizar o indicador e não o objetivo real.
+
+Exemplo: meta de fechar 100 chamados por semana pode incentivar fechamento prematuro. Métricas complementares — reabertura, satisfação, tempo de resolução, severidade — reduzem comportamento disfuncional.
+
+\section{Balanced Scorecard}
+
+BSC conecta objetivos, indicadores, metas e iniciativas em perspectivas relacionadas por hipóteses de causa e efeito.
+
+No modelo privado clássico aparecem perspectivas financeira, clientes, processos internos e aprendizado/crescimento. No setor público, missão e valor público podem assumir papel central, e adaptações são comuns.
+
+O mapa estratégico deve representar lógica causal plausível, não apenas distribuir objetivos em caixas.
+
+\section{BPM e BPMN}
+
+Business Process Management trata processos ponta a ponta como ativos de gestão.
+
+BPMN é notação gráfica para modelagem de processos.
+
+\subsection{Eventos}
+
+Eventos podem iniciar, ocorrer durante ou encerrar fluxo. Exemplos: mensagem, timer, erro, sinal.
+
+\subsection{Atividades}
+
+Tarefas são unidades atômicas de trabalho; subprocessos encapsulam conjunto de atividades.
 
 \subsection{Gateways}
 
-Exclusivo: um caminho conforme condição. Paralelo: todos os caminhos, sem condição de exclusão. Inclusivo: um ou mais conforme condições. Event-based: decisão depende de evento que ocorrer.
+\begin{table}[ht]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+Gateway & Semântica \\
+\midrule
+Exclusivo (XOR) & exatamente um caminho conforme condição. \\
+Paralelo (AND) & todos os caminhos são ativados/sincronizados. \\
+Inclusivo (OR) & um ou mais caminhos conforme condições. \\
+Baseado em eventos & caminho depende do evento que ocorrer primeiro. \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\subsection{Melhoria contínua}
+\subsection{Pools, lanes e fluxos}
 
-Mapear processo não basta. Avalie tempo de ciclo, espera, retrabalho, handoffs, controles, risco e valor. Automatizar cinco aprovações redundantes não remove desperdício; primeiro questiona-se a necessidade de cada etapa.
+Pool representa participante. Lane subdivide responsabilidades dentro do participante.
 
-\section{Compliance e conformidade}
+\termo{Sequence flow} conecta elementos dentro do mesmo pool. \termo{Message flow} representa comunicação entre pools distintos.
 
-Compliance identifica obrigações, traduz em controles, atribui responsabilidade, monitora evidência e trata desvios. Estar conforme não significa risco zero; a norma pode ser mínima, o escopo pode ser limitado e a implementação pode falhar.
+Sequence flow não deve atravessar fronteira de pool.
 
-\section{Cibersegurança e continuidade na governança}
+\section{Análise e melhoria de processos}
 
-ISO 27001/27002, ISO 22301 e NIST fornecem referências para segurança/continuidade. O governing body deve definir direção e apetite, exigir medição, acompanhar incidentes relevantes e garantir capacidade de resposta e recuperação.
+Indicadores úteis incluem:
+\begin{itemize}
+\item lead time;
+\item cycle time;
+\item tempo de espera;
+\item retrabalho;
+\item handoffs;
+\item taxa de erro;
+\item custo por caso;
+\item percentual de automação.
+\end{itemize}
 
-\section{LAI e LGPD}
+Automatizar processo ruim pode apenas acelerar desperdício. Primeiro identifica-se valor, gargalos e controles necessários; depois decide-se automação.
 
-Transparência e proteção de dados coexistem. Deve-se classificar dado, identificar base legal/finalidade, aplicar minimização e avaliar hipóteses de acesso público. ``Dado em poder do Estado'' não é sinônimo de ``dado publicável sem restrição''.
+\section{Compliance e controles internos}
 
-\section{Governança de dados e DAMA-DMBOK}
+Compliance significa aderência a obrigações externas e internas relevantes. Um programa precisa:
+\begin{enumerate}
+\item identificar obrigações;
+\item traduzir obrigações em controles;
+\item atribuir responsabilidade;
+\item produzir evidência;
+\item monitorar conformidade;
+\item tratar exceções e não conformidades.
+\end{enumerate}
 
-DAMA-DMBOK abrange governança, arquitetura, modelagem, armazenamento, segurança, integração, documentos/conteúdo, referência/master data, DW/BI, metadados e qualidade.
+Conformidade não significa ausência de risco. Uma norma pode definir piso mínimo, e o controle pode existir apenas formalmente.
+
+\section{Governança de dados}
+
+Governança de dados estabelece autoridade, responsabilidades, políticas e decisões para transformar dados em ativo confiável.
 
 \subsection{Papéis}
 
-Data owner responde por decisões de negócio; steward operacionaliza regras/qualidade; custodian/tecnologia administra plataforma. Nomes variam, mas autoridade precisa ser explícita.
+\termo{Data Owner}: responsável por decisões de negócio sobre uso, qualidade, acesso e definição.
 
-\subsection{Glossário e semântica}
+\termo{Data Steward}: operacionaliza definição, regras e qualidade no domínio.
 
-Se cada unidade define ``contrato ativo'' de forma diferente, dashboards não são comparáveis. Glossário de negócio, data dictionary e processo de aprovação de definição são controles de governança.
+\termo{Data Custodian}: papel técnico responsável por plataformas e salvaguardas, conforme modelo organizacional.
 
-\section{Mapa mental}
+\subsection{Glossário e catálogo}
 
-\mapamental{Governança de TI}{
- child {node[concept]{COBIT} child {node[concept]{EDM}} child {node[concept]{tailoring}}}
- child {node[concept]{Serviços} child {node[concept]{ITIL 4}} child {node[concept]{value streams}}}
- child {node[concept]{Risco} child {node[concept]{ISO 31000}} child {node[concept]{COSO}}}
- child {node[concept]{Estratégia} child {node[concept]{PETI/PDTI}} child {node[concept]{KPI/BSC}}}
- child {node[concept]{Projetos/processos} child {node[concept]{PMBOK 8}} child {node[concept]{BPMN}}}
- child {node[concept]{Dados/compliance} child {node[concept]{DAMA}} child {node[concept]{LAI/LGPD}}}
-}
+Glossário define termos de negócio. Dicionário descreve atributos e estrutura. Catálogo integra metadados técnicos e de negócio.
+
+Se ``contrato ativo'' possui definição diferente em cada unidade, dashboards não são comparáveis mesmo que SQL esteja tecnicamente correto.
+
+\section{DAMA-DMBOK}
+
+DAMA-DMBOK organiza áreas como governança, arquitetura, modelagem, armazenamento/operações, segurança, integração/interoperabilidade, documentos e conteúdo, dados mestre/referência, data warehouse/BI, metadados e qualidade.
+
+DAMA é corpo de conhecimento, não norma certificável de implementação obrigatória.
+
+\section{Governança de cibersegurança}
+
+Segurança deve ser tratada no nível institucional por risco, direção e accountability.
+
+O corpo de governança define apetite, prioridades e responsabilidades. Gestão implementa controles, monitora eventos e responde a incidentes.
+
+Certificação ou aquisição de ferramenta não substitui governança. Um SOC pode operar 24x7 e ainda falhar se não houver autoridade para resposta, cobertura de ativos ou critérios de escalonamento.
+
+\section{Governança de continuidade}
+
+ISO 22301 trata sistema de gestão de continuidade. Governança precisa assegurar que processos críticos possuam BIA, RTO/RPO coerentes, estratégias financiadas e exercícios.
+
+RTO aprovado de 4 h sem infraestrutura capaz de restaurar em menos de 12 h é incoerência entre direção e capacidade.
+
+\section{Governança de nuvem}
+
+A adoção de cloud exige decisões sobre:
+\begin{itemize}
+\item landing zones e contas;
+\item identidade e segregação;
+\item localização de dados;
+\item custos e FinOps;
+\item arquitetura de resiliência;
+\item fornecedores e lock-in;
+\item logs e conformidade;
+\item política de serviços permitidos.
+\end{itemize}
+
+Cloud governance não deve bloquear inovação indiscriminadamente; deve criar guardrails automatizáveis.
+
+\section{Governança de Inteligência Artificial}
+
+Governança de IA deve relacionar finalidade, owner, risco, dados, modelo, validação, supervisão humana, monitoramento e processo de contestação.
+
+Um inventário de modelos é análogo ao inventário de ativos: sem saber quais modelos estão em uso, não é possível governar versões, risco ou fornecedores.
+
+\section{Síntese conceitual}
+
+\mapafuncional{Gestão e Governança de TI}
+{Governança define direção e accountability; gestão transforma direção em capacidade, serviços e resultados}
+{Governança $\rightarrow$ COBIT EDM + ISO 38500.\\Gestão $\rightarrow$ APO/BAI/DSS/MEA + ITIL.\\Estratégia $\rightarrow$ PETI/PDTI + portfólio.\\Projetos $\rightarrow$ PMBOK 8 + tailoring + valor.\\Processos $\rightarrow$ BPM/BPMN.\\Ativos de informação $\rightarrow$ dados, segurança, nuvem e IA.}
+{EDM é governança; demais domínios COBIT são gestão.\\ITIL: incidente restaura; problema trata causa.\\Projeto entrega output; benefício depende de outcome.\\KPI precisa de fórmula, fonte e owner.\\Sequence flow fica no pool; message flow cruza pools.}
+{Governança $\neq$ operação.\\COBIT $\neq$ checklist único.\\ITIL $\neq$ service desk.\\Prazo/custo $\neq$ sucesso completo.\\Métrica atingida $\neq$ valor criado.\\Compliance $\neq$ risco zero.}
+{Quem decide?\\Qual valor é esperado?\\Qual risco está dentro do apetite?\\Que objetivo institucional justifica o investimento?\\Como o benefício é medido?\\Que evidência mostra que o sistema de governança funciona?}
 
 \begin{resumo}
-\textbf{Fixação:} EDM é governança; os outros domínios COBIT são gestão. ITIL distingue incidente, problema e requisição. PMBOK 8 não deve ser estudado como lista rígida da 6ª edição. KPI sem fonte/owner não é auditável. Sequence flow não cruza pools. Certificação/compliance não elimina risco residual.
+Governança de TI é a disciplina de manter tecnologia ligada a valor, risco e responsabilidade institucional. COBIT e ISO/IEC 38500 estruturam direção e governança; ITIL organiza criação e operação de serviços; PMBOK 8 trata projetos por princípios, domínios e tailoring; BPMN modela processos. O domínio real vem de entender como esses referenciais se conectam, e não de decorar listas isoladas.
 \end{resumo}
-
-\input{questoes/14_gestao_governanca_ti}
-
-\section{Treino discursivo}
-\begin{discursiva}[governança]
-O TCE possui PDTI com dezenas de iniciativas, mas sem vínculo explícito a objetivos institucionais, responsáveis, indicadores ou riscos. Em até 30 linhas, descreva como estruturar a governança desse portfólio à luz de COBIT, planejamento estratégico e medição de desempenho.
-\end{discursiva}
-\begin{discursiva}[métricas]
-Uma diretoria de TI atingiu 98\% dos projetos no prazo, mas apenas 40\% dos sistemas novos alcançaram as metas de adoção e benefícios. Em até 30 linhas, proponha um conjunto de indicadores e mecanismos de governança que evitem otimização exclusiva por prazo.
-\end{discursiva}
-
-\input{solucoes/14_gestao_governanca_ti}
