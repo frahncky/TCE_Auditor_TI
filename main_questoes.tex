@@ -1,6 +1,34 @@
 \documentclass[11pt,oneside,openany]{book}
 \input{config/preambulo}
 
+% No volume de questões, os títulos de nível também são exibidos por estrelas.
+\ExplSyntaxOn
+\tl_new:N \l_tce_titulo_nivel_tl
+\cs_new_protected:Npn \tce_prepara_titulo_nivel:n #1
+  {
+    \tl_set:Nn \l_tce_titulo_nivel_tl {#1}
+    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N1} {\nivel{N1}}
+    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N2} {\nivel{N2}}
+    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N3} {\nivel{N3}}
+    \tl_replace_once:Nnn \l_tce_titulo_nivel_tl {N4} {\nivel{N4}}
+  }
+\cs_new:Npn \tce_titulo_nivel: {\tl_use:N \l_tce_titulo_nivel_tl}
+\ExplSyntaxOff
+
+\let\TCEOriginalSubsection\subsection
+\RenewDocumentCommand{\subsection}{s o m}{%
+  \csname tce_prepara_titulo_nivel:n\endcsname{#3}%
+  \IfBooleanTF{#1}{%
+    \TCEOriginalSubsection*{\csname tce_titulo_nivel:\endcsname}%
+  }{%
+    \IfNoValueTF{#2}{%
+      \TCEOriginalSubsection{\csname tce_titulo_nivel:\endcsname}%
+    }{%
+      \TCEOriginalSubsection[#2]{\csname tce_titulo_nivel:\endcsname}%
+    }%
+  }%
+}
+
 \title{\textbf{TCE-MA 2026}\\[0.4em]\Large Auditor Estadual de Controle Externo\\[0.2em]\large Tecnologia da Informação — Questões}
 \author{Apostila de preparação}
 \date{Atualização-base: 15 de agosto de 2026}
@@ -23,7 +51,7 @@
 \vspace{1.2cm}
 {\color{white}\LARGE\bfseries APOSTILA DE QUESTÕES\par}
 \vfill
-{\color{white}\normalsize Questões N1--N4 \textbullet\ Discursivas \textbullet\ Simulado \textbullet\ Resoluções\par}
+{\color{white}\normalsize Questões por dificuldade \nivel{N1}--\nivel{N4} \textbullet\ Discursivas \textbullet\ Simulado \textbullet\ Resoluções\par}
 {\color{white}\normalsize Banca: Cebraspe \quad | \quad Prova de Auditor: 29/11/2026\par}
 {\color{white}\small Atualização-base: 15/08/2026\par}
 \end{titlepage}
