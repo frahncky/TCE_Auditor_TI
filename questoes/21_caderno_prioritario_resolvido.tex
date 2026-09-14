@@ -1,0 +1,296 @@
+% Caderno prioritário — questões resolvidas no formato de múltipla escolha
+% Questões autorais, alinhadas aos eixos de maior retorno para Auditor/TI.
+
+\section{Gestão, Governança e Serviços de TI}
+
+\begin{questao}{\nivel{N2} P.01 — COBIT 2019}
+Em uma organização pública, o conselho avalia alternativas de investimento em TI, define a direção a ser seguida e acompanha se os benefícios e riscos permanecem dentro dos limites aprovados. No COBIT 2019, esse conjunto de responsabilidades está mais diretamente associado ao domínio:
+\begin{enumerate}[label=\Alph*)]
+\item APO.
+\item BAI.
+\item DSS.
+\item EDM.
+\item MEA.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.01}
+\textbf{Gabarito: D.} EDM significa \textit{Evaluate, Direct and Monitor} e concentra os objetivos de governança. APO, BAI, DSS e MEA pertencem ao nível de gestão. A pegadinha é associar a palavra ``monitorar'' automaticamente a MEA; o que define o domínio é o nível de responsabilidade e o objeto monitorado.
+\end{solucao}
+
+\begin{questao}{\nivel{N2} P.02 — ITIL 4}
+Um serviço crítico é restaurado rapidamente sempre que ocorre falha, porém o mesmo incidente reaparece diversas vezes por semana. A prática do ITIL 4 que deve atuar prioritariamente para reduzir a recorrência é:
+\begin{enumerate}[label=\Alph*)]
+\item Incident management.
+\item Problem management.
+\item Service request management.
+\item Deployment management.
+\item Service desk.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.02}
+\textbf{Gabarito: B.} \textit{Incident management} busca restaurar o serviço o mais rápido possível. \textit{Problem management} investiga causas, gerencia erros conhecidos e reduz a probabilidade ou o impacto de incidentes recorrentes. Como a restauração já ocorre, o gargalo é a causa da recorrência.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.03 — COBIT 2019}
+Uma autarquia pretende adotar COBIT 2019 exatamente como outra instituição, replicando todos os objetivos com a mesma prioridade. A decisão é inadequada principalmente porque o COBIT 2019:
+\begin{enumerate}[label=\Alph*)]
+\item proíbe adoção no setor público.
+\item exige implementação exclusiva do domínio EDM.
+\item prevê desenho e adaptação do sistema de governança conforme o contexto organizacional.
+\item substitui integralmente ITIL e ISO 27001.
+\item deve ser aplicado apenas a organizações privadas de grande porte.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.03}
+\textbf{Gabarito: C.} O COBIT 2019 utiliza fatores de desenho para ajustar o sistema de governança ao contexto, estratégia, perfil de risco, papel da TI, modelo de sourcing e outras características. Não há obrigação de implementar todos os objetivos com a mesma intensidade.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.04 — ITIL 4}
+Uma equipe pretende automatizar um processo de mudança que possui aprovações redundantes, longas filas de espera e controles sem finalidade clara. À luz do princípio \textit{Optimize and automate}, a melhor conduta é:
+\begin{enumerate}[label=\Alph*)]
+\item automatizar todo o processo atual antes de avaliá-lo.
+\item eliminar todos os controles e depois automatizar.
+\item compreender propósito, valor e risco das etapas, otimizar o fluxo e só então automatizar o que fizer sentido.
+\item substituir obrigatoriamente o processo por Scrum.
+\item impedir qualquer automação em processos de mudança.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.04}
+\textbf{Gabarito: C.} Automatizar desperdício apenas acelera desperdício. A sequência lógica é compreender e otimizar o processo, preservando controles necessários, e então automatizar atividades adequadas. A alternativa B também é errada porque controles não devem ser eliminados sem análise de risco.
+\end{solucao}
+
+\section{Segurança da Informação e Infraestrutura}
+
+\begin{questao}{\nivel{N2} P.05 — Gestão de riscos}
+Uma organização implementou controles de segurança, mas ainda existe risco residual acima do apetite aprovado pela alta administração. A conduta mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item considerar o risco encerrado, pois já existem controles.
+\item aceitar automaticamente o risco residual.
+\item reavaliar o tratamento e adotar medidas adicionais, transferir, evitar ou submeter eventual aceitação à autoridade competente.
+\item elevar o apetite ao risco até que o risco residual deixe de ultrapassá-lo.
+\item eliminar a avaliação de risco e adotar apenas controles técnicos.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.05}
+\textbf{Gabarito: C.} Risco residual é o risco que permanece após os controles. Se ele excede o apetite institucional, exige nova decisão de tratamento ou aceitação formal por autoridade competente. Alterar o apetite apenas para acomodar o risco é uma inversão de governança.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.06 — Zero Trust}
+Qual alternativa representa melhor o princípio de arquitetura \textit{Zero Trust}?
+\begin{enumerate}[label=\Alph*)]
+\item Usuários da rede interna são confiáveis por padrão.
+\item Uma autenticação inicial bem-sucedida elimina a necessidade de novas verificações.
+\item A confiança é concedida implicitamente a dispositivos pertencentes ao domínio corporativo.
+\item O acesso deve ser continuamente avaliado com base em identidade, contexto, dispositivo e privilégio mínimo.
+\item O modelo substitui criptografia e segmentação de rede.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.06}
+\textbf{Gabarito: D.} Zero Trust reduz confiança implícita e trabalha com verificação explícita, privilégio mínimo e avaliação contínua. Estar na rede interna ou no domínio não basta. O modelo não substitui controles como criptografia, MFA ou segmentação; ele os combina em uma arquitetura orientada a risco.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.07 — Computação em nuvem}
+Em um serviço IaaS, qual responsabilidade normalmente permanece com o cliente no modelo de responsabilidade compartilhada?
+\begin{enumerate}[label=\Alph*)]
+\item Segurança física do data center do provedor.
+\item Manutenção do hardware físico do provedor.
+\item Configuração de sistema operacional, identidades, aplicações e dados executados nas máquinas virtuais do cliente.
+\item Proteção física dos discos do provedor antes de sua instalação.
+\item Disponibilidade da rede elétrica interna do data center do provedor.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.07}
+\textbf{Gabarito: C.} Em IaaS, o provedor protege a infraestrutura física e a camada de virtualização sob sua responsabilidade, enquanto o cliente mantém responsabilidades importantes sobre sistema operacional convidado, configurações, identidades, aplicações e dados. O limite exato deve ser verificado no serviço contratado.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.08 — TLS e certificados}
+Durante uma conexão HTTPS corretamente configurada, o certificado digital apresentado pelo servidor tem como função central:
+\begin{enumerate}[label=\Alph*)]
+\item armazenar a chave privada do cliente.
+\item permitir autenticação da identidade do servidor e participar do estabelecimento de uma comunicação protegida.
+\item substituir integralmente o DNS.
+\item impedir qualquer ataque à aplicação web.
+\item garantir que o servidor nunca será comprometido.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.08}
+\textbf{Gabarito: B.} O certificado vincula uma chave pública a uma identidade e, quando validado dentro da cadeia de confiança, auxilia na autenticação do servidor. O TLS também protege confidencialidade e integridade da comunicação. Certificado válido não garante que a aplicação esteja livre de vulnerabilidades.
+\end{solucao}
+
+\section{Engenharia de Dados, Software e APIs}
+
+\begin{questao}{\nivel{N2} P.09 — Bancos de dados}
+Em um banco relacional, a criação indiscriminada de índices em todas as colunas tende a:
+\begin{enumerate}[label=\Alph*)]
+\item melhorar todas as leituras e escritas sem custo adicional.
+\item reduzir espaço em disco e acelerar atualizações.
+\item acelerar determinadas consultas, mas aumentar armazenamento e custo de operações de escrita e manutenção.
+\item eliminar a necessidade de planejamento de consultas.
+\item transformar automaticamente o banco em um sistema OLAP.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.09}
+\textbf{Gabarito: C.} Índices podem reduzir o custo de busca e ordenação para consultas compatíveis, porém ocupam espaço e precisam ser atualizados em INSERT, UPDATE e DELETE. Por isso, indexação é uma decisão de projeto baseada no padrão real de acesso.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.10 — ACID}
+Duas transações concorrentes atualizam dados relacionados. A propriedade ACID que busca fazer com que cada transação produza resultado equivalente ao de uma execução adequadamente isolada das demais é:
+\begin{enumerate}[label=\Alph*)]
+\item Atomicidade.
+\item Consistência.
+\item Isolamento.
+\item Durabilidade.
+\item Disponibilidade.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.10}
+\textbf{Gabarito: C.} Isolamento trata da interferência entre transações concorrentes. Atomicidade é tudo-ou-nada; consistência preserva invariantes; durabilidade mantém efeitos de transações confirmadas. Disponibilidade não é uma propriedade do acrônimo ACID.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.11 — Data lake e data warehouse}
+Uma organização deseja armazenar grande volume de dados brutos, semiestruturados e estruturados para exploração posterior por diferentes equipes. A arquitetura mais diretamente associada a esse objetivo é:
+\begin{enumerate}[label=\Alph*)]
+\item Data lake.
+\item OLTP normalizado exclusivamente.
+\item Cache distribuído apenas.
+\item DNS autoritativo.
+\item Barramento de serviços sem armazenamento persistente.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.11}
+\textbf{Gabarito: A.} Data lakes são usados para armazenar dados em formatos variados, frequentemente em estado bruto, permitindo múltiplos usos posteriores. Um data warehouse tradicional tende a trabalhar com dados mais estruturados e modelados para análise. Arquiteturas modernas podem combinar características de ambos.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.12 — APIs REST}
+Considerando semântica HTTP, qual método é classicamente associado a uma operação idempotente de substituição de uma representação de recurso em uma URI conhecida?
+\begin{enumerate}[label=\Alph*)]
+\item POST.
+\item PUT.
+\item CONNECT.
+\item PATCH, obrigatoriamente em qualquer implementação.
+\item TRACE.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.12}
+\textbf{Gabarito: B.} PUT é definido com semântica idempotente: repetir a mesma requisição pretendida deve produzir o mesmo estado final do recurso. POST, em regra, não possui essa garantia. PATCH pode ou não ser implementado de forma idempotente, dependendo da operação.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.13 — DevSecOps}
+Qual associação está correta?
+\begin{enumerate}[label=\Alph*)]
+\item SAST analisa exclusivamente tráfego de rede em produção.
+\item DAST exige sempre acesso ao código-fonte da aplicação.
+\item SAST pode analisar código ou artefatos sem executar a aplicação, enquanto DAST testa o comportamento de uma aplicação em execução.
+\item SAST e DAST são sinônimos.
+\item DAST substitui revisão de dependências e testes de configuração.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.13}
+\textbf{Gabarito: C.} SAST é análise estática; DAST é análise dinâmica sobre a aplicação em execução. As abordagens são complementares e não substituem, por si sós, SCA, revisão de configuração, testes de infraestrutura ou outros controles do ciclo seguro de desenvolvimento.
+\end{solucao}
+
+\section{Fiscalização, Contratações e Auditoria}
+
+\begin{questao}{\nivel{N3} P.14 — Fiscalização contratual}
+Durante a execução de contrato de TI, o fiscal verifica que o fornecedor entregou quantitativamente todos os itens previstos, mas parte deles não atende aos níveis de serviço e critérios de qualidade estabelecidos. A conduta de controle mais adequada é:
+\begin{enumerate}[label=\Alph*)]
+\item atestar integralmente, pois a quantidade foi entregue.
+\item avaliar a conformidade com os critérios de aceitação e registrar a não conformidade antes do ateste correspondente.
+\item alterar informalmente os critérios para evitar atraso.
+\item pagar integralmente e registrar a falha apenas no encerramento do contrato.
+\item desconsiderar níveis de serviço em contratos de TI.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.14}
+\textbf{Gabarito: B.} Fiscalização não se limita a quantidade. O recebimento e o ateste devem considerar requisitos, qualidade, níveis de serviço e demais critérios pactuados. Evidência de não conformidade precisa ser registrada e tratada segundo o instrumento contratual e o regime jurídico aplicável.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.15 — Segregação de funções}
+Em uma contratação de TI, a mesma pessoa define sozinha o requisito, aprova a solução, fiscaliza a execução e autoriza o pagamento sem revisão independente. O principal risco de controle interno é:
+\begin{enumerate}[label=\Alph*)]
+\item excesso de criptografia.
+\item violação do princípio de segregação de funções, aumentando risco de erro, fraude e conflito de interesse.
+\item indisponibilidade de DNS.
+\item normalização excessiva de banco de dados.
+\item duplicidade de autenticação multifator.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.15}
+\textbf{Gabarito: B.} Concentrar etapas críticas incompatíveis em uma única pessoa reduz controles cruzados e aumenta risco de erro ou fraude não detectados. Segregação deve ser calibrada ao porte, risco e estrutura, com controles compensatórios quando a separação plena não for possível.
+\end{solucao}
+
+\begin{questao}{\nivel{N3} P.16 — Evidência de auditoria}
+Em auditoria, a qualidade da evidência é normalmente avaliada pelas dimensões de:
+\begin{enumerate}[label=\Alph*)]
+\item quantidade e popularidade.
+\item suficiência e adequação.
+\item velocidade e custo apenas.
+\item materialidade e publicidade apenas.
+\item disponibilidade e portabilidade.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.16}
+\textbf{Gabarito: B.} Suficiência está relacionada à quantidade de evidência necessária; adequação refere-se à qualidade, incluindo relevância e confiabilidade. Mais evidência não corrige automaticamente evidência inadequada ou irrelevante.
+\end{solucao}
+
+\begin{questao}{\nivel{N4} P.17 — Achado de auditoria}
+Uma equipe identifica que 38\% das contas privilegiadas de um sistema crítico não possuem revisão periódica de acesso, em desacordo com a política institucional. A investigação aponta ausência de responsável pelo processo e há risco de manutenção indevida de privilégios. Qual estrutura melhor organiza o achado?
+\begin{enumerate}[label=\Alph*)]
+\item opinião, preferência, tecnologia e custo.
+\item condição, critério, causa e efeito/risco.
+\item objetivo, sprint, backlog e incremento.
+\item ativo, ameaça, vulnerabilidade e patch apenas.
+\item requisito, código, teste e implantação.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.17}
+\textbf{Gabarito: B.} Condição: 38\% sem revisão; critério: política institucional; causa: ausência de responsável/processo; efeito ou risco: manutenção indevida de privilégios. Essa estrutura torna o achado rastreável e orienta recomendações ligadas à causa, não apenas ao sintoma.
+\end{solucao}
+
+\begin{questao}{\nivel{N4} P.18 — Testes de auditoria}
+O auditor seleciona uma amostra de alterações em produção para verificar se cada mudança possuía autorização prévia e evidência de teste. Esse procedimento é predominantemente um:
+\begin{enumerate}[label=\Alph*)]
+\item teste de controle.
+\item teste de desempenho de CPU.
+\item teste de penetração obrigatoriamente.
+\item procedimento de desenvolvimento de software.
+\item teste de restauração de backup apenas.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.18}
+\textbf{Gabarito: A.} O auditor está verificando se um controle desenhado — autorização e evidência de teste antes da mudança — operou efetivamente nas ocorrências selecionadas. Isso caracteriza teste de controle.
+\end{solucao}
+
+\section{Integração de conhecimentos para Auditor de TI}
+
+\begin{questao}{\nivel{N4} P.19 — Continuidade e nuvem}
+Um sistema essencial está hospedado em uma única zona de disponibilidade. O contrato prevê alta disponibilidade, mas não existe teste periódico de recuperação nem evidência de restauração de backup. Qual é a conclusão mais adequada?
+\begin{enumerate}[label=\Alph*)]
+\item O uso de nuvem elimina a necessidade de continuidade e testes de recuperação.
+\item A existência de backup, por si só, comprova capacidade de recuperação.
+\item Há fragilidade de resiliência: arquitetura, procedimentos e testes de recuperação devem ser avaliados conjuntamente.
+\item O provedor é sempre o único responsável por RTO e RPO.
+\item Alta disponibilidade e recuperação de desastre são conceitos idênticos.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.19}
+\textbf{Gabarito: C.} Resiliência exige mais que contratar nuvem ou gerar backup. É necessário avaliar pontos únicos de falha, replicação, RTO, RPO, procedimentos e testes reais de recuperação. Alta disponibilidade reduz indisponibilidade, mas não é sinônimo de recuperação de desastre.
+\end{solucao}
+
+\begin{questao}{\nivel{N4} P.20 — Governança, segurança e auditoria}
+O painel executivo mostra 99,99\% de disponibilidade de um serviço. A auditoria descobre que a equipe pode excluir manualmente períodos de indisponibilidade da fórmula sem trilha de auditoria e que o gestor responsável também define a meta e valida o resultado. O problema mais relevante é:
+\begin{enumerate}[label=\Alph*)]
+\item exclusivamente matemático, pois 99,99\% é um valor impossível.
+\item ausência de governança do indicador, com risco de manipulação, conflito de funções e baixa confiabilidade da informação.
+\item falta de linguagem de programação funcional.
+\item excesso de segregação de funções.
+\item inexistência obrigatória de blockchain para registrar o indicador.
+\end{enumerate}
+\end{questao}
+\begin{solucao}{P.20}
+\textbf{Gabarito: B.} A fórmula pode estar matematicamente correta e ainda assim o indicador ser pouco confiável. Regras manipuláveis, ausência de trilha e concentração de definição/validação comprometem integridade, reprodutibilidade e accountability. Auditoria deve avaliar governança da métrica, não apenas o valor final.
+\end{solucao}
+
+\begin{resumo}[Como usar este caderno]
+Priorize a resolução sem consulta. Marque cada erro por causa: \textbf{conceito}, \textbf{confusão entre alternativas}, \textbf{falta de atenção} ou \textbf{lacuna normativa}. Revise primeiro os erros conceituais e transforme as pegadinhas em cartões de revisão.
+\end{resumo}
